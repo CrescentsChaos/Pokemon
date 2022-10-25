@@ -10,7 +10,7 @@
 import random
 from colorama import init
 from termcolor import colored
-from field import Field
+from field import *
 field=Field()
 #from pokemons import Pokemon
 def weakness(self,other,field):
@@ -129,6 +129,9 @@ def weakness(self,other,field):
             eff*=1 
     #electric
     if self.atktype=="Electric":
+        if self.ability=="Transistor":
+            print(f"{self.name}'s {self.ability}.")
+            eff*=1.5
         if self.item == "Magnet":
             eff*=1.2
         if other.item=="Wacan Berry":
@@ -150,9 +153,12 @@ def weakness(self,other,field):
             eff*=0
         if other.ability=="Volt Absorb":
             print(f"{other.name}'s {other.ability}.")
+            print(f"{other.name} gained some health.")
             if other.hp<=other.maxhp-(other.maxhp/4):
-                other.hp+=other.maxhp/4
-                print(f"{other.name} gained some health.")
+                    other.hp+=other.maxhp/4
+            if other.hp>other.maxhp-(other.maxhp/4):
+                    other.hp=other.maxhp
+            
             eff*=0
         if other.type1 in electriceff:
             eff*=2
@@ -315,6 +321,9 @@ def weakness(self,other,field):
             eff*=1 
     #dragon
     if self.atktype=="Dragon":
+        if self.ability=="Dragon's Maw":
+            print(f"{self.name}'s {self.ability}.")
+            eff*=1.5
         if self.item == "Dragon Fang":
             eff*=1.2
         if other.item=="Haban Berry":
@@ -401,9 +410,11 @@ def weakness(self,other,field):
                 print(f"{other.name}: Special Attack x{other.spatkb}")
             if other.ability=="Water Absorb":
                 print(f"{other.name}'s {other.ability}.")
+                print(f"{other.name} gained some health.")
                 if other.hp<=other.maxhp-(other.maxhp/4):
                     other.hp+=other.maxhp/4
-                    print(f"{other.name} gained some health.")
+                if other.hp>other.maxhp-(other.maxhp/4):
+                    other.hp=other.maxhp
             eff*=0
             
         if self.ability=="Torrent":
@@ -732,15 +743,57 @@ def randroll():
     
     rr=random.randint(85,100)       
     return (rr/100)    
-def prebuff(self):    
+    
+def prebuff(self,tr1,turn,field):    
     atkbuff=1
     defbuff=1
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
-    if self.ability in ["Huge Power","Pure Power","Guts","Multitype"]:
-        if self.ability in ["Huge Power","Pure Power"]:
-            atkbuff*=2
+    if field.weather=="Hail":
+        if turn==field.hailendturn:
+            print("The hail stopped.")
+            field.weather="Clear"
+    if field.weather=="Sandstorm":
+        if turn==field.sandendturn:
+            print("The sandstorm subsided.")
+            field.weather="Clear"
+    if field.weather=="Sunny":
+        if turn==field.sunendturn:
+            print("The harsh sunlight faded.")
+            field.weather="Clear"
+    if field.weather=="Rainy":
+        if turn==field.rainendturn:
+            print("The rain stopped.")
+            field.weather="Clear"
+            
+    if tr1.reflect is True:
+        defbuff*=2
+        if turn==tr1.rfendturn:
+            print("Reflect will faded away!")
+    if tr1.lightscreen is True:
+        spdefbuff*=2
+        if turn==tr1.screenend:
+            print("Light Screen will faded away!")
+    if self.ability=="Guts" and self.status!="Alive":
+        atkbuff*=1.5
+    if self.ability=="Feline Prowess":
+        spatkbuff*=2
+    if field.terrain=="Electric" and self.ability=="Surge Surfer":
+        speedbuff*=2
+    if self.status=="Paralyzed" and self.ability!="Quick Feet":
+        speedbuff*=0.5
+    if self.status=="Frostbite":
+        spatkbuff*=0.5
+    if self.status=="Burned" and self.ability!="Guts":
+        atkbuff*=0.5
+    if self.item=="Light Ball":
+        atkbuff*=2
+        spatkbuff*=2
+    if self.ability=="Marvel Scale" and self.status!="Alive":
+        defbuff*=1.5
+    if self.ability=="Flare Boost" and self.status=="Burned":
+        spatkbuff*=1.5
     if field.weather in ["Rainy","Primordial Sea"] and self.ability=="Swift Swim":
         print(f"{self.name}'s {self.ability}!")
         speedbuff*=2
@@ -755,24 +808,64 @@ def prebuff(self):
         speedbuff*=2
     if field.weather in ["Sandstorm"] and (self.type1=="Rock" or self.type2=="Rock"):
         spdefbuff*=2
-    if self.item=="Life Orb":
+    if self.item=="Choice Band":
         atkbuff*=1.5
+    if self.item=="Choice Specs":
+        spatkbuff*=1.5
+    if self.item=="Choice Scarf":
+        speedbuff*=1.5
+    if self.item=="Assault Vest":
+        spdefbuff*=1.5
+    if self.ability=="Typeless":
+        self.type1=self.atktype
+    if self.ability in ["Huge Power","Pure Power","Multitype"]:
+        if self.ability in ["Huge Power","Pure Power"]:
+            atkbuff*=2
+        if self.item=="Elemental Plates":
+            atkbuff*=1.5
+    if self.item=="Life Orb":
+        atkbuff*=1.3
+        spatkbuff*=1.3
     if self.item=="Eviolite":
         defbuff*=1.5
         spdefbuff*=1.5
-    if self.item=="Assault Vest":
-        spdefbuff*=1.5
     self.atk=self.maxatk*self.atkb*atkbuff
     self.defense=self.maxdef*self.defb*defbuff
-    self.spatk=self.maxspatk*self.spatkb
+    self.spatk=self.maxspatk*self.spatkb*spatkbuff
     self.spdef=self.maxspdef*self.spdefb*spdefbuff
     self.speed=self.maxspeed*self.speedb*speedbuff
-def statchange(self):
+#
+def statchange(self,tr1,turn):
     atkbuff=1
     defbuff=1
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if tr1.reflect is True:
+        defbuff*=2
+        if turn==tr1.rfendturn:
+            tr1.reflect=False
+            print("Reflect faded away!")
+    if tr1.lightscreen is True:
+        spdefbuff*=2
+        if turn==tr1.screenend:
+            tr1.lightscreen=False
+            print("Light Screen faded away!")
+    if self.ability=="Guts" and self.status!="Alive":
+        atkbuff*=1.5
+    if self.ability=="Feline Prowess":
+        spatkbuff*=2
+    if field.terrain=="Electric" and self.ability=="Surge Surfer":
+        speedbuff*=2
+    if self.status=="Paralyzed":
+        speedbuff*=0.5
+    if self.status=="Frostbite":
+        spatkbuff*=0.5
+    if self.status=="Burned" and self.ability!="Guts":
+        atkbuff*=0.5
+    if self.item=="Light Ball":
+        atkbuff*=2
+        spatkbuff*=2
     if self.ability=="Marvel Scale" and self.status!="Alive":
         defbuff*=1.5
     if self.ability=="Flare Boost" and self.status=="Burned":
@@ -807,31 +900,23 @@ def statchange(self):
     if self.item=="Toxic Orb" and self.status=="Alive":
         self.status="Badly Poisoned"
         print(f"{self.name} was badly poisoned by its Toxic Orb.")
-    self.atk=self.maxatk*self.atkb
-    if self.ability in ["Huge Power","Pure Power","Guts","Multitype"]:
+    if self.ability in ["Huge Power","Pure Power","Multitype"]:
         if self.ability in ["Huge Power","Pure Power"]:
             atkbuff*=2
-        if self.ability=="Guts" and self.status!="Alive":
-            atkbuff*=1.5
         if self.item=="Elemental Plates":
-            atkbuff=1.5
+            atkbuff*=1.5
     if self.item=="Life Orb":
-        atkbuff=1.5
+        atkbuff*=1.3
+        spatkbuff*=1.3
     if self.item=="Eviolite":
-        defbuff=1.5
-        spdefbuff=1.5
-    if self.ability!="Stance Change":
-        self.atk=self.maxatk*self.atkb*atkbuff
-        self.defense=self.maxdef*self.defb*defbuff
-        self.spatk=self.maxspatk*self.spatkb
-        self.spdef=self.maxspdef*self.spdefb*spdefbuff
-        self.speed=self.maxspeed*self.speedb*speedbuff
-    #if self.ability=="Stance Change" and self.sword==True:
-#        self.atk=self.maxatk*self.atkb*atkbuff
-#        self.defense=self.maxdef*self.defb*defbuff
-#        self.spatk=self.maxspatk*self.spatkb
-#        self.spdef=self.maxspdef*self.spdefb*spdefbuff
-#        self.speed=self.maxspeed*self.speedb
+        defbuff*=1.5
+        spdefbuff*=1.5
+    self.atk=self.maxatk*self.atkb*atkbuff
+    self.defense=self.maxdef*self.defb*defbuff
+    self.spatk=self.maxspatk*self.spatkb*spatkbuff
+    self.spdef=self.maxspdef*self.spdefb*spdefbuff
+    self.speed=self.maxspeed*self.speedb*speedbuff
+
 def atkchange(self,amount):
     if self.ability=="Defiant":
         if amount<0:

@@ -1,3 +1,4 @@
+#pylint:disable=W0613
 #pylint:disable=R0913
 #pylint:disable=C0116
 #pylint:disable=W0401
@@ -63,7 +64,6 @@ def magmastorm(self,other):
     if other.status not in ["Alive","Burned"] and other.ability!="Flash Fire" and other.type1!="Fire" and other.type2!="Fire":
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk=other.atk/2
 def fusionflare(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -96,7 +96,6 @@ def blueflare(self,other):
     if ch>80 and other.status is None and self.ability!="Sheer Force":
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk=other.atk/2        
 def iceburn(self,other):
     self.atktype="Ice"
     w=weathereff(self)
@@ -114,8 +113,7 @@ def iceburn(self,other):
     ch=random.randint(1,100)
     if ch>70 and other.status is None and self.ability!="Sheer Force":
         other.status="Burned"
-        print(f"{other.name} was burned.")
-        other.atk=other.atk/2            
+        print(f"{other.name} was burned.")    
 
 def fireBlast(self,other):
     self.atktype="Fire"
@@ -154,8 +152,7 @@ def steameruption(self,other):
     ch=random.randint(1,100)
     if ch>70 and other.status is None and self.ability!="Sheer Force" and other.status=="Alive":
         other.status="Burned"
-        print(f"{other.name} was burned.")
-        other.atk=other.atk/2        
+        print(f"{other.name} was burned.")  
 def pyroball(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -174,7 +171,7 @@ def pyroball(self,other):
     if ch==1 and other.status is None and self.ability!="Sheer Force":
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk=other.atk/2        
+        
 def fierydance(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -503,7 +500,7 @@ def thunderwave(self,other):
     if other.type1!="Ground" and other.type2!="Ground" and other.type1!="Electric" and other.type2!="Electric" and other.status=="Alive" and other.ability not in ["Volt Absorb","Lightning Rod"]:
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed=other.speed/2
+        
 def sleeppowder(self,other):
     print(f"{self.name} used Sleep Powder.")
     if other.status!="Sleep" and (other.type1!="Grass" and other.type2!="Grass"):
@@ -785,7 +782,7 @@ def infernalparade(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk*=0.5
+        
      
 def energyball (self,other):
     al=1
@@ -980,6 +977,17 @@ def bleakwindstorm(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self.level,self.spatk,other.spdef,95,a,b,c,r,al,w)   
+def springtidestorm(self,other):
+    al=1
+    w=weathereff(self)
+    r=randroll()
+    print(f"{self.name} used Springtide Storm.")
+    self.atktype="Fairy"
+    c=critch(self,other)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=special(self.level,self.spatk,other.spdef,95,a,b,c,r,al,w)               
 def sandsearstorm(self,other):
     al=1
     w=weathereff(self)
@@ -1153,11 +1161,11 @@ def willowisp(self, other):
     if other.status=="Alive" and other.type1 not in ["Fire"] and other.type2 not in ["Fire"] and other.ability not in ["Flash Fire","Magic Bounce"]:
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk=other.atk/2
+        
     if other.ability in ["Magic Bounce","Synchronize"] and self.status=="Alive":
         self.status="Burned"
         print(f"{self.name} was burned.")
-        other.atk=other.atk/2
+        
     elif other.type1 in ["Fire"] or other.type2 in ["Fire"] or other.ability in ["Flash Fire","Magic Bounce"]:
         print("It failed.")    
 def healorder(self):
@@ -1474,7 +1482,7 @@ def discharge(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed*=0.5        
+       
 def wildcharge(self,other):
     al=1
     r=randroll()
@@ -2065,7 +2073,7 @@ def watershuriken(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=physical(self.level,self.atk,other.defense,base,a,b,c,r,al)           
-def brickbreak(self,other):
+def brickbreak(self,other,optr):
     al=1
     r=randroll()
     print(f"{self.name} used Brick Break.")
@@ -2080,6 +2088,12 @@ def brickbreak(self,other):
     other.hp-=physical(self.level,self.atk,other.defense,70,a,b,c,r,al)       
     self.atk=self.maxatk*self.atkb
     self.spatk=self.maxspatk*self.spatkb
+    if optr.lightscreen==True:
+        optr.lightscreen=False
+        print(f"{self.name} broke the Light Screen.")
+    if optr.reflect==True:
+        optr.reflect=False
+        print(f"{self.name} broke the Reflect.")
 def megahorn(self,other):
     al=1
     r=randroll()
@@ -2096,7 +2110,7 @@ def icebeam(self,other):
     if self.ability=="Sheer Force":
         al=1.5
         print(f"{self.name}'s {self.ability}.")
-    print(f"{self.name} used "+colored("Ice Beam","cyan")+".")
+    print(f"{self.name} used  "+colored("Ice Beam","cyan")+".")
     c=critch(self,other)
     self.atktype="Ice"
     ab=weakness(self,other,field)
@@ -2185,7 +2199,7 @@ def bittermalice(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Frostbite"
         print(f"{other.name} got frostbite.")
-        other.spatk*=0.5
+      
 def hyperbeam(self,other):
     al=1
     r=randroll()
@@ -2280,7 +2294,7 @@ def lavaplume(self,other):
     if ch>70 and other.type1!="Fire" and other.type2!="Fire" and other.ability!="Flash Fire" and other.status=="Alive":
         print(f"{other.name} was burned.")
         other.status="Burned"
-        other.atk*=0.5
+      
 def hurricane (self,other):
     al=1
     r=randroll()
@@ -2306,7 +2320,7 @@ def inferno(self,other):
     if other.type1!="Fire" and other.type2!="Fire" and other.ability!="Flash Fire"     and other.status=="Alive"    :
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk*=0.5
+        
 def overheat(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -2318,7 +2332,7 @@ def overheat(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    other.hp-=special(self.level,self.spatk,other.spdef,130,a,b,c,r,al)                
+    other.hp-=special(self.level,self.spatk,other.spdef,130,a,b,c,r,al,w)                
     spatkchange (self,-1)
     print(f"Special Attack x{self.spatkb}")
 def blastburn(self,other):
@@ -2381,6 +2395,18 @@ def eruption (self,other):
     b=ab[1]   
     base=round(150*(self.hp/self.maxhp))
     other.hp-=special(self.level,self.spatk,other.spdef,base,a,b,c,r,al,w)
+def dragonenergy (self,other):
+    self.atktype="Dragon"
+    al=1
+    w=weathereff(self)
+    r=randroll()
+    print(f"{self.name} used Dragon Energy.")
+    c=critch(self,other)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    base=round(150*(self.hp/self.maxhp))
+    other.hp-=special(self.level,self.spatk,other.spdef,base,a,b,c,r,al,w)        
 def waterspout (self,other):
     self.atktype="Water"
     al=1
@@ -2872,12 +2898,24 @@ def dragonhammer(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=physical (self.level,self.atk,other.defense,120,a,b,c,r,al)        
-def lightscreen(self,other):    
+def lightscreen(self,tr1,turn):    
     print(f"{self.name} used Light Screen.")
-    spatkchange(other,-1)
-def reflect(self,other):    
+    if tr1.lightscreen is True:
+        print("It failed!")
+    if tr1.lightscreen is False:
+        tr1.lightscreen=True
+        print("Light Screen raised your team's Special Defense!")
+        tr1.lsturn=turn
+        tr1.lightscreenend(self)
+def reflect(self,tr1,turn):    
     print(f"{self.name} used Reflect.")
-    atkchange(other,-1)   
+    if tr1.reflect is True:
+        print("It failed!")
+    if tr1.reflect is False:
+        tr1.reflecturn=turn
+        tr1.reflectend(self)
+        tr1.reflect=True  
+        print("Reflect raised your team's Defense!")
 def zenheadbutt(self,other):
     al=1
     r=randroll()
@@ -2926,7 +2964,7 @@ def firepunch(self,other):
     ch=random.randint(1,100)
     if ch>90 and other.status=="Alive":
         other.status="Burned"
-        other.atk*=0.5
+       
 def spiritshackle(self,other):
     al=1
     r=randroll()
@@ -2959,10 +2997,36 @@ def firefang(self,other):
     ch=random.randint(1,100)
     if ch>90 and other.status=="Alive":
         other.status="Burned"
-        other.atk*=0.5    
+      
     ch=random.randint(1,100)
     if ch>90 and other.ability not in ["Inner Focus"]:
         other.flinched=True
+def volttackle(self,other):
+    self.atktype="Electric"
+    if self.ability=="Tough Claws":
+        print(f"{self.name}'s {self.ability}!")
+        al=1.33
+    w=weathereff(self)
+    al=1
+    r=randroll()
+    print(f"{self.name} used "+colored("Volt Tackle","red")+"!")
+    c=critch(self,other)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    dmg=physical(self.level,self.atk,other.defense,120,a,b,c,r,al,w)
+    if dmg>other.hp:
+        dmg=other.hp
+        other.hp=0
+    else:
+        other.hp-=dmg
+    if self.ability!="Rock Head" and a!=0:
+        self.hp-=round(dmg/3)
+        print(f"{self.name} was hurt by recoil.")         
+    ch=random.randint(1,100)
+    if ch>90 and other.status=="Alive" and other.ability!="Volt Switch":
+        other.status="Paralyzed"
+        print(f"{other.name} was paralyzed.") 
 def flareblitz(self,other):
     self.atktype="Fire"
     if self.ability=="Tough Claws":
@@ -3004,7 +3068,7 @@ def boltstrike(self,other):
     if ch>80 and other.status=="Alive":
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed*=0.5        
+        
 def freezeshock(self,other):
     al=1
     r=randroll()
@@ -3020,7 +3084,7 @@ def freezeshock(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed*=0.5                
+      
 def fusionbolt(self,other):
     al=1
     r=randroll()
@@ -3052,7 +3116,7 @@ def tpunch(self,other):
     if ch>90 and other.status=="Alive":
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed*=0.5
+      
 def poisontail(self,other):
     al=1
     r=randroll()
@@ -3114,7 +3178,7 @@ def tfang(self,other):
     if ch>80 and other.status=="Alive":
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed*=0.5        
+      
 def plasmafists(self,other):
     al=1
     r=randroll()
@@ -3309,7 +3373,7 @@ def bodyslam(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed*=0.5
+     
     if other.ability=="Parental Bond":
         print(f"{self.name}'s {self.ability}!")
         dmg=dmg/2
@@ -3318,7 +3382,7 @@ def bodyslam(self,other):
         if ch>70 and other.status=="Alive":
             other.status="Paralyzed"
             print(f"{other.name} is paralyzed.")
-            other.speed*=0.5
+         
 def forcepalm(self,other):
     al=1
     r=randroll()
@@ -3333,7 +3397,7 @@ def forcepalm(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Paralyzed"
         print(f"{other.name} is paralyzed.")
-        other.speed*=0.5        
+     
 def drillrun(self,other):
     al=1
     r=randroll()
@@ -4054,32 +4118,40 @@ def weatherball(self,other):
     b=ab[1]   
     other.hp-=special(self.level,self.spatk,other.spdef,base,a,b,c,r,al,w)
        
-def raindance(self):
+def raindance(self,tr1,turn):
     print(f"{self.name} used Rain Dance.")
     if field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Rainy"]  and field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Rainy"]:
         print(f"{self.name} made it rain.")
         field.weather="Rainy"
+        tr1.rainturn=turn
+        tr1.rainend(self)
     else:
         print("It failed.")        
-def sunnyday(self):
+def sunnyday(self,tr1,turn):
     print(f"{self.name} used Sunny Day.")
     if field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Sunny"]  and field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Sunny"]:
         print(f"{self.name} made the sunlight harsh.")
         field.weather="Sunny"
+        tr1.sunturn=turn
+        tr1.sunend(self)
     else:
         print("It failed.")        
-def sandstorm(self):
+def sandstorm(self,tr1,turn):
     print(f"{self.name} used Sandstorm.")
     if field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Sandstorm"]  and field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Sandstorm"]:
         print(f"{self.name} started a sandstorm.")
         field.weather="Sandstorm" 
+        tr1.sandturn=turn
+        tr1.sandend(self)
     else:
         print("It failed.")
-def hail(self):
+def hail(self,tr1,turn):
     print(f"{self.name} used Hail.")
     if field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Hail"]  and field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Hail"]:
         print(f"{self.name} started a hailstorm.")
-        field.weather="Hail"      
+        field.weather="Hail"     
+        tr1.hailturn=turn
+        tr1.hailend(self) 
     else:
         print("It failed.")           
 def dualwingbeat(self,other):
@@ -4252,7 +4324,7 @@ def scald(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk*=0.5
+      
 def scorchingsands(self,other):
     self.atktype="Ground"
     al=1
@@ -4267,7 +4339,7 @@ def scorchingsands(self,other):
     if ch>70 and other.status=="Alive":
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk*=0.5        
+      
 def doomdesire(self,other):
     al=1
     r=randroll()
@@ -4392,7 +4464,7 @@ def flamethrower (self,other):
     if ch>90 and other.status=="Alive":
         other.status="Burned"
         print(f"{other.name} was burned.")
-        other.atk*=0.5
+      
 def solarbeam(self,other):
     al=1
     r=randroll()
@@ -4410,11 +4482,10 @@ def solarbeam(self,other):
         self.precharge=True
     
 def terablast(self,other):
-    self.type2=None
-    self.type1=self.teratype
     if self.teratype!=None:
+        self.type2=None
+        self.type1=self.teratype
         print(f"{self.name} terastalized into {self.type1}-type!")
-    self.teratype=None
     self.atktype=self.type1
     w=weathereff(self)
     al=1
@@ -4458,9 +4529,9 @@ def weather(mon,pk):
     if field.weather =="Sandtorm":
         print("The sandstorm is raging!\n")
     if field.weather=="Hail":
-        print("It's hailing.\n")   
+        print("Hail continues to fall.\n")   
     if field.weather=="Sunny":
-        print("The sunlight is harsh.\n")        
+        print("The sunlight is strong.\n")        
 
 def weathereff(mon):
     if field.weather=="Desolate Land" and mon.atktype=="Water":

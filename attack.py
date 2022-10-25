@@ -1,9 +1,11 @@
 from trainerlist import *
 from moves import *
 from AItest import *
+
 statusmove=["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect","Spiky Shield","King's Shield","Heal Order","Defend Order"]
 buffmove=["Iron Defense","Calm Mind","Swords Dance","Shell Smash","Bulk Up","Recover","Roost","Moonlight","Morning Sun","Synthesis","Hail","Rain Dance","Sunny Day","Sandstorm","Trickroom","Dragon Dance","Belly Drum","Nasty Plot","Rest","Coil","Curse","Explosion","Heal Order","Defend Order", "Protect","Spiky Shield","King's Shield"]
 contactmoves=["Fire Punch","Ice Punch","Thunder Punch","Horn Drill","Body Slam","Double-Edge","Drill Peck","Submission","Seismic Toss","Strength","Petal Dance","Waterfall","Skull Bash","High Jump Kick","Dizzy Punch","Leech Life","Crabhammer","Slash","Triple Kick","Mach Punch","Outrage","Steel Wing","Return","Dynamic Punch","Megahorn","Rapid Spin","Iron Tail","Cross Chop","Crunch","Extreme Speed","Fake Out","Facade","Superpower","Brick Break","Knock Off","Arm Thrust","Blaze Kick","Needle Arm","Poison Fang","Crush Claw","Meteor Mash","Shadow Punch","Sky Uppercut","Dragon Claw","Poison Tail","Volt Tackle","Leaf Blade","Hammer Arm","Gyro Ball","U-Turn","Close Combat","Assurance","Last Resort","Sucker Punch","Flare Blitz","Force Palm","Poison Jab","Night Slash","Aqua Tail","X-Scissor","Dragon Rush","Drain Punch","Brave Bird","Giga Impact","Bullet Punch","Avalanche","Shadow Claw","Thunder Fang","Ice Fang","Fire Fang","Psychic Fangs","Shadow Sneak","Zen Headbutt","Power Whip","Cross Poison","Iron Head","Grass Knot","Wood Hammer","Aqua Jet","Head Smash","Crash Grip","Shadow Force","Heavy Slam","Foul Play","Acrobatics","Dragon Tail","Wild Charge","Drill Run","Dual Chop","Horn Leech","Sacred Sword","Razor Shell","Heat Crash","Head Charge","Gear Grind","Bolt Strike","V-create","Flying Press","Fell Stinger","Phantom Force","Draining Kiss","Play Rough","Nuzzle","Power-Up Punch","Dragon Ascent","First Impression","Darkest Lariat","Ice Hammer","High Horsepower","Solar Blade","Throat Chop","Anchor Shot","Lunge","Fire Lash","Smart Strike","Trop Kick","Dragon Hanmer","Stomping Tantrum","Accelerock","Liquidation","Spectral Thief","Sunsteel Strike","Zing Zap","Multi-Attack","Plasma Fists","Jaw Lock","Bolt Beak","Double Iron Bash","Fishious Rend","Body Press","Behemoth Blade","Behemoth Bash","Breaking Swipe","Spirit Break","False Surrender","Grassy Glide","Skitter Smack","Flip Turn","Triple Axel","Dual Wingbeat","Wicked Blow","Surging Strikes","Thunderous Kick"]
+priorityatkmoves=["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken"]
 def fchoice(pk,tr):
     movelist(pk)
     choice=input(f"{tr.name}: Choose a move.\n>>")
@@ -14,6 +16,8 @@ def fchoice(pk,tr):
         pk.choicemove=int(choice)
     if pk.choiced==True:
         choice=pk.choicedmove
+    if len(pk.moves)==1:
+        choice=1
     else:
         choice=random.randint(1,len(pk.moves))
     return choice
@@ -94,12 +98,12 @@ def switch(current,other,trainer,trainer2,field):
 
 #WITHDRAW EFFECTS
 def withdaweff(current,trainer,other):
-    if current.ability=="Natural Cure":
+    if current.ability=="Natural Cure" and current.status!="Alive":
         print(f"{current.name}'s {current.ability}.")
         current.status="Alive"
     if current.ability=="Illusion":
         current.name=random.choice(["Raikou","Entei","Suicune","Primape","Machamp","Nihilego","Gengar","Toxicroak"])
-    if current.ability=="Regenerator":
+    if current.ability=="Regenerator" and 0<current.hp<current.maxhp:
         print(f"{current.name}'s {current.ability}.")
         if current.hp<=(current.maxhp/3):
             current.hp+=round(current.maxhp/3)
@@ -108,7 +112,7 @@ def withdaweff(current,trainer,other):
 #ENTRY EFFECTS            
 def entryeff(current,other,trainer,trainer2,field):
     if current.ability == "Sand Stream" and field.weather not in ["Sandstorm","Primordial Sea","Desolate Land"]:
-        print(f"{current.name}'s {current.ability} brewed a sandstorm!")
+        print(f"{current.name}'s {current.ability} whipped up a sandstorm!")
         field.weather="Sandstorm" 
     if current.ability=="Primordial Sea" and field.weather!="Primordial Sea" and field.weather!="Primordial Sea":
         print(f"{current.name}'s {current.ability}. A heavy rain began to fall!")
@@ -182,19 +186,21 @@ def stancechange(self,used):
     if used not in statusmove and self.ability=="Stance Change" and self.sword!=True:
         self.shield=False
         self.sword=True
-        print(f"{self.name}'s {self.ability}")
+        print(f"{self.name}'s {self.ability}!")
+        print("Aegislash changed its stance.")
         self.name="Sword Aegislash"        
         self.atk,self.spatk,self.defense,self.spdef=self.defense,self.spdef,self.atk,self.spatk
         self.maxatk,self.maxspatk,self.maxdef,self.maxspdef=self.maxdef,self.maxspdef,self.maxatk,self.maxspatk
     if used in statusmove and self.ability=="Stance Change" and self.shield!=True:
         self.shield=True
         self.sword=False
-        print(f"{self.name}'s {self.ability}")
+        print(f"{self.name}'s {self.ability}!")
+        print("Aegislash changed its stance.")
         self.name="Shield Aegislash"        
         self.atk,self.spatk,self.defense,self.spdef=self.defense,self.spdef,self.atk,self.spatk
         self.maxatk,self.maxspatk,self.maxdef,self.maxspdef=self.maxdef,self.maxspdef,self.maxatk,self.maxspatk
 #ATTACK
-def attack(self,other,tr,optr,use,opuse,field):
+def attack(self,other,tr,optr,use,opuse,field,turn):
     print(f"\n{tr.name}:")
     used=use
     hit=1
@@ -202,6 +208,13 @@ def attack(self,other,tr,optr,use,opuse,field):
     canatk=True
     multiscale=False
     stancechange(self,used)
+    if field.terrain=="Psychic":
+        if used in priorityatkmoves:
+            used=None
+            print("Cannot use priority moves in psychic terrain!")
+    if self.ability=="Limber" and self.status=="Paralyzed":
+        print(f"{self.ability} cured {self.name}'s paralysis!")
+        self.status="Alive"
     if other.ability=="Stench" and self.ability!="Long Reach":
         ch=random.randint(1,100)  
         if ch>90:
@@ -384,6 +397,8 @@ def attack(self,other,tr,optr,use,opuse,field):
             heavyslam(self,other)
         elif used=="Heart Swap":
             heartswap(self,other)
+        elif used=="Dragon Energy":
+            dragonenergy(self,other)
         elif used=="Court Change":
             print(f"{self.name} used Court Change!")
             tr.hazard,optr.hazard=optrhazard,trhazard
@@ -410,18 +425,18 @@ def attack(self,other,tr,optr,use,opuse,field):
         elif used=="Bitter Malice":
             bittermalice(self,other)
         elif used=="Rain Dance":
-            raindance(self)
+            raindance(self,field,turn)
             if other.ability=="Dancer":
                 print(f"{other.name}'s {other.ability}!")
-                raindance(other)
+                raindance(other,field,turn)
         elif used=="Sunny Day":
-            sunnyday(self)
+            sunnyday(self,field,turn)
         elif used=="Leech Seed":
             leechseed(self,other)
         elif used=="Trick Room":
             trickroomm(self)
         elif used=="Sandstorm":
-            sandstorm(self)
+            sandstorm(self,field,turn)
         elif used=="Shore Up":
             shoreup(self)
         elif used=="Electric Terrain":
@@ -435,7 +450,7 @@ def attack(self,other,tr,optr,use,opuse,field):
         elif used=="Synthesis":
             synthesis(self)
         elif used=="Hail":
-            hail(self)
+            hail(self,field,turn)
         elif used=="Quiver Dance":
             quiverdance(self)
             if other.ability=="Dancer":
@@ -474,6 +489,8 @@ def attack(self,other,tr,optr,use,opuse,field):
             hyperspacefury(self,other)
         elif used=="Knock Off":
             knockoff(self,other)
+        elif used=="Volt Tackle":
+            volttackle(self,other)
         elif used=="Chloroblast":
             chloroblast(self,other)
         elif used=="Beak Blast":
@@ -892,11 +909,11 @@ def attack(self,other,tr,optr,use,opuse,field):
                 print(f"{other.name}'s {other.ability}!")
                 victorydance(other)
         elif used=="Light Screen":
-            lightscreen(self,other)
+            lightscreen(self,field,turn)
         elif used=="Calm Mind":
             calmmind(self)
         elif used=="Reflect":
-            reflect(self,other)
+            reflect(self,field,turn)
         elif used=="Acid Armor":
             acidarmor(self)
         elif used=="Aeroblast":
@@ -933,7 +950,7 @@ def attack(self,other,tr,optr,use,opuse,field):
             outrage(self,other)
         elif used=="Strength Sap":
             strengthsap(self,other)
-        elif used=="Surging Strike":
+        elif used=="Surging Strikes":
             for i in range(3):
                 surgingstrikes(self,other)
         elif used=="Heat Wave":
@@ -955,7 +972,7 @@ def attack(self,other,tr,optr,use,opuse,field):
             else:
                 sacredfire(self,other)
         elif used=="Brick Break":
-            brickbreak(self,other)
+            brickbreak(self,other,optr)
         elif used=="Giga Impact":
             miss=random.randint(1,100)
             if miss>90:
@@ -1170,6 +1187,8 @@ def attack(self,other,tr,optr,use,opuse,field):
             shadowball(self,other)
         elif used=="Wildbolt Storm":
             wildboltstorm(self,other)
+        elif used=="Springtide Storm":
+            springtidestorm(self,other)
         elif used=="Sandsear Storm":
             sandsearstorm(self,other)
         elif used=="Bleakwind Storm":
@@ -1518,15 +1537,15 @@ def attack(self,other,tr,optr,use,opuse,field):
         if used not in statusmove:
 #ROUGH SKIN/IRON BARBS            
             if other.ability in ["Rough Skin","Iron Barbs"] and used in contactmoves and self.ability!="Long Reach":
-                print(f"{self.name} was hurt by {other.name}'s {other.ability}!")
-                self.hp-=round((self.maxhp/16),2)
-                if self.hp<0:
-                    self.hp=0
+                print(f"{me.name} was hurt by {other.name}'s {other.ability}!")
+                me.hp-=round((me.maxhp/16),2)
+                if me.hp<0:
+                    me.hp=0
         if other.item=="Rocky Helmet" and self.ability!="Magic Guard" and used in contactmoves:
-            self.hp-=round(self.maxhp/6)
-            print(f"{self.name} was hurt by {other.name}'s Rocky Helmet!")
-            if self.hp<0:
-                self.hp=0                    
+            me.hp-=round(me.maxhp/6)
+            print(f"{me.name} was hurt by {other.name}'s Rocky Helmet!")
+            if me.hp<0:
+                me.hp=0                    
 #LIFE ORB                    
         if self.item=="Life Orb" and self.ability!="Magic Guard":
             self.hp-=round(self.maxhp/16)
@@ -1593,12 +1612,12 @@ def effects(self,other):
     if (field.weather =="Hail" or field.weather=="Hail"):     
         if self.type1!="Ice" and self.type2!="Ice" and self.ability!="Magic Guard":
             self.hp-=round(self.maxhp/16)
-            print(f"{self.name} got pelted by hail.")
+            print(f"{self.name} is buffeted by the hail!")
     #SAND DAMAGE
     if (field.weather =="Sandstorm" or field.weather=="Sandstorm"):
         if self.type1 not in ["Rock","Ground","Steel"] and self.type2 not in ["Rock","Ground","Steel"] and self.ability!="Magic Guard":
             self.hp-=round(self.maxhp/16)
-            print(f"{self.name} got pelted by sandstorm.")
+            print(f"{self.name} is buffeted by the sandstorm!")
     #POISON
     if self.status=="Poisoned" and self.ability not in ["Magic Guard","Poison Heal"]:
         self.hp-=round(self.maxhp/16)

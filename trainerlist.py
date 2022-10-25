@@ -11,6 +11,13 @@ from trainers import *
 p1AI=True
 p2AI=True
 #from typematchup import *
+def teamset(mons,num=6):
+    new=[]
+    while len(new)!=num:
+        x=random.choice(mons)
+        if x not in new:
+            new.append(x)
+    return new        
 def showsmogon(obj):
     text=""
     for i in obj.pokemons:
@@ -24,20 +31,20 @@ def teammaker(trclass=None,trname=None,pknum=6):
     mons=[]
     team=[]
     ultrabeasts=[Blacephalon,Stakataka,Naganadel,UNecrozma,Necrozma,DMNecrozma,DWNecrozma,FMLunala,RSSolgaleo,Lunala,Solgaleo,Guzzlord,Kartana,Celesteela,Xurkitree,Buzzwole,Nihilego,Pheromosa]
-    legendary=[Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,MDiancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandous,TThundurus,TTornadus,Thundurus,Tornadus,Landous,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,MLatias,MLatios,Groudon,Kyogre,PGroudon,PKyogre,MRayquaza,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
+    legendary=[Enamorus,TEnamorus,Koraidon,Miraidon,ICalyrex,SCalyrex,Regieleki,Regidrago,Glastrier,Spectrier,Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,MDiancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandous,TThundurus,TTornadus,Thundurus,Tornadus,Landous,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,MLatias,MLatios,Groudon,Kyogre,PGroudon,PKyogre,MRayquaza,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
     if trclass in ["UB Expert"]:
         mons=ultrabeasts
     if trclass in ["Johto Trainer"]:
         mons=[Meganium,Typhlosion,Feraligatr, Crobat,Lanturn,Ampharos,MAmpharos,Azumarill,Politoed,Espeon,Umbreon,Steelix,MSteelix, Scizor,MScizor,Heracross,MHeracross,Skarmory,Houndoom,MHoundoom,Kingdra,Blissey,Tyranitar,MTyranitar]
     if trclass in ["Kanto Trainer"]:
-        mons=[Venusaur,MVenusaur,Charizard,MCharizardX,MCharizardY,Blastoise,MBlastoise,MBeedrill,Pidgeot,MPidgeot,Arbok, Nidoking,Nidoqueen,Ninetales,Golduck,Primeape,Arcanine,Poliwrath, Alakazam,MAlakazam,Machamp,Victreebel,Tentacruel,Golem,Rapidash,Slowbro,MSlowbro,Dodrio,Dewgong,Muk,Cloyster,Gengar,MGengar,Exeggutor,Hitmonchan,Hitmonlee,Weezing,Kangaskhan,MKangaskhan,Starmie,Tauros,Jynx,Pinsir,MPinsir,Gyarados,MGyarados,Lapras,Jolteon,Vaporeon,Flareon,Omastar,Kabutops,Aerodactyl,MAerodactyl,Snorlax,Dragonite]
+        mons=[Ditto,Scyther,Seaking,Rhydon,Chansey,Marowak,Electrode,Hypno,Persian,Dugtrio,Kingler,Wigglytuff,Sandslash,Clefable,Butterfree,Beedrill,Fearow,Pikachu,Venusaur,MVenusaur,Charizard,MCharizardX,MCharizardY,Blastoise,MBlastoise,MBeedrill,Pidgeot,MPidgeot,Arbok, Nidoking,Nidoqueen,Ninetales,Golduck,Primeape,Arcanine,Poliwrath, Alakazam,MAlakazam,Machamp,Victreebel,Tentacruel,Golem,Rapidash,Slowbro,MSlowbro,Dodrio,Dewgong,Muk,Cloyster,Gengar,MGengar,Exeggutor,Hitmonchan,Hitmonlee,Weezing,Kangaskhan,MKangaskhan,Starmie,Tauros,Jynx,Pinsir,MPinsir,Gyarados,MGyarados,Lapras,Jolteon,Vaporeon,Flareon,Omastar,Kabutops,Aerodactyl,MAerodactyl,Snorlax,Dragonite]
     if trclass in ["Hoenn Trainer"]:
         mons=[ Sceptile,MSceptile,Blaziken,MBlaziken,Swampert,MSwampert,Mightyena,Ludicolo,Shiftry,Swellow,Pelipper,Gardevoir,MGardevoir,Breloom, Slaking,Exploud,Hariyama,MSableye,MMawile,Aggron,MAggron,Medicham,MMedicham,MManectric,Sharpedo,MSharpedo,Wailord,Camerupt,MCamerupt,Torkoal,Flygon,Altaria,MAltaria,Zangoose,Seviper,Solrock,Lunatone,Whiscash,Crawdaunt,Claydol,Cradily,Armaldo,Milotic,Banette,MBanette,Absol,MAbsol,Glalie,MGlalie,Walrein,Huntail,Gorebyss,Relicanth,Salamence,MSalamence,Metagross,MMetagross]
     if trclass in ["Sinnoh Trainer"]:
         mons=[Torterra,Infernape,Empoleon,Staraptor,Luxray,Roserade,Rampardos,Bastiodon,Vespiquen,EGastrodon,WGastrodon,Ambipom,Drifblim,MLopunny,Mismagius,Honchkrow,Purugly,Skuntank,Bronzong,Spiritomb,Garchomp,Lucario,MLucario,Hippowdon,MGarchomp,Drapion,Toxicroak,Abomasnow,MAbomasnow,Weavile,Magnezone,Rhyperior,Tangrowth,Electivire,Magmortar,Togekiss,Yanmega,Gliscor,Gallade,MGallade,Probopass,Dusknoir,Froslass,WRotom]
     if trclass in ["Unova Trainer"]:
         mons=[Serperior,Emboar,Samurott,Stoutland,Unfezant,Zebstrika,Gigalith,Excadrill,Conkeldurr,Seismitoad,Leavanny,Scolipede,Krookodile,Darmanitan,Scrafty,Cofagrigus,Carracosta,Archeops,Zoroark,Gothitelle, Reuniclus, Swanna,Vanilluxe,Escavalier,Jellicent,Galvantula,Ferrothorn,Eelektross,Chandelure,Haxorus,Beartic,Accelgor,Mienshao,Druddigon,Golurk,Bisharp,Bouffalant,Braviary,Mandibuzz,Heatmor,Durant,Hydreigon,Volcarona]
-    #FIGHTING SPECIALIST 
+#FIGHTING SPECIALIST 
     if trclass in ["Dojo Master","Blackbelt"]:
         namelist=["Taishi","Damme","Wesley","Joe","Dolph"]
         nn=random.choice(namelist)
@@ -54,10 +61,50 @@ def teammaker(trclass=None,trname=None,pknum=6):
         namelist=["Josh","Kyler","Jade","John","Joey","Jan","Gabriel","Jamie","Kylie","Andrea","Evy","Ebba","Titus","Emiliano","Emilia","Natalie","Justin","Anastasia","Frannie","Danielle","Daniel","Hugo","Robert","Carlos","Alex","Alexander","Alexandra","Arslan","Johan","Mike","Julian","Selena","Emmanuel","Kristin","Lawrence","Frank","Pamela","Nicole","Emma","Matthew"]
         nn=random.choice(namelist)
         new_name=trclass+" "+nn
-     #WATER SPECIALISTS
+        #STEEL
+    if trclass in ["Factory Boss","Industry Worker"]:
+        mons=[ADugtrio,ASandslash,Duraludon,Copperajah,Perrserker,Corviknight,Dhelmise,HGoodra,Aegislash,Bisharp,Magnezone,Steelix,MSteelix,Scizor,MScizor,Skarmory,MMawile,Aggron,MAggron,Metagross,MMetagross,Empoleon,Bastiodon,Bronzong,Lucario,MLucario,Probopass,Heatran,Excadrill,Ferrothorn,Escavalier]
+        #Ghost
+    if trclass == "Exorcist":
+        namelist=["Gabrielle","Candido","Bishop","William","Bowden","Joseph","Thomas","Fantino","Angelo"]
+        nn=random.choice(namelist)
+        new_name=trclass+" "+nn
+        mons=[AMarowak,Dragapult,Polteageist,Mimikyu,Decidueye,Gourgeist,Aegislash,Trevenant,Golurk,Gengar,MGengar,HTyphlosion,MSableye,Banette,MBanette,Dusknoir,Drifblim,Mismagius,Spiritomb,Froslass,Cofagrigus,Runerigus,HZoroark,Jellicent,Chandelure]
+        #Psychic
+    if trclass == "Psychic":
+        mons=[MrMime,Hypno,Indeedee,GSlowking,GSlowbro,GRapidash,Wyrdeer,Malamar,Delphox,HBraviary,Alakazam,MAlakazam,Slowbro,MSlowbro,Exeggutor,Starmie,Jynx,Espeon,Farigarif,Gardevoir,MGardevoir,Medicham,MMedicham,Lunatone,Solrock,Claydol,Metagross,MMetagross, Bronzong,Gallade,MGallade,Gothitelle,Reuniclus]
+        #Grass
+    if trclass == "Gardener":
+        mons=[Parasect,Vileplume,Flapple,Appletun,Rillaboom,Dhelmise,Tsareena,HElectrode,HDecidueye,Gourgeist,Decidueye,Trevenant,Gogoat,Florges,Venusaur,MVenusaur,Victreebel,Exeggutor,AExeggutor,Tangrowth,Meganium,Sceptile,MSceptile,Ludicolo,Shiftry,Breloom,Roserade,Cradily,Torterra,Abomasnow,MAbomasnow,Serperior,Leavanny,HLilligant,Ferrothorn]+random.choices([Shaymin,SShaymin],k=1)
+        #ANIMAL LOVERS
+    if trclass == "Zoologist":
+        mons=[Persian,APersian,Bewear,MDLycanroc,DLycanroc,Gogoat,Pangoro,Pyroar,Bouffalant,Krookodile,Feraligatr,Stoutland,Zebstrika,Ursaluna,Gliscor,Ambipom,Torterra,Farigarif,Sceptile,Houndoom,Tauros,Kangaskhan,Rapidash,Dodrio, Victreebel,Arcanine,Breloom]
+        #BUG
+    if trclass == "Bug Catcher":
+        mons=[Scyther,Venomoth,Parasect,Butterfree,Beedrill,Frosmoth,Kleavor,Centiskorch,Orbeetle,Golisopod,Araquanid,Vikavolt,Volcarona,Durant,Accelgor,Galvantula,Escavalier,Scolipede,Leavanny,Scizor,Heracross,Pinsir,Drapion,Vespiquen,Yanmega,MScizor,MHeracross,MPinsir]        
+        #ICE SPECIALISTS
+    if trclass in ["Skier","Boarder"]:
+        mons=[ASandslash,Cetitan,Frosmoth,MrRime,Avalugg,HAvalugg,Aurorus,Beartic,Vanilluxe,GDarmanitan,Weavile,Abomasnow,Walrein,Lapras,Mamoswine,Glalie,MGlalie,Jynx,Cloyster,ANinetales,MAbomasnow]
+        ch=random.randint(1,10)
+        if ch==7:
+            mons+=[Articuno]
+#ROCK SPECIALISTS
+    if trclass in ["Ruin Explorer","Hiker"]:
+     mons=[Rhydon,Coalossal,Gigalith,Lunatone,Solrock,Probopass,HArcanine,Runerigus,Cofagrigus,Gigalith,MTyranitar,MAggron,Rhyperior,Aggron,Steelix,Machamp,Tyranitar,Golem]
+#fossil
+    if trclass in ["Fossil Maniac","Paleontologist"]:
+        mons=[Dracovish,Dracozolt,Tyrantrum,Aurorus,Archeops,Carracosta,Omastar,Kabutops,MAerodactyl,Armaldo,Cradily,Aerodactyl,Mamoswine,Bastiodon,Rampardos,Relicanth]
+#Ground
+    if trclass in ["Desert Explorer","Egyptian"]:
+        if trclass=="Egyptian":
+            namelist=["Wongani","Abdelhamid","Ali","Zafar","Saif","Hakeem","Ziyad","Hamed","Daud","Apis","Amon","Aton"]
+            nn=random.choice(namelist)
+            new_name=trclass+" "+nn
+        mons=[Rhydon,Marowak,Dugtrio,ADugtrio,Sandslash,Sandaconda,Palossand,Mudsdale,Mandibuzz,Golurk,Drapion,Camerupt,MCamerupt,Hippowdon,Nidoking,Nidoqueen,Golem,Gliscor,Steelix,MSteelix,Rhyperior,Mamoswine,Swampert,MSwampert,Flygon,Whiscash,Claydol,Torkoal,Torterra,EGastrodon,WGastrodon,Garchomp,MGarchomp,Seismitoad,Krookodile,Excadrill,Arbok]
+#WATER SPECIALISTS
     if trclass in ["Marine Biologist","Surfer","Scuba Diver","Swimmer","Sailor","Captain","Pirate"]:
-        mons=[Dracovish,Barraskewda,Inteleon,Araquanid,Toxapex,SWishiwashi,Primarina,Clawitzer,Barbaracle,Greninja,Jellicent,Swanna,Carracosta,Basculegion,Seismitoad,HSamurott,Samurott,MSharpedo,MSwampert,MBlastoise,Phione,EGastrodon,WGastrodon,Empoleon,Walrein,Huntail,Gorebyss,Relicanth,Milotic,Crawdaunt,Whiscash,Dewgong,Sharpedo,Pelipper,Kingdra,Politoed,Azumarill,Feraligatr,Lanturn,Lapras,Gyarados,Slowbro,Cloyster,Starmie, Blastoise,Poliwrath,Swampert,Ludicolo]+random.choices([Manaphy, Wailord],k=1)
-        #GRUNTS
+        mons=[Seaking,Kingler,Dracovish,Barraskewda,Inteleon,Araquanid,Toxapex,SWishiwashi,Primarina,Clawitzer,Barbaracle,Greninja,Jellicent,Swanna,Carracosta,Basculegion,Seismitoad,HSamurott,Samurott,MSharpedo,MSwampert,MBlastoise,Phione,EGastrodon,WGastrodon,Empoleon,Walrein,Huntail,Gorebyss,Relicanth,Milotic,Crawdaunt,Whiscash,Dewgong,Sharpedo,Pelipper,Kingdra,Politoed,Azumarill,Feraligatr,Lanturn,Lapras,Gyarados,Slowbro,Cloyster,Starmie, Blastoise,Poliwrath,Swampert,Ludicolo]+random.choices([Manaphy, Wailord],k=1)
+#GRUNTS
     if trclass in ["Aqua Grunt"]:
         mons=[Crawdaunt,Sharpedo,Crobat,Mightyena,Muk,Weezing,Tentacruel,Wailord,MSharpedo]       
     if trclass in ["Magma Grunt"]:
@@ -71,99 +118,63 @@ def teammaker(trclass=None,trname=None,pknum=6):
         mons=[Dragapult,Duraludon,Dracovish,Dracozolt,Flapple,Appletun,MSceptile,Kommo,Drampa,Turtonator,Noivern,HGoodra,Goodra,Hydreigon,Druddigon,Haxorus,Krookodile,Serperior,Yanmega,Garchomp,MGarchomp,Gyarados,MGyarados,Dragonite,Kingdra,Charizard,Aerodactyl,Tyranitar, Salamence,MSalamence,MAerodactyl,MCharizardX,MTyranitar,Feraligatr]+random.choices([Latias,Latios,MLatias,MLatios],k=1)
     if trclass in ["Police Officer","Investigator"]:
         mons=[Arcanine,HArcanine,Machamp, Stoutland,MManectric,Lapras,Swanna,Mightyena]
-        #POISON SPECIALISTS
+#POISON SPECIALISTS
     if trclass in ["Venom Expert"]:
-        mons=[Toxtricity,GSlowking,GWeezing,GSlowbro,Salazzle,Sneasler,Dragalge,Toxicroak,Drapion,Roserade,Seviper,Arbok,Weezing,Crobat,MBeedrill,Venusaur,Nidoking,Nidoqueen,Victreebel,Tentacruel,Muk,Gengar,Overqwil]
-        #ELECTRIC
+        mons=[Venomoth,Vileplume,Toxtricity,GSlowking,GWeezing,GSlowbro,Salazzle,Sneasler,Dragalge,Toxicroak,Drapion,Roserade,Seviper,Arbok,Weezing,Crobat,MBeedrill,Venusaur,Nidoking,Nidoqueen,Victreebel,Tentacruel,Muk,Gengar,Overqwil]
+#ELECTRIC
     if trclass in ["Rocker","Guitarist","Electrician"]:
-        mons=[Dracozolt,Toxtricity,Vikavolt,HElectrode,Eelektross,Galvantula,MManectric,AGolem,Magnezone,Jolteon,Electivire,Lanturn,Ampharos,MAmpharos,Luxray,WRotom,Zebstrika]        
-        #FIRE SPECIALISTS
+        mons=[Electrode,Raichu,ARaichu,Pikachu,Dracozolt,Toxtricity,Vikavolt,HElectrode,Eelektross,Galvantula,MManectric,AGolem,Magnezone,Jolteon,Electivire,Lanturn,Ampharos,MAmpharos,Luxray,WRotom,Zebstrika]        
+#FIRE SPECIALISTS
     if trclass in ["Kindler","Fiery Breathe"]:
-        mons=[Centiskorch,Coalossal,Cinderace,Turtonator,Salazzle,Incineroar,Pyroar,Talonflame,Delphox,Volcarona,Heatmor,Chandelure,Darmanitan,HTyphlosion,Emboar,HArcanine,Magmortar,Infernape,Arcanine,Rapidash,Houndoom,Flareon,Typhlosion,Blaziken,Camerupt,Charizard,MCharizardY]
+        mons=[AMarowak,Centiskorch,Coalossal,Cinderace,Turtonator,Salazzle,Incineroar,Pyroar,Talonflame,Delphox,Volcarona,Heatmor,Chandelure,Darmanitan,HTyphlosion,Emboar,HArcanine,Magmortar,Infernape,Arcanine,Rapidash,Houndoom,Flareon,Typhlosion,Blaziken,Camerupt,Charizard,MCharizardY]
+#FLYING SPECIALISTS
+    if trclass in ["Bird Keeper","Pilot","Sky Diver"]:
+        mons=[Corviknight,Toucannon,Noivern,Hawlucha,Talonflame,Mandibuzz,HBraviary,Braviary,Swanna,Archeops,Unfezant,Gliscor,Togekiss,Honchkrow,Staraptor,Empoleon,Flygon,Salamence,Pelipper,Swellow,MPidgeot,Charizard,Skarmory,Aerodactyl,Altaria,Crobat,Dodrio,Dragonite]
+        mons+=random.choices([Articuno,Zapdos,Moltres,Latias,Latios,MLatias,MLatios,Thundurus,Landous,Tornadus,Enamorus],k=1)        
         #DECENT TRAINERS
     if trclass in ["Expert","Veteran","Businessman"]:
-        mons=[MDLycanroc,MNLycanroc,DLycanroc,Aegislash,Delphox,Greninja,Chesnaught,Basculegion,Stoutland,Probopass,Ursaluna,Yanmega,Magnezone,Tangrowth,Hippowdon,Lucario,Mismagius,Luxray,Roserade,Torterra,Glalie,Absol,Banette,Milotic,Armaldo,Cradily,Aggron,Hariyama,Breloom,Gardevoir,Swellow,Ludicolo,Swampert,Houndoom,Heracross,Steelix,Espeon,Ampharos,Flareon,Jolteon,Vaporeon,Snorlax,Lapras,Gyarados,Tauros,Kangaskhan,Hitmonchan,Hitmonlee,Exeggutor,Gengar,Dodrio,Slowbro,Rapidash,AGolem,Victreebel,Machamp,Golduck,Alakazam,Pidgeot,Blastoise,Ninetales,Primeape,MBeedrill, Venusaur, Charizard,Cloyster,MBanette,MGlalie]
+        mons=[Ditto,Chansey,Persian,Vileplume,Wigglytuff,Clefable,Pikachu,Raticate,ARaticate,Butterfree,Beedrill,MDLycanroc,MNLycanroc,DLycanroc,Aegislash,Delphox,Greninja,Chesnaught,Basculegion,Stoutland,Probopass,Ursaluna,Yanmega,Magnezone,Tangrowth,Hippowdon,Lucario,Mismagius,Luxray,Roserade,Torterra,Glalie,Absol,Banette,Milotic,Armaldo,Cradily,Aggron,Hariyama,Breloom,Gardevoir,Swellow,Ludicolo,Swampert,Houndoom,Heracross,Steelix,Espeon,Ampharos,Flareon,Jolteon,Vaporeon,Snorlax,Lapras,Gyarados,Tauros,Kangaskhan,Hitmonchan,Hitmonlee,Exeggutor,Gengar,Dodrio,Slowbro,Rapidash,AGolem,Victreebel,Machamp,Golduck,Alakazam,Pidgeot,Blastoise,Ninetales,Primeape,MBeedrill, Venusaur, Charizard,Cloyster,MBanette,MGlalie]
         ch=random.randint(1,15)
         if ch==7:
             mons+=random.choices(legendary,k=1)
         pass
 #THUGS
-    elif trclass in[ "Street Punk","Biker","Cueball","Smuggler","Thief","Goon","Driver"]:
+    if trclass in[ "Street Punk","Biker","Cueball","Smuggler","Thief","Goon","Driver"]:
         namelist=["Josh","Kyler","Jade","John","Jan","Gabriel","Jamie","Emiliano","Justin","Frannie","Danielle","Daniel","Hugo","Robert","Carlos","Alex","Alexander","Arslan","Johan","Mike","Julian","Emmanuel","Kristin","Murphy"]
         nn=random.choice(namelist)
         new_name=trclass+" "+nn
-        mons=[Obstagoon,Grimmsnarl,MNLycanroc,Incineroar,Sneasler,Skuntank,Dragalge,Malamar,Pangoro,Greninja,Chesnaught,Hydreigon,Eelektross,HZoroark,Zoroark,Scrafty,Krookodile,HLilligant,HSamurott,Drapion,Toxicroak,Absol,Crawdaunt,Seviper,Zangoose,Overqwil,Sharpedo,MManectric,MAggron,Hariyama,Breloom,Shiftry,Blaziken,MHoundoom,Gyarados,Pinsir,Weezing,Muk,Tentacruel,Primeape,Machamp,Golem,Cloyster,MSableye,Crobat,Arbok]
+        mons=[Ditto,APersian,ARaticate,Obstagoon,Grimmsnarl,MNLycanroc,Incineroar,Sneasler,Skuntank,Dragalge,Malamar,Pangoro,Greninja,Chesnaught,Hydreigon,Eelektross,HZoroark,Zoroark,Scrafty,Krookodile,HLilligant,HSamurott,Drapion,Toxicroak,Absol,Crawdaunt,Seviper,Zangoose,Overqwil,Sharpedo,MManectric,MAggron,Hariyama,Breloom,Shiftry,Blaziken,MHoundoom,Gyarados,Pinsir,Weezing,Muk,Tentacruel,Primeape,Machamp,Golem,Cloyster,MSableye,Crobat,Arbok]
         ch=random.randint(1,10)
         if ch==7:
             mons+=random.choices(legendary,k=1)
         pass 
-        #FLYING SPECIALISTS
-    elif trclass in ["Bird Keeper","Pilot","Sky Diver"]:
-        mons=[Corviknight,Toucannon,Noivern,Hawlucha,Talonflame,Mandibuzz,HBraviary,Braviary,Swanna,Archeops,Unfezant,Gliscor,Togekiss,Honchkrow,Staraptor,Empoleon,Flygon,Salamence,Pelipper,Swellow,MPidgeot,Charizard,Skarmory,Aerodactyl,Altaria,Crobat,Dodrio,Dragonite]
-        mons+=random.choices([Articuno,Zapdos,Moltres,Latias,Latios,MLatias,MLatios,Thundurus,Landous,Tornadus],k=1)
-    elif trclass == "Air Force Officer":
+
+    if trclass == "Air Force Officer":
         mons=[Skarmory,Corviknight,Magnezone,Latios,Latias,Pidgeot,Staraptor,Braviary,Altaria,MAltaria,Dragonite,Salamence,Metagross]
-    elif trclass == "Navy Officer":
+    if trclass == "Navy Officer":
         mons=[Gyarados,Blastoise,Swampert,Feraligatr,Inteleon,Wailord,Starmie]
-    elif trclass == "Military Officer":
+    if trclass == "Military Officer":
         mons=[Aggron,Salamence,Tyranitar,Steelix,Rhyperior,Magnezone,Metagross,Dragonite,Magmortar,Electivire,Charizard, Blastoise]
-    elif trclass == "Tamer":
+    if trclass == "Tamer":
         mons=[GRapidash,Bewear,MDLycanroc,MNLycanroc,DLycanroc,Wyrdeer,Pangoro,Braviary,Tauros,Arbok,Arcanine,HArcanine,Rapidash,Ambipom,Ursaluna,Mamoswine,Houndoom,MHoundoom,Mightyena,Slaking,MManectric,Sharpedo,MSharpedo,Wailord,Zangoose,Seviper,Milotic,Absol,MAbsol,Walrein,Empoleon,Infernape,Luxray]+random.choices([Raikou,Suicune,Entei,Cobalion,Virizion,Terrakion])
-        #STEEL
-    elif trclass in ["Factory Boss","Industry Worker"]:
-        mons=[Duraludon,Copperajah,Perrserker,Corviknight,Dhelmise,HGoodra,Aegislash,Bisharp,Magnezone,Steelix,MSteelix,Scizor,MScizor,Skarmory,MMawile,Aggron,MAggron,Metagross,MMetagross,Empoleon,Bastiodon,Bronzong,Lucario,MLucario,Probopass,Heatran,Excadrill,Ferrothorn,Escavalier]
-        #Ghost
-    elif trclass == "Exorcist":
-        namelist=["Gabrielle","Candido","Bishop","William","Bowden","Joseph","Thomas","Fantino","Angelo"]
-        nn=random.choice(namelist)
-        new_name=trclass+" "+nn
-        mons=[Dragapult,Polteageist,Mimikyu,Decidueye,Gourgeist,Aegislash,Trevenant,Golurk,Gengar,MGengar,HTyphlosion,MSableye,Banette,MBanette,Dusknoir,Drifblim,Mismagius,Spiritomb,Froslass,Cofagrigus,Runerigus,HZoroark,Jellicent,Chandelure]
-        #Psychic
-    elif trclass == "Psychic":
-        mons=[Indeedee,GSlowking,GSlowbro,GRapidash,Wyrdeer,Malamar,Delphox,HBraviary,Alakazam,MAlakazam,Slowbro,MSlowbro,Exeggutor,Starmie,Jynx,Espeon,Farigarif,Gardevoir,MGardevoir,Medicham,MMedicham,Lunatone,Solrock,Claydol,Metagross,MMetagross, Bronzong,Gallade,MGallade,Gothitelle,Reuniclus]
-        #Grass
-    elif trclass == "Gardener":
-        mons=[Flapple,Appletun,Rillaboom,Dhelmise,Tsareena,HElectrode,HDecidueye,Gourgeist,Decidueye,Trevenant,Gogoat,Florges,Venusaur,MVenusaur,Victreebel,Exeggutor,AExeggutor,Tangrowth,Meganium,Sceptile,MSceptile,Ludicolo,Shiftry,Breloom,Roserade,Cradily,Torterra,Abomasnow,MAbomasnow,Serperior,Leavanny,HLilligant,Ferrothorn]+random.choices([Shaymin,SShaymin],k=1)
-        #ANIMAL LOVERS
-    elif trclass == "Zoologist":
-        mons=[Bewear,MDLycanroc,DLycanroc,Gogoat,Pangoro,Pyroar,Bouffalant,Krookodile,Feraligatr,Stoutland,Zebstrika,Ursaluna,Gliscor,Ambipom,Torterra,Farigarif,Sceptile,Houndoom,Tauros,Kangaskhan,Rapidash,Dodrio, Victreebel,Arcanine,Breloom]
-        #BUG
-    elif trclass == "Bug Catcher":
-        mons=[Frosmoth,Kleavor,Centiskorch,Orbeetle,Golisopod,Araquanid,Vikavolt,Volcarona,Durant,Accelgor,Galvantula,Escavalier,Scolipede,Leavanny,Scizor,Heracross,Pinsir,Drapion,Vespiquen,Yanmega,MScizor,MHeracross,MPinsir]        
-        #ICE SPECIALISTS
-    elif trclass in ["Skier","Boarder"]:
-        mons=[Frosmoth,MrRime,Avalugg,HAvalugg,Aurorus,Beartic,Vanilluxe,GDarmanitan,Weavile,Abomasnow,Walrein,Lapras,Mamoswine,Glalie,MGlalie,Jynx,Cloyster,ANinetales,MAbomasnow]
-        ch=random.randint(1,10)
-        if ch==7:
-            mons+=[Articuno]
+            
      #BETTER TRAINERS
-    elif trclass == "Ace Trainer":
-        mons=[Kleavor,Obstagoon,Grimmsnarl,Polteageist,Toxtricity,Silvally,MDLycanroc,MNLycanroc,DLycanroc,Primarina,Incineroar,Aegislash,Florges,AGreninja,Volcarona,Hydreigon,Mandibuzz,Braviary,Bouffalant,Bisharp,Mienshao,Haxorus,Eelektross,Ferrothorn,Gothitelle,Reuniclus,HZoroark,Zoroark,Archeops,Cofagrigus,Scrafty,Darmanitan,Krookodile,Basculegion,Conkeldurr,Excadrill,Gigalith,Heatran,Dusknoir,Ursaluna,HArcanine,PorygonZ,Gliscor,Yanmega,Togekiss,Electivire,Rhyperior,Magnezone,Lucario,Drifblim,Roserade,Staraptor,Empoleon,Torterra,Infernape,Metagross,Salamence,Absol,Milotic,Altaria,Flygon,Wailord,MManectric,MGardevoir,Swellow,Ludicolo,Swampert,Blaziken,Kingdra,MHoundoom,Skarmory,Heracross,Scizor,MSteelix,Espeon,Umbreon,MAmpharos,Feraligatr,Typhlosion,Meganium,Dragonite,Snorlax,MGyarados,Tauros,MPinsir,Starmie,AMuk,AExeggutor,MGengar,Cloyster,MSlowbro,Golem,MAlakazam,MPidgeot,Poliwrath,Arcanine,ANinetales,Nidoking, Nidoqueen,MCharizardY,MVenusaur,MBlastoise,MSceptile,MCamerupt]
+    if trclass == "Ace Trainer":
+        mons=[Clefable,Kleavor,Obstagoon,Grimmsnarl,Polteageist,Toxtricity,Silvally,MDLycanroc,MNLycanroc,DLycanroc,Primarina,Incineroar,Aegislash,Florges,AGreninja,Volcarona,Hydreigon,Mandibuzz,Braviary,Bouffalant,Bisharp,Mienshao,Haxorus,Eelektross,Ferrothorn,Gothitelle,Reuniclus,HZoroark,Zoroark,Archeops,Cofagrigus,Scrafty,Darmanitan,Krookodile,Basculegion,Conkeldurr,Excadrill,Gigalith,Heatran,Dusknoir,Ursaluna,HArcanine,PorygonZ,Gliscor,Yanmega,Togekiss,Electivire,Rhyperior,Magnezone,Lucario,Drifblim,Roserade,Staraptor,Empoleon,Torterra,Infernape,Metagross,Salamence,Absol,Milotic,Altaria,Flygon,Wailord,MManectric,MGardevoir,Swellow,Ludicolo,Swampert,Blaziken,Kingdra,MHoundoom,Skarmory,Heracross,Scizor,MSteelix,Espeon,Umbreon,MAmpharos,Feraligatr,Typhlosion,Meganium,Dragonite,Snorlax,MGyarados,Tauros,MPinsir,Starmie,AMuk,AExeggutor,MGengar,Cloyster,MSlowbro,Golem,MAlakazam,MPidgeot,Poliwrath,Arcanine,ANinetales,Nidoking, Nidoqueen,MCharizardY,MVenusaur,MBlastoise,MSceptile,MCamerupt]
         ch=random.randint(1,5)
         if ch==3:
             mons+=random.choices(legendary,k=1)
             
         
 #CHALLENGERS
-    elif trclass == "Challenger":
+    if trclass == "Challenger":
         mons=[DUrshifu,WUrshifu,Hatterene,Grimmsnarl,Toxtricity,Appletun,Corviknight,Melmetal,Zeraora,Silvally,Incineroar,Aegislash,AGreninja,Volcarona,Hydreigon,Mandibuzz,Bisharp,Mienshao,Ferrothorn,Reuniclus,HZoroark,Zoroark,Darmanitan,GDarmanitan,Krookodile,Conkeldurr,Excadrill,Heatran,Uxie,Mesprit,Azelf,WRotom,Togekiss,Magnezone,Garchomp,Infernape,Latias,Latios,Metagross,Salamence,Slaking,Blissey,Kingdra,Skarmory,Umbreon,Crobat,Cloyster,Starmie,AExeggutor,Typhlosion,Feraligatr,Meganium,Arcanine,Snorlax,Dragonite]+[MSharpedo,MScizor,MSteelix,MGyarados,MKangaskhan,MAlakazam,MPidgeot,MSlowbro,MAerodactyl,MBlastoise,MVenusaur,MCharizardX,MCharizardY,MHeracross,MHoundoom,MSceptile, MBlaziken,MSwampert,MGardevoir,MCamerupt,MAbsol,MSalamence,MMetagross,MLopunny,MLucario]+ultrabeasts
         ch=random.randint(1,3)
         if ch==2:
             mons+=random.choices(legendary,k=3)
         pass
-#fossil
-    elif trclass in ["Fossil Maniac","Paleontologist"]:
-        mons=[Dracovish,Dracozolt,Tyrantrum,Aurorus,Archeops,Carracosta,Omastar,Kabutops,MAerodactyl,Armaldo,Cradily,Aerodactyl,Mamoswine,Bastiodon,Rampardos,Relicanth]
-        #Ground
-    elif trclass in ["Desert Explorer","Egyptian"]:
-        if trclass=="Egyptian":
-            namelist=["Wongani","Abdelhamid","Ali","Zafar","Saif","Hakeem","Ziyad","Hamed","Daud","Apis","Amon","Aton"]
-            nn=random.choice(namelist)
-            new_name=trclass+" "+nn
-        mons=[Sandaconda,Palossand,Mudsdale,Mandibuzz,Golurk,Drapion,Camerupt,MCamerupt,Hippowdon,Nidoking,Nidoqueen,Golem,Gliscor,Steelix,MSteelix,Rhyperior,Mamoswine,Swampert,MSwampert,Flygon,Whiscash,Claydol,Torkoal,Torterra,EGastrodon,WGastrodon,Garchomp,MGarchomp,Seismitoad,Krookodile,Excadrill,Arbok]
-#ROCK SPECIALISTS
-    elif trclass in ["Ruin Explorer","Hiker"]:
-     mons=[Coalossal,Gigalith,Lunatone,Solrock,Probopass,HArcanine,Runerigus,Cofagrigus,Gigalith,MTyranitar,MAggron,Rhyperior,Aggron,Steelix,Machamp,Tyranitar,Golem]
+
+
     if len(team)==0 and trclass=="Challenger":
         megachance=random.randint(1,2)
         while len(team)!=pknum:
@@ -394,7 +405,8 @@ buck12=Skarmory(maxiv="Yes")
 buck13=Bastiodon(maxiv="Yes")
 buck14=Probopass(maxiv="Yes")
 buck15=Metagross(maxiv="Yes")
-buck=Trainer("Pokémon Trainer Buck",[buck1,buck2,buck3,buck4,buck5,buck6],"Sinnoh")
+buckteam=teamset([buck1,buck2,buck3,buck4,buck5,buck6,buck7,buck8,buck9,buck10,buck11,buck12,buck13,buck14,buck15])
+buck=Trainer("Pokémon Trainer Buck",buckteam,"Sinnoh")
 #Palmer
 palmer1=Milotic(maxiv="Yes")
 palmer2=Rhyperior(maxiv="Yes")
@@ -428,7 +440,8 @@ archie3=Crobat(maxiv="Yes")
 archie4=Tentacruel(maxiv="Yes")
 archie5=MSharpedo(maxiv="Yes")
 archie6=PKyogre(maxiv="Yes")
-archie=Trainer("Aqua Leader Archie",[archie1,archie2,archie3,archie4,archie5,archie6],"Hoenn")
+archieteam=teamset([archie1,archie2,archie3,archie4,archie5],5)+[archie6]
+archie=Trainer("Aqua Leader Archie",archieteam,"Hoenn")
 #Maxie
 maxie7=Houndoom(maxiv="Yes")
 maxie1=Mightyena(maxiv="Yes")
@@ -536,7 +549,10 @@ alain3=Unfezant(maxiv="Yes",move=["Sky Attack","Steel Wing","Hurricane","Air Sla
 alain4=Metagross(maxiv="Yes",move=["Meteor Mash","Psyshock","Rock Slide","Zen Headbutt"],nature="Naughty")
 alain5=Weavile(maxiv="Yes",move=["Protect","Night Slash","Ice Beam","Ice Shard"],nature="Hasty")
 alain6=MCharizardX(maxiv="Yes",move=["Flamethrower","Dragon Claw","Thunder Punch","Blast Burn"],nature="Hasty")
-alain=Trainer("Pokémon Trainer Alain",[alain1,alain2,alain3,alain4,alain5,alain6],"Unova")
+alain7=Malamar(maxiv="Yes")
+alain8=Chesnaught(maxiv="Yes")
+alainteam=teamset([alain1,alain2,alain3,alain4,alain5,alain7,alain8],5)+[alain6]
+alain=Trainer("Pokémon Trainer Alain",alainteam,"Unova")
 #Anabel
 anabel1=Alakazam(maxiv="Yes")
 anabel2=Latios(maxiv="Yes")
@@ -616,7 +632,18 @@ gary3=Scizor(maxiv="Yes")
 gary4=Umbreon(maxiv="Yes")
 gary5=Electivire(maxiv="Yes")
 gary6=MBlastoise(maxiv="Yes")
-gary=Trainer("Researcher Gary Oak",[gary1,gary2,gary3,gary4,gary5,gary6],"Kanto")
+gary7=Nidoqueen(maxiv="Yes")
+gary8=Dodrio(maxiv="Yes")
+gary9=Tyranitar(maxiv="Yes")
+gary10=Hatterene(maxiv="Yes")
+gary11=Regidrago(maxiv="Yes")
+gary12=Golem(maxiv="Yes")
+gary13=Skarmory (maxiv="Yes")
+gary14=Houndoom(maxiv="Yes")
+gary15=Alakazam(maxiv="Yes")
+gary16=Kingdra(maxiv="Yes")
+garyteam=teamset([gary1,gary2,gary3,gary7,gary8,gary9,gary10,gary11,gary12,gary13,gary14,gary15,gary16],3)+[gary4,gary5,gary6]
+gary=Trainer("Researcher Gary Oak",garyteam,"Kanto")
 #Blue
 blue1=Exeggutor(maxiv="Yes")
 blue2=Alakazam(maxiv="Yes")
@@ -762,7 +789,8 @@ paul12=Gliscor(maxiv="Yes")
 paul13=Hariyama(maxiv="Yes")
 paul14=Nidoking(maxiv="Yes")
 paul15=EGastrodon(maxiv="Yes")
-paul=Trainer ("Pokémon Trainer Paul",[paul7,paul2,paul3,paul4,paul5,paul6],"Sinnoh")
+paulteam=teamset([paul7,paul2,paul3,paul4,paul5,paul1,paul8,paul9,paul10,paul11,paul12,paul13,paul14,paul15],5)+[paul6]
+paul=Trainer ("Pokémon Trainer Paul",paulteam,"Sinnoh")
 #Trevor
 trevor1=Florges(maxiv="Yes")
 trevor2=Aerodactyl(maxiv="Yes")
@@ -771,20 +799,82 @@ trevor4=Aurorus(maxiv="Yes")
 trevor5=Tyrantrum(maxiv="Yes")
 trevor6=MCharizardY(maxiv="Yes")
 trevor=Trainer ("Pokémon Trainer Trevor",[trevor1,trevor2,trevor3,trevor4,trevor5,trevor6],"Kalos")
+#hala
+hala1=Kommo(maxiv="Yes")
+hala2=Bewear(maxiv="Yes")
+hala3=Primeape(maxiv="Yes")
+hala4=Poliwrath(maxiv="Yes")
+hala5=Machamp(maxiv="Yes")
+hala6=Hariyama(maxiv="Yes")
+hala=Trainer ("Elite Four Hala",[hala1,hala2,hala3,hala4,hala5,hala6],"Alola")
+#molayne
+molayne1=Skarmory(maxiv="Yes")
+molayne2=Magnezone(maxiv="Yes")
+molayne3=Metagross(maxiv="Yes")
+molayne4=Klefki(maxiv="Yes")
+molayne5=Bisharp(maxiv="Yes")
+molayne6=Steelix(maxiv="Yes")
+molayne=Trainer ("Elite Four Molayne",[molayne1,molayne2,molayne3,molayne4,molayne5,molayne6],"Alola")
+#olivia
+olivia1=Relicanth(maxiv="Yes")
+olivia2=Gigalith(maxiv="Yes")
+olivia3=AGolem(maxiv="Yes")
+olivia4=Armaldo(maxiv="Yes")
+olivia5=Cradily(maxiv="Yes")
+olivia6=MNLycanroc(maxiv="Yes")
+olivia=Trainer ("Elite Four Olivia",[olivia1,olivia2,olivia3,olivia4,olivia5,olivia6],"Alola")
+#acerola
+acerola1=Froslass(maxiv="Yes")
+acerola2=Palossand(maxiv="Yes")
+acerola3=Drifblim(maxiv="Yes")
+acerola4=Dhelmise (maxiv="Yes")
+acerola5=Banette (maxiv="Yes")
+acerola6=Mimikyu(maxiv="Yes")
+acerola=Trainer ("Elite Four Acerola",[acerola1,acerola2,acerola3,acerola4,acerola5,acerola6],"Alola")
+#kahili
+kahili1=Skarmory (maxiv="Yes")
+kahili2=Crobat(maxiv="Yes")
+kahili3=Mandibuzz(maxiv="Yes")
+kahili4=Hawlucha (maxiv="Yes")
+kahili5=Braviary (maxiv="Yes")
+kahili6=Toucannon(maxiv="Yes")
+kahili=Trainer ("Elite Four Kahili",[kahili1,kahili2,kahili3,kahili4,kahili5,kahili6],"Alola")
+#Leon
+leon1=MrRime(maxiv="Yes")
+leon2=Aegislash(maxiv="Yes")
+leon3=Dragapult (maxiv="Yes")
+leon4=Inteleon(maxiv="Yes")
+leon5=Rillaboom(maxiv="Yes",move=["Drum Beating","Acrobatics","High Horsepower","Knock Off"])
+leon6=Cinderace(maxiv="Yes",ability="Libero",move=["Scorching Sands","Pyro Ball","Sucker Punch","Grass Knot"])
+leon7=Charizard (maxiv="Yes")
+leonteam=teamset([leon1,leon2,leon3,leon4,leon5,leon6],5)+[leon7]
+leon=Trainer("Galar Champion Leon", leonteam,"Galar")
+#TEST1
+t1=Skarmory(maxiv="Yes",move=["Light Screen","Reflect","Soft-Boiled","Toxic"])
+t2=Skarmory(maxiv="Yes",move=["Light Screen","Reflect","Soft-Boiled","Toxic"])
+test1=Trainer("Test-01",[t1,t2])
+#TEST2
+t3=Alakazam()
+t4=Charizard()
+test2=Trainer("Test-02",[t3,t4])
 #############
-elite4=random.choice([caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva])
+matchx=match()
+elite4=random.choice([kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva])
+champ=random.choice([leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia])
+frontier=random.choice([lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser])
+evil=random.choice([tabitha,ariana,archer,ghetsis,cyrus,archie,maxie,saturn,giovanni])
+talent=random.choice([trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias])
+#PLAYER 01
+p1=random.choices([matchx[0],elite4,champ,frontier,evil,talent],weights=[100,5,5,5,10,15],k=1)[0]
+
+elite4=random.choice([kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva])
 champ=random.choice([alder,brendan,kukui,blue,red,wallace,steven,cynthia])
 frontier=random.choice([lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser])
 evil=random.choice([tabitha,ariana,archer,ghetsis,cyrus,archie,maxie,saturn,giovanni])
 talent=random.choice([trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias])
-matchx=match()
-p1=random.choices([matchx[0],elite4,champ,frontier,evil,talent],weights=[100,5,5,5,10,15],k=1)[0]
-elite4=random.choice([caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva])
-champ=random.choice([alder,brendan,kukui,blue,red,wallace,steven,cynthia])
-frontier=random.choice([lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser])
-evil=random.choice([tabitha,ariana,archer,ghetsis,cyrus,archie,maxie,saturn,giovanni])
-talent=random.choice([paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias])
+#PLAYER 02
 p2=random.choices([matchx[1],elite4,champ,frontier,evil,talent],weights=[50,10,5,5,5,15],k=1)[0]
+
 showparty(p1)
 sm1=showsmogon(p1)
 print("\n")
