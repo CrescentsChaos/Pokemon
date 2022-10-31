@@ -1,9 +1,10 @@
+#pylint:disable=R0914
 #pylint:disable=C0303
 #pylint:disable=R0913
 #pylint:disable=C0116
 #pylint:disable=C0301
 class Field:
-    def __init__(self,name="Stadium",weather=None,trickroom=False, terrain=None, gravity=False,magicroom=False,mudsport=False,watersport=False,wonderroom=False,rainturn=0,rainendturn=5,sunturn=0,sunendturn=5,sandturn=0, sandendturn=5,hailturn=0,hailendturn=5):
+    def __init__(self,name="Stadium",weather=None,trickroom=False, terrain=None, gravity=False,magicroom=False,mudsport=False,watersport=False,wonderroom=False,rainturn=0,rainendturn=200,sunturn=0,sunendturn=200,sandturn=0, sandendturn=200,hailturn=0,hailendturn=200,grassturn=0,grassendturn=200):
         self.name=name
         self.weather=weather
         self.trickroom=trickroom
@@ -21,28 +22,35 @@ class Field:
         self.sandendturn=sandendturn
         self.hailturn=hailturn
         self.hailendturn=hailendturn
-    def hailend(self,mon):
-	       if mon.item!="Icy Rock":
-	           self.hailendturn=self.hailturn+5
-	       if mon.item=="Icy Rock":
-	           self.hailendturn=self.hailturn+8
+        self.grassturn=grassturn
+        self.grassendturn=grassendturn
+    def hailend(self,mon,mon2):
+	       if "Icy Rock" not in (mon.item,mon2.item):
+	           self.hailendturn=self.hailturn+6
+	       if "Icy Rock" in (mon.item,mon2.item):
+	           self.hailendturn=self.hailturn+9
 	       return self.hailendturn
-    def rainend(self,mon):
-	       if mon.item!="Damp Rock":
-	           self.rainendturn=self.rainturn+5
-	       if mon.item=="Damp Rock":
-	           self.rainendturn=self.rainturn+8
+    def rainend(self,mon,mon2):
+	       if "Damp Rock" not in (mon.item,mon2.item):
+	           self.rainendturn=self.rainturn+6
+	       if "Damp Rock" in (mon.item,mon2.item):
+	           self.rainendturn=self.rainturn+9
 	       return self.rainendturn
-    def sunend(self,mon):
-	       if mon.item!="Heat Rock":
-	           self.sunendturn=self.sunturn+5
-	       if mon.item=="Heat Rock":
-	           self.sunendturn=self.sunturn+8
+    def sunend(self,mon,mon2):
+	       if "Heat Rock" not in (mon.item,mon2.item):
+	           self.sunendturn=self.sunturn+6
+	       if "Heat Rock" in (mon.item,mon2.item):
+	           self.sunendturn=self.sunturn+9
 	       return self.sunendturn	     
-    def sandend(self,mon):
-	       if mon.item!="Smooth Rock":
-	           self.sandendturn=self.sandturn+5
-	       if mon.item=="Smooth Rock":
-	           self.sandendturn=self.sandturn+8
+    def sandend(self,mon,mon2):
+	       if "Smooth Rock" not in (mon.item,mon2.item):
+	           self.sandendturn=self.sandturn+6
+	       if "Smooth Rock" in (mon.item,mon2.item):
+	           self.sandendturn=self.sandturn+9
 	       return self.sandendturn	 
-	               
+    def grassend(self,mon,mon2):
+	       if "Terrain Extender" not in (mon.item,mon2.item):
+	           self.grassendturn=self.grassturn+6
+	       if "Terrain Extender" in (mon.item,mon2.item):
+	           self.grassendturn=self.grassturn+9
+	       return self.grassendturn	               

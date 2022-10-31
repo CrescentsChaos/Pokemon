@@ -11,10 +11,11 @@
 #pylint:disable=W0102
 from typematchup import *
 class Trainer:
-	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False):
+	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,faintedmon=[]):
 		self.name=name
 		self.ai=ai
 		self.pokemons=pokemons
+		self.faintedmon=faintedmon
 		self.lightscreen=lightscreen
 		self.reflect=reflect
 		self.region=region
@@ -26,15 +27,15 @@ class Trainer:
 		    self.hazard=[]
 		else:
 		    self.hazard=hazard
-	def lightscreenend(self,mon):
-	       if mon.item!="Light Clay":
+	def lightscreenend(self,mon,mon2):
+	       if "Light Clay" not in (mon.item,mon2.item):
 	           self.screenend=self.lsturn+5
-	       if mon.item=="Light Clay":
+	       if "Light Clay" in (mon.item,mon2.item):
 	           self.screenend=self.lsturn+8
 	       return self.screenend
-	def reflectend(self,mon):
-	       if mon.item!="Light Clay":
+	def reflectend(self,mon,mon2):
+	       if "Light Clay" not in (mon.item,mon2.item):
 	           self.rfendturn=self.reflecturn+5
-	       if mon.item=="Light Clay":
+	       if "Light Clay" in (mon.item,mon2.item):
 	           self.rfendturn=self.reflecturn+8
 	       return self.rfendturn        

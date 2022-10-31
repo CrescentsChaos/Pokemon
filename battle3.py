@@ -3,65 +3,77 @@ from moves import *
 from trainerlist import *
 from intros import intro
 #SCOREBOARD
-def  score(x,y,p1,p2):
+def  score(x,y,p1,p2,turn):
     print("")
     if x==None:
         x=p1.pokemons[0]
     if y==None:
         y=p2.pokemons[0]
         pass
-    print(f"{p1.name}:")
+    print(f" {p1.name}:")
     if len(p1.hazard)==0:
-        print("Hazard:",None)
+        print(" Hazard:",None)
     if len(p1.hazard)!=0:
-        print("Hazard:",end=" ")
+        print(" Hazard:",end=" ")
         for i in range(len(p1.hazard)):
             if len(p1.hazard)!=1:
                 print(p1.hazard[i],end=",")
             else:
                 print(p1.hazard[i])
     if p1.reflect==True:
-        print(f"Reflect({p1.rfendturn-p1.reflecturn}turns)")           
-    print(f"Lv.{x.level} {x.name}: {x.hp}/{x.maxhp}({round((x.hp/x.maxhp)*100,2)}%)[{x.status}] [{x.item}]")
-    if x.type2 is None:
-        print(f"Type:{x.type1} Ability: {x.ability}")
-    if x.type2 is not None:
-        print(f"Type:{x.type1}/{x.type2} Ability: {x.ability}")
-    print(f"Atk: {round(x.atk)}({round(x.atkb,2)}) Def: {round(x.defense)}({round(x.defb,2)}) SpA: {round(x.spatk)}({round(x.spatkb,2)}) SpD: {round(x.spdef)}({round(x.spdefb,2)}) Spe: {round(x.speed)}({round(x.speedb,2)})")
+        print(f" 🧱Reflect({p1.rfendturn-turn+1} turns left)")   
+    if p1.lightscreen==True:              
+        print(f" 🪟Light Screen({p1.screenend-turn+1} turns left)")        
+    print(f" Lv.{x.level} {x.name}: {x.hp}/{x.maxhp}({round((x.hp/x.maxhp)*100,2)}%)[{x.status}]")
+    if x.teratype is not None:
+        print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item}")
+    if x.teratype is None and x.type2 is None and (p1.ai is False or (True in (p1.ai,p2.ai))):
+        print(f" Type:{x.type1} Ability: {x.ability} Item: {x.item}")
+    if x.teratype is None and x.type2 is not None and (p1.ai is False or (True in (p1.ai,p2.ai))):
+        print(f" Type:{x.type1}/{x.type2} Ability: {x.ability} Item: {x.item}")
+    if p1.ai is False or (True in (p1.ai,p2.ai)):        
+        print(f" Atk: {round(x.atk)}({round(x.atkb,2)}) Def: {round(x.defense)}({round(x.defb,2)}) SpA: {round(x.spatk)}({round(x.spatkb,2)}) SpD: {round(x.spdef)}({round(x.spdefb,2)}) Spe: {round(x.speed)}({round(x.speedb,2)})")
     print("")
-    print(f"{p2.name}:")
+    print(f" {p2.name}:")
     if len(p2.hazard)==0:
-        print("Hazard:",None)
+        print(" Hazard:",None)
     if len(p2.hazard)!=0:
-        print("Hazard:",end=" ")
+        print(" Hazard:",end=" ")
         for i in range(len(p2.hazard)):
             if len(p2.hazard)!=1:
                 print(p2.hazard[i],end=",")
             else:
                 print(p2.hazard[i])
     if p2.reflect==True:
-        print(f"Reflect({p2.rfendturn-p2.reflecturn}turns)")                    
-    print(f"Lv.{y.level} {y.name}: {y.hp}/{y.maxhp}({round((y.hp/y.maxhp)*100,2)}%)[{y.status}] [{y.item}]")
-    if y.type2 is None:
-        print(f"Type:{y.type1} Ability: {y.ability}")
-    if y.type2 is not None:
-        print(f"Type:{y.type1}/{y.type2} Ability: {y.ability}")
-    print(f"Atk: {round(y.atk)}({round(y.atkb,2)}) Def: {round(y.defense)}({round(y.defb,2)}) SpA: {round(y.spatk)}({round(y.spatkb,2)}) SpD: {round(y.spdef)}({round(y.spdefb,2)}) Spe: {round(y.speed)}({round(y.speedb,2)})\n")
+        print(f" 🧱Reflect({p2.rfendturn-turn+1} turns left)")     
+    if p2.lightscreen==True:        
+        print(f" 🪟Light Screen({p2.screenend-turn+1} turns left)")               
+    print(f" Lv.{y.level} {y.name}: {y.hp}/{y.maxhp}({round((y.hp/y.maxhp)*100,2)}%)[{y.status}]")
+    if y.teratype is not None:
+        print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item}")
+    if y.teratype is None and y.type2 is None and (p2.ai is False or (True in (p1.ai,p2.ai))):
+        print(f" Type:{y.type1} Ability: {y.ability} Item: {y.item}")
+    if y.teratype is None and y.type2 is not None and (p2.ai is False or (True in (p1.ai,p2.ai))):
+        print(f" Type:{y.type1}/{y.type2} Ability: {y.ability} Item: {y.item}")
+    if p2.ai is False or (True in (p1.ai,p2.ai)):
+        print(f" Atk: {round(y.atk)}({round(y.atkb,2)}) Def: {round(y.defense)}({round(y.defb,2)}) SpA: {round(y.spatk)}({round(y.spatkb,2)}) SpD: {round(y.spdef)}({round(y.spdefb,2)}) Spe: {round(y.speed)}({round(y.speedb,2)})\n")
     if field.weather=="Primordial Sea" and (x.ability!="Primordial Sea" and y.ability!="Primordial Sea" ):
         field.weather=None
-        print ("The heavy rainfall stopped./n")
+        print (" The heavy rainfall stopped./n")
     if field.weather=="Desolate Land" and (x.ability!="Desolate Land" and  y.ability!="Desolate Land" ):
         field.weather=None
-        print ("The extreme sunlight fade away./n")     
+        print (" The extreme sunlight fade away./n")     
 #FAINTED        
-def faint(mon,mon2,tr1,tr2,field):
+def faint(mon,mon2,trainer,trainer2,field,turn):
     if mon.hp<=0:
         mon.hp=0
         mon.status="Fainted"
-        print(f"\nRefree: {mon.name} is unable to battle!")
-        print(f"\n{tr1.name}'s {mon.name} fainted.\n")
+        if mon.owner==trainer.name:
+            trainer.faintedmon.append(mon)
+        print(f" \n Refree: {mon.name} is unable to battle!")
+        print(f" \n {trainer.name}'s {mon.name} fainted!\n")
         if mon2.ability=="Beast Boost":
-            print(f"{mon2.name}'s {mon2.ability}.")
+            print(f" {mon2.name}'s {mon2.ability}.")
             if "Buzzwole" in mon2.name:
                 atkchange(mon2,0.5)
             if "Kartana" in mon2.name:
@@ -83,28 +95,28 @@ def faint(mon,mon2,tr1,tr2,field):
             if "Nihilego" in mon2.name:
                 spdefchange(mon2,0.5)
         if mon2.ability=="Moxie":
-            print(f"{mon2.name}'s {mon2.ability}.")
+            print(f" {mon2.name}'s {mon2.ability}.")
             atkchange(mon2,0.5)
         if mon2.ability=="As One" and "Ice Rider" in mon2.name:
-            print(f"{mon2.name}'s {mon2.ability}.")
+            print(f" {mon2.name}'s {mon2.ability}.")
             atkchange(mon2,0.5)       
         if mon2.ability=="As One" and "Shadow Rider" in mon2.name:
-            print(f"{mon2.name}'s {mon2.ability}.")
+            print(f" {mon2.name}'s {mon2.ability}.")
             spatkchange(mon2,0.5)        
         if mon2.ability=="Chilling Neigh" :
-            print(f"{mon2.name}'s {mon2.ability}.")
+            print(f" {mon2.name}'s {mon2.ability}.")
             atkchange(mon2,0.5)    
         if mon2.ability=="Grim Neigh" :
-            print(f"{mon2.name}'s {mon2.ability}.")
+            print(f" {mon2.name}'s {mon2.ability}.")
             spatkchange(mon2,0.5)                
-        if mon in tr1.pokemons:
-            tr1.pokemons.remove(mon)
-        if len(tr1.pokemons)!=0:
-            mon=switch(mon,mon2,tr1,tr2,field)
+        if mon in trainer.pokemons:
+            mon.status="Fainted"
+            mon.hp=0
+            trainer.pokemons.remove(mon)
+        if len(trainer.pokemons)!=0:
+            mon=switch(mon,mon2,trainer,trainer2,field,turn)
             if mon.hp<=0:
-                faint(mon,mon2,tr1,tr2,field)
-#        if mon is None:
-#            mon=switch(mon,tr,mon2)
+                faint(mon,mon2,trainer,trainer2,field,turn)
         return mon
     else:
         pass
@@ -123,79 +135,76 @@ def prematch(tr1,tr2):
             alpha1+=1
         if "Primal " in i.name:
             nm=i.name.split(" ")[-1]
-            print(f"{nm}'s Primal Reversion! It reverted to its primal form!\n")
+            print(f" {nm}'s Primal Reversion! It reverted to its primal form!\n")
         if "Mega " in i.name:
             mega1+=1
             if "Charizard" not in i.name:
                 nm=i.name.split(" ")[-1]
-                print(f"{nm}'s {i.item} reacted to {tr1.name}'s Keystone and turned into {i.name}.\n")
+                print(f" {nm}'s {i.item} reacted to {tr1.name}'s Keystone and turned into {i.name}.\n")
             else:
                 if "X" in i.name:
                     nm="Charizard"
-                    print(f"{nm}'s {i.item} reacted to {tr1.name}'s Keystone  and turned into {i.name}.\n")
+                    print(f" {nm}'s {i.item} reacted to {tr1.name}'s Keystone  and turned into {i.name}.\n")
                 else:
                     nm="Charizard"
-                    print(f"{nm}'s {i.item} reacted to {tr1.name}'s Keystone  and turned into {i.name}.\n")
+                    print(f" {nm}'s {i.item} reacted to {tr1.name}'s Keystone  and turned into {i.name}.\n")
     for i in tr2.pokemons:
         if "Alpha " in i.name:
             alpha2+=1
         if "Primal " in i.name:
             nm=i.name.split(" ")[-1]
-            print(f"{nm}'s Primal Reversion! It reverted to its primal form!\n")
+            print(f" {nm}'s Primal Reversion! It reverted to its primal form!\n")
         if "Mega " in i.name:
             mega2+=1
             if "Charizard" not in i.name:
                 nm=i.name.split(" ")[-1]
-                print(f"{nm}'s {i.item} reacted to {tr2.name}'s Keystone  and turned into {i.name}.\n")
+                print(f" {nm}'s {i.item} reacted to {tr2.name}'s Keystone  and turned into {i.name}.\n")
             else:
                 if "X" in i.name:
                     nm="Charizard"
-                    print(f"{nm}'s {i.item} reacted to {tr2.name}'s Keystone  and turned into {i.name}.\n")
+                    print(f" {nm}'s {i.item} reacted to {tr2.name}'s Keystone  and turned into {i.name}.\n")
                 else:
                     nm="Charizard"
-                    print(f"{nm}'s {i.item} reacted to {tr2.name}'s Keystone  and turned into {i.name}.\n")
+                    print(f" {nm}'s {i.item} reacted to {tr2.name}'s Keystone  and turned into {i.name}.\n")
     if mega1==1 and mega2==1:
         vc=random.choice([tr1,tr2])            
-        print(f"{vc.name}: Guess it's gonna be battle of Mega Evolutions!")
+        print(f" {vc.name}: Guess it's gonna be battle of Mega Evolutions!")
     if mega1==1 and mega2==0:   
-        print(f"{tr2.name}: Mega Evolution doesn't mean anything to me.")
+        print(f" {tr2.name}: Mega Evolution doesn't mean anything to me.")
     if mega1==0 and mega2==1:      
-        print(f"{tr1.name}: Let's see if my buddies are ready for your Mega Evolution!")
+        print(f" {tr1.name}: Let's see if my buddies are ready for your Mega Evolution!")
     if alpha1>3:
-        print(f"{tr2.name}: Those giants won't help you wjn against me.")      
+        print(f" {tr2.name}: Those giants won't help you wjn against me.")      
     if alpha2>3:
-         print(f"{tr1.name}: Are you a alpha hunter or something?")         
+         print(f" {tr1.name}: Are you a alpha hunter or something?")         
          
 #ACTION             
 def action(tr):
-       
-    while True:
-        print("\nActions:\n1.Fight\n2.Switch\n3.Forfeit\n4.Pokemons\n5.Smogonify\n")
-        actionx= input(f"{tr.name}: What you wanna do?\n>>")
-        if actionx in ["1","2","3"]:
-            actionx=int(actionx)
-        if actionx=="5":
-            print(showsmogon(tr))
-            action(tr)
-        if actionx=="4":
-            showmon(tr)
-            n=(input("Which pokemon you wanna see?\n>>"))
-            if n in ["1","2","3","4","5","6"]:
-                n=int(n)
-                tr.pokemons[n-1].info()
-                movelist(tr.pokemons[n-1])
+    if tr.ai is False:
+        while True:
+            print("\n Actions:\n 1.Fight\n 2.Switch\n 3.Forfeit\n 4.Pokemons\n 5.Smogonify\n")
+            actionx= input(f"{tr.name}: What you wanna do?\n>>")
+            if actionx in ["1","2","3"]:
+                actionx=int(actionx)
+            if actionx=="5":
+                print(showsmogon(tr))
                 action(tr)
-            else:
-                action(tr)
-        
-        if actionx in [1,2,3]:
-            return actionx    
-            break    
-        else:
-            actionx=random.choices([1,2,3], weights=[99,5,0],k=1)[0]
-            return actionx
-            break
-
+            if actionx=="4":
+                showmon(tr)
+                n=(input("Which pokemon you wanna see?\n>>"))
+                if n in ["1","2","3","4","5","6"]:
+                    n=int(n)
+                    tr.pokemons[n-1].info()
+                    movelist(tr.pokemons[n-1])
+            if actionx in [1,2,3]:
+                return actionx    
+                break    
+            if actionx=="":
+                actionx=random.choices([1,2,3], weights=[99,5,0],k=1)[0]
+                return actionx
+                break
+    if tr.ai is True:
+            return 1        
 def movecat(sss):
     if sss=="Flying":
         return ["Brave Bird","Sky Attack","Air Slash","Roost"] 
@@ -204,93 +213,140 @@ def movecat(sss):
     if sss=="Priority":
         return ["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Protect","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken","Spiky Shield","King's Shield"]
 def randomweather(turn,x,y,field):
-    ch=random.choices(["Clear","Rainy","Cloudy","Sandstorm","Hail","Sunny","Thunderstorm"], weights=[90,5,10,5,5,5,1],k=1)[0]    
+    trn="Normal"
+    ch=random.choices(["Clear","Rainy","Cloudy","Sandstorm","Hail","Sunny","Thunderstorm"], weights=[90,1,10,1,1,1,1],k=1)[0]    
     if ch=="Clear":
-        print("\nThe weather looks clear!\n")
+        print("\n 🌥️The weather looks clear!\n")
     if ch=="Cloudy":
-        print("\nThe weather is very gloomy!\n")      
+        print("\n ☁️The weather is very gloomy!\n")      
     if ch=="Sunny":
-        print("\nThe sunlight is harsh!\n")     
-        field.sunturn=turn
-        field.sunend(x)
-        field.sunend(y)    
+        print("\n ☀️The sunlight is harsh!\n")     
+#        field.sunturn=turn
+#        field.sunend(x,y)   
     if ch=="Hail":
-        print("\nIt's hailing!\n")      
-        field.hailturn=turn
-        field.hailend(x)
-        field.hailend(y)   
+        print("\n 🌨️It's hailing!\n")      
+#        field.hailturn=turn
+#        field.hailend(x,y)
     if ch=="Sandstorm":
-        print("\nThe sandstorm is raging!\n")         
-        field.sandturn=turn
-        field.sandend(x)
-        field.sandend(y)   
+        print("\n 🏜️The sandstorm is raging!\n")
+#        field.sandturn=turn
+#        field.sandend(x,y)
     if ch=="Rainy":
-        print("\nIt's raining!\n")    
-        field.rainturn=turn
-        field.rainend(x)
-        field.rainend(y)         
+        print("\n 🌧️It's raining!\n")    
+#        field.rainturn=turn
+#        field.rainend(x,y)        
     if ch=="Thunderstorm":
-        print("\nThe thunderstorm is getting furious!\n")       
+        print("\n ⛈️The thunderstorm is getting furious!\n")
         ch="Rainy"
-        field.terrain="Electric"
-    return ch
+        trn="Electric"
+    return ch,trn
 #SKIP
 def skip():
     skip=False
     while skip==False:
-        kk=input("\nDo you want to skip this turn?\n>>> ")
+        kk=input("\n Do you want to skip this turn?\n >>> ")
         if kk!=None:
             skip=True
 #BATTLE
 def battle(x,y,tr1,tr2):
     turn=0
     print("===================================================================================")
-    field.weather=randomweather(turn,x,y,field)
-    field.terrain="Normal"
+    field.weather,field.terrain=randomweather(turn,x,y,field)
     intro(tr1,tr2)
     intro(tr2,tr1)
-    entryeff(x,y,tr1,tr2,field)
-    entryeff(y,x,tr2,tr1,field)
+    if x.speed>=y.speed:
+        entryeff(x,y,tr1,tr2,field,turn)
+        entryeff(y,x,tr2,tr1,field,turn)
+        
+    if y.speed>x.speed:
+        entryeff(y,x,tr2,tr1,field,turn)
+        entryeff(x,y,tr1,tr2,field,turn)
     while True:
         flyingmove=movecat("Flying")
         statusmove=movecat("Status")
         turn+=1
         print("===================================================================================")
-        print("TURN:",turn)
+        print(" TURN:",turn)
         print("===================================================================================")
-        print("Weather:",field.weather)
-        print("Terrain:",field.terrain)
-        print(f"\n>>> {tr1.name} vs {tr2.name} <<<\n")
-        print(f"\n>>> Lv.{x.level} {x.name} vs {y.name} Lv.{y.level} <<<\n")
+        if field.weather=="Desolate Land":
+            print(f" Weather: 🌋 Extremely Harsh Sunlight")
+        if field.weather=="Primordial Sea":
+            print(f" Weather: 🌊 Heavy Rain")
+        if field.weather=="Rainy" and field.terrain=="Grassy":
+            print(f" Weather: 🐸 Swampy")
+        if field.weather=="Rainy" and field.terrain=="Electric":
+            print(f" Weather: ⛈️ Thunderstorm ({field.rainendturn-turn} turns left)")
+        if field.weather=="Strong Wind" and field.terrain=="Electric":
+            print(f" Weather: 🌪️ Hurricane")
+        if field.weather=="Hail":
+            print(f" Weather: ❄️ {field.weather} ({field.hailendturn-turn} turns left)")
+        if field.weather=="Clear":
+            print(f" Weather: 🌥️ {field.weather}")
+            ch=random.randint(1,100)
+            if 95>=ch>90:
+                print(" ☀️ The sun is so bright all of a sudden!")
+                field.weather="Sunny"  
+            if ch>95:
+                print(" 🌥️ The weather got cloudy all of a sudden!")
+                field.weather="Cloudy"
+        if field.weather=="Cloudy":
+            print(f" Weather: ☁️ {field.weather}")
+            ch=random.randint(1,100)
+            if 90>=ch>85:
+                print(" 🌥️ The clouds subsided!")
+                field.weather="Clear"     
+            if 95>=ch>90:
+                print(" 🌨️ It started to hail!")
+                field.weather="Hail"        
+            if ch>95:
+                print(" 🌧️ It started to rain!")
+                field.weather="Rainy"        
+        if field.weather=="Rainy" and field.terrain not in ["Electric","Grassy"]:
+            print(f" Weather: ☔ {field.weather} ({field.rainendturn-turn} turns left)")
+            ch=random.randint(1,100)
+            if ch>95:
+                print(" ⛈️ A thunderstorm was created suddenly!")
+                field.weather="Rainy"
+                field.terrain="Electric"                        
+        if field.weather=="Sunny":
+            print(f" Weather: ☀️ {field.weather} ({field.sunendturn-turn} turns left)")
+            ch=random.randint(1,100)
+            if ch>95:
+                print(" 🏜️ A sandstorm was created suddenly!")
+                field.weather="Sandstorm"
+        if field.weather=="Sandstorm":
+            print(f" Weather: 🏜️ {field.weather} ({field.sandendturn-turn} turns left)")    
+        if field.terrain=="Misty":      
+            print(" Terrain: 🌸 "+field.terrain)
+        if field.terrain=="Psychic":      
+            print(" Terrain: 👁️ "+field.terrain)
+        if field.terrain=="Normal":      
+            print(" Terrain: 🌐 "+field.terrain)
+        if field.terrain=="Electric":      
+            print(" Terrain: ⚡ "+field.terrain)
+        if field.terrain=="Grassy":      
+            print(" Terrain: 🌿 "+field.terrain)
+        print(f" \n ⏩⏩ {tr1.name} 🆚 {tr2.name} ⏪⏪\n")
+        print(f" \n ⏩⏩ Lv.{x.level} {x.name} 🆚 {y.name} Lv.{y.level} ⏪⏪\n")
         prebuff(x,tr1,turn,field)
         prebuff(y,tr2,turn,field)
         switchAI(x,y,tr1,tr2, field)
         switchAI(y,x,tr2,tr1,field)
-        score(x,y,p1,p2)
+        #score(x,y,p1,p2,turn)
         action1=action(tr1)
         action2=action(tr2)
         check=len(moveAI(y,x,tr2,tr1,field)[1])
         check2=len(moveAI(x,y,tr1,tr2,field)[1])
         if p1AI is True:
-            oppo=moveAI(y,x,tr2,tr1,field)[2]
-            my=moveAI(x,y,tr1,tr2,field)
-            if x.ability=="Natural Cure" and x.status!="Alive" and len(tr1.pokemons)>1:
-                action1=2
-            if x.ability=="Regenerator" and x.hp<=(x.maxhp/2) and len(tr1.pokemons)>1:
-                action1=2
+            action1=decision(x,y,tr1,tr2,field)
         if p2AI is True:
-            my=moveAI(y,x,tr2,tr1,field)
-            oppo=moveAI(x,y,tr1,tr2,field)[1]  
-            if y.ability=="Natural Cure" and y.status!="Alive" and len(tr2.pokemons)>1:
-                action2=2
-            if y.ability=="Regenerator" and y.hp<=(y.maxhp/2) and len(tr2.pokemons)>1:
-                action2=2     
+            action2=decision(y,x,tr2,tr1,field)
         #print(action1,action2)
         if  action1==3 and action2!=3:
-            print(f"{tr1.name} forfeited.")
+            print(f" {tr1.name} forfeited.")
             break
         if  action2==3 and action1!=3:
-            print(f"{tr2.name} forfeited.")
+            print(f" {tr2.name} forfeited.")
             break
         if action1==2 and len(tr1.pokemons)==1:
             action1=1
@@ -298,22 +354,22 @@ def battle(x,y,tr1,tr2):
             action2=1
 #IF BOTH CHOOSES TO ATTACK
         if action1==1 and action2==1:
-            score(x,y,p1,p2)
+            score(x,y,p1,p2,turn)
             choice1=fchoice(x,tr1)
             choice2=fchoice(y,tr2)    
             prioritymove=movecat("Priority")
-            if p1AI==True:              
-                choice1=moveAI(x,y,tr1,tr2,field)[0]         
-            if p1AI==False:     
+            if p1.ai==True:              
+                choice1=moveAI(x,y,tr1,tr2,field)[0]
+            if p1.ai==False:     
                 choice1=x.moves[choice1-1]
             if x.ability=="Prankster":
                 prioritymove+=statusmove
             if x.ability=="Gale Wings":
                 prioritymove+=flyingmove
             prioritymove=movecat("Priority")   
-            if p2AI==True:  
+            if p2.ai==True:  
                 choice2=moveAI(y,x,tr2,tr1,field)[0]     
-            if p2AI==False:        
+            if p2.ai==False:        
                 choice2=y.moves[choice2-1]
             if y.ability=="Prankster":
                 prioritymove+=statusmove
@@ -327,37 +383,37 @@ def battle(x,y,tr1,tr2):
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if x.hp<=0:
-                    x=faint(x,y,tr1,tr2,field)
+                    x=faint(x,y,tr1,tr2,field,turn)
                     if len(tr1.pokemons)==0:
-                        print(tr2.name,"wins.")
+                        print(" "+tr2.name,"wins.")
                         break
                 elif y.hp>0:
                      
                     y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                    effects (x,y)
-                    effects(y,x)
+                    effects (x,y,turn)
+                    effects(y,x,turn)
                     statchange(x,tr1,turn)
                     statchange(y,tr2,turn)
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                 if y.hp<=0:
-                    y=faint(y,x,tr2,tr1,field)
-                    effects(x,y)
+                    y=faint(y,x,tr2,tr1,field,turn)
+                    effects(x,y,turn)
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                     if len(tr2.pokemons)==0:
-                        print(tr1.name,"wins.")
+                        print(" "+tr1.name,"wins.")
                         break
                 skip()
 #P2 PRIORITY 
@@ -368,37 +424,37 @@ def battle(x,y,tr1,tr2):
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if y.hp<=0:
-                    y=faint(y,x,tr2,tr1,field)
+                    y=faint(y,x,tr2,tr1,field,turn)
                     if len(tr2.pokemons)==0:
-                        print(tr1.name,"wins.")
+                        print(" "+tr1.name,"wins.")
                         break
                 elif x.hp>0:
                      
                     x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                    effects(y,x)
-                    effects (x,y)
+                    effects(y,x,turn)
+                    effects (x,y,turn)
                     statchange(x,tr1,turn)
                     statchange(y,tr2,turn)
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                 if x.hp<=0:
-                    x=faint(x,y,tr1,tr2,field)
-                    effects(y,x)
+                    x=faint(x,y,tr1,tr2,field,turn)
+                    effects(y,x,turn)
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                     if len(tr1.pokemons)==0:
-                        print(tr2.name,"wins.")
+                        print(" "+tr2.name,"wins.")
                         break
                 skip()
 #P1 FAST
@@ -409,38 +465,38 @@ def battle(x,y,tr1,tr2):
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if x.hp<=0:
-                    x=faint(x,y,tr1,tr2,field)
+                    x=faint(x,y,tr1,tr2,field,turn)
                     if len(tr1.pokemons)==0:
-                        print(tr2.name,"wins.")
+                        print(" "+tr2.name,"wins.")
                         break
                 elif y.hp>0:
                      
                     
                     y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                    effects (x,y)
-                    effects(y,x)
+                    effects (x,y,turn)
+                    effects(y,x,turn)
                     statchange(x,tr1,turn)
                     statchange(y,tr2,turn)
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                 if y.hp<=0:
-                    y=faint(y,x,tr2,tr1,field)
-                    effects(x,y)
+                    y=faint(y,x,tr2,tr1,field,turn)
+                    effects(x,y,turn)
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                     if len(tr2.pokemons)==0:
-                        print(tr1.name,"wins.")
+                        print(" "+tr1.name,"wins.")
                         break
                 skip()
 #P2 FAST (TRICK ROOM)
@@ -451,37 +507,37 @@ def battle(x,y,tr1,tr2):
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if x.hp<=0:
-                    x=faint(x,y,tr1,tr2,field)
+                    x=faint(x,y,tr1,tr2,field,turn)
                     if len(tr1.pokemons)==0:
-                        print(tr2.name,"wins.")
+                        print(" "+tr2.name,"wins.")
                         break
                 elif y.hp>0:
                      
                     y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                    effects (x,y)
-                    effects(y,x)
+                    effects (x,y,turn)
+                    effects(y,x,turn)
                     statchange(x,tr1,turn)
                     statchange(y,tr2,turn)
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                 if y.hp<=0:
-                    y=faint(y,x,tr2,tr1,field)
-                    effects(x,y)
+                    y=faint(y,x,tr2,tr1,field,turn)
+                    effects(x,y,turn)
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                     if len(tr2.pokemons)==0:
-                        print(tr1.name,"wins.")
+                        print(" "+tr1.name,"wins.")
                         break
                 skip()
 #P2 FAST
@@ -492,37 +548,37 @@ def battle(x,y,tr1,tr2):
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if y.hp<=0:
-                    y=faint(y,x,tr2,tr1,field)
+                    y=faint(y,x,tr2,tr1,field,turn)
                     if len(tr2.pokemons)==0:
-                        print(tr1.name,"wins.")
+                        print(" "+tr1.name,"wins.")
                         break
                 elif x.hp>0:
                      
                     x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                    effects(y,x)
-                    effects (x,y)
+                    effects(y,x,turn)
+                    effects (x,y,turn)
                     statchange(x,tr1,turn)
                     statchange(y,tr2,turn)
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                 if x.hp<=0:
-                    x=faint(x,y,tr1,tr2,field)
-                    effects(y,x)
+                    x=faint(x,y,tr1,tr2,field,turn)
+                    effects(y,x,turn)
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                     if len(tr1.pokemons)==0:
-                        print(tr2.name,"wins.")
+                        print(" "+tr2.name,"wins.")
                         break
                 skip()
 #P2 FAST (TRICK ROOM)
@@ -533,114 +589,114 @@ def battle(x,y,tr1,tr2):
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if y.hp<=0:
-                    y=faint(y,x,tr2,tr1,field)
+                    y=faint(y,x,tr2,tr1,field,turn)
                     if len(tr2.pokemons)==0:
-                        print(tr1.name,"wins.")
+                        print(" "+tr1.name,"wins.")
                         break
                 elif x.hp>0:
                      
                     x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                    effects(y,x)
-                    effects (x,y)
+                    effects(y,x,turn)
+                    effects (x,y,turn)
                     statchange(x,tr1,turn)
                     statchange(y,tr2,turn)
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                     if x.hp<=0:
-                        x=faint(x,y,tr1,tr2,field)
+                        x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
-                            print(tr2.name,"wins.")
+                            print(" "+tr2.name,"wins.")
                             break
                 if x.hp<=0:
-                    x=faint(x,y,tr1,tr2,field)
-                    effects(y,x)
+                    x=faint(x,y,tr1,tr2,field,turn)
+                    effects(y,x,turn)
                     if y.hp<=0:
-                        y=faint(y,x,tr2,tr1,field)
+                        y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
-                            print(tr1.name,"wins.")
+                            print(" "+tr1.name,"wins.")
                             break
                     if len(tr1.pokemons)==0:
-                        print(tr2.name,"wins.")
+                        print(" "+tr2.name,"wins.")
                         break
                 skip()
 #P1 SWITCH AND P2 ATTACK                
         elif action1==2 and action2==1:
             choice1=None
-            score(x,y,p1,p2)
+            score(x,y,p1,p2,turn)
             choice2=fchoice(y,tr2)  
-            if p2AI==True:             
+            if p2.ai==True:             
                 choice2=moveAI(y,x,tr2,tr1,field)[0]    
-            if p2AI==False:
-                choice2=y.moves[choice2-1]                  
+            if p2.ai==False:
+                choice2=y.moves[choice2-1]
             weather(y,x)
-            x=switch(x,y,tr1,tr2,field)
+            x=switch(x,y,tr1,tr2,field,turn)
             y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-            effects(x,y)
-            effects(y,x)
+            effects(x,y,turn)
+            effects(y,x,turn)
             statchange(x,tr1,turn)
             statchange(y,tr2,turn)
             if y.hp<=0:
-                y=faint(y,x,tr2,tr1,field)
+                y=faint(y,x,tr2,tr1,field,turn)
                 if len(tr2.pokemons)==0:
-                    print(tr1.name,"wins.")
+                    print(" "+tr1.name,"wins.")
                     break
             if x.hp<=0:
-                x=faint(x,y,tr1,tr2,field)
+                x=faint(x,y,tr1,tr2,field,turn)
                 if len(tr1.pokemons)==0:
-                    print(tr2.name,"wins.")
+                    print(" "+tr2.name,"wins.")
                     break
             y.protect=False
             skip()
 #P1 ATTACKS AND P2 SWITCHES                
         elif action1==1 and action2==2:
             choice2=None
-            score(x,y,p1,p2)
+            score(x,y,p1,p2,turn)
             choice1=fchoice(x,tr1)
-            if p1AI==True:
+            if p1.ai==True:
                 choice1=moveAI(x,y,tr1,tr2,field)[0]  
-            if p1AI ==False:
+            if p1.ai==False:
                 choice1=x.moves[choice1-1]           
             weather(y,x)
-            y=switch(y,x,tr2,tr1,field)
+            y=switch(y,x,tr2,tr1,field,turn)
             x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
             if x.hp<=0:
-                x=faint(x,y,tr1,tr2,field)
+                x=faint(x,y,tr1,tr2,field,turn)
                 if len(tr1.pokemons)==0:
-                    print(tr2.name,"wins.")
+                    print(" "+tr2.name,"wins.")
                     break
-            effects(y,x)
-            effects(x,y)
+            effects(y,x,turn)
+            effects(x,y,turn)
             statchange(x,tr1,turn)
             statchange(y,tr2,turn)
             if x.hp<=0:
-                x=faint(x,y,tr1,tr2,field)
+                x=faint(x,y,tr1,tr2,field,turn)
                 if len(tr1.pokemons)==0:
-                    print(tr2.name,"wins.")
+                    print(" "+tr2.name,"wins.")
                     break
             if y.hp<=0:
-                y=faint(y,x,tr2,tr1,field)
+                y=faint(y,x,tr2,tr1,field,turn)
                 if len(tr2.pokemons)==0:
-                    print(tr1.name,"wins.")
+                    print(" "+tr1.name,"wins.")
                     break
             x.protect=False
             skip()
 #IF BOTH SWITCHES                
         elif action1==2 and action2==2:
-            y=switch(y,x,tr2,tr1,field)
-            x=switch(x,y,tr1,tr2,field)       
-            effects(y,x)
+            y=switch(y,x,tr2,tr1,field,turn)
+            x=switch(x,y,tr1,tr2,field,turn)       
+            effects(y,x,turn)
             if y.hp<=0:
-                y=faint(y,x,tr2,tr1,field)
+                y=faint(y,x,tr2,tr1,field,turn)
                 if len(tr2.pokemons)==0:
-                    print(tr1.name,"wins.")
+                    print(" "+tr1.name,"wins.")
                     break
-            effects(x,y)              
+            effects(x,y,turn)              
             if x.hp<=0:
-                x=faint(x,y,tr1,tr2,field)
+                x=faint(x,y,tr1,tr2,field,turn)
                 if len(tr1.pokemons)==0:
-                    print(tr2.name,"wins.")
+                    print(" "+tr2.name,"wins.")
                     break   
                 skip()                    

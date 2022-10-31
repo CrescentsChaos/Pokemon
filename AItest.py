@@ -1,3 +1,5 @@
+#pylint:disable=W0613
+#pylint:disable=C0103
 #pylint:disable=C0321
 #pylint:disable=C0301
 #pylint:disable=W0612
@@ -258,32 +260,35 @@ def AI(self=None,other=None,tr1=None,tr2=None):
     
 def moveAI(self,other,mtr,otr,field):
     mymove=[]
-    mymove+=self.moves
+    if self.dmax is True:
+        mymove+=self.maxmove
+    if self.dmax is False:
+        mymove+=self.moves
     types=[]
     mytypes=[]
     
-    normalmoves=["Double Edge","Return","Body Slam","Boomburst","Crush Claw","Crush Grip","Dizzy Punch","Egg Bomb","Explosion","Extreme Speed","Hyper Voice","Facade","Multi-Attack","Strength","Hyper Beam","Giga Impact","Relic Song","Techno Blast","Weather Ball","Breakneck Blitz"]
-    firemoves=["Fire Blast","Flare Blitz","Flamethrower","Magma Storm","Eruption","Lava Plume","Fire Punch","Blaze Kick","Fire Fang","Fire Lash","Heat Crash","Pyro Ball","Raging Fury","Sacred Fire","V-create","Blast Burn","Blue Flare","Fiery Dance","Fusion Flare","Heat Wave","Inferno","Mystical Fire","Searing Shot","Inferno Overdrive","Armor Cannon","Bitter Blade"]
-    watermoves=["Hydro Pump","Surf","Liquidation","Flip Turn","Hydro Cannon","Muddy Water","Origin Pulse","Scald","Snipe Shot","Sparkling Aria","Steam Eruption","Waterfall","Water Spout","Aqua Jet","Crabhammer","Fishious Rend","Razor Shell","Surging Strikes","Water Shuriken","Wave Crash","Hydro Vortex","Aqua Tail"]
-    electricmoves=["Thunderbolt","Thunder","Volt Switch","Aura Wheel","Bolt Beak","Bolt Strike","Fusion Bolt","Plasma Fists","Thunder Fang","Thunder Punch","Volt Tackle","Electro Ball","Electroweb","Zap Cannon","Gigavolt Havoc","Wild Charge","Overdrive"]
-    groundmoves=["Earthquake","Earth Power","Scorching Sands","Sandsear Storm","Bone Rush","Drill Run","Headlong Rush","High Horsepower","Land's Wrath","Precipice Baldes","Stomping Tantrum","Thousand Arrows","Thousand Waves","Tectonic Rage","Magnitude","Bulldoze"]
-    icemoves=["Ice Beam","Blizzard","Icicle Crash","Freeze Shock","Ice Fang","Ice Punch","Ice Shard","Icicle Spear","Mountain Gale","Freeze Dry","Frost Breath","Ice Burn","Subzero Slammer"]
-    fightingmoves=["Superpower","Close Combat","High Jump Kick","Aura Sphere","Final Gambit","Focus Blast","Secret Sword","Arm Thrust","Body Press","Brick Break","Drain Punch","Mach Punch","Dynamic Punch","Flying Press","Force Palm","Hammer Arm","Power-up Punch","Sacred Sword","Seismic Toss","Sky Uppercutt","Triple Arrows","All-Out Pummeling","Meteor Assault"]
-    psychicmoves=["Psychic","Extrasensory","Psychic Fangs","Psycho Cut","Psyshield Bash","Zen Headbutt","Esper Wing","Luster Purge","Mist Ball","Psycho Boost","Psystrike","Stored Power","Shattered Psyche","Prismatic Laser"]
-    ghostmoves=["Shadow Ball","Shadow Sneak","Shadow Claw","Spirit Shackle","Bitter Malice","Hex","Infernal Parade","Phantom Force","Shadow Force","Never-ending Nightmare","Moongeist Beam"]
-    fairymoves=["Moonblast","Dazzling Gleam","Play Rough","Spirit Break","Light of Ruin","Twinkle Tackle"]
-    grassmoves=["Giga Drain","Leaf Blade","Chloroblast","Frenzy Plant","Energy Ball","Grass Knot","Leaf Storm","Leaf Tornado","Seed Flare","Solar Beam","Bullet Seed","Drum Beating","Grassy Glide","Horn Leech","Razor Leaf","Seed Bomb","Wood Hammer","Power Whip","Bloom Doom","Petal Dance","Apple Acid","Grav Apple"]
-    rockmoves=["Stone Edge","Accelerock","Diamond Storm","Head Smash","Rock Blast","Rock Slide","Ancient Power","Power Gem","Splintered Stromshards","Continental Crush","Stone Axe"]
-    darkmoves=["Dark Pulse","Night Slash","Crunch","Night Daze","Snarl","Assurance","Ceaseless Edge","Darkest Lariat","Throat Chop","Foul Play","Knock Off","Hyperspace Fury","Sucker Punch","Wicked Blow","Black Hole Eclipse"]
-    dragonmoves=["Draco Meteor","Dragon Pulse","Dragon Claw","Outrage","Core Enforcer","Roar of Time","Special Rend","Devastating Drake","Dragon Energy"]
-    bugmoves=["Megahorn","Pin Missile","Bug Buzz","U-Turn","X-Scissor","Leech Life","Savage Spin-Out"]
-    poisonmoves=["Poison Jab","Sludge Bomb","Cross Poison","Sludge Wave","Dire Claw","Gunk Shot","Belch","Poison Fang","Poison Tail","Venoshock","Acid Downpour"]
-    steelmoves=["Flash Cannon","Meteor Mash","Bullet Punch","Steel Beam","Doom Desire","Gyro Ball","Heavy Slam","Iron Head","Iron Tail","Steel Wing","Corkscrew Crash","Sunsteel Strike"]
-    flyingmoves=["Brave Bird","Sky Attack","Acrobatics","Beak Blast","Dragon Ascent","Drill Peck","Dual Wingbeat","Supersonic Skystrike"]
+    normalmoves=["Double Edge","Return","Body Slam","Boomburst","Crush Claw","Crush Grip","Dizzy Punch","Egg Bomb","Explosion","Extreme Speed","Hyper Voice","Facade","Multi-Attack","Strength","Hyper Beam","Giga Impact","Relic Song","Techno Blast","Weather Ball","Breakneck Blitz","Skull Bash","Metronome","Head Charge","Max Strike"]
+    firemoves=["Fire Blast","Flare Blitz","Flamethrower","Magma Storm","Eruption","Lava Plume","Fire Punch","Blaze Kick","Fire Fang","Fire Lash","Heat Crash","Pyro Ball","Raging Fury","Sacred Fire","V-create","Blast Burn","Blue Flare","Fiery Dance","Fusion Flare","Heat Wave","Inferno","Mystical Fire","Searing Shot","Inferno Overdrive","Armor Cannon","Bitter Blade","Max Flare","G-Max Wildfire"]
+    watermoves=["Hydro Pump","Surf","Liquidation","Flip Turn","Hydro Cannon","Muddy Water","Origin Pulse","Scald","Snipe Shot","Sparkling Aria","Steam Eruption","Waterfall","Water Spout","Aqua Jet","Crabhammer","Fishious Rend","Razor Shell","Surging Strikes","Water Shuriken","Wave Crash","Hydro Vortex","Aqua Tail","Max Geyser"]
+    electricmoves=["Thunderbolt","Thunder","Volt Switch","Aura Wheel","Bolt Beak","Bolt Strike","Fusion Bolt","Plasma Fists","Thunder Fang","Thunder Punch","Volt Tackle","Electro Ball","Electroweb","Zap Cannon","Gigavolt Havoc","Wild Charge","Overdrive","Max Lightning"]
+    groundmoves=["Earthquake","Earth Power","Scorching Sands","Sandsear Storm","Bone Rush","Drill Run","Headlong Rush","High Horsepower","Land's Wrath","Precipice Baldes","Stomping Tantrum","Thousand Arrows","Thousand Waves","Tectonic Rage","Magnitude","Bulldoze","Max Quake"]
+    icemoves=["Ice Beam","Blizzard","Icicle Crash","Freeze Shock","Ice Fang","Ice Punch","Ice Shard","Icicle Spear","Mountain Gale","Freeze Dry","Frost Breath","Ice Burn","Subzero Slammer","Glacial Lance","Max Hailstorm","G-Max Resonance"]
+    fightingmoves=["Superpower","Close Combat","High Jump Kick","Aura Sphere","Final Gambit","Focus Blast","Secret Sword","Arm Thrust","Body Press","Brick Break","Drain Punch","Mach Punch","Dynamic Punch","Flying Press","Force Palm","Hammer Arm","Power-up Punch","Sacred Sword","Seismic Toss","Sky Uppercutt","Triple Arrows","All-Out Pummeling","Meteor Assault","Submission","Max Knuckle","G-Max Chi Strike"]
+    psychicmoves=["Psychic","Extrasensory","Psychic Fangs","Psycho Cut","Psyshield Bash","Zen Headbutt","Esper Wing","Luster Purge","Mist Ball","Psycho Boost","Psystrike","Stored Power","Shattered Psyche","Prismatic Laser","Expanding Force","Max Mindstorm"]
+    ghostmoves=["Shadow Ball","Shadow Sneak","Shadow Claw","Spirit Shackle","Bitter Malice","Hex","Infernal Parade","Phantom Force","Shadow Force","Never-ending Nightmare","Moongeist Beam","Astral Barrage","Max Phantasm"]
+    fairymoves=["Moonblast","Dazzling Gleam","Play Rough","Spirit Break","Light of Ruin","Twinkle Tackle","Spirit Break","Max Starfall"]
+    grassmoves=["Giga Drain","Leaf Blade","Chloroblast","Frenzy Plant","Energy Ball","Grass Knot","Leaf Storm","Leaf Tornado","Seed Flare","Solar Beam","Bullet Seed","Drum Beating","Grassy Glide","Horn Leech","Razor Leaf","Seed Bomb","Wood Hammer","Power Whip","Bloom Doom","Petal Dance","Apple Acid","Grav Apple","Max Overgrowth"]
+    rockmoves=["Stone Edge","Accelerock","Diamond Storm","Head Smash","Rock Blast","Rock Slide","Ancient Power","Power Gem","Splintered Stromshards","Continental Crush","Stone Axe","Meteor Beam","Rock Wrecker","Max Rockfall"]
+    darkmoves=["Dark Pulse","Night Slash","Crunch","Night Daze","Snarl","Assurance","Ceaseless Edge","Darkest Lariat","Throat Chop","Foul Play","Knock Off","Hyperspace Fury","Sucker Punch","Wicked Blow","Black Hole Eclipse","False Surrender","Max Darkness"]
+    dragonmoves=["Draco Meteor","Dragon Pulse","Dragon Claw","Outrage","Core Enforcer","Roar of Time","Special Rend","Devastating Drake","Dragon Energy","Breaking Swipe","Dual Chop","Dragon Darts","Max Wyrmwind"]
+    bugmoves=["Megahorn","Pin Missile","Bug Buzz","U-Turn","X-Scissor","Leech Life","Savage Spin-Out","Max Flutterby"]
+    poisonmoves=["Poison Jab","Sludge Bomb","Cross Poison","Sludge Wave","Dire Claw","Gunk Shot","Belch","Poison Fang","Poison Tail","Venoshock","Acid Downpour","Max Ooze"]
+    steelmoves=["Flash Cannon","Meteor Mash","Bullet Punch","Steel Beam","Doom Desire","Gyro Ball","Heavy Slam","Iron Head","Iron Tail","Steel Wing","Corkscrew Crash","Sunsteel Strike","Max Steelspike","Behemoth Bash","Behemoth Blade"]
+    flyingmoves=["Brave Bird","Sky Attack","Acrobatics","Beak Blast","Dragon Ascent","Drill Peck","Dual Wingbeat","Supersonic Skystrike","Aeroblast","Hurricane","Oblivion Wing","Air Slash","Max Airstream"]
     healingmoves=["Recover","Roost","Synthesis","Morning Sun","Moonlight","Slack Off","Soft-Boiled","Milk Drink","Rest","Lunar Blessing"]
     priorityatkmoves=["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken"]
     statuschangemoves=["Will-O-Wisp","Thunder Wave","Toxic"]  
-    statusmoves=["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect"]  
+    statusmoves=["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect","Autotomize"]  
     protectmoves=["King's Shield","Protect","Spiky Shield"]
     prioritymoves=["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Protect","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken","Spiky Shield","King's Shield"]
     atkboost=["Swords Dance","Dragon Dance","Bulk Up","Belly Drum","Shell Smash","Victory Dance"] 
@@ -320,8 +325,13 @@ def moveAI(self,other,mtr,otr,field):
     myweaklist=[]
     myresistlist=[]
     myimmunelist=[]
+    myimmunemove=[]
     stablist=[]
     mystablist=[]
+    emove=[]      
+    resmove=[]
+    immunemove=[]
+    use=None
     bugres=['Grass', 'Fighting', 'Ground']
     bugwk=['Rock', 'Flying', 'Fire']
     #water✓
@@ -543,23 +553,35 @@ def moveAI(self,other,mtr,otr,field):
     mystablist+=("Tera Blast","Judgement")
     mystablist=list(set(mymove).intersection(mystablist))
     weaklist=list(set(weaklist)-set(resistlist)-set(immunelist))
-    #print(f"\n{other.name} is weak against: {weaklist}")  
-    emove=[]      
-    immunemove=[]
-    if "Steel" in myimmunelist:
-        immunemove+=list(set(mymove).intersection (steelmoves))
-    if "Dark" in myimmunelist:
-        immunemove+=list(set(mymove).intersection (darkmoves))        
-    if "Ghost" in myimmunelist:
-        immunemove+=list(set(mymove).intersection (ghostmoves))        
-    if "Fairy" in myimmunelist:
-        immunemove+=list(set(mymove).intersection (fairymoves))       
-    if "Normal" in myimmunelist:
-        immunemove+=list(set(mymove).intersection(normalmoves))         
-    if "Flying" in myimmunelist:
-        immunemove+=list(set(mymove).intersection (flyingmoves))        
-    if "Ground" in myimmunelist:
-        immunemove+=list(set(mymove).intersection (groundmoves))        
+    #IMMUNEMOVES AGAINST OPPONENT
+    if "Steel" in immunelist:
+        myimmunemove+=list(set(mymove).intersection (steelmoves))
+    if "Dark" in immunelist:
+        myimmunemove+=list(set(mymove).intersection (darkmoves))        
+    if "Ghost" in immunelist:
+        myimmunemove+=list(set(mymove).intersection (ghostmoves))        
+    if "Fairy" in immunelist:
+        myimmunemove+=list(set(mymove).intersection (fairymoves))       
+    if "Normal" in immunelist:
+        myimmunemove+=list(set(mymove).intersection(normalmoves))         
+    if "Flying" in immunelist:
+        myimmunemove+=list(set(mymove).intersection (flyingmoves))        
+    if "Ground" in immunelist:
+        myimmunemove+=list(set(mymove).intersection (groundmoves))   
+    #if "Steel" in myimmunelist:
+#        myimmunemove+=list(set(mymove).intersection (steelmoves))
+#    if "Dark" in myimmunelist:
+#        myimmunemove+=list(set(mymove).intersection (darkmoves))        
+#    if "Ghost" in myimmunelist:
+#        myimmunemove+=list(set(mymove).intersection (ghostmoves))        
+#    if "Fairy" in myimmunelist:
+#        myimmunemove+=list(set(mymove).intersection (fairymoves))       
+#    if "Normal" in myimmunelist:
+#        myimmunemove+=list(set(mymove).intersection(normalmoves))         
+#    if "Flying" in myimmunelist:
+#        myimmunemove+=list(set(mymove).intersection (flyingmoves))        
+#    if "Ground" in myimmunelist:
+#        myimmunemove+=list(set(mymove).intersection (groundmoves))             
     if "Water" in weaklist:
         emove+=list(set(mymove). intersection(watermoves))
     if "Fire" in weaklist:
@@ -596,10 +618,47 @@ def moveAI(self,other,mtr,otr,field):
         emove+=list(set(mymove). intersection(ghostmoves))        
     if "Dark" in weaklist:
         emove+=list(set(mymove). intersection(darkmoves))        
-    use=None 
-    mymove=list(set(mymove)-set(immunemove))
-    emove=list(set(emove)-set(immunemove))
-    mystablist=list(set(mystablist)-set(immunemove))
+    if "Water" in resistlist:
+        resmove+=list(set(mymove). intersection(watermoves))
+    if "Fire" in resistlist:
+        resmove+=list(set(mymove). intersection(firemoves))
+    if "Grass" in resistlist:
+        resmove+=list(set(mymove). intersection(grassmoves))          
+    if "Rock" in resistlist:
+        resmove+=list(set(mymove). intersection(rockmoves))     
+    if "Ground" in resistlist:
+        resmove+=list(set(mymove). intersection(groundmoves)) 
+    if "Electric" in resistlist:
+        resmove+=list(set(mymove). intersection(electricmoves))              
+    if "Ice" in resistlist:
+        resmove+=list(set(mymove). intersection(icemoves))
+    if "Dragon" in resistlist:
+        resmove+=list(set(mymove). intersection(dragonmoves))     
+    if "Normal" in resistlist:
+        resmove+=list(set(mymove). intersection(normalmoves))     
+    if "Steel" in resistlist:
+        resmove+=list(set(mymove). intersection(steelmoves))          
+    if "Fairy" in resistlist:
+        resmove+=list(set(mymove). intersection(fairymoves))            
+    if "Poison" in resistlist:
+        resmove+=list(set(mymove). intersection(poisonmoves))        
+    if "Fighting" in resistlist:
+        resmove+=list(set(mymove). intersection(fightingmoves))        
+    if "Flying" in resistlist:
+        resmove+=list(set(mymove). intersection(flyingmoves))        
+    if "Bug" in resistlist:
+        resmove+=list(set(mymove). intersection(bugmoves))        
+    if "Psychic" in resistlist:
+        resmove+=list(set(mymove). intersection(psychicmoves))       
+    if "Ghost" in resistlist:
+        resmove+=list(set(mymove). intersection(ghostmoves))        
+    if "Dark" in resistlist:
+        resmove+=list(set(mymove). intersection(darkmoves))                
+    #use=None 
+    resmove=list(set(resmove)-set(emove)-set(myimmunemove))
+    mymove=list(set(mymove)-set(myimmunemove))
+    emove=list(set(emove)-set(myimmunemove))
+    mystablist=list(set(mystablist)-set(myimmunemove)-set(resmove))
     eheal=list(set(mymove).intersection(healingmoves))
     eprior=list(set(mymove).intersection(priorityatkmoves))
     superduper=list(set(emove).intersection(mystablist))
@@ -609,9 +668,13 @@ def moveAI(self,other,mtr,otr,field):
         mymove=list(set(mymove)-set(weathermoves))
     if self.hp==self.maxhp:
         mymove=list(set(mymove)-set(healingmoves))
+    if self.canfakeout is False:
+        mymove.remove("Fake Out")
     if len(mtr.hazard)==0:
         if "Defog" in mymove:
-            mymove.remove("Defog")        
+            mymove.remove("Defog")       
+    if self.choiced is True:
+        mymove=list(set(mymove)-set(mymove). intersection(statusmoves))             
     if "Stealth Rock" in otr.hazard:
         if "Stealth Rock" in mymove:
             mymove.remove("Stealth Rock")
@@ -653,19 +716,17 @@ def moveAI(self,other,mtr,otr,field):
     if self.protect!=False:       
         mymove=list(set(mymove)-set(protectmoves))  
     if other.ability in ["Water Absorb","Storm Drain"]:
-        mymove=list(set(mymove)-set(watermoves))
+        mymove=list(set(mymove)-(set(mymove).intersection(watermoves)))
         emove=list(set(emove)-set(watermoves))  
         mystablist=list(set(mystablist)-set(watermoves))
     if other.ability in ["Volt Absorb","Lightning Rod"]:
-        mymove=list(set(mymove)-set(electricmoves))  
+        mymove=list(set(mymove)-(set(mymove).intersection(electricmoves)))
         emove=list(set(emove)-set(electricmoves))       
         mystablist=list(set(mystablist)-set(electricmoves)) 
     if other.ability=="Flash Fire":       
-        mymove=list(set(mymove)-set(firemoves)) 
-        emove=list(set(emove)-set(firemoves)) 
-        mystablist=list(set(mystablist)-set(firemoves)) 
-    if (other.type1=="Flying" or other.type2=="Flying") or other.ability=="Levitate":
-        mymove=list(set(mymove)-set(groundmoves))
+        mymove=list(set(mymove)-(set(mymove).intersection(firemoves)))
+    if other.ability=="Levitate":
+        mymove=list(set(mymove)-(set(mymove).intersection(groundmoves)))
         emove=list(set(emove)-set(groundmoves)) 
         mystablist=list(set(mystablist)-set(groundmoves)) 
     if other.status!="Alive":
@@ -688,20 +749,23 @@ def moveAI(self,other,mtr,otr,field):
         tmove=list (set(mymove).intersection(terrainmove))
         if len(tmove)!=0:
             use=tmove[0]
-    if self.atk>self.spatk and self.atkb<=1:
+    if self.choiced is False and self.atk>self.spatk and self.atkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2):
         boost=list (set(mymove).intersection(atkboost))
         if len(boost)!=0:
             use=boost[0]        
-    if self.spatk>self.atk and self.spatkb<=1:
+    if self.choiced is False and self.spatk>self.atk and self.spatkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2):
         boost=list (set(mymove).intersection(spatkboost))
         if len(boost)!=0:
             use=boost[0]   
-    if other.atk>other.spatk and "Reflect" in mymove and mtr.reflect is not True:
+    if self.choiced is False and other.atk>other.spatk and "Reflect" in mymove and mtr.reflect is not True:
         use="Reflect"              
-    if other.spatk>other.atk and "Light Screen" in mymove and mtr.lightscreen is not True:
+    if self.choiced is False and other.spatk>other.atk and "Light Screen" in mymove and mtr.lightscreen is not True:
         use="Light Screen"        
     if self.protect is False and "King's Shield" in mymove and other.hp>=(other.maxhp*0.2):
-        use="King's Shield"                
+        use="King's Shield"       
+    if self.item is not None and "Sticky Web"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3):
+        if "Sticky Web"  in mymove:
+            use="Sticky Web"                    
     if self.item is not None and "Stealth Rock"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3):
         if "Stealth Rock"  in mymove:
             use="Stealth Rock"      
@@ -709,25 +773,29 @@ def moveAI(self,other,mtr,otr,field):
         if "Toxic Spikes"  in mymove:
             use="Toxic Spikes"  
     if (other.hp<=(other.maxhp*0.20) or other.defb<0.5) and self.speed<other.speed and len(eprior)!=0:
-        use=eprior[0]             
-    if self.item is not None and "Choice" in self.item and self.choiced is False and use is not None:
+        use=random.choice([eprior[0],emove])             
+    if self.item is not None and "Choice" in self.item and self.choiced is False and use is not None and self.dmax is False:
         self.choiced=True
         self.choicedmove=use
-    if self.choiced is True:
+    if self.choiced is True and self.dmax is False:
         use=self.choicedmove         
     if use is None or use==[]:
-        use=random.choice(self.moves)                               
-                
-    
+        if len(mymove)==0:
+            use=random.choice(self.moves)
+        else:
+            use=random.choice(mymove)
 #    print("=====================")     
-#    print(f"{self.name}'s AI says:"    )
+#    print(f"{self.name}'s AI says against {other.name}:"    )
 #    print("=====================")     
 #    print("USABLE MOVES:",mymove)
 #    print("EFFECTIVE MOVES:",emove)
-#    print("STAB MOVES:",mystablist)
-#    print("STAB AND EFFECTIVE",superduper)
+#    print("IMMUNE MOVES: ",myimmunemove)
+#    print("RESISTED MOVES: ",resmove)
+#    print("NON RES STAB MOVES:",mystablist)
+#    print("STAB AND EFFECTIVE:",superduper)
+#    print("CHOICED MOVE:",self.choicedmove)
 #    print("SELECTED MOVE:",use)   
-#    print("=====================")                      
+#    print("=====================")             
     return use,emove,superduper       
 
  
@@ -757,52 +825,89 @@ def switchAI(self,other,tr,tr2, field):
             defmon.append(i)
         if i.spdef>250 and i!=self:
             spdefmon.append(i)
-        if 200<other.spdef<300:
-            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.spatk>300:
+#offense
+#200+ spdef          
+        if 200<other.spdef:
+#Has effective move and oppo doesn't and spatk 270+            
+            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.spatk>270:
                 bestoff.append(i)
-        elif 200<other.defense<300:
-            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.atk>300:
+#Has effective move and oppo doesn't and atk 270+                 
+        elif 200<other.defense:
+            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.atk>270:
                 bestoff.append(i)
+#Def under 200                
         if other.defense<200:
+#Has effective move and oppo doesn't and atk 200+               
             if len(x[1])!=0 and i!=self and len(y[1])==0 and i.atk>200:
                 bestoff.append(i)
+#spdef under 200                
         elif other.spdef<200:
+#Has effective move and oppo doesn't and spatk 270+               
             if len(x[1])!=0 and i!=self and len(y[1])==0 and i.spatk>200:
                 bestoff.append(i)
         if len(x[1])!=0 and i!=self and len(y[1])==0 and (i.atk>200 or i.spatk>200):
             effmon.append(i)
         if other.spatk>250:
-            if i.spdef>250 and i in effmon and i!=self:
+            if i.spdef>200 and i in effmon and i!=self:
                 best.append(i)
         if other.atk>250:
-            if i.defense>250 and i in effmon and i!=self:
+            if i.defense>200 and i in effmon and i!=self:
                 best.append(i)
         if other.spatk>other.atk and i in spdefmon and i!=self:
             bestank.append(i)
         if other.atk>other.spatk and i in defmon and i!=self:
-            bestank.append(i)             
-    #print("=====================")   
+            bestank.append(i)        
+#    print("=====================")   
 #    print(f"Against {other.name}: ")
 #    print("=====================")   
-#    #print("Special Tank:",spdefmon)
-#    #print("Physical Tank:",defmon)
-#    #print("Pure Tank:",tank)
+#    print("Special Tank:",spdefmon)
+#    print("Physical Tank:",defmon)
+#    print("Pure Tank:",tank)
 #    print("Good Offense Choice:",bestoff)
 #    print("Best Tank:",bestank)
 #    print("Best Choice:",best)
 #    print("=====================")   
-    
-    if len(best)==1:
-        return best[0]
-    if len(best)>1:
-        return random.choice(best)
-    if len(best)==0 and other.hp>(other.maxhp*0.6) and len(bestank)!=0:
-        return random.choice(bestank)
-    if len(bestank)==0 and len(best)==0 and len(bestoff)!=0:
-        return random.choice(bestoff)
+    possible=[best,bestank,bestoff,defmon,spdefmon,tank]
+    choice=random.choice(tr.pokemons)
     if len(sw)!=0:
-        return random.choice(sw)
+        choice=random.choice(sw)
     if len(tr.pokemons)==1:
-        return(tr.pokemons[0])
+        choice=(tr.pokemons[0])
+    if len(best)==0 and other.hp>(other.maxhp*0.3) and len(bestank)!=0:
+        choice=random.choice(bestank)
+    if len(bestank)==0 and len(best)==0 and len(bestoff)!=0:
+        choice=random.choice(bestoff)        
+    if len(best)==1:
+        choice=best[0]
+    if len(best)>1:
+        choice=random.choice(best)                
+    return choice,possible  
+    
+def decision (self,other,tr1,tr2,field):
+    action=1
+#NATURAL CURE    
+    if self.ability=="Natural Cure" and self.status!="Alive" and len(tr1.pokemons)>1:
+       action=2
+#REGENERATOR       
+    if self.ability=="Regenerator" and self.hp<=(self.maxhp/2) and len(tr1.pokemons)>1:
+        action=2      
+    mons=switchAI(self,other,tr1,tr2,field)[1]
+    best=mons[0]
+    bestank=mons[1]
+    bestoff=mons[2]
+    phytank=mons[3]
+    spetank=mons[4]
+#SUFFECIENT AMOUNT OF MONS    
+    if len(tr1.pokemons)>1:
+#P1 SLOWER THAN P2        
+        if self.speed<other.speed:
+#BELOW 40% AND OPPO FAST PHYSICAL SWEEPER
+            if self.hp<(self.maxhp*0.4) and other.atk>300 and len(phytank)!=0 and self.defense<250:
+                action=2
+#BELOW 40% AND OPPO FAST SPECIAL SWEEPER                
+            if self.hp<(self.maxhp*0.4) and other.spatk>300 and len(spetank)!=0 and self.spdef<250:
+                action=2        
+    if other.ability=="Shadow Tag" and "Ghost" not in (self.type1,self.type2):
+            action=1    
             
-            
+    return action              
