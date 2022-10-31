@@ -9,3 +9,6 @@ Trying to make a working pokémon games.
 7.Status
 8.New Moves
 9.New Abilities for old mons
+10.Terastalization
+11.Mega Evolution
+12.Dynamax
