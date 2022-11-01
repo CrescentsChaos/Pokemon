@@ -931,25 +931,29 @@ def prebuff(self,tr1,turn,field):
     if self.status=="Frostbite":
         spatkbuff*=0.5
     if self.status=="Burned" and self.ability!="Guts":
+        print(" ❤️‍🔥 Guts boosted!")
         atkbuff*=0.5
     if self.item=="Light Ball":
+        print (" 🟡 Light Ball boosted!")
         atkbuff*=2
         spatkbuff*=2
     if self.ability=="Marvel Scale" and self.status!="Alive":
+        print(" 🔰 {self.name}'s Marvel Scale!")
         defbuff*=1.5
     if self.ability=="Flare Boost" and self.status=="Burned":
+        print(" 🔥 Flare boosted!")
         spatkbuff*=1.5
     if field.weather in ["Rainy","Primordial Sea"] and self.ability=="Swift Swim":
-        print(f" {self.name}'s {self.ability}!")
+        print(f" 🐬 {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Chlorophyll":
-        print(f" {self.name}'s {self.ability}!")
+        print(f" 🌻 {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Sandstorm"] and self.ability=="Sand Rush":
-        print(f" {self.name}'s {self.ability}!")
+        print(f" 🏜️ {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Hail"] and self.ability=="Slush Rush":
-        print(f" {self.name}'s {self.ability}!")
+        print(f" 🏂 {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Sandstorm"] and (self.type1=="Rock" or self.type2=="Rock"):
         spdefbuff*=1.5

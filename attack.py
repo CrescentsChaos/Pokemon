@@ -9,7 +9,7 @@ priorityatkmoves=["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme
 multimove=["Bullet Seed","Rock Blast","Pin Missile","Icicle Spear","Dual Chop","Dual Wingbeat","Arm Thrust","Water Shuriken"]
 nondmgmove=statusmove+buffmove+["Stealth Rock","Toxic","Toxic Spikes","Sticky Web","Trick Room"]
 premove=["Solar Beam","Meteor Beam","Skull Bash"]
-maxmovelist=["Max Strike","Max Flare","G-Max Wildfire","G-Max Centiferno","Max Geyser","G-Max Cannonade","G-Max Hydrosnipe","G-Max Foam Burst","Max Lightning","G-Max Volt Crash","G-Max Stun Shock","Max Quake","Max Knuckle","G-Max Chi Strike","Max Mindstorm","Max Phantasm","G-Max Terror","Max Starfall","Max Overgrowth","G-Max Drum Solo","G-Max Sweetness","G-Max Tartness","Max Rockfall","Max Darkness","Max Wyrmwind","G-Max Depletion","Max Flutterby","G-Max Befuddle","Max Ooze","Max Steelspike","Max Airstream","G-Max Resonance","G-Max Hailstorm","G-Max Finale"]
+maxmovelist=["Max Strike","Max Flare","G-Max Wildfire","G-Max Centiferno","Max Geyser","G-Max Cannonade","G-Max Hydrosnipe","G-Max Foam Burst","Max Lightning","G-Max Volt Crash","G-Max Stun Shock","Max Quake","Max Knuckle","G-Max Chi Strike","Max Mindstorm","Max Phantasm","G-Max Terror","Max Starfall","Max Overgrowth","G-Max Drum Solo","G-Max Sweetness","G-Max Tartness","Max Rockfall","Max Darkness","Max Wyrmwind","G-Max Depletion","Max Flutterby","G-Max Befuddle","Max Ooze","Max Steelspike","Max Airstream","G-Max Resonance","G-Max Hailstorm","G-Max Finale","G-Max Volcalith","G-Max Stonesurge"]
 def fchoice(pk,tr):
     if tr.ai is False:
         movelist(pk)
@@ -157,7 +157,10 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         current.megaintro=True
     if current.dmax is True:
         prevname=current.name.split(" ")[-1]
-        print(f" 🔺{trainer.name} dynamaxed {prevname}!\n")
+        if "Dynamax" in current.name:
+            print(f" 🔺{trainer.name} dynamaxed {prevname}!\n")
+        if "Gigantamax" in current.name:
+            print(f" 🔺{trainer.name} gigantamaxed {prevname}!\n")
     if current.ability=="Imposter":
         print(f" 👾{current.name}'s {current.ability}!")
         print(f' {current.name} transformed into {other.name}!')
@@ -272,7 +275,7 @@ def entryeff(current,other,trainer,trainer2,field,turn):
             buff=1
         #print(buff)
         current.hp-=(1+(current.maxhp*0.0625*buff))
-        print(f" Pointed stones dug into {current.name}!")
+        print(f" 🪨 Pointed stones dug into {current.name}!")
 #INTIMIDATE        
     if current.ability=="Intimidate" and other.ability not in ["Inner Focus","Oblivious","Clear Body"]:
         atkchange(other,-0.5)
@@ -301,6 +304,9 @@ def stancechange(self,used):
         self.maxatk,self.maxspatk,self.maxdef,self.maxspdef=self.maxdef,self.maxspdef,self.maxatk,self.maxspatk
  #PREATTACK       
 def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
+    if self.item=="Throat Spray" and use in ["Hyper Voice","Boomburst","Overdrive","Clanging Scales"]:
+        spatkchange(self,0.5)
+        print(f" {self.name}'s Special Attack rose!")
     if self.ability=="Mold Breaker":
         print(f" {self.name} breaks the mold!")
     if field.terrain=="Electric":
@@ -512,7 +518,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             else:
                 willowisp(self,other)        
         elif used=="Overdrive":
-            overdrive(self,other)        
+            overdrive(self,other) 
+        elif used=="Jaw Lock":
+            jawlock(self,other)      
         elif used=="Psystrike":
             psystrike(self,other)
         elif used=="Shadow Punch":
@@ -571,6 +579,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             maxwyrmwind(self,other)
         elif used=="G-Max Hydrosnipe":
             gmaxhydrosnipe(self,other)
+        elif used=="G-Max Volcalith":
+            gmaxvolcalith(self,other)
         elif used=="G-Max Volt Crash":
             gmaxvoltcrash(self,other)
         elif used=="G-Max Stun Shock":
@@ -732,6 +742,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print("  All the hazards blew away!")
             tr.hazard=[]
             optr.hazard=[]
+            if field.terrain!="Normal":
+                field.terrain="Normal"
         elif used=="Trick-or-Treat":
             trickortreat(self,other)
         elif used=="Forest's Curse":
@@ -1070,7 +1082,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 print(" Nothing happened!")
             if "Toxic Spikes" not in optr.hazard:
                 print(f" {self.name} used "+colored("Toxic Spikes","magenta")+".")
-                print(" Poison spikes were scattered all around the opposing team!")
+                print(" ☠️ Poison spikes were scattered all around the opposing team!")
                 optr.hazard.append("Toxic Spikes")
             else:
                 print(" Nothing happened!")
@@ -1079,14 +1091,14 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 print(" Nothing happened!")
             if "Stealth Rock" not in optr.hazard:
                 print(f" {self.name} used Stealth Rock.")
-                print(" Pointed stones float in the air around the opposing team!")
+                print(" 🪨 Pointed stones float in the air around the opposing team!")
                 optr.hazard.append("Stealth Rock")
         elif used=="Sticky Web":
             if "Sticky Web" in optr.hazard:
                 print(" Nothing happened!")
             if "Sticky Web" not in optr.hazard:
                 print(f" {self.name} used Sticky Web.")
-                print(" A sticky web spreads out in the ground around the opposing team!")
+                print(" 🕸️ A sticky web spreads out in the ground around the opposing team!")
                 optr.hazard.append("Sticky Web")            
         elif used=="Transform":
             transform(self,other)
