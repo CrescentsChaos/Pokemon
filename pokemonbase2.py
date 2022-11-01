@@ -1,3 +1,4 @@
+#pylint:disable=R0916
 #pylint:disable=W0613
 #pylint:disable=C0103
 #pylint:disable=R0912
@@ -17,7 +18,7 @@ class Pokemon2:
     weather=None
     trickroom=False 
     "Pokemon2"
-    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,primalintro=False):
+    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,primalintro=False,fsprite="graphics/fsprites/unknown.png", bsprite="graphics/bsprites/Gengar.png"):
         #Name
         self.name=name
         if moves is None:
@@ -26,12 +27,14 @@ class Pokemon2:
             self.moves=moves
         self.shiny=random.randint(1,4096)
         if self.shiny==7:
-            self.name=self.name+"⭐"
+            self.name=self.name+"✨"
         #Type
         self.type1=type1
         self.type2=type2
         self.teratype=teratype
         self.item=item
+        self.fsprite=fsprite
+        self.bsprite=bsprite
         self.megaintro=megaintro
         self.dmax=dmax
         self.primalintro=primalintro 
@@ -775,6 +778,16 @@ class Dodrio(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+        
+#Garbodor
+class Garbodor(Pokemon2):
+    def __init__(self,name="Garbodor",type1="Poison",type2=None,nature=None,level=100,happiness=255,hp=80,atk=95,defense=82,spatk=60,spdef=82,speed=75,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Aftermath","Stench"]),item=random.choice(["Black Sludge","Shuca Berry","Payapa Berry"])):
+        if move is None:
+            avmoves=["Poison Jab","Acid Armor","Toxic","Sludge Bomb","Venoshock","Toxic Spikes","Explosion"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)          
 #Muk
 class Muk(Pokemon2):
     "Muk"
@@ -4313,7 +4326,7 @@ class Guzzlord(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Necrozma
 class UNecrozma(Pokemon2):
     "Necrozma"
-    def __init__(self,name="Ultra Necrozma",type1="Psychic",type2="Dragon",nature=None,level=100,happiness=255,hp=97,atk=167,defense=97,spatk=167,spdef=97,speed=129,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Neuroforce"]),item="Leftovers"):
+    def __init__(self,name="Ultra Necrozma",type1="Psychic",type2="Dragon",nature=None,level=100,happiness=255,hp=97,atk=167,defense=97,spatk=167,spdef=97,speed=129,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Neuroforce"]),item="Ultranecrozium Z"):
         if move is None:
             avmoves=["Moonlight","Iron Defense","Rock Blast","Photon Geyser","Prismatic Laser","Morning Sun"]
             moves=moveset(avmoves)

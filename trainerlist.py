@@ -45,7 +45,7 @@ def teammaker(trclass=None,trname=None,pknum=6):
     if trclass in ["Sinnoh Trainer"]:
         mons=[Lickilicky,Torterra,Infernape,Empoleon,Staraptor,Luxray,Roserade,Rampardos,Bastiodon,Vespiquen,EGastrodon,WGastrodon,Ambipom,Drifblim,MLopunny,Mismagius,Honchkrow,Purugly,Skuntank,Bronzong,Spiritomb,Garchomp,Lucario,MLucario,Hippowdon,MGarchomp,Drapion,Toxicroak,Abomasnow,MAbomasnow,Weavile,Magnezone,Rhyperior,Tangrowth,Electivire,Magmortar,Togekiss,Yanmega,Gliscor,Gallade,MGallade,Probopass,Dusknoir,Froslass,WRotom]
     if trclass in ["Unova Trainer"]:
-        mons=[Serperior,Emboar,Samurott,Stoutland,Unfezant,Zebstrika,Gigalith,Excadrill,Conkeldurr,Seismitoad,Leavanny,Scolipede,Krookodile,Darmanitan,Scrafty,Cofagrigus,Carracosta,Archeops,Zoroark,Gothitelle, Reuniclus, Swanna,Vanilluxe,Escavalier,Jellicent,Galvantula,Ferrothorn,Eelektross,Chandelure,Haxorus,Beartic,Accelgor,Mienshao,Druddigon,Golurk,Bisharp,Bouffalant,Braviary,Mandibuzz,Heatmor,Durant,Hydreigon,Volcarona]
+        mons=[Garbodor,Serperior,Emboar,Samurott,Stoutland,Unfezant,Zebstrika,Gigalith,Excadrill,Conkeldurr,Seismitoad,Leavanny,Scolipede,Krookodile,Darmanitan,Scrafty,Cofagrigus,Carracosta,Archeops,Zoroark,Gothitelle, Reuniclus, Swanna,Vanilluxe,Escavalier,Jellicent,Galvantula,Ferrothorn,Eelektross,Chandelure,Haxorus,Beartic,Accelgor,Mienshao,Druddigon,Golurk,Bisharp,Bouffalant,Braviary,Mandibuzz,Heatmor,Durant,Hydreigon,Volcarona]
 #FIGHTING SPECIALIST 
     if trclass in ["Dojo Master","Blackbelt"]:
         namelist=["Taishi","Damme","Wesley","Joe","Dolph"]
@@ -122,7 +122,7 @@ def teammaker(trclass=None,trname=None,pknum=6):
         mons=[Arcanine,HArcanine,Machamp, Stoutland,MManectric,Lapras,Swanna,Mightyena]
 #POISON SPECIALISTS
     if trclass in ["Venom Expert"]:
-        mons=[Dustox,Swalot,Venomoth,Vileplume,Toxtricity,GSlowking,GWeezing,GSlowbro,Salazzle,Sneasler,Dragalge,Toxicroak,Drapion,Roserade,Seviper,Arbok,Weezing,Crobat,MBeedrill,Venusaur,Nidoking,Nidoqueen,Victreebel,Tentacruel,Muk,Gengar,Overqwil]
+        mons=[GarbodorDustox,Swalot,Venomoth,Vileplume,Toxtricity,GSlowking,GWeezing,GSlowbro,Salazzle,Sneasler,Dragalge,Toxicroak,Drapion,Roserade,Seviper,Arbok,Weezing,Crobat,MBeedrill,Venusaur,Nidoking,Nidoqueen,Victreebel,Tentacruel,Muk,Gengar,Overqwil]
 #ELECTRIC
     if trclass in ["Rocker","Guitarist","Electrician"]:
         mons=[Pachirisu,Manectric,Electrode,Raichu,ARaichu,Pikachu,Dracozolt,Toxtricity,Vikavolt,HElectrode,Eelektross,Galvantula,MManectric,AGolem,Magnezone,Jolteon,Electivire,Lanturn,Ampharos,MAmpharos,Luxray,WRotom,Zebstrika]        
@@ -263,9 +263,14 @@ def teammaker(trclass=None,trname=None,pknum=6):
             if ("Dynamax" in member.name or "Gigantamax" in member.name) and len(team)==5:
                 team.append(member)
                 mons.remove(party)
-            if "Z-Crystal" in member.name and len(team)==4:
-                team.append(member)
-                mons.remove(party)         
+            if megachance==1:
+                if "Z-Crystal" in member.name and len(team)==4:
+                    team.append(member)
+                    mons.remove(party)         
+            if megachance==2:
+                if "Mega " in member.name and len(team)==4:
+                    team.append(member)
+                    mons.remove(party)        
 
                                                                                 
                      
@@ -305,7 +310,7 @@ bruno6=Poliwrath(maxiv="Yes",move=["Close Combat","Liquidation","Recover","Rain 
 bruno=Trainer("Elite Four Bruno",[bruno6,bruno2,bruno3,bruno4,bruno5,bruno1])
 #E4 Lance
 lance1=Hydreigon(maxiv="Yes",move=["Dark Pulse","Flamethrower","Thunderbolt","Dragon Pulse"],nature="Modest")
-lance2=Gyarados(name="Gyarados⭐",maxiv="Yes",move=["Dragon Dance","Waterfall","Earthquake","Ice Fang"],nature="Adamant")
+lance2=Gyarados(name="Gyarados✨",maxiv="Yes",move=["Dragon Dance","Waterfall","Earthquake","Ice Fang"],nature="Adamant")
 lance3=Aerodactyl(maxiv="Yes",move=["Stone Edge","Earthquake","Roost","Stealth Rock"],nature="Jolly")
 lance4=Dragonite (maxiv="gmax",move=["Dragon Dance","Extreme Speed","Dragon Claw","Roost"],nature="Adamant")
 lance5=Kingdra(maxiv="Yes",move=["Rain Dance","Draco Meteor","Surf","Ice Beam"],nature="Modest",ability="Swift Swim")
@@ -347,7 +352,7 @@ steven2=Armaldo(maxiv="Yes",move=["X-Scissor","Stone Edge","Earthquake","Ancient
 steven3=Cradily (maxiv="Yes",move=["Giga Drain","Leech Seed","Strength Sap","Ancient Power"],nature="Modest")
 steven4=Skarmory(maxiv="Yes",move=["Brave Bird","Roost","Body Press","Stealth Rock"],nature="Impish")
 steven5=Aggron(maxiv="gmax",move=["Body Press","Iron Head","Iron Defense","Stone Edge"],nature="Impish")
-steven6=MMetagross(name="Mega Metagross⭐",maxiv="Yes", move=["Zen Headbutt","Earthquake","Meteor Mash","Fire Punch"],nature="Adamant")
+steven6=MMetagross(name="Mega Metagross✨",maxiv="Yes", move=["Zen Headbutt","Earthquake","Meteor Mash","Fire Punch"],nature="Adamant")
 steven=Trainer("Hoenn Champion Steven",[steven1,steven2,steven3,steven4,steven5,steven6],"Hoenn")
 #Champion Wallace
 wallace1=Ludicolo(maxiv="Yes",move=["Giga Drain","Rain Dance","Ice Beam","Leech Seed"])
@@ -662,7 +667,7 @@ silver1=Weavile (maxiv="Yes")
 silver2=Honchkrow(maxiv="Yes")
 silver3=Kingdra(maxiv="Yes")
 silver4=Ursaluna(maxiv="Yes")
-silver5=MGyarados(name="Mega Gyarados⭐",maxiv="Yes")
+silver5=MGyarados(name="Mega Gyarados✨",maxiv="Yes")
 silver6=Feraligatr(maxiv="gmax")
 silver7=Gengar(maxiv="Yes")
 silver8=Alakazam (maxiv="Yes")
@@ -1087,7 +1092,7 @@ will5=Xatu(maxiv="gmax")
 will6=MSlowbro(maxiv="Yes")
 will7=Gardevoir(maxiv="Yes")
 will8=MGardevoir(maxiv="Yes")
-willteam=teamset([will1,will2,will3,will4],3)+[will5]+teamset([will6,will8],1)
+willteam=teamset([will1,will2,will3,will4],4)+[will5]+teamset([will6,will8],1)
 will=Trainer ("Elite Four Will",willteam,"Johto")
 #chuck
 chuck1=Primeape(maxiv="Yes")
@@ -1482,7 +1487,7 @@ marlon5=Cloyster(maxiv="Yes")
 marlonteam=teamset([marlon2,marlon3,marlon4,marlon5],4)+[marlon1,marlon6]
 marlon=Trainer("Gym Leader Marlon",marlonteam,"Unova")    
 #diantha
-diantha1=Goodra(maxiv="Yes")
+diantha1=Goodra(maxiv="gmax")
 diantha2=Hawlucha(maxiv="Yes")
 diantha3=Tyrantrum(maxiv="Yes")
 diantha6=MGardevoir(maxiv="Yes")
@@ -1490,6 +1495,15 @@ diantha4=Aurorus(maxiv="Yes")
 diantha5=Gourgeist(maxiv="Yes")
 dianthateam=teamset([diantha2,diantha3,diantha4,diantha5],4)+[diantha1,diantha6]
 diantha=Trainer("Kalos Champion Diantha",dianthateam,"Kalos")    
+#grant
+grant4=Haxorus(maxiv="Yes")
+grant2=Tropius(maxiv="Yes")
+grant3=Bastiodon(maxiv="Yes")
+grant6=Tyrantrum(maxiv="gmax")
+grant1=Aurorus(maxiv="Yes")
+grant5=Rampardos(maxiv="Yes")
+grantteam=teamset([grant2,grant3,grant4,grant5],4)+[grant1,grant6]
+grant=Trainer("Gym Leader Grant",grantteam,"Kalos")    
 #TEST1
 t1=Skarmory(maxiv="Yes")
 t2=Skarmory(maxiv="Yes")
@@ -1505,7 +1519,7 @@ test2=Trainer("Test-02",[t3,t4,t5,t6,t7,t8])
 #############
 matchx=match()
 
-gym=random.choice([jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon])
+gym=random.choice([jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant])
 
 elite4=random.choice([will,koga,kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva])
 

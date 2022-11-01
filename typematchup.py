@@ -120,7 +120,7 @@ def weakness(self,other,field):
             other.item=None
         if self.item == "Ghost Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if self.item in ["Griseous Orb"]:
             eff+=(eff*0.2)
@@ -144,10 +144,10 @@ def weakness(self,other,field):
     #electric
     if self.atktype=="Electric":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Transistor":
-            print(f" {self.name}'s {self.ability}.")
+            print(f" 🔋 {self.name}'s {self.ability}.")
             eff*=1.5
         if self.item == "Magnet":
             eff*=1.2
@@ -161,15 +161,15 @@ def weakness(self,other,field):
             eff*=0.5
         if self.item == "Electric Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.ability=="Lightning Rod":
-            print(f" {other.name}'s {other.ability}.")
+            print(f" ⚡ {other.name}'s {other.ability}.")
             spatkchange(other,0.5)
             print(f" {other.name}: Attack x{other.atkb}")
             eff*=0
         if other.ability=="Volt Absorb":
-            print(f" {other.name}'s {other.ability}.")
+            print(f" ⚡ {other.name}'s {other.ability}.")
             print(f" {other.name} gained some health.")
             if other.hp<=other.maxhp-(other.maxhp/4):
                     other.hp+=other.maxhp/4
@@ -197,7 +197,7 @@ def weakness(self,other,field):
     #psychic
     if self.atktype=="Psychic":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Twisted Spoon":
             eff*=1.2
@@ -209,7 +209,7 @@ def weakness(self,other,field):
             eff*=1.3
         if self.item == "Psychic Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in psychiceff and other.teratype is None:
             eff*=2
@@ -230,7 +230,7 @@ def weakness(self,other,field):
     #ice
     if self.atktype=="Ice":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Never Melt Ice":
             eff*=1.2
@@ -239,13 +239,13 @@ def weakness(self,other,field):
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
             other.item=None
         if other.ability=="Thick Fat" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🔥❌❄️ {other.name}'s {other.ability}!")
             eff*=0.5
         if other.ability=="Delta Stream":
             eff*=0.5
         if self.item == "Ice Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in iceeff and other.teratype is None:
             eff*=2
@@ -264,7 +264,7 @@ def weakness(self,other,field):
     #fairy
     if self.atktype=="Fairy":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Pixie Plate":
             eff*=1.2
@@ -274,14 +274,14 @@ def weakness(self,other,field):
             other.item=None
         if self.ability=="Fairy Aura":
             if other.ability!="Aura Break":
-                print(f" {self.name}'s {self.ability}.")
+                print(f" 🧚🏻‍♀️ {self.name}'s {self.ability}.")
                 eff*=1.33
             else:
                 print(f" {other.name}'s {other.ability}.")
                 eff*=0.67
         if self.item == "Fairy Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in fairyeff and other.teratype is None:
             eff*=2
@@ -307,14 +307,14 @@ def weakness(self,other,field):
             other.item=None
         if self.ability=="Dark Aura":
             if other.ability!="Aura Break":
-                print(f" {self.name}'s {self.ability}.")
+                print(f" 🌑 {self.name}'s {self.ability}.")
                 eff*=1.33
             else:
                 print(f" {other.name}'s {other.ability}.")
                 eff*=0.67
         if self.item == "Dark Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.ability=="Justified":
             atkchange(other,0.5)
@@ -336,7 +336,7 @@ def weakness(self,other,field):
     #steel
     if self.atktype=="Steel":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
@@ -347,11 +347,11 @@ def weakness(self,other,field):
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
             other.item=None
         if self.ability=="Steelworker":
-            print(f" {self.name}'s {self.ability}.")
+            print(f" 🔩 {self.name}'s {self.ability}.")
             eff*=1.5
         if self.item == "Steel Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if self.item in ["Adamant Orb"]:
             eff+=(eff*0.2)
@@ -373,10 +373,10 @@ def weakness(self,other,field):
     #dragon
     if self.atktype=="Dragon":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Dragon's Maw":
-            print(f" {self.name}'s {self.ability}.")
+            print(f" 🐲 {self.name}'s {self.ability}.")
             eff*=1.5
         if self.item == "Dragon Fang":
             eff*=1.2
@@ -388,7 +388,7 @@ def weakness(self,other,field):
             eff*=0.5
         if self.item == "Dragon Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if self.item in ["Adamant Orb","Lustrous Orb","Griseous Orb"]:
             eff+=(eff*0.2)
@@ -411,7 +411,7 @@ def weakness(self,other,field):
     #bug
     if self.atktype=="Bug":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Silver Powder":
             eff*=1.2
@@ -421,7 +421,7 @@ def weakness(self,other,field):
             other.item=None
         if self.item == "Bug Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if self.ability=="Swarm":
             if self.hp<=(self.maxhp/3):
@@ -449,10 +449,10 @@ def weakness(self,other,field):
             other.item=None
         
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if other.ability=="Steam Engine":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🚂 {other.name}'s {other.ability}!")
             speedchange (other,0.5)
             print(f" {other.name} Speed x{other.speedb}")
         if self.item == "Mystic Water":
@@ -465,7 +465,7 @@ def weakness(self,other,field):
             eff*=0
         if self.item == "Water Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if self.item in ["Lustrous Orb"]:
             eff+=(eff*0.2)
@@ -479,11 +479,11 @@ def weakness(self,other,field):
                     other.hp+=other.maxhp/4
                     print(f" {other.name} gained some health.")
             if other.ability=="Storm Drain":
-                print(f" {other.name}'s {other.ability}.")
+                print(f" ⛈️ {other.name}'s {other.ability}.")
                 spatkchange (other,0.5)
                 print(f" {other.name}: Special Attack x{other.spatkb}")
             if other.ability=="Water Absorb":
-                print(f" {other.name}'s {other.ability}.")
+                print(f" 💧 {other.name}'s {other.ability}.")
                 print(f" {other.name} gained some health.")
                 if other.hp<=other.maxhp-(other.maxhp/4):
                     other.hp+=other.maxhp/4
@@ -512,7 +512,7 @@ def weakness(self,other,field):
     #Ground
     if self.atktype=="Ground":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if other.item=="Air Balloon":
             eff*=0
@@ -526,10 +526,10 @@ def weakness(self,other,field):
             other.item=None
         if self.item == "Ground Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.ability=="Levitate" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
-            print(f" {other.name}'s {other.ability}.")
+            print(f" 🛸 {other.name}'s {other.ability}.")
             eff*=0
         if other.type1 in groundeff and other.teratype is None:
             eff*=2
@@ -550,7 +550,7 @@ def weakness(self,other,field):
     #GRASS
     if self.atktype=="Grass":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Miracle Seed":
             eff*=1.2
@@ -562,7 +562,7 @@ def weakness(self,other,field):
             eff*=1.3
         if self.item == "Grass Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.ability=="Sap Sipper":
             print(f" {other.name}'s {other.ability}.")
@@ -571,7 +571,7 @@ def weakness(self,other,field):
             print(f" {other.name}: Attack x{other.atkb}")
         if self.ability=="Overgrow":
             if self.hp<=(self.maxhp/3):
-                print(f" {self.name}'s {self.ability}.")
+                print(f" 🌿 {self.name}'s {self.ability}.")
                 eff*=2.25
         if other.type1 in grasseff and other.teratype is None:
             eff*=2
@@ -597,7 +597,7 @@ def weakness(self,other,field):
             other.item=None
         if self.item == "Flying Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in flyingeff and other.teratype is None:
             eff*=2
@@ -616,7 +616,7 @@ def weakness(self,other,field):
     #FIRE            
     if self.atktype=="Fire":
         if other.ability=="Steam Engine":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🚂 {other.name}'s {other.ability}!")
             speedchange (other,0.5)
             print(f" {other.name} Speed x{other.speedb}")
         if self.item == "Charcoal":
@@ -629,20 +629,20 @@ def weakness(self,other,field):
             print(f" {other.name}'s {other.ability}!")
             eff*=1.25
         if other.ability in ["Thick Fat","Heatproof"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🔥❌❄️ {other.name}'s {other.ability}!")
             eff*=0.5
         if field.weather=="Primordial Sea":
             eff*=0
         if self.item == "Fire Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if self.ability=="Blaze":
             if self.hp<=(self.maxhp/3):
-                print(f" {self.name}'s {self.ability}.")
+                print(f" 🔥 {self.name}'s {self.ability}.")
                 eff*=2.25
         if other.ability=="Flash Fire":
-            print(f" {other.name}'s {other.ability}.")
+            print(f" 🔥 {other.name}'s {other.ability}.")
             other.atk=other.maxatk*1.5*other.atkb
             other.spatk=other.maxspatk*1.5*other.spatkb
             eff*=0
@@ -663,7 +663,7 @@ def weakness(self,other,field):
     #Poison            
     if self.atktype=="Poison":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Poison Barb":
             eff*=1.2
@@ -673,7 +673,7 @@ def weakness(self,other,field):
             other.item=None
         if self.item == "Poison Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in poisoneff and other.teratype is None:
             eff*=2
@@ -691,14 +691,14 @@ def weakness(self,other,field):
             if self.ability!="Corrosion":
                 eff*=0
             else:
-                print(f" {self.name}'s {self.ability}.")
+                print(f" ☠️ {self.name}'s {self.ability}.")
                 eff*=1
         else:
             eff*=1   
     #Rock
     if self.atktype=="Rock":
         if other.ability=="Mountaineer":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🧗🏻‍♂️{other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
@@ -712,7 +712,7 @@ def weakness(self,other,field):
             eff*=0.5
         if self.item == "Rock Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in rockeff and other.teratype is None:
             eff*=2
@@ -731,17 +731,17 @@ def weakness(self,other,field):
     #Normal
     if self.atktype=="Normal":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Silk Scarf":
             eff*=1.2
         if other.item=="Chilan Berry":
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(f" 🫐 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
             other.item=None
         if self.item == "Normal Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in normaleff and other.teratype is None:
             eff*=2
@@ -765,7 +765,7 @@ def weakness(self,other,field):
     #Fighting
     if self.atktype=="Fighting":
         if other.ability=="Wonder Guard":
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Black Belt":
             eff*=1.2
@@ -775,7 +775,7 @@ def weakness(self,other,field):
             other.item=None
         if self.item == "Fighting Gem":
             eff*=1.5
-            print(f" {self.item} boosted {self.name}'s damage!")
+            print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if other.type1 in fightingeff and other.teratype is None:
             eff*=2
@@ -795,12 +795,12 @@ def weakness(self,other,field):
         else:
             eff*=1 
     if eff in (2,4):
-        print(" It's super effective!") 
+        print(" 🟢 It's super effective!") 
         if other.item=="Enigma Berry":
             other.hp+=round(other.maxhp/4)
             other.item=None
         if other.item=="Weakness Policy":
-            print(f" {other.name}'s {other.item}.")
+            print(f" 📄 {other.name}'s {other.item}.")
             other.item=None
             atkchange (other,1)
             spatkchange (other,1)
@@ -815,17 +815,17 @@ def weakness(self,other,field):
     elif eff==1:
         pass
     elif eff<1 and eff!=0:
-        print(" It's not very effective...")
+        print(" 🟡 It's not very effective...")
         if self.ability=="Tinted Lens":
             print(f" {self.name}'s {self.ability}.")
             print(" Tinted Lens strengthen the power of not very effective move.")
             eff=2
     elif eff==0:
-        print(f" Doesn't effect on {other.name}.")
+        print(f" 🔴 Doesn't effect on {other.name}.")
      
                                
     #STAB              
-    if self.atktype == self.type1 or self.atktype==self.type2:
+    if self.atktype in (self.type1,self.type2):
         if self.ability=="Adaptability":
             print(f" {self.name}'s {self.ability}.")
             stab=2
@@ -884,9 +884,21 @@ def prebuff(self,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if field.terrain=="Misty":
+        if turn==field.misendturn:
+            print(" 🌐 The battlefield turned normal.")
+            field.terrain="Normal"
+    if field.terrain=="Psychic":
+        if turn==field.psyendturn:
+            print(" 🌐 The battlefield turned normal.")
+            field.terrain="Normal"
+    if field.terrain=="Electric":
+        if turn==field.eleendturn:
+            print(" 🌐 The battlefield turned normal.")
+            field.terrain="Normal"
     if field.terrain=="Grassy":
         if turn==field.grassendturn:
-            print(" The battlefield turned normal.")
+            print(" 🌐 The battlefield turned normal.")
             field.terrain="Normal"
     if field.weather=="Hail":
         if turn==field.hailendturn:
@@ -999,6 +1011,7 @@ def statchange(self,tr1,turn):
     if self.item=="Lum Berry" and self.status!="Alive":
         print(f" {self.item} cured {self.name}'s status condition!")
         self.item=None
+    
     if tr1.reflect is True:
         defbuff*=2
         if turn==tr1.rfendturn:
