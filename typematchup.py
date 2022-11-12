@@ -18,6 +18,17 @@ field=Field()
 def weakness(self,other,field):
     eff=1
     stab=1     
+    if self.ability=="Unaware":
+        other.defense=round(other.defense/other.defb)
+        other.spdef=round(other.spdef/other.spdefb)
+    if other.ability=="Unaware":
+        self.atk=round(self.atk/self.atkb)
+        self.spatk=round(self.spatk/self.spatkb)
+    #Type change
+    if self.ability in ["Protean","Libero"] and self.type1!=self.atktype:
+        self.type2=None
+        self.type1=self.atktype
+        print(f" {self.name} changed it's type to {self.type1} using {self.ability}!")
     if other.hp==other.maxhp and other.ability in ["Multiscale"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {other.name}'s {other.ability}.")
         eff*=0.5
@@ -172,9 +183,9 @@ def weakness(self,other,field):
             print(f" ⚡ {other.name}'s {other.ability}.")
             print(f" {other.name} gained some health.")
             if other.hp<=other.maxhp-(other.maxhp/4):
-                    other.hp+=other.maxhp/4
+                other.hp+=other.maxhp/4
             if other.hp>other.maxhp-(other.maxhp/4):
-                    other.hp=other.maxhp
+                other.hp=other.maxhp
             
             eff*=0
         if other.type1 in electriceff and other.teratype is None:
@@ -196,6 +207,9 @@ def weakness(self,other,field):
     
     #psychic
     if self.atktype=="Psychic":
+        if other.ability=="Dark Mind":
+            print(f" {other.name}'s {other.ability}!")
+            eff*=0
         if other.ability=="Wonder Guard":
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
@@ -511,6 +525,15 @@ def weakness(self,other,field):
             eff*=1 
     #Ground
     if self.atktype=="Ground":
+        if other.ability=="Earth Eater":
+            print(f" 🌍 {other.name}'s {other.ability}.")
+            print(f" {other.name} gained some health.")
+            if other.hp<=other.maxhp-(other.maxhp/4):
+                other.hp+=other.maxhp/4
+            if other.hp>other.maxhp-(other.maxhp/4):
+                other.hp=other.maxhp
+            
+            eff*=0
         if other.ability=="Wonder Guard":
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
@@ -794,7 +817,7 @@ def weakness(self,other,field):
      
         else:
             eff*=1 
-    if eff in (2,4):
+    if eff>=2:
         print(" 🟢 It's super effective!") 
         if other.item=="Enigma Berry":
             other.hp+=round(other.maxhp/4)
@@ -808,7 +831,7 @@ def weakness(self,other,field):
             print(f" {other.name}: Special Attack x{other.spatkb}")
         if self.item=="Expert Belt":
             eff*=1.2
-        if other.ability=="Solid Rock":
+        if other.ability in ["Solid Rock","Filter"]:
             print(f" {other.name}'s {other.ability}.")
             eff*=0.75
                 
@@ -825,7 +848,7 @@ def weakness(self,other,field):
      
                                
     #STAB              
-    if self.atktype in (self.type1,self.type2):
+    if self.atktype in (self.type1,self.type2,self.teratype):
         if self.ability=="Adaptability":
             print(f" {self.name}'s {self.ability}.")
             stab=2
@@ -845,15 +868,27 @@ def critch(self,other,num=None):
     if crit>1:
         crit=random.randint(1,crit)
     if crit==1 and other.ability not in ["Shell Armor","Battle Armor"]:
+        if self.owner.lightscreen is True:
+            self.spdef/=2
+        if self.owner.reflect is True:
+            self.defense/=2
+        if self.atkb<1:
+            self.atk/=self.atkb
+        if self.spatkb<1:
+            self.spatk/=self.spatkb
+        if other.defb>1:
+            other.defense/=other.defb
+        if other.spdefb>1:
+            other.spdef/=other.spdefb
         if other.ability=="Anger Point":
             print(f" {other.name}'s {other.ability}.")
             atkchange(other,4)
         if self.ability=="Sniper":
             print(colored(" It's a critical hit.","red"))
-            return 3
+            return 2.25
         else:
             print(colored(" It's a critical hit.","red"))
-            return 2
+            return 1.5
     if other.ability in ["Shell Armor","Battle Armor"] and crit==1:
         return 1
     else:
@@ -900,6 +935,10 @@ def prebuff(self,tr1,turn,field):
         if turn==field.grassendturn:
             print(" 🌐 The battlefield turned normal.")
             field.terrain="Normal"
+    if field.weather=="Snowstorm":
+        if turn==field.snowstormendturn:
+            print(" 🌥️The snowstorm stopped.")
+            field.weather="Cloudy"            
     if field.weather=="Hail":
         if turn==field.hailendturn:
             print(" 🌥️The hail stopped.")
@@ -938,7 +977,7 @@ def prebuff(self,tr1,turn,field):
         atkbuff*=2
         spatkbuff*=2
     if self.ability=="Marvel Scale" and self.status!="Alive":
-        print(" 🔰 {self.name}'s Marvel Scale!")
+        print(f" 🔰 {self.name}'s Marvel Scale!")
         defbuff*=1.5
     if self.ability=="Flare Boost" and self.status=="Burned":
         print(" 🔥 Flare boosted!")
@@ -946,26 +985,40 @@ def prebuff(self,tr1,turn,field):
     if field.weather in ["Rainy","Primordial Sea"] and self.ability=="Swift Swim":
         print(f" 🐬 {self.name}'s {self.ability}!")
         speedbuff*=2
+    if field.terrain=="Electric" and self.ability=="Quark Drive":
+        print(f" ⚡🧬 {self.name}'s {self.ability}!")
+        if self.spatk>self.atk and self.spatkb==1:
+            spatkchange (self,0.5)
+        if self.atk>self.spatk and self.atkb==1:
+            atkchange (self,0.5)        
+    if field.weather in ["Sunny","Desolate Land"] and self.ability=="Protosynthesis":
+        print(f" ☀️🧬 {self.name}'s {self.ability}!")
+        if self.spatk>self.atk and self.spatkb==1:
+            spatkchange (self,0.5)
+        if self.atk>self.spatk and self.atkb==1:
+            atkchange (self,0.5)
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Chlorophyll":
         print(f" 🌻 {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Sandstorm"] and self.ability=="Sand Rush":
         print(f" 🏜️ {self.name}'s {self.ability}!")
         speedbuff*=2
-    if field.weather in ["Hail"] and self.ability=="Slush Rush":
+    if field.weather in ["Hail","Snowstorm"] and self.ability=="Slush Rush":
         print(f" 🏂 {self.name}'s {self.ability}!")
         speedbuff*=2
+    if field.weather in ["Snowstorm"] and (self.type1=="Ice" or self.type2=="Ice"):
+        defbuff*=1.5
     if field.weather in ["Sandstorm"] and (self.type1=="Rock" or self.type2=="Rock"):
         spdefbuff*=1.5
     if self.ability=="Ice Scales":
         spdefbuff*=2
     if self.ability=="Gorilla Tactics":
         atkbuff*=1.5
-    if self.item=="Choice Band":
+    if self.item=="Choice Band" and self.dmax is False:
         atkbuff*=1.5
-    if self.item=="Choice Specs":
+    if self.item=="Choice Specs" and self.dmax is False:
         spatkbuff*=1.5
-    if self.item=="Choice Scarf":
+    if self.item=="Choice Scarf" and self.dmax is False:
         speedbuff*=1.5
     if self.item=="Assault Vest":
         spdefbuff*=1.5
@@ -999,8 +1052,28 @@ def statchange(self,tr1,turn):
         spdefbuff*=2
     if self.ability=="Moody":
         print(f" {self.name}'s {self.ability}!")
-        random.choice([atkchange(self,1),spatkchange(self,1),defchange(self,1),spdefchange(self,1),speedchange(self,1)])
-        random.choice([atkchange(self,-0.5),spatkchange(self,-0.5),defchange(self,-0.5),spdefchange(self,-0.5),speedchange(self,-0.5)])
+        ch=random.randint(1,5)
+        if ch==1:
+            atkchange(self,1)
+        if ch==2:
+            spatkchange(self,1)
+        if ch==3:
+            defchange(self,1)
+        if ch==4:
+            spdefchange(self,1)
+        if ch==5:
+            speedchange(self,1)
+        ch=random.randint(1,5)                
+        if ch==1:
+            atkchange(self,-0.5)
+        if ch==2:
+            spatkchange(self,-0.5)
+        if ch==3:
+            defchange(self,-0.5)
+        if ch==4:
+            spdefchange(self,-0.5)
+        if ch==5:
+            speedchange(self,-0.5)
     if self.item=="Cheri Berry" and self.status=="Paralyzed":
         print(f" {self.item} cured {self.name}'s paralysis!")
         self.item=None
@@ -1041,31 +1114,17 @@ def statchange(self,tr1,turn):
     if self.item=="Light Ball":
         atkbuff*=2
         spatkbuff*=2
-    if self.ability=="Marvel Scale" and self.status!="Alive":
-        defbuff*=1.5
-    if self.ability=="Flare Boost" and self.status=="Burned":
-        spatkbuff*=1.5
-    if field.weather in ["Rainy","Primordial Sea"] and self.ability=="Swift Swim":
-        print(f" {self.name}'s {self.ability}!")
-        speedbuff*=2
-    if field.weather in ["Sunny","Desolate Land"] and self.ability=="Chlorophyll":
-        print(f" {self.name}'s {self.ability}!")
-        speedbuff*=2
-    if field.weather in ["Sandstorm"] and self.ability=="Sand Rush":
-        print(f" {self.name}'s {self.ability}!")
-        speedbuff*=2
-    if field.weather in ["Hail"] and self.ability=="Slush Rush":
-        print(f" {self.name}'s {self.ability}!")
-        speedbuff*=2
+    if field.weather in ["Sandstorm"] and (self.type1=="Rock" or self.type2=="Rock"):
+        spdefbuff*=1.5
     if field.weather in ["Sandstorm"] and (self.type1=="Rock" or self.type2=="Rock"):
         spdefbuff*=2
     if self.ability=="Gorilla Tactics":
         atkbuff*=1.5
-    if self.item=="Choice Band":
+    if self.item=="Choice Band" and self.dmax is False:
         atkbuff*=1.5
-    if self.item=="Choice Specs":
+    if self.item=="Choice Specs" and self.dmax is False:
         spatkbuff*=1.5
-    if self.item=="Choice Scarf":
+    if self.item=="Choice Scarf" and self.dmax is False:
         speedbuff*=1.5
     if self.item=="Assault Vest":
         spdefbuff*=1.5
@@ -1073,13 +1132,15 @@ def statchange(self,tr1,turn):
         self.type1=self.atktype
     if self.item=="Flame Orb" and self.status=="Alive":
         self.status="Burned"
-        print(f" {self.name} was burned by its Flame Orb.")
+        print(f" ❤️‍🔥 {self.name} was burned by its Flame Orb.")
     if self.item=="Toxic Orb" and self.status=="Alive":
         self.status="Badly Poisoned"
-        print(f" {self.name} was badly poisoned by its Toxic Orb.")
-    if self.ability in ["Huge Power","Pure Power","Multitype"]:
+        print(f" 🧪 {self.name} was badly poisoned by its Toxic Orb.")
+    if self.ability in ["Huge Power","Pure Power","Multitype","RKS System"]:
         if self.ability in ["Huge Power","Pure Power"]:
             atkbuff*=2
+        if self.item=="Elemental Disks":
+            atkbuff*=1.5
         if self.item=="Elemental Plates":
             atkbuff*=1.5
     if self.item=="Life Orb":
@@ -1114,7 +1175,9 @@ def atkchange(self,amount):
     elif amount==1:
         if 1<=self.atkb<=3:
             self.atkb+=amount
-        if 0.25<=self.atkb<1:
+        if self.atkb==0.67:
+            self.atkb=round(1/self.atkb,2)
+        if 0.25<=self.atkb<0.67:
             self.atkb=round(1/((1/self.atkb)-amount),2)
         
     elif amount==1.5:
@@ -1124,7 +1187,7 @@ def atkchange(self,amount):
             self.atkb=round(1/((1/self.atkb)-amount),2)
         
     elif amount==4:
-        if 1<=self.atkb:
+        if self.atkb>=1:
             self.atkb=amount
         if 0.25<=self.atkb<1:
             self.atkb=round(1/((1/self.atkb)-amount),2)
@@ -1170,9 +1233,12 @@ def defchange(self,amount):
             self.defb=round(1/((1/self.defb)-amount),2)
         
     elif amount==1:
-        if 1<=self.defb<=3:
+        
+        if 1<=self.defb<=3.1:
             self.defb+=amount
-        if 0.25<=self.defb<1:
+        if self.defb==0.67:
+            self.defb=round(1/self.defb,2)
+        if 0.25<=self.defb<0.67:
             self.defb=round(1/((1/self.defb)-amount),2)
         
     elif amount==1.5:
@@ -1228,7 +1294,9 @@ def spatkchange(self,amount):
     elif amount==1:
         if 1<=self.spatkb<=3:
             self.spatkb+=amount
-        if 0.25<=self.spatkb<1:
+        if self.spatkb==0.67:
+            self.spatkb=1/self.spatkb
+        if 0.25<=self.spatkb<0.67:
             self.spatkb=round(1/((1/self.spatkb)-amount),2)
         
     elif amount==1.5:
@@ -1284,7 +1352,9 @@ def spdefchange(self,amount):
     elif amount==1:
         if 1<=self.spdefb<=3:
             self.spdefb+=amount
-        if 0.25<=self.spdefb<1:
+        if self.spdefb==0.67:
+            self.spdefb=1/self.spdefb
+        if 0.25<=self.spdefb<0.67:
             self.spdefb=round(1/((1/self.spdefb)-amount),2)
         
     elif amount==1.5:

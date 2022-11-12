@@ -11,7 +11,7 @@
 #        sys.stdout.flush()
 #        time.sleep(0.01)
 import random
-def intro (tr,sr):
+def intro (tr,sr,field):
     mons=[]
     mmons=[]
     for k in sr.pokemons:
@@ -19,6 +19,9 @@ def intro (tr,sr):
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
+    if "Roark" in tr.name:
+        if "Canalave City" in field.location:
+            print(f"{tr.name}: You came to challenge dad? But guess what! you gotta challenge me first!")
     if "Buck" in tr.name:
         if "Heatran" in mmons:
             print(f"{tr.name}: Ohhhh! Is that a Heatran? So you did catch Heatran! That's cool! But You aren't even close to my collection!\n")
@@ -71,8 +74,11 @@ def intro (tr,sr):
         x=random.choice([(f"{tr.name}: Groudon... Nothing could awaken you from your sleep bathed in magma... This Red Orb is what you sought. Wasn't it? I have brought you the Red Orb. Let its shine awaken you! And show me... Show me the full extent of your power!\n"),(f"{tr.name}: So the super-ancient Pokémon weren't only Groudon and Kyogre... After all our frantic scheming and fruitless efforts, that one Pokémon's simple action puts everything right again as if nothing had happened... Fu... Fuhahaha.../n")])
         print(x)
     if "Giovanni" in tr.name:
-        x=random.choice([(f"{tr.name}: Fwahahaha! This is my hideout! I planned to resurrect Team Rocket here! But, you have caught me again! So be it! This time, I'm not holding back! Once more, you shall face Giovanni, the greatest trainer!\n"),(f"{tr.name}: ... I don't know why you have come here. Anyway, I have to warn you that this is not a place for kids like you.\n"),(f"{tr.name}: You have a certain look... It reminds me of the kid who stood in front of me three years ago... You have the same eyes... I'm on my way to Goldenrod City to answer the call and join my team. Are you going to get in my way?\n"),(f"{tr.name}: For your insolence, you will feel a world of pain!\n")])
-        print(x)
+        x=random.choice([(f"{tr.name}: ... I don't know why you have come here. Anyway, I have to warn you that this is not a place for kids like you.\n"),(f"{tr.name}: You have a certain look... It reminds me of the kid who stood in front of me three years ago... You have the same eyes... I'm on my way to Goldenrod City to answer the call and join my team. Are you going to get in my way?\n"),(f"{tr.name}: For your insolence, you will feel a world of pain!\n")])
+        if "Viridian City" in field.location:
+            print(f"{tr.name}: Fwahahaha! This is my hideout! I planned to resurrect Team Rocket here! But, you have caught me again! So be it! This time, I'm not holding back! Once more, you shall face Giovanni, the greatest trainer!\n")
+        else:
+            print(x)
     if "Kahili" in tr.name:
         print(f"{tr.name}: Alola! And alola once again! My name is Kahili. A few years ago, I was a champion of the island challenge, too. Just like you. I've been traveling the world to improve my skill as both a Trainer and as a golfer. When I heard that they'd made a Pokémon League in my own home region, I came flying back to serve Alola. Have a look at my fantastic Flying-type team!\n")
     if "Acerola" in tr.name:

@@ -16,9 +16,7 @@ def  score(x,y,p1,p2,turn):
     if len(p1.hazard)!=0:
         print(" Hazard:",end=" ")
         for i in range(len(p1.hazard)):
-            if len(p1.hazard)!=1:
-                print(p1.hazard[i],end=",")
-            else:
+            if len(p1.hazard)>0:
                 print(p1.hazard[i])
     if p1.reflect==True:
         print(f" 🪞 Reflect({p1.rfendturn-turn+1} turns left)")   
@@ -40,9 +38,7 @@ def  score(x,y,p1,p2,turn):
     if len(p2.hazard)!=0:
         print(" Hazard:",end=" ")
         for i in range(len(p2.hazard)):
-            if len(p2.hazard)!=1:
-                print(p2.hazard[i],end=",")
-            else:
+            if len(p2.hazard)>0:
                 print(p2.hazard[i])
     if p2.reflect==True:
         print(f" 🪞 Reflect({p2.rfendturn-turn+1} turns left)")     
@@ -72,18 +68,30 @@ def faint(mon,mon2,trainer,trainer2,field,turn):
             mon.dmax=False
             name=mon.name.split(" ")[-1]
             print(f" 🔻 {name} returned to it's normal state!")
+            mon.name=name
         if "Mega " in mon.name:
             name=mon.name.split(" ")[-1]
             if "Mewtwo" in mon.name:
                 name="Mewtwo"
             if "Charizard" in mon.name:
                 name="Charizard"
-            print(f" 🧬 {mon.name} returned to it's normal state!")
+            print(f" 🧬 {name} returned to it's normal state!")
             mon.name=name
         if mon.owner==trainer.name:
             trainer.faintedmon.append(mon)
         print(f" \n 🏁 Refree: {mon.name} is unable to battle!")
         print(f" \n 🪦 {trainer.name}'s {mon.name} fainted!\n")
+        if mon2.ability=="Battle Bond":
+            print(f" {mon2.name}'s {mon2.ability}.")
+            if "Ash" not in mon2.name and "Greninja" in mon2.name:
+                mon2.name="Ash Greninja"
+                mon2.maxatk=round(mon2.maxatk*1.53)
+                mon2.maxspatk=round(mon2.maxspatk*1.49)
+                mon2.maxspeed=round(mon2.maxspeed*1.08)
+            else:
+                atkchange(mon2,0.5)
+                spatkchange (mon2,0.5)
+                speedchange (mon2,0.5)
         if mon2.ability=="Beast Boost":
             print(f" {mon2.name}'s {mon2.ability}.")
             if "Buzzwole" in mon2.name:
@@ -167,34 +175,34 @@ def movecat(sss):
         return ["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect"]
     if sss=="Priority":
         return ["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Protect","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken","Spiky Shield","King's Shield","Baneful Bunker","Max Guard"]
-def randomweather(turn,x,y,field):
-    trn="Normal"
-    ch=random.choices(["Clear","Rainy","Cloudy","Sandstorm","Hail","Sunny","Thunderstorm"], weights=[90,1,10,1,1,1,1],k=1)[0]    
-    if ch=="Clear":
-        print("\n 🌥️The weather looks clear!\n")
-    if ch=="Cloudy":
-        print("\n ☁️The weather is very gloomy!\n")      
-    if ch=="Sunny":
-        print("\n ☀️The sunlight is harsh!\n")     
+#def randomweather(turn,x,y,field):
+#    trn="Normal"
+#    ch=random.choices(["Clear","Rainy","Cloudy","Sandstorm","Hail","Sunny","Thunderstorm"], weights=[90,1,10,1,1,1,1],k=1)[0]    
+#    if ch=="Clear":
+#        print("\n 🌥️The weather looks clear!\n")
+#    if ch=="Cloudy":
+#        print("\n ☁️The weather is very gloomy!\n")      
+#    if ch=="Sunny":
+#        print("\n ☀️The sunlight is harsh!\n")     
 #        field.sunturn=turn
 #        field.sunend(x,y)   
-    if ch=="Hail":
-        print("\n 🌨️It's hailing!\n")      
+#    if ch=="Hail":
+#        print("\n 🌨️It's hailing!\n")      
 #        field.hailturn=turn
 #        field.hailend(x,y)
-    if ch=="Sandstorm":
-        print("\n 🏜️The sandstorm is raging!\n")
+#    if ch=="Sandstorm":
+#        print("\n 🏜️The sandstorm is raging!\n")
 #        field.sandturn=turn
 #        field.sandend(x,y)
-    if ch=="Rainy":
-        print("\n 🌧️It's raining!\n")    
+#    if ch=="Rainy":
+#        print("\n 🌧️It's raining!\n")    
 #        field.rainturn=turn
 #        field.rainend(x,y)        
-    if ch=="Thunderstorm":
-        print("\n ⛈️The thunderstorm is getting furious!\n")
-        ch="Rainy"
-        trn="Electric"
-    return ch,trn
+#    if ch=="Thunderstorm":
+#        print("\n ⛈️The thunderstorm is getting furious!\n")
+#        ch="Rainy"
+#        trn="Electric"
+#    return ch,trn
 #SKIP
 def skip():
     skip=False
@@ -206,9 +214,9 @@ def skip():
 def battle(x,y,tr1,tr2):
     turn=0
     print("===================================================================================")
-    field.weather,field.terrain=randomweather(turn,x,y,field)
-    intro(tr1,tr2)
-    intro(tr2,tr1)
+    #field.weather,field.terrain=randomweather(turn,x,y,field)
+    intro(tr1,tr2,field)
+    intro(tr2,tr1,field)
     if x.speed>=y.speed:
         entryeff(x,y,tr1,tr2,field,turn)
         entryeff(y,x,tr2,tr1,field,turn)
@@ -223,6 +231,7 @@ def battle(x,y,tr1,tr2):
         print("===================================================================")
         print(" TURN:",turn)
         print("===================================================================")
+        print(f" Location: 🏙️ {field.location}")
         if field.weather=="Desolate Land":
             print(f" Weather: 🌋 Extremely Harsh Sunlight")
         if field.weather=="Primordial Sea":
@@ -247,6 +256,9 @@ def battle(x,y,tr1,tr2):
         if field.weather=="Cloudy":
             print(f" Weather: ☁️ {field.weather}")
             ch=random.randint(1,100)
+            if 85>=ch>80:
+                print(" 🌨️ It started to snow!")
+                field.weather="Snowstorm"
             if 90>=ch>85:
                 print(" 🌥️ The clouds subsided!")
                 field.weather="Clear"     
@@ -340,7 +352,7 @@ def battle(x,y,tr1,tr2):
                 prioritymove+=flyingmove
             
 #P1 PRIORITY            
-            if choice1 in prioritymove and choice2 not in prioritymove:
+            if (choice1 in prioritymove and choice2 not in prioritymove) or x.priority is True:
                 weather(x,y)
                 x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                 statchange(x,tr1,turn)
@@ -378,9 +390,10 @@ def battle(x,y,tr1,tr2):
                     if len(tr2.pokemons)==0:
                         print(" "+tr1.name,"wins.")
                         break
+                x.priority=False
                 skip()
 #P2 PRIORITY 
-            elif choice2 in prioritymove and choice1 not in prioritymove:
+            elif (choice2 in prioritymove and choice1 not in prioritymove) or y.priority is True:
                 weather(y,x)
                  
                 y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
@@ -419,6 +432,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr1.pokemons)==0:
                         print(" "+tr2.name,"wins.")
                         break
+                y.priority=False
                 skip()
 #P1 FAST
             elif x.speed>=y.speed and field.trickroom==False:

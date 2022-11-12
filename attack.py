@@ -33,8 +33,8 @@ def fchoice(pk,tr):
 def switch(current,other,trainer,trainer2,field,turn):
     if trainer.ai is not True:
         showmon(trainer)
-    if "Ditto" in current.name and current.ability=="Imposter":
-        current.ability="Transform"
+    if "Ditto" in current.name:
+        current.ability="Imposter"
     current.atkb=1
     current.defb=1
     current.spatkb=1
@@ -46,6 +46,7 @@ def switch(current,other,trainer,trainer2,field,turn):
     current.spdef=current.maxspdef
     current.defense=current.maxdef
     current.badpoison=1
+    current.priority=False
     current.recharge=False
     current.seeded=False
     current.flinched=False
@@ -146,6 +147,47 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         prevname=current.name.split(" ")[-1]
         trname=trainer.name.split(" ")[-1]
         print(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {current.name}!\n")
+    if current.megaintro is False and "💎" in current.name:
+        typ=None
+        if current.teratype=="Dragon":
+            typ="🐲"
+        if current.teratype=="Psychic":
+            typ="👁️"
+        if current.teratype=="Ghost":
+            typ="👻"
+        if current.teratype=="Normal":
+            typ="🏳️"
+        if current.teratype=="Bug":
+            typ="🪲"
+        if current.teratype=="Steel":
+            typ="🔩"
+        if current.teratype=="Ice":
+            typ="🧊"
+        if current.teratype=="Fighting":
+            typ="👊🏽"
+        if current.teratype=="Dark":
+            typ="🌑"
+        if current.teratype=="Fairy":
+            typ="🧚🏻‍♂️"
+        if current.teratype=="Flying":
+            typ="🕊️"
+        if current.teratype=="Poison":
+            typ="☣️"
+        if current.teratype=="Ground":
+            typ="🌍"
+        if current.teratype=="Rock":
+            typ="🪨"
+        if current.teratype=="Grass":
+            typ="🌿"
+        if current.teratype=="Electric":
+            typ="⚡"
+        if current.teratype=="Water":
+            typ="💧"
+        if current.teratype=="Fire":
+            typ="🔥"
+        name=current.name.split("💎")[0]
+        print(f" {typ}{name} terastalized into {current.teratype}-type!")
+        current.megaintro=True
     if current.megaintro is False and "Mega " in current.name and "Rayquaza" not in current.name:
         trname=trainer.name.split(" ")[-1]
         prevname=current.name.split(" ")[-1]
@@ -161,10 +203,10 @@ def entryeff(current,other,trainer,trainer2,field,turn):
             print(f" 🔺{trainer.name} dynamaxed {prevname}!\n")
         if "Gigantamax" in current.name:
             print(f" 🔺{trainer.name} gigantamaxed {prevname}!\n")
-    if current.ability=="Imposter":
+    if current.ability=="Imposter" and other.dmax is False:
         print(f" 👾{current.name}'s {current.ability}!")
         print(f' {current.name} transformed into {other.name}!')
-        current.hp=(other.hp*(current.hp/current.maxhp))
+        current.hp=round(other.maxhp*(current.hp/current.maxhp))
         current.maxhp=other.maxhp
         current.maxatk=other.maxatk
         current.maxdef=other.maxdef
@@ -180,7 +222,7 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         current.defb=other.defb
         current.spatkb=other.spatkb
         current.spdefb=other.spdefb
-        current.speedb=other.speedb    
+        current.speedb=other.speedb
         current.moves=other.moves
         current.type1=other.type1
         current.type2=other.type2
@@ -210,10 +252,10 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         field.rainturn=turn
         field.rainend(current,other)
     if current.ability == "Snow Warning" and field.weather not in ["Hail","Primordial Sea","Desolate Land"]:
-        print(f" 🌨️{current.name}'s {current.ability} whipped up a hailstorm!")
-        field.weather="Hail"      
-        field.hailturn=turn
-        field.hailend(current,other) 
+        print(f" 🌨️{current.name}'s {current.ability} whipped up a snowstorm!")
+        field.weather="Snowstorm"      
+        field.snowstormturn=turn
+        field.snowstormend(current,other) 
     if current.ability=="Download":
         print(f" {current.name}'s {current.ability}.")
         if other.spdef<other.defense:
@@ -228,26 +270,26 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         print(f" {current.name}'s {current.ability}")
         defchange(current,0.5)
         print(f" Defense x{current.defb}")
-    if current.ability=="Electric Surge":
-        print(f" {current.name}'s {current.ability}")
+    if current.ability in ["Electric Surge","Hadron Engine"]:
+        print(f" {current.name}'s {current.ability}!")
         print(" ⚡ An electric current ran across the battlefield!")
         field.terrain="Electric"
         field.eleturn=turn
         field.eleend(current,other)
     if current.ability=="Misty Surge":
-        print(f" {current.name}'s {current.ability}")
+        print(f" {current.name}'s {current.ability}!")
         print(" 🌸 Mist swirled around the battlefield!")
         field.terrain="Misty"
         field.misturn=turn
         field.misend(current,other)
     if current.ability=="Grassy Surge":
-        print(f" {current.name}'s {current.ability}")
+        print(f" {current.name}'s {current.ability}!")
         print(" 🌿 Grass grew to cover the battlefield!")
         field.terrain="Grassy"
         field.grassturn=turn
         field.grassend(current,other)
     if current.ability=="Psychic Surge":
-        print(f" {current.name}'s {current.ability}")
+        print(f" {current.name}'s {current.ability}!")
         print(" 👁️ The battlefield got weird!")
         field.terrain="Psychic"        
         field.psyturn=turn
@@ -278,9 +320,15 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         print(f" 🪨 Pointed stones dug into {current.name}!")
 #INTIMIDATE        
     if current.ability=="Intimidate" and other.ability not in ["Inner Focus","Oblivious","Clear Body"]:
-        atkchange(other,-0.5)
-        print(f" {current.name}'s {current.ability}!")
-        print(f" {other.name}'s attack was lowered.") 
+        if other.ability!="Guard Dog":
+            atkchange(other,-0.5)
+            print(f" {current.name}'s {current.ability}!")
+            print(f" {other.name}'s attack was lowered.") 
+        if other.ability=="Guard Dog":
+            atkchange(other,0.5)
+            print(f" {current.name}'s {current.ability}!")
+            print(f" {other.name}'s {other.ability}!")
+            print(f" {other.name}'s attack was raised.") 
         if other.item=="Adrenaline Orb":
             speedchange(other,0.5)
             print(f" {other.name}'s speed was raised by the Adrenaline Orb.") 
@@ -304,6 +352,12 @@ def stancechange(self,used):
         self.maxatk,self.maxspatk,self.maxdef,self.maxspdef=self.maxdef,self.maxspdef,self.maxatk,self.maxspatk
  #PREATTACK       
 def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
+    if other.ability=="Disguise" and other.abilityused==False:
+        print(f"{self.name} used {use}!")
+        print(f" {other.name}'s {other.ability}!")     
+        other.hp-=round(other.maxhp*0.0625)
+        other.abilityused=True
+        use=None
     if self.item=="Throat Spray" and use in ["Hyper Voice","Boomburst","Overdrive","Clanging Scales"]:
         spatkchange(self,0.5)
         print(f" {self.name}'s Special Attack rose!")
@@ -339,6 +393,9 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
     pass
 #ATTACK
 def attack(self,other,tr,optr,use,opuse,field,turn):
+    if opuse in statusmove and use=="Protect":
+        use=None
+        print("It failed!")
     moves=["Struggle"]
     if self.dmax is False:
         moves=self.moves
@@ -408,6 +465,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {other.name}'s {other.ability}.")
             print(f" {self.name} used {used}!")
             print(f" {other.name} avoided the attack({used}).")
+            used=None
 #SAND VEIL            
     if other.ability=="Sand Veil" and field.weather=="Sandstorm":
         ch=random.randint(1,self.accuracy)
@@ -415,6 +473,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {other.name}'s {other.ability}.")
             print(f" {self.name} used {used}!")
             print(f" {other.name} avoided the attack({used}).")
+            used=None
 #######            
     if used in moves or used not in moves:
 #        print(used)
@@ -422,6 +481,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             while True:
                 print(f" Cannot use non-damaging moves while taunted.")
                 new=fchoice(self,tr)
+                if new is None:
+                    used="Struggle"
                 used=self.moves[new-1]
                 if used not in statusmove:
                     break
@@ -430,9 +491,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 print(f" Cannot use status moves while holding an Assault Vest.")
                 new=fchoice(self,tr)
                 if self.dmax is False:
-                    used=self.moves[new-1]
+                    used=moveAI(self,other,tr,optr,field)
                 if self.dmax is True:
-                    used=self.maxmove[new-1]
+                    used=moveAI(self,other,tr,optr,field)
                 if used not in statusmove:
                     break
         if used not in ["Protect","Spiky Shield","King's Shield","Baneful Bunker"]:
@@ -460,7 +521,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {self.name} is recharging.")
             self.recharge=False
             used=None
-        if self.flinched==True:
+        if self.flinched==True and other.dmax is False:
             print(f" {self.name} flinched.")
             self.flinched=False
             used=None
@@ -469,10 +530,11 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print("  It failed.")
             self.protect=False
             used=None
-        elif other.protect==True and other.dmax is True:
+        elif other.protect==True and other.dmax is True and used not in buffmove and used not in ["G-Max One Blow","G-Max Rapid Flow"]:
             print(f" 🛡️ {other.name} protected itself from {self.name}'s {used}.")
             other.protect="Pending"
-            if used in ["Protect","Spiky Shield","King's Shield","Baneful Bunker","Max Guard"]:
+            used=None
+            if used in ["Protect","Spiky Shield","King's Shield","Baneful Bunker"]:
                 print(f" {self.name} used {used}!")
                 print("  It failed!")
                 used=None
@@ -483,6 +545,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 print(f" {self.name} used {used}!")
                 print("  It failed!")
                 used=None
+                self.protect=False
             
             if "Spiky Shield" in other.moves and used in contactmoves:
                 self.hp-=round(self.maxhp/8)
@@ -579,6 +642,18 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             maxwyrmwind(self,other)
         elif used=="G-Max Hydrosnipe":
             gmaxhydrosnipe(self,other)
+        elif used=="G-Max One Blow":
+            gmaxoneblow(self,other)
+        elif used=="G-Max Rapid Flow":
+            gmaxrapidflow(self,other)
+        elif used=="Collision Course":
+            collisioncourse(self,other)
+        elif used=="Flower Trick":
+            flowertrick(self,other)
+        elif used=="Water Step":
+            waterstep(self,other)
+        elif used=="G-Max Terror":
+            gmaxterror(self,other)
         elif used=="G-Max Volcalith":
             gmaxvolcalith(self,other)
         elif used=="G-Max Volt Crash":
@@ -591,6 +666,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             maxflutterby(self,other)
         elif used=="G-Max Befuddle":
             gmaxbefuddle(self,other)
+        elif used=="Draining Kiss":
+            drainingkiss(self,other)
         elif used=="Max Phantasm":
             maxphantasm(self,other)
         elif used=="G-Max Cannonade":
@@ -703,6 +780,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             shellsmash(self)
         elif used=="Autotomize":
             autotomize(self)
+        elif used=="Rapid Spin":
+            rapidspin(self,other,tr)
         elif used=="Dragon Dance":
             dragondance(self)
             if other.ability=="Dancer":
@@ -742,6 +821,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print("  All the hazards blew away!")
             tr.hazard=[]
             optr.hazard=[]
+            field.terrain="Normal"
+            optr.lightscreen=False
+            optr.reflect=False
             if field.terrain!="Normal":
                 field.terrain="Normal"
         elif used=="Trick-or-Treat":
@@ -840,6 +922,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 fierydance(other)
         elif used=="Leech Life":
             leechlife(self,other)
+        elif used=="Freezing Glare)":
+            freezingglare(self,other)
         elif used=="Skull Bash":
             skullbash(self,other)
         elif used=="Horn Leech":
@@ -1024,13 +1108,13 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 miss=random.randint(1,self.accuracy)
                 if miss<50:
                     print(f" {other.name} avoided the attack({used}).")
-                elif miss>=50:
+                elif miss>=50 or "No Guard" in (self.ability,other.ability):
                     hurricane(self,other)
             elif field.weather != "Rainy" and field.weather !="Rainy":
                 miss=random.randint(1,self.accuracy)
                 if miss<30:
                     print(f" {other.name} avoided the attack({used}).")
-                elif miss>=30:
+                elif miss>=30 or "No Guard" in (self.ability,other.ability):
                     hurricane(self,other)
           
         elif used=="Sky Uppercut":
@@ -1372,7 +1456,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 miss=random.randint(1,self.accuracy)
                 if miss>70:
                     print(f" {other.name} avoided the attack({used}).")
-                elif miss<=70:
+                elif miss<=70 or "No Guard" in (self.ability,other.ability):
                     thunder(self,other)
         elif used=="Scald":
             scald(self,other)
@@ -1552,7 +1636,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             miss=random.randint(1,100)
             if miss>50 and self.ability!="No Guard":
                 print(f" {other.name} avoided the attack({used}).")
-            else:
+            if miss<=50 or "No Guard" in (self.ability,other.ability):
                 dynapunch(self,other)
         elif used=="Liquidation":
             liquidation(self,other)
@@ -1634,6 +1718,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 seedflare(self,other)
         elif used=="Thunderbolt":
             tbolt(self,other)
+        elif used=="Shell Trap":
+            print(f" {other.name} used Shell Trap!")
+            self.abilityused="Shell Trap"
         elif used=="Poison Jab":
             poisonjab(self,other)
         elif used=="Judgement":
@@ -1642,6 +1729,10 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             icebeam(self,other)
         elif used=="Fusion Bolt":
             fusionbolt(self,other)
+        elif used=="Fiery Wrath":
+            fierywrath(self,other)
+        elif used=="Thunderous Kick":
+            thunderouskick(self,other)
         elif used=="Fusion Flare":
             fusionflare(self,other)
         elif used=="Moonblast":
@@ -1654,6 +1745,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 hydropump(self,other)
         elif used=="Earth Power":
             earthpower(self,other)
+        elif used=="Destiny Bond":
+            destinybond(self,other)
         elif used=="Giga Drain":
             gigadrain(self,other)
         elif used=="Hidden Power":
@@ -1793,13 +1886,13 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             self.hp-=round(self.maxhp/8)
             other.item=None
             
-    #Type change
-    if self.ability in ["Protean","Libero"] and self.type1!=self.atktype:
-        self.type2=None
-        self.type1=self.atktype
-        print(f" {self.name} changed it's type to {self.type1} using {self.ability}!")
+    
     if other.hp>0:
           if other.hp<=(other.maxhp/4)  and before>(other.maxhp/4):
+              if other.item=="Custap Berry" and other.speed<self.speed:
+                  print(f" {other.item} will let {other.name} move first!")
+                  other.priority=True
+                  other.item=None
               if other.item=="Liechi Berry":
                   print(f" {other.item} raised it's attack.")
                   atkchange (other,0.5)
@@ -1816,6 +1909,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                   spdefchange (other,0.5)
                   other.item=None
           if other.hp<=(other.maxhp/2)  and before>(other.maxhp/2):
+              if other.ability=="Berserk":
+                  print(f" {other.name}'s {other.ability}!")
+                  spatkchange (other,0.5)
               if other.item in ["Aguav Berry","Figy Berry","Ipapa Berry","Mago Berry"]:
                   other.hp+=round(other.maxhp/4)
                   print(f" {other.name} consumed it's {other.item} and restored some HP!")
@@ -1830,10 +1926,18 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                   self.item=None
               
 #STURDY        
+    if used in contactmoves and other.abilityused=="Shell Trap":
+        shelltrap(other,self)
+        other.abilityused=False
     if before==other.maxhp and other.hp<=0 and hit==1:
+        
         if other.ability=="Sturdy" and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and used not in multimove:
             print(f" {other.name}'s Sturdy!")
             other.hp=1
+            if other.item=="Custap Berry" and other.speed<self.speed:
+              print(f" {other.item} will let {other.name} move first!")
+              other.priority=True
+              other.item=None
         if other.item=="Focus Sash" and used not in multimove:
             print(f" {other.name} hung on using Focus Sash.")
             other.hp=1
@@ -1850,6 +1954,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {other.name}'s {other.ability}!")
             defchange(other,0.5)
             print(f" {other.name}: Defense x{other.defb}")
+    if self.dbond is True and other.hp<=0:
+        self.hp=0
+        print(f" {other.name} took away {self.name} with it!")
 #ILLUSION        
         if other.ability=="Illusion" and "Zoroark" not in other.name:
             if other.type1=="Dark":
@@ -1877,7 +1984,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         if ch>70:
             print(f" ⚡ {other.name}'s {other.ability}!")
             me.status="Paralyzed"
-            print(f" ⚡ {other.name} was paralyzed.")
+            print(f" ⚡ {self.name} was paralyzed.")
     if other.ability=="Poison Point" and me.status=="Alive" and me.ability!="Long Reach" and used in contactmoves:
         ch=random.randint(1,100)  
         if ch>70:
@@ -1919,7 +2026,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 self.hp==0
             else:
                 self.hp-=round(self.maxhp/4)
-            
+    self.dbond=False            
 #PERCENTAGE                
     if before!=other.hp:
         print(f" ({other.name} lost {per}% of its health!)")
@@ -1931,6 +2038,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
 #EFFECTS
 def effects(self,other,turn):
     print("  ")
+    self.flinched=False
     if field.trickroom==True:
         if turn==field.troomendturn:
             field.trickroom=False
