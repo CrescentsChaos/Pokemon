@@ -12,7 +12,7 @@
 #pylint:disable=C0301
 from pokemonlist import *
 from trainers import *
-p1AI=False
+p1AI=True
 p2AI=True
 #from typematchup import *
 def teamset(mons,num=6):
@@ -1397,7 +1397,7 @@ fantina8=OGiratina(maxiv="Yes")
 fantina9=Froslass(maxiv="Yes")
 fantina10=Shedinja(maxiv="Yes")
 fantinateam=teamset([fantina1,fantina5,fantina3,fantina4,fantina7,fantina8,fantina9,fantina10],4)+[fantina2,fantina6]
-fantina=Trainer("Pokémon Trainer Fantina",fantinateam,"Sinnoh")
+fantina=Trainer("Gym Leader Fantina",fantinateam,"Sinnoh")
 #byron
 byron1=Aggron(maxiv="Yes")
 byron2=Skarmory(maxiv="Yes")
@@ -1726,17 +1726,24 @@ test2=Trainer("Test-02",[t3,t4,t5,t6,t7,t8])
 #############
 matchx=match()
 
-gym=random.choice([luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant])
+e4list=[will,koga,kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva]
 
-elite4=random.choice([will,koga,kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva])
+champlist=[odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha,mustard]
 
-champ=random.choice([odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha])
+fronlist=[lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser]
 
-frontier=random.choice([lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser])
+gymlist=[luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant]
 
-evil=random.choice([tabitha,ariana,archer,ghetsis,cyrus,archie,maxie,saturn,giovanni])
+talentlist=[benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally]
 
-talent=random.choice([benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally])
+evilist=[tabitha,ariana,archer,ghetsis,cyrus,archie,maxie,saturn,giovanni]
+
+gym=random.choice(gymlist)
+elite4=random.choice(e4list)
+champ=random.choice(champlist)
+frontier=random.choice(fronlist)
+evil=random.choice(evilist)
+talent=random.choice(talentlist)
 def genplayer2(f):
     pl=None
     field.weather="Clear"
@@ -1871,13 +1878,4 @@ def genplayer2(f):
         pl=random.choices([matchx[1],gym,elite4,champ,frontier,evil,talent],weights=[15,5,5,5,5,5,5],k=1)[0]
     return pl
 #PLAYER 02
-p2=genplayer2(field)
 #PLAYER 01
-p1=matchx[0]
-showparty(p1)
-sm1=showsmogon(p1)
-print("\n")
-showparty (p2)
-sm2=showsmogon (p2)
-mon1=p1.pokemons[random.randint(1,len(p1.pokemons))-1]
-mon2=p2.pokemons[random.randint(1,len(p2.pokemons)-1)]

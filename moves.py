@@ -4920,7 +4920,7 @@ def behemothbash(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    other.hp-=physical (self.level,self.atk,other.defense,100,a,b,c,r,al)          
+    other.hp-=physical (self.level,self.defense,other.defense,100,a,b,c,r,al)          
 def behemothblade(self,other):
     al=1
     r=randroll()
@@ -5889,9 +5889,9 @@ def weathereff(mon):
     if field.weather in ["Sunny" ,"Desolate Land"] and mon.atktype=="Fire":
         print(" ☀️ Sun boosted!")
         return 1.5          
-    if field.weather in ["Hail","Snowstorm"] and mon.atktype=="Ice":
-        print(f" ❄️ {field.weather} boosted!")
-        return 1.5          
+#    if field.weather in ["Hail","Snowstorm"] and mon.atktype=="Ice":
+#        print(f" ❄️ {field.weather} boosted!")
+#        return 1.5          
     else:
         return 1 
         

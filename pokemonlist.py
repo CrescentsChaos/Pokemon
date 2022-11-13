@@ -59,7 +59,7 @@ def smogonimport(spawn):
         name=name.split(" ")[1]
     if "Z-Crystal" in name:
         name=name.split("(")[0]
-    if spawn.item is not None and "⭐" not in name:
+    if spawn.item is not None and "✨" not in name:
         return (f'''\n {name} @ {spawn.item}  
  Ability: {spawn.ability}  
  EVs: {spawn.hpev} HP / {spawn.atkev} Atk / {spawn.defev} Def / {spawn.spatkev} SpA / {spawn.spdefev} SpD / {spawn.speedev} Spe  
@@ -70,7 +70,7 @@ def smogonimport(spawn):
  - {spawn.moves[2]}
  - {spawn.moves[3]}'''
 )
-    if spawn.item is not None and "⭐" in name:
+    if spawn.item is not None and "✨" in name:
         return (f'''\n{name} @ {spawn.item}  
 Ability: {spawn.ability}  
 Shiny: Yes

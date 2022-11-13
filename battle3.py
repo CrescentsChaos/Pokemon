@@ -1,8 +1,8 @@
-
 from attack import *
 from moves import *
-from trainerlist import *
 from intros import intro
+from moreoptions import *
+
 #SCOREBOARD
 def  score(x,y,p1,p2,turn):
     print("")
@@ -169,7 +169,11 @@ def action(tr):
                 return actionx    
                 break    
             if actionx=="":
-                actionx=random.choices([1,2,3], weights=[99,5,0],k=1)[0]
+                if tr.ai is True:
+                    print("NIGGA")
+                    actionx=random.choices([1,2,3], weights=[99,5,0],k=1)[0]
+                if tr.ai is False:
+                    action=1
                 return actionx
                 break
     if tr.ai is True:
@@ -315,9 +319,9 @@ def battle(x,y,tr1,tr2):
         action2=action(tr2)
         check=len(moveAI(y,x,tr2,tr1,field)[1])
         check2=len(moveAI(x,y,tr1,tr2,field)[1])
-        if p1AI is True:
+        if p1.ai is True:
             action1=decision(x,y,tr1,tr2,field)
-        if p2AI is True:
+        if p2.ai is True:
             action2=decision(y,x,tr2,tr1,field)
         #print(action1,action2)
         if  action1==3 and action2!=3:

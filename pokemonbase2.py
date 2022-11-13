@@ -96,13 +96,10 @@ class Pokemon2:
         if "Mega " not in self.name and "Alpha " not in name and self.totem == 7 and maxiv not in ["Yes","gmax"]:
             self.name="Totem "+name
         self.teratype=random.randint(1,50)
-        if self.teratype==2 and "Mega" not in self.name and "Alpha " not in self.name:
-           self.teratype=random.choice(["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"])
-           if self.teratype in (self.type1,self.type2):
-                self.atkb=1.5
-                self.spatkb=1.5
-           self.moves+=["Tera Blast"]
-           self.name+="💎"
+        if self.teratype==2 and "Mega" not in self.name and "Alpha " not in self.name and "Dyna" not in self.name and "Giganta" not in self.name:
+             self.teratype=random.choice(["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"])
+             self.moves+=["Tera Blast"]
+             self.name+="💎"
         self.movez=movez
         if self.teratype not in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
             self.teratype=None
@@ -129,7 +126,7 @@ class Pokemon2:
         self.ability=ability
         self.status=status
         mch=random.randint(1,2)
-        if (("Mega " not in self.name and "Z-Crystal" not in self.name and "Zacian" not in self.name and "Zamazenta" not in self.name) and mch==1 and self.maxiv!="Yes" and "💎" not in self.name and "Battle Bond" not in self.ability) or self.maxiv=="gmax":
+        if (("Mega " not in self.name and "Z-Crystal" not in self.name and "Zacian" not in self.name and "Zamazenta" not in self.name) and mch==1 and self.maxiv!="Yes" and "Battle Bond" not in self.ability) or self.maxiv=="gmax":
             self.dmax=True
             rename(self)
         if self.dmax is True:
@@ -5046,7 +5043,7 @@ class Zamazenta(Pokemon2):
     "Zamazenta"
     def __init__(self,name="Crowned Shield Zamazenta",type1="Fighting",type2="Steel",nature=None,level=100,happiness=255,hp=92,atk=130,defense=145,spatk=80,spdef=145,speed=128,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Dauntless Shield",item="Rusted Shield"):
         if move is None:
-            avmoves=["Behemoth Bash","Close Combat","Protect","Crunch","Swords Dance","Body Press"]
+            avmoves=["Behemoth Bash","Close Combat","Protect","Crunch","Swords Dance"]
             moves=moveset(avmoves)
         else:
             moves=move
