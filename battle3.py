@@ -1,3 +1,4 @@
+
 from attack import *
 from moves import *
 from trainerlist import *
@@ -18,8 +19,11 @@ def  score(x,y,p1,p2,turn):
         for i in range(len(p1.hazard)):
             if len(p1.hazard)>0:
                 print(p1.hazard[i])
+                
     if p1.reflect==True:
         print(f" 🪞 Reflect({p1.rfendturn-turn+1} turns left)")   
+    if p1.auroraveil==True:
+        print(f" ❄️ Aurora Veil({p1.avendturn-turn+1} turns left)")
     if p1.lightscreen==True:              
         print(f" 🔲 Light Screen({p1.screenend-turn+1} turns left)")        
     print(f" Lv.{x.level} {x.name}: {x.hp}/{x.maxhp}({round((x.hp/x.maxhp)*100,2)}%)[{x.status}]")
@@ -42,6 +46,8 @@ def  score(x,y,p1,p2,turn):
                 print(p2.hazard[i])
     if p2.reflect==True:
         print(f" 🪞 Reflect({p2.rfendturn-turn+1} turns left)")     
+    if p2.auroraveil==True:
+        print(f" ❄️ Aurora Veil({p2.avendturn-turn+1} turns left)")
     if p2.lightscreen==True:        
         print(f" 🔲 Light Screen({p2.screenend-turn+1} turns left)")               
     print(f" Lv.{y.level} {y.name}: {y.hp}/{y.maxhp}({round((y.hp/y.maxhp)*100,2)}%)[{y.status}]")
@@ -207,7 +213,7 @@ def movecat(sss):
 def skip():
     skip=False
     while skip==False:
-        kk=input("\n Do you want to skip this turn?\n >>> ")
+        kk=input("\n Do you want to skip this turn? (Enter anything)\n >>> ")
         if kk!=None:
             skip=True
 #BATTLE
@@ -242,8 +248,11 @@ def battle(x,y,tr1,tr2):
             print(f" Weather: ⛈️ Thunderstorm ({field.rainendturn-turn} turns left)")
         if field.weather=="Strong Wind" and field.terrain=="Electric":
             print(f" Weather: 🌪️ Hurricane")
-        if field.weather=="Hail":
-            print(f" Weather: ❄️ {field.weather} ({field.hailendturn-turn} turns left)")
+        if field.weather in ["Hail","Snowstorm"]:
+            if field.weather=="Snowstorm":
+                print(f" Weather: ❄️ {field.weather} ({field.snowstormendturn-turn} turns left)")
+            if field.weather=="Hail":
+                print(f" Weather: ❄️ {field.weather} ({field.hailendturn-turn} turns left)")
         if field.weather=="Clear":
             print(f" Weather: 🌥️ {field.weather}")
             ch=random.randint(1,100)

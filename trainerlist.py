@@ -1,3 +1,4 @@
+#pylint:disable=C0116
 #pylint:disable=W0311
 #pylint:disable=R0916
 #pylint:disable=C0304
@@ -11,7 +12,7 @@
 #pylint:disable=C0301
 from pokemonlist import *
 from trainers import *
-p1AI=True
+p1AI=False
 p2AI=True
 #from typematchup import *
 def teamset(mons,num=6):
@@ -87,7 +88,7 @@ def teammaker(trclass=None,trname=None,pknum=6):
         mons=[Slitherwing,Wormadam,Mothim,TWormadam,SWormadam,Kricketune,Shedinja,Ninjask,Masquerain,Beautifly,Dustox,Shuckle,Forretress,Ariados,Ledian,Scyther,Venomoth,Parasect,Butterfree,Beedrill,Frosmoth,Kleavor,Centiskorch,Orbeetle,Golisopod,Araquanid,Vikavolt,Volcarona,Durant,Accelgor,Galvantula,Escavalier,Scolipede,Leavanny,Scizor,Heracross,Pinsir,Drapion,Vespiquen,Yanmega,MScizor,MHeracross,MPinsir,MBeedrill]        
         #ICE SPECIALISTS
     if trclass in ["Skier","Boarder"]:
-        mons=[Baxcalibur,Ironbundle,Glaceon,Delibird,ASandslash,Cetitan,Frosmoth,MrRime,Avalugg,HAvalugg,Aurorus,Beartic,Vanilluxe,GDarmanitan,Weavile,Abomasnow,Walrein,Lapras,Mamoswine,Glalie,MGlalie,Jynx,Cloyster,ANinetales,MAbomasnow]
+        mons=[Cryogonal,Baxcalibur,Ironbundle,Glaceon,Delibird,ASandslash,Cetitan,Frosmoth,MrRime,Avalugg,HAvalugg,Aurorus,Beartic,Vanilluxe,GDarmanitan,Weavile,Abomasnow,Walrein,Lapras,Mamoswine,Glalie,MGlalie,Jynx,Cloyster,ANinetales,MAbomasnow]
         ch=random.randint(1,10)
         if ch==7:
             mons+=[Articuno]
@@ -136,7 +137,7 @@ def teammaker(trclass=None,trname=None,pknum=6):
         mons+=random.choices([Articuno,Zapdos,Moltres,Thundurus,Landous,Tornadus,Enamorus],k=1)        
         #DECENT TRAINERS
     if trclass in ["Expert","Veteran","Businessman"]:
-        mons=[Dudunsparce,Noctowl,Furret,Ditto,Chansey,Persian,Vileplume,Wigglytuff,Clefable,Pikachu,Raticate,ARaticate,Butterfree,Beedrill,MDLycanroc,MNLycanroc,DLycanroc,Aegislash,Delphox,Greninja,Chesnaught,Basculegion,Stoutland,Probopass,Ursaluna,Yanmega,Magnezone,Tangrowth,Hippowdon,Lucario,Mismagius,Luxray,Roserade,Torterra,Glalie,Absol,Banette,Milotic,Armaldo,Cradily,Aggron,Hariyama,Breloom,Gardevoir,Swellow,Ludicolo,Swampert,Houndoom,Heracross,Steelix,Espeon,Ampharos,Flareon,Jolteon,Vaporeon,Snorlax,Lapras,Gyarados,Tauros,Kangaskhan,Hitmonchan,Hitmonlee,Exeggutor,Gengar,Dodrio,Slowbro,Rapidash,AGolem,Victreebel,Machamp,Golduck,Alakazam,Pidgeot,Blastoise,Ninetales,Primeape,MBeedrill, Venusaur, Charizard,Cloyster,MBanette,MGlalie]
+        mons=[Audino,Dudunsparce,Noctowl,Furret,Ditto,Chansey,Persian,Vileplume,Wigglytuff,Clefable,Pikachu,Raticate,ARaticate,Butterfree,Beedrill,MDLycanroc,MNLycanroc,DLycanroc,Aegislash,Delphox,Greninja,Chesnaught,Basculegion,Stoutland,Probopass,Ursaluna,Yanmega,Magnezone,Tangrowth,Hippowdon,Lucario,Mismagius,Luxray,Roserade,Torterra,Glalie,Absol,Banette,Milotic,Armaldo,Cradily,Aggron,Hariyama,Breloom,Gardevoir,Swellow,Ludicolo,Swampert,Houndoom,Heracross,Steelix,Espeon,Ampharos,Flareon,Jolteon,Vaporeon,Snorlax,Lapras,Gyarados,Tauros,Kangaskhan,Hitmonchan,Hitmonlee,Exeggutor,Gengar,Dodrio,Slowbro,Rapidash,AGolem,Victreebel,Machamp,Golduck,Alakazam,Pidgeot,Blastoise,Ninetales,Primeape,MBeedrill, Venusaur, Charizard,Cloyster,MBanette,MGlalie]
         ch=random.randint(1,15)
         if ch==7:
             mons+=random.choices(legendary,k=1)
@@ -152,7 +153,6 @@ def teammaker(trclass=None,trname=None,pknum=6):
         ch=random.randint(1,10)
         if ch==7:
             mons+=random.choices(legendary,k=1)
-        pass 
 
     if trclass == "Air Force Officer":
         mons=[Skarmory,Corviknight,Magnezone,Latios,Latias,Pidgeot,Staraptor,Braviary,Altaria,MAltaria,Dragonite,Salamence,Metagross,MSalamence]
@@ -165,7 +165,7 @@ def teammaker(trclass=None,trname=None,pknum=6):
             
      #BETTER TRAINERS
     if trclass == "Ace Trainer":
-        mons=[Cyclizar,Granbull,Clefable,Kleavor,Obstagoon,Grimmsnarl,Polteageist,Toxtricity,Silvally,MDLycanroc,MNLycanroc,DLycanroc,Primarina,Incineroar,Aegislash,Florges,Greninja,Volcarona,Hydreigon,Mandibuzz,Braviary,Bouffalant,Bisharp,Mienshao,Haxorus,Eelektross,Ferrothorn,Gothitelle,Reuniclus,HZoroark,Zoroark,Archeops,Cofagrigus,Scrafty,Darmanitan,Krookodile,Basculegion,Conkeldurr,Excadrill,Gigalith,Heatran,Dusknoir,Ursaluna,HArcanine,PorygonZ,Gliscor,Yanmega,Togekiss,Electivire,Rhyperior,Magnezone,Lucario,Drifblim,Roserade,Staraptor,Empoleon,Torterra,Infernape,Metagross,Salamence,Absol,Milotic,Altaria,Flygon,Wailord,MManectric,MGardevoir,Swellow,Ludicolo,Swampert,Blaziken,Kingdra,MHoundoom,Skarmory,Heracross,Scizor,MSteelix,Espeon,Umbreon,MAmpharos,Feraligatr,Typhlosion,Meganium,Dragonite,Snorlax,MGyarados,Tauros,MPinsir,Starmie,AMuk,AExeggutor,MGengar,Cloyster,MSlowbro,Golem,MAlakazam,MPidgeot,Poliwrath,Arcanine,ANinetales,Nidoking, Nidoqueen,MCharizardY,MVenusaur,MBlastoise,MSceptile,MCamerupt]
+        mons=[MAudino,Cyclizar,Granbull,Clefable,Kleavor,Obstagoon,Grimmsnarl,Polteageist,Toxtricity,Silvally,MDLycanroc,MNLycanroc,DLycanroc,Primarina,Incineroar,Aegislash,Florges,Greninja,Volcarona,Hydreigon,Mandibuzz,Braviary,Bouffalant,Bisharp,Mienshao,Haxorus,Eelektross,Ferrothorn,Gothitelle,Reuniclus,HZoroark,Zoroark,Archeops,Cofagrigus,Scrafty,Darmanitan,Krookodile,Basculegion,Conkeldurr,Excadrill,Gigalith,Heatran,Dusknoir,Ursaluna,HArcanine,PorygonZ,Gliscor,Yanmega,Togekiss,Electivire,Rhyperior,Magnezone,Lucario,Drifblim,Roserade,Staraptor,Empoleon,Torterra,Infernape,Metagross,Salamence,Absol,Milotic,Altaria,Flygon,Wailord,MManectric,MGardevoir,Swellow,Ludicolo,Swampert,Blaziken,Kingdra,MHoundoom,Skarmory,Heracross,Scizor,MSteelix,Espeon,Umbreon,MAmpharos,Feraligatr,Typhlosion,Meganium,Dragonite,Snorlax,MGyarados,Tauros,MPinsir,Starmie,AMuk,AExeggutor,MGengar,Cloyster,MSlowbro,Golem,MAlakazam,MPidgeot,Poliwrath,Arcanine,ANinetales,Nidoking, Nidoqueen,MCharizardY,MVenusaur,MBlastoise,MSceptile,MCamerupt]
         ch=random.randint(1,5)
         if ch==3:
             mons+=random.choices(legendary,k=1)
@@ -495,7 +495,11 @@ brandon3=Registeel(maxiv="gmax")
 brandon4=Articuno(maxiv="Yes")
 brandon5=Zapdos(maxiv="Yes")
 brandon6=Moltres(maxiv="Yes")
-brandon=Trainer ("Pyramid King Brandon",[brandon1,brandon2,brandon3,brandon4,brandon5,brandon6],"Hoenn")
+brandon7=Ninjask(maxiv="Yes")
+brandon8=Dusclops(maxiv="Yes")
+brandon9=Solrock(maxiv="Yes")
+brandonteam=teamset([brandon7,brandon8,brandon9,brandon4,brandon5,brandon6],3)+[brandon1,brandon2,brandon3]
+brandon=Trainer ("Pyramid King Brandon",brandonteam,"Hoenn")
 #Illegal
 illegal1=OArceus(maxiv="gmax")
 illegal2=Cloyster()
@@ -764,16 +768,54 @@ mustardteam2=teamset([mustard2,mustard3,mustard4,mustard5],4)+[mustard9,mustard8
 mustard=Trainer("Pokémon Trainer Mustard", random.choice([mustardteam1,mustardteam2]),"Galar")    
 #Brendan
 bren1=Gardevoir(maxiv="Yes")
-bren2=Ludicolo(maxiv="Yes")
-bren3=Swellow(maxiv="Yes")
-bren4=Breloom(maxiv="Yes")
 bren9=Aggron(maxiv="Yes")
 bren7=Shiftry(maxiv="Yes")
 bren8=Swampert(maxiv="Yes")
 bren5=Latios(maxiv="gmax")
 bren6=MSceptile(maxiv="Yes")
-brenteam=teamset([bren1,bren2,bren3,bren4,bren5,bren7,bren8,bren9],5)+[bren6]
+bren11=Wailord(maxiv="Yes")
+bren12=Breloom(maxiv="Yes")
+bren13=Camerupt(maxiv="Yes")
+bren14=Swellow(maxiv="Yes")
+bren15=Pelipper(maxiv="Yes")
+bren16=Ludicolo(maxiv="Yes")
+bren17=Magcargo(maxiv="Yes")
+bren18=Tropius(maxiv="Yes")
+bren19=Raichu(maxiv="Yes")
+bren20=Claydol(maxiv="Yes")
+bren21=Exploud(maxiv="Yes")
+bren10=PGroudon(maxiv="Yes")
+bren22=PKyogre(maxiv="Yes")
+bren23=Rayquaza(maxiv="Yes")
+brenteam=teamset([bren1,bren5,bren7,bren8,bren9,bren11,bren12,bren13,bren14,bren15,bren16,bren17,bren18,bren19,bren20,bren21,bren10,bren22,bren23],5)+[bren6]
 brendan=Trainer("Pokémon Trainer Brendan",brenteam,"Hoenn")
+#may
+may1=Gallade(maxiv="Yes")
+may2=Blastoise(maxiv="Yes")
+may3=Snorlax(maxiv="Yes")
+may4=Beautifly(maxiv="Yes")
+may9=Glaceon(maxiv="Yes")
+may7=Venusaur(maxiv="Yes")
+may8=Swampert(maxiv="Yes")
+may5=Latias(maxiv="gmax")
+may6=MBlaziken(maxiv="Yes")
+may10=Delcatty(maxiv="Yes")
+may11=Wailord(maxiv="Yes")
+may12=Breloom(maxiv="Yes")
+may13=Camerupt(maxiv="Yes")
+may14=Swellow(maxiv="Yes")
+may15=Pelipper(maxiv="Yes")
+may16=Ludicolo(maxiv="Yes")
+may17=Magcargo(maxiv="Yes")
+may18=Tropius(maxiv="Yes")
+may19=Raichu(maxiv="Yes")
+may20=Claydol(maxiv="Yes")
+may21=Exploud(maxiv="Yes")
+may22=PKyogre(maxiv="Yes")
+may23=PGroudon(maxiv="Yes")
+may24=Rayquaza(maxiv="Yes")
+mayteam=teamset([may1,may2,may3,may4,may5,may7,may8,may9,may10,may11,may12,may13,may14,may15,may16,may17,may18,may19,may20,may21,may22,may23,may24],5)+[may6]
+may=Trainer("Pokémon Trainer May",mayteam,"Hoenn")
 #Ingo
 ingo1=Gliscor(maxiv="Yes")
 ingo2=Alakazam(maxiv="Yes")
@@ -894,6 +936,30 @@ alder4=Bouffalant (maxiv="Yes")
 alder5=Braviary (maxiv="Yes")
 alder6=Volcarona (maxiv="gmax")
 alder=Trainer ("Unova Champion Alder",[alder1,alder2,alder3,alder4,alder5,alder6],"Unova")
+#barry
+barry1=Roserade(maxiv="Yes")
+barry2=Staraptor(maxiv="Yes")
+barry3=Hitmonlee(maxiv="Yes")
+barry4=MHeracross(maxiv="Yes")
+barry5=Skarmory(maxiv="Yes")
+barry6=Empoleon(maxiv="gmax")
+barry7=Snorlax(maxiv="Yes")
+barry8=Rapidash(maxiv="Yes")
+barry9=Floatzel(maxiv="Yes")
+barryteam=teamset([barry1,barry2,barry3,barry4,barry5,barry7,barry8,barry9],5)+[barry6]
+barry=Trainer ("Pokémon Trainer Barry",barryteam,"Sinnoh")
+#wally
+wally1=Roserade(maxiv="Yes")
+wally2=Azumarill (maxiv="Yes")
+wally3=Garchomp(maxiv="Yes")
+wally4=Magnezone(maxiv="Yes")
+wally5=Altaria(maxiv="Yes")
+wally6=MGallade(maxiv="Yes")
+wally7=Talonflame (maxiv="Yes")
+wally8=Gardevoir(maxiv="Yes")
+wally9=Delcatty(maxiv="Yes")
+wallyteam=teamset([wally1,wally2,wally3,wally4,wally5,wally7,wally8,wally9],5)+[wally6]
+wally=Trainer ("Pokémon Trainer Wally",wallyteam,"Hoenn")
 #paul
 paul1=Honchkrow(maxiv="Yes")
 paul2=Weavile(maxiv="Yes")
@@ -963,6 +1029,14 @@ kahili4=Hawlucha (maxiv="Yes")
 kahili5=Braviary (maxiv="Yes")
 kahili6=Toucannon(maxiv="gmax")
 kahili=Trainer ("Elite Four Kahili",[kahili1,kahili2,kahili3,kahili4,kahili5,kahili6],"Alola")
+#odrake
+odrake1=Ditto(maxiv="Yes")
+odrake2=Gengar(maxiv="gmax")
+odrake3=MVenusaur(maxiv="Yes")
+odrake4=Steelix(maxiv="Yes")
+odrake5=Electivire(maxiv="Yes")
+odrake6=Dragonite(maxiv="Yes")
+odrake=Trainer ("Supreme Gym Leader Drake",[odrake1,odrake2,odrake3,odrake4,odrake5,odrake6],"Orange Islands")
 #Leon
 leon1=MrRime(maxiv="Yes")
 leon2=Aegislash(maxiv="Yes")
@@ -1469,7 +1543,8 @@ brycen10=Scrafty(maxiv="Yes")
 brycen11=Houndoom(maxiv="Yes")
 brycen12=Hydreigon (maxiv="Yes")
 brycen13=Sharpedo(maxiv="Yes")
-brycenteam=teamset([brycen5,brycen2,brycen3,brycen4,brycen7,brycen8,brycen9,brycen10,brycen11,brycen12,brycen13],4)+[brycen1,brycen6]
+brycen14=Cryogonal(maxiv="Yes")
+brycenteam=teamset([brycen5,brycen2,brycen3,brycen4,brycen7,brycen8,brycen9,brycen10,brycen11,brycen12,brycen13,brycen1],4)+[brycen14,brycen6]
 brycen=Trainer("Gym Leader Brycen",brycenteam,"Unova")
 #drayden
 drayden1=Druddigon(maxiv="Yes")
@@ -1589,6 +1664,14 @@ ash32=Melmetal(maxiv="Yes")
 ash33=Naganadel(maxiv="Yes")
 ashteam=teamset([ash1,ash5,ash2,ash3,ash4,ash7,ash8,ash9,ash10,ash11,ash12,ash13,ash14,ash15,ash16,ash17,ash18,ash19,ash20,ash21,ash22,ash23,ash24,ash25,ash26,ash27,ash28,ash29,ash30,ash31,ash32,ash33],5)+[ash6]
 ash=Trainer("Pokémon Trainer Ash",ashteam,"Unova")
+#cissy
+cissy1=Seaking(maxiv="Yes")
+cissy2=Starmie(maxiv="Yes")
+cissy3=Azumarill(maxiv="Yes")
+cissy4=Kingdra(maxiv="Yes")
+cissy5=MBlastoise(maxiv="Yes")
+cissy6=Kingler(maxiv="gmax")
+cissy=Trainer ("Gym Leader Cissy",[cissy1,cissy2,cissy3,cissy4,cissy5,cissy6],"Orange Islands")
 #horace
 horace1=Meganium (maxiv="gmax")
 horace2=Gorebyss(maxiv="Yes")
@@ -1598,6 +1681,36 @@ horace4=Indeedee(maxiv="Yes")
 horace6=MGardevoir(maxiv="Yes")
 horaceteam=teamset([horace2,horace3,horace4,horace5],4)+[horace1,horace6]
 horace=Trainer("Pokémon Trainer Horace",horaceteam,"Johto")    
+#danny
+danny1=Pinsir(maxiv="Yes")
+danny2=Electrode(maxiv="Yes")
+danny3=Golem(maxiv="Yes")
+danny4=Nidoqueen(maxiv="Yes")
+danny5=MScizor(maxiv="Yes")
+danny6=Machamp(maxiv="gmax")
+danny=Trainer ("Gym Leader Danny",[danny1,danny2,danny3,danny4,danny5,danny6],"Orange Islands")
+#rudy
+rudy1=MPidgeot(maxiv="Yes")
+rudy2=Electivire(maxiv="Yes")
+rudy3=Golem(maxiv="Yes")
+rudy4=Exeggutor(maxiv="Yes")
+rudy5=MAlakazam(maxiv="Yes")
+rudy6=Starmie(maxiv="gmax")
+rudy7=Rhydon(maxiv="Yes")
+rudy8=Venomoth(maxiv="Yes")
+rudy9=Hitmonchan(maxiv="Yes")
+rudy10=Ninetales(maxiv="Yes")
+rudyteam=teamset([rudy2,rudy3,rudy4,rudy6,rudy7,rudy8,rudy9,rudy10],5)+teamset([rudy1,rudy5],1)
+rudy=Trainer ("Gym Leader Rudy",rudyteam,"Orange Islands")
+#luana
+luana1=Kabutops(maxiv="Yes")
+luana2=Lunatone(maxiv="Yes")
+luana3=Rhyperior(maxiv="Yes")
+luana4=Raichu(maxiv="Yes")
+luana5=MAlakazam(maxiv="Yes")
+luana6=Marowak(maxiv="gmax")
+luanateam=teamset([luana2,luana3,luana4,luana5,luana1],5)+[luana6]
+luana=Trainer ("Gym Leader Luana",luanateam,"Orange Islands")
 #TEST1
 t1=Golem(maxiv="Yes",move=["Destiny Bond","Explosion","Metronome","Glacial Lance"])
 t2=Golem(maxiv="Yes",move=["Destiny Bond","Explosion","Astral Barrage","Metronome"])
@@ -1613,23 +1726,41 @@ test2=Trainer("Test-02",[t3,t4,t5,t6,t7,t8])
 #############
 matchx=match()
 
-gym=random.choice([jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant])
+gym=random.choice([luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant])
 
 elite4=random.choice([will,koga,kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva])
 
-champ=random.choice([leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha])
+champ=random.choice([odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha])
 
 frontier=random.choice([lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser])
 
 evil=random.choice([tabitha,ariana,archer,ghetsis,cyrus,archie,maxie,saturn,giovanni])
 
-talent=random.choice([benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace])
+talent=random.choice([benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally])
 def genplayer2(f):
     pl=None
     field.weather="Clear"
     field.terrain="Normal"
+    if "Mt. Chimney" in f.location:
+        pl=random.choice([maxie,tabitha,brendan,archie,genTrainer(trclass=random.choice(["Magma Grunt","Aqua Grunt"]))])
+    if "Mt. Pyre" in f.location:
+        pl=random.choice([phoebe,genTrainer(trclass=random.choice(["Exorcist"]))])
+    if "Marine Cave" in f.location:
+        pl=random.choice([archie,brendan,may,genTrainer(trclass=random.choice(["Aqua Grunt"]))])
+    if "Terra Cave" in f.location:
+        pl=random.choice([maxie,tabitha,brendan,may,genTrainer(trclass=random.choice(["Magma Grunt"]))])
+    if "Aqua Hideout" in f.location:
+        pl=random.choice([archie,genTrainer(trclass=random.choice(["Aqua Grunt"]))])
+    if "Magma Hideout" in f.location:
+        pl=random.choice([maxie,tabitha,genTrainer(trclass=random.choice(["Magma Grunt"]))])
+    if "Mountain Coronet" in f.location:
+        pl=random.choice([cyrus,genTrainer(trclass=random.choice(["Sinnoh Trainer","Galactic Grunt"]))])
+    if "Spear Pillar" in f.location:
+        pl=random.choice([cyrus,cynthia,saturn,barry])
+    if "Mountain Stark" in f.location:
+        pl=random.choice([buck,saturn,genTrainer(trclass=random.choice(["Sinnoh Trainer","Ruin Explorer","Fiery Breathe","Kindler","Paleontologist"]))])
     if "League, Sinnoh" in f.location:
-        pl=random.choice([aaron,bertha,flint,lucian,cynthia,tobias])
+        pl=random.choice([aaron,bertha,flint,lucian,cynthia,tobias,barry])
         if "Tobias" in pl.name:
             pl.name="SCL Champion Tobias"
     if "Evergrande" in f.location:
@@ -1637,23 +1768,24 @@ def genplayer2(f):
     if "Sootopolis City" in f.location:
         pl=random.choice([juan,wallace,genTrainer(trclass=random.choice(["Swimmer","Hoenn Trainer","Scuba Diver","Fisherman"]))])
     if "Mosdeep City" in f.location:
-        pl=random.choice([tate,liza,genTrainer(trclass=random.choice(["Hoenn Trainer","Psychic"]))])
+        pl=random.choice([tate,liza,steven,maxie,genTrainer(trclass=random.choice(["Hoenn Trainer","Psychic"]))])
     if "Fortree City" in f.location:
-        pl=random.choice([winona,steven,genTrainer(trclass=random.choice(["Hoenn Trainer","Pilot","Air Force Officer"]))])
+        pl=random.choice([winona,steven,may,genTrainer(trclass=random.choice(["Hoenn Trainer","Pilot","Air Force Officer"]))])
     if "Lavaridge Town" in f.location:
-        pl=random.choice([flannery,genTrainer(trclass=random.choice(["Hoenn Trainer","Kindler","Fiery Breath"]))])
+        pl=random.choice([flannery,genTrainer(trclass=random.choice(["Hoenn Trainer","Kindler","Fiery Breathe"]))])
     if "Mauville City" in f.location:
-        pl=random.choice([wattson,genTrainer(trclass=random.choice(["Hoenn Trainer","Rocker","Guitarist"]))])
+        pl=random.choice([wattson,wally,may,genTrainer(trclass=random.choice(["Hoenn Trainer","Rocker","Guitarist"]))])
     if "Dewford Town" in f.location:
         pl=random.choice([brawly,steven,genTrainer(trclass=random.choice(["Hoenn Trainer","Blackbelt","Dojo Master"]))])
     if "Sunnyshore City" in f.location:
         pl=random.choice([volkner,jasmine,flint,paul,genTrainer(trclass=random.choice(["Sinnoh Trainer","Electrician","Rocker","Guitarist"]))])
     if "Snowpoint City" in f.location:
+        field.weather="Snowstorm"
         pl=random.choice([candice,brandon,tobias,paul,genTrainer(trclass=random.choice(["Sinnoh Trainer","Elder Trainer","Galactic Grunt","Skier","Boarder"]))])
     if "Canalave City" in f.location:
-        pl=random.choice([byron,roark,paul,genTrainer(trclass=random.choice(["Sinnoh Trainer","Industry Worker","Factory Boss","Electrician","Sailor"]))])
+        pl=random.choice([byron,roark,paul,barry,genTrainer(trclass=random.choice(["Sinnoh Trainer","Industry Worker","Factory Boss","Electrician","Sailor"]))])
     if "Hearthome City" in f.location:
-        pl=random.choice([fantina,paul,genTrainer(trclass=random.choice(["Sinnoh Trainer","Exorcist"]))])
+        pl=random.choice([fantina,paul,barry,genTrainer(trclass=random.choice(["Sinnoh Trainer","Exorcist"]))])
     if "Pastoria City" in f.location:
         pl=random.choice([wake,paul,genTrainer(trclass=random.choice(["Sinnoh Trainer","Blackbelt","Swimmer","Fisherman"]))])
     if "Veilstone City" in f.location:
@@ -1665,9 +1797,11 @@ def genplayer2(f):
     if "Rustboro City" in f.location:
         pl=random.choice([roxanne,genTrainer(trclass=random.choice(["Hoenn Trainer","Paleontologist","Aqua Grunt","Ruin Explorer"]))])
     if "Petalburg City" in f.location:
-        pl=random.choice([norman,genTrainer(trclass=random.choice(["Hoenn Trainer","Zoologist","Bug Catcher","Bug Researcher"]))])
+        pl=random.choice([norman,wally,genTrainer(trclass=random.choice(["Hoenn Trainer","Zoologist","Bug Catcher","Bug Researcher"]))])
+    if "Twinleaf Town" in f.location:
+        pl=random.choice([barry,genTrainer(trclass=random.choice(["Sinnoh Trainer"]))])
     if "Littleroot Town" in f.location:
-        pl=random.choice([brendan,norman,genTrainer(trclass=random.choice(["Hoenn Trainer","Blackbelt"]))])
+        pl=random.choice([brendan,norman,may,genTrainer(trclass=random.choice(["Hoenn Trainer"]))])
     if "Cianwood City" in f.location:
         pl=random.choice([horace,chuck,genTrainer(trclass=random.choice(["Blackbelt","Dojo Master"]))])
     if "Azalea City" in f.location:
@@ -1686,7 +1820,7 @@ def genplayer2(f):
         pl=genTrainer(trclass=random.choice(["Biker","Cueball","Thief","Smuggler","Goon","Driver","Street Punk"]))
     if "Seafoam Island" in f.location:
         pl=genTrainer(trclass=random.choice(["Skier","Boarder"]))
-        field.weather="Hail"
+        field.weather="Snowstorm"
     if "Rock Tunnel" in f.location or "Mount Moon" in f.location:
         pl=genTrainer(trclass=random.choice(["Ruin Explorer","Hiker","Paleontologist"]))
     if f.location in ["Victory Road, Kanto","Victory Road, Hoenn"]:
@@ -1706,7 +1840,7 @@ def genplayer2(f):
     if "Goldenrod City" in f.location:
         pl=random.choice([whitney,genTrainer(trclass=random.choice(["Rocket Grunt","Paleontologist","Zoologist"]))])
     if "New Bark Town" in f.location:
-        pl=ethan
+        pl=random.choice([ethan,silver])
     if "Mount Silver" in f.location:
         pl=red
     if "Cinnabar Island" in f.location:

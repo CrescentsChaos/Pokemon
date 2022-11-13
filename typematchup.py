@@ -955,6 +955,9 @@ def prebuff(self,tr1,turn,field):
         if turn==field.rainendturn:
             print(" 🌦️The rain stopped.")
             field.weather="Cloudy"
+    if tr1.auroraveil is True:
+        defbuff*=2
+        spdefbuff*=2
     if tr1.reflect is True:
         defbuff*=2
     if tr1.lightscreen is True:
@@ -970,41 +973,33 @@ def prebuff(self,tr1,turn,field):
     if self.status=="Frostbite":
         spatkbuff*=0.5
     if self.status=="Burned" and self.ability!="Guts":
-        print(" ❤️‍🔥 Guts boosted!")
         atkbuff*=0.5
     if self.item=="Light Ball":
-        print (" 🟡 Light Ball boosted!")
         atkbuff*=2
         spatkbuff*=2
     if self.ability=="Marvel Scale" and self.status!="Alive":
-        print(f" 🔰 {self.name}'s Marvel Scale!")
         defbuff*=1.5
+    if self.ability=="Hustle":
+        atkbuff*=1.5
     if self.ability=="Flare Boost" and self.status=="Burned":
-        print(" 🔥 Flare boosted!")
         spatkbuff*=1.5
     if field.weather in ["Rainy","Primordial Sea"] and self.ability=="Swift Swim":
-        print(f" 🐬 {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.terrain=="Electric" and self.ability=="Quark Drive":
-        print(f" ⚡🧬 {self.name}'s {self.ability}!")
         if self.spatk>self.atk and self.spatkb==1:
             spatkchange (self,0.5)
         if self.atk>self.spatk and self.atkb==1:
             atkchange (self,0.5)        
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Protosynthesis":
-        print(f" ☀️🧬 {self.name}'s {self.ability}!")
         if self.spatk>self.atk and self.spatkb==1:
             spatkchange (self,0.5)
         if self.atk>self.spatk and self.atkb==1:
             atkchange (self,0.5)
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Chlorophyll":
-        print(f" 🌻 {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Sandstorm"] and self.ability=="Sand Rush":
-        print(f" 🏜️ {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Hail","Snowstorm"] and self.ability=="Slush Rush":
-        print(f" 🏂 {self.name}'s {self.ability}!")
         speedbuff*=2
     if field.weather in ["Snowstorm"] and (self.type1=="Ice" or self.type2=="Ice"):
         defbuff*=1.5
@@ -1088,7 +1083,12 @@ def statchange(self,tr1,turn):
     if self.item=="Lum Berry" and self.status!="Alive":
         print(f" {self.item} cured {self.name}'s status condition!")
         self.item=None
-    
+    if tr1.auroraveil is True:
+        defbuff*=2
+        spdefbuff*=2
+        if turn==tr1.avendturn:
+            tr1.auroraveil=False
+            print(" ⚠️The Aurora Veil wore off!")    
     if tr1.reflect is True:
         defbuff*=2
         if turn==tr1.rfendturn:
