@@ -5,13 +5,13 @@ Trying to make a working pokémon games.
 2.Unevolved pokémons aren't available.
 3.Abilities
 4.Held Items
-5.Weather
-6.Terrain
-7.Status
+5.Weathers
+6.Terrains
+7.Statuses
 8.New Moves for old mons
 9.New Abilities for old mons
-10.Terastalization
-11.Mega Evolution
-12.Dynamax
+10.Terastalization [Can't be controlled]
+11.Mega Evolutions [Can't be controlled]
+12.Dynamax and Gigantamax [Can't be controlled]
 13.New Weather effects
 14.Gen I - IX
