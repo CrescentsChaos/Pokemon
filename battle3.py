@@ -91,10 +91,10 @@ def faint(mon,mon2,trainer,trainer2,field,turn):
             print(f" {mon2.name}'s {mon2.ability}.")
             if "Ash" not in mon2.name and "Greninja" in mon2.name:
                 mon2.name="Ash Greninja"
-                mon2.maxatk=round(mon2.maxatk*1.53)
-                mon2.maxspatk=round(mon2.maxspatk*1.49)
-                mon2.maxspeed=round(mon2.maxspeed*1.08)
-            else:
+                mon2.maxatk=round(mon2.maxatk*1.4)
+                mon2.maxspatk=round(mon2.maxspatk*1.37)
+                mon2.maxspeed=round(mon2.maxspeed*1.06)
+            if "Greninja" not in mon2.name:
                 atkchange(mon2,0.5)
                 spatkchange (mon2,0.5)
                 speedchange (mon2,0.5)
@@ -170,10 +170,9 @@ def action(tr):
                 break    
             if actionx=="":
                 if tr.ai is True:
-                    print("NIGGA")
                     actionx=random.choices([1,2,3], weights=[99,5,0],k=1)[0]
                 if tr.ai is False:
-                    action=1
+                    actionx=1
                 return actionx
                 break
     if tr.ai is True:
@@ -340,7 +339,7 @@ def battle(x,y,tr1,tr2):
             choice1=fchoice(x,tr1)
             choice2=fchoice(y,tr2)    
             prioritymove=movecat("Priority")
-            if p1.ai==True:              
+            if p1.ai==True or choice1=="":              
                 choice1=moveAI(x,y,tr1,tr2,field)[0]
             if p1.ai==False:     
                 if x.dmax is True:
@@ -352,7 +351,7 @@ def battle(x,y,tr1,tr2):
             if x.ability=="Gale Wings":
                 prioritymove+=flyingmove
             prioritymove=movecat("Priority")   
-            if p2.ai==True:  
+            if p2.ai==True or choice2=="":  
                 choice2=moveAI(y,x,tr2,tr1,field)[0]     
             if p2.ai==False:   
                 if y.dmax is False:
@@ -617,7 +616,7 @@ def battle(x,y,tr1,tr2):
             choice1=None
             score(x,y,p1,p2,turn)
             choice2=fchoice(y,tr2)  
-            if p2.ai==True:             
+            if p2.ai==True or choice2=="":             
                 choice2=moveAI(y,x,tr2,tr1,field)[0]    
             if p2.ai==False:
                 if y.dmax is True:
@@ -648,7 +647,7 @@ def battle(x,y,tr1,tr2):
             choice2=None
             score(x,y,p1,p2,turn)
             choice1=fchoice(x,tr1)
-            if p1.ai==True:
+            if p1.ai==True or choice1=="":
                 choice1=moveAI(x,y,tr1,tr2,field)[0]  
             if p1.ai==False:
                 if x.dmax is True:

@@ -842,7 +842,7 @@ def weakness(self,other,field):
         if self.ability=="Tinted Lens":
             print(f" {self.name}'s {self.ability}.")
             print(" Tinted Lens strengthen the power of not very effective move.")
-            eff=2
+            eff*=2
     elif eff==0:
         print(f" 🔴 Doesn't effect on {other.name}.")
      
@@ -974,7 +974,7 @@ def prebuff(self,tr1,turn,field):
         spatkbuff*=0.5
     if self.status=="Burned" and self.ability!="Guts":
         atkbuff*=0.5
-    if self.item=="Light Ball":
+    if "Pikachu" in self.name and (self.item=="Light Ball" or "Ash" in self.owner.name):
         atkbuff*=2
         spatkbuff*=2
     if self.ability=="Marvel Scale" and self.status!="Alive":

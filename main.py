@@ -1,8 +1,9 @@
+#pylint:disable=C0116
 from battle3 import *
 #from moreoptions import *
 mon1=None
 mon2=None
-p1.ai=False
+p1.ai=True
 p2.ai=True
 if p1.ai is False:
     showmon(p1)

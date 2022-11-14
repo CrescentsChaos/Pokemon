@@ -45,7 +45,8 @@ def intro (tr,sr,field):
     if "Ethan" in tr.name:
         print(f"{tr.name}: I knew it was you, {srname}! How did you get past me? Here is your punishment for surprising me, {srname}!")
     if "Blue" in tr.name:
-        print(f"{tr.name}: Hey, {srname}! I was looking forward to seeing you, {srname}! Hahah, that is so great! My rival should be strong to keep me sharp. While working on my Pokédex, I looked all over for Pokémon. Not only that, I assembled teams that would beat any Pokémon type. And now… I am the Pokémon League Champion! {srname}! Do you know what that means? I'll tell you. I am the most powerful Trainer in the world!\n")
+        if field.location=="Indigo Plateau":
+            print(f"{tr.name}: Hey, {srname}! I was looking forward to seeing you, {srname}! Hahah, that is so great! My rival should be strong to keep me sharp. While working on my Pokédex, I looked all over for Pokémon. Not only that, I assembled teams that would beat any Pokémon type. And now… I am the Pokémon League Champion! {srname}! Do you know what that means? I'll tell you. I am the most powerful Trainer in the world!\n")
     if "Surge" in tr.name:
         print(f"{tr.name}: The name's Lt. Surge! When it comes to Electric-type Pokémon, I'm number one! You've got guts to challenge me! I'm gonna zap you!\n")
     if "Misty" in tr.name:
