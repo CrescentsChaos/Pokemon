@@ -2,7 +2,7 @@ from attack import *
 from moves import *
 from intros import intro
 from moreoptions import *
-
+from movelist import *
 #SCOREBOARD
 def  score(x,y,p1,p2,turn):
     print("")
@@ -15,10 +15,7 @@ def  score(x,y,p1,p2,turn):
     if len(p1.hazard)==0:
         print(" Hazard:",None)
     if len(p1.hazard)!=0:
-        print(" Hazard:",end=" ")
-        for i in range(len(p1.hazard)):
-            if len(p1.hazard)>0:
-                print(p1.hazard[i])
+        print(" Hazard:",p1.hazard)
     if p1.tailwind==True:
         print(f" 🍃 Tailwind({p1.twendturn-turn+1} turns left)")                   
     if p1.reflect==True:
@@ -43,10 +40,7 @@ def  score(x,y,p1,p2,turn):
     if len(p2.hazard)==0:
         print(" Hazard:",None)
     if len(p2.hazard)!=0:
-        print(" Hazard:",end=" ")
-        for i in range(len(p2.hazard)):
-            if len(p2.hazard)>0:
-                print(p2.hazard[i])
+        print(" Hazard:",p2.hazard)
     if p2.tailwind==True:
         print(f" 🍃 Tailwind({p2.twendturn-turn+1} turns left)")                
     if p2.reflect==True:

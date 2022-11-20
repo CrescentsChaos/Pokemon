@@ -17,7 +17,7 @@ from termcolor import colored
 from pokemonbase2 import *
 from typematchup import *
 from hiddenpower import *
-
+from movelist import *
 def electricterrain(self,other, field,turn):
     self.atktype="Electric"
     print(f" {self.name} used  "+colored("Electric Terrain","yellow")+"!")
@@ -1743,8 +1743,8 @@ def judgement(self,other):
 def multiattack(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used Multi-Attack!")
     self.atktype=self.type1
+    print(f" 💽 {self.name} used Multi-Attack({self.atktype})!")
     w=weathereff(self)
     c=critch(self,other)
     ab=weakness(self,other,field)
@@ -5298,6 +5298,16 @@ def spiritbreak(self,other):
     other.hp-=physical (self.level,self.atk,other.defense,75,a,b,c,r,al)            
     spatkchange(other,-0.5)
     print(f"{other.name} Special Attack x{other.spatkb}")       
+def orderup(self,other):
+    al=1
+    r=randroll()
+    print(f" {self.name} used  "+colored("Order Up","red")+"!")
+    c=critch(self,other)
+    self.atktype="Dragon"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=physical (self.level,self.atk,other.defense,80,a,b,c,r,al)     
 def dragonclaw(self,other):
     al=1
     r=randroll()

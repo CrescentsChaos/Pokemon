@@ -130,11 +130,11 @@ def withdaweff(current,trainer,other):
         current.spdef=87
         current.speed=100
         current.calcst()
+    if current.ability=="Illusion":
+        current.name=trainer.pokemons[len(trainer.pokemons)-1].name.split(" ")[-1]        
     if current.ability=="Natural Cure" and (current.status!="Alive" and current.status!="Fainted"):
         print(f" {current.name}'s {current.ability}.")
         current.status="Alive"
-    if current.ability=="Illusion":
-        current.name=random.choice(["Raikou","Entei","Suicune","Primape","Machamp","Nihilego","Gengar","Toxicroak"])
     if current.ability=="Regenerator" and 0<current.hp<current.maxhp and current.status!="Fainted":
         print(f" {current.name}'s {current.ability}.")
         if current.hp<=(current.maxhp/3):
@@ -146,6 +146,8 @@ def entryeff(current,other,trainer,trainer2,field,turn):
     prebuff(current,other,trainer,turn,field)
     current.maxendturn(turn)
     print("")
+    if current.ability=="Illusion":
+        current.name=trainer.pokemons[len(trainer.pokemons)-1].name.split(" ")[-1]
     if "Legendary" in current.name and current.item in ["Silver Feather","Red Orb","Blue Orb","Jade Orb","Rainbow Feather"]:
         print(f" 🔱 {current.item} shrouded {current.name} with mystical energy!")
         current.hp*=6
@@ -291,7 +293,7 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         field.weather="Rainy"
         field.rainturn=turn
         field.rainend(current,other)
-    if current.ability == "Snow Warning" and field.weather not in ["Hail","Primordial Sea","Desolate Land"]:
+    if current.ability == "Snow Warning" and field.weather not in ["Hail","Primordial Sea","Desolate Land","Snowstorm"]:
         print(f" 🌨️{current.name}'s {current.ability} whipped up a snowstorm!")
         field.weather="Snowstorm"      
         field.snowstormturn=turn
@@ -1194,6 +1196,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         elif used=="Dual Wingbeat":
             for i in range(2):
                 dualwingbeat(self,other)
+        elif used=="Order Up":
+            orderup(self,other)                
         elif used=="Acrobatics":
             acrobatics(self,other)
         elif used=="Curse":
@@ -2263,21 +2267,14 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         self.hp=0
         print(f" {other.name} took away {self.name} with it!")
 #ILLUSION        
-        if other.ability=="Illusion" and "Zoroark" not in other.name:
-            if other.type1=="Dark":
-                other.name="Zoroark"
-                print(f" {other.name}'s Illusion wore off!")
-            else:
-                other.name="Hisuian Zoroark"
-                print(f" {other.name}'s Illusion wore off!")
-    if self.hp!=sbefore and self==me:
-        if self.ability=="Illusion" and "Zoroark" not in self.name:
-            if self.type1=="Dark":
-                self.name="Zoroark"
-                print(f" {self.name}'s Illusion wore off!")
-            else:
-                self.name="Hisuian Zoroark"
-                print(f" {self.name}'s Illusion wore off!")
+    if other.ability=="Illusion" and "Zoroark" not in other.name:
+        print("Oopsie")
+        if other.type1=="Dark":
+            other.name="Zoroark"
+            print(f" {other.name}'s Illusion wore off!")
+        else:
+            other.name="Hisuian Zoroark"
+            print(f" {other.name}'s Illusion wore off!")
     if other.ability=="Flame Body" and me.status=="Alive" and me.ability!="Long Reach" and used in contactmoves:
         ch=random.randint(1,100)  
         if ch>70:

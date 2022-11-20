@@ -2102,6 +2102,19 @@ gorm5=MBanette(maxiv="Yes")
 gorm6=Cofagrigus(maxiv="gmax")
 gormteam=teamset([gorm2,gorm3,gorm4,gorm5,gorm1],5)+[gorm6]
 gorm=Trainer ("Plasma Sage Gorm",gormteam,"Unova")
+#gladion
+gladion1=Zoroark(maxiv="Yes")
+gladion2=Crobat(maxiv="Yes")
+gladion3=Weavile(maxiv="Yes")
+gladion4=MNLycanroc(name="Midnight Lycanroc(Z-Crystal)",maxiv="Yes")
+gladion5=MLucario(maxiv="Yes")
+gladion6=Silvally(maxiv="Yes")
+gladion7=Venusaur(maxiv="gmax")
+gladion8=Charizard(maxiv="gmax")
+gladion9=Blastoise(maxiv="gmax")
+gladion10=Nihilego(name="Lille✨",maxiv="Yes")
+gladionteam=teamset([gladion2,gladion3,gladion4,gladion5,gladion1,gladion10],4)+teamset([gladion7,gladion8,gladion9],1)+[gladion6]
+gladion=Trainer ("Pokémon Trainer Gladion",gladionteam,"Alola")
 #bronius
 bronius1=Liepard(maxiv="Yes")
 bronius2=Mandibuzz(maxiv="Yes")
