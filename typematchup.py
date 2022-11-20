@@ -124,6 +124,8 @@ def weakness(self,other,field):
     #MATCHUP)
     #ghost
     if self.atktype=="Ghost":
+        if other.ability=="Purifying Salt":
+            eff*=0.5
         if self.item == "Spell Tag":
             eff*=1.2
         if other.item=="Kasib Berry":
@@ -167,7 +169,10 @@ def weakness(self,other,field):
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
             other.item=None
         if field.terrain=="Electric" and (self.ability not in ["Levitate"] and self.ability!="Mold Breaker") and self.type1!="Flying" and self.type2!="Flying":
-            eff*=1.3
+            if self.name=="Miraidon":
+                eff*=2
+            else:
+                eff*=1.3
         if other.ability=="Delta Stream":
             eff*=0.5
         if self.item == "Electric Gem":
@@ -664,6 +669,10 @@ def weakness(self,other,field):
             if self.hp<=(self.maxhp/3):
                 print(f" 🔥 {self.name}'s {self.ability}.")
                 eff*=2.25
+        if other.ability=="Thermal Exchange":
+            print(f" 🌡️ {other.name}'s {other.ability}.")
+            eff*=0
+            atkchange(other,0.5)
         if other.ability=="Flash Fire":
             print(f" 🔥 {other.name}'s {other.ability}.")
             other.atk=other.maxatk*1.5*other.atkb
@@ -844,11 +853,16 @@ def weakness(self,other,field):
             print(" Tinted Lens strengthen the power of not very effective move.")
             eff*=2
     elif eff==0:
-        print(f" 🔴 Doesn't effect on {other.name}.")
+        if "Legendary" in self.name:
+            eff=0.5
+        else:
+            print(f" 🔴 Doesn't effect on {other.name}.")
      
                                
     #STAB              
     if self.atktype in (self.type1,self.type2,self.teratype):
+        if self.teratype in (self.type1,self.type2):
+            stab=2
         if self.ability=="Adaptability":
             print(f" {self.name}'s {self.ability}.")
             stab=2
@@ -870,6 +884,8 @@ def critch(self,other,num=None):
     if crit==1 and other.ability not in ["Shell Armor","Battle Armor"]:
         if self.owner.lightscreen is True:
             self.spdef/=2
+        if self.owner.reflect is True:
+            self.defense/=2
         if self.owner.reflect is True:
             self.defense/=2
         if self.atkb<1:
@@ -911,14 +927,24 @@ def showmon(trainer):
 def randroll():
     
     rr=random.randint(85,100)       
-    return (rr/100)    
+    return rr/100
     
-def prebuff(self,tr1,turn,field):    
+def prebuff(self,other,tr1,turn,field):
     atkbuff=1
     defbuff=1
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if other.ability=="Vessel of Ruin":
+        spatkbuff*=0.75
+    if other.ability=="Tablets of Ruin":
+        atkbuff*=0.75
+    if other.ability=="Sword of Ruin":
+        defbuff*=0.75
+    if other.ability=="Beads of Ruin":
+        spdefbuff*=0.75
+    if self.protect is True:
+        self.protect=False    
     if field.terrain=="Misty":
         if turn==field.misendturn:
             print(" 🌐 The battlefield turned normal.")
@@ -958,6 +984,8 @@ def prebuff(self,tr1,turn,field):
     if tr1.auroraveil is True:
         defbuff*=2
         spdefbuff*=2
+    if tr1.tailwind is True:
+        speedbuff*=2
     if tr1.reflect is True:
         defbuff*=2
     if tr1.lightscreen is True:
@@ -985,16 +1013,6 @@ def prebuff(self,tr1,turn,field):
         spatkbuff*=1.5
     if field.weather in ["Rainy","Primordial Sea"] and self.ability=="Swift Swim":
         speedbuff*=2
-    if field.terrain=="Electric" and self.ability=="Quark Drive":
-        if self.spatk>self.atk and self.spatkb==1:
-            spatkchange (self,0.5)
-        if self.atk>self.spatk and self.atkb==1:
-            atkchange (self,0.5)        
-    if field.weather in ["Sunny","Desolate Land"] and self.ability=="Protosynthesis":
-        if self.spatk>self.atk and self.spatkb==1:
-            spatkchange (self,0.5)
-        if self.atk>self.spatk and self.atkb==1:
-            atkchange (self,0.5)
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Chlorophyll":
         speedbuff*=2
     if field.weather in ["Sandstorm"] and self.ability=="Sand Rush":
@@ -1088,7 +1106,13 @@ def statchange(self,tr1,turn):
         spdefbuff*=2
         if turn==tr1.avendturn:
             tr1.auroraveil=False
-            print(" ⚠️The Aurora Veil wore off!")    
+            print(" ⚠️The Aurora Veil wore off!")  
+    if tr1.tailwind is True:
+        print("Nigga")
+        speedbuff*=2
+        if turn==tr1.twendturn:
+            tr1.tailwind=False
+            print(" ⚠️The Tailwind wore off!")              
     if tr1.reflect is True:
         defbuff*=2
         if turn==tr1.rfendturn:
@@ -1184,8 +1208,7 @@ def atkchange(self,amount):
         if 1<=self.atkb<3:
             self.atkb+=amount
         if 0.25<=self.atkb<1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
-        
+            self.atkb=round(1/((1/self.atkb)-amount),2)        
     elif amount==4:
         if self.atkb>=1:
             self.atkb=amount
@@ -1193,25 +1216,30 @@ def atkchange(self,amount):
             self.atkb=round(1/((1/self.atkb)-amount),2)
        
     if amount==-0.5:
-        if 0.25<self.atkb<=1   :
+        if 0.25<self.atkb<=1:
             self.atkb=round(1/((1/self.atkb)-amount),2)
         if 1<self.atkb<=4:
             self.atkb=self.atkb+amount
       
     if amount==-1:
-        if (2/7)<self.atkb<=1   :
+        if (2/7)<self.atkb<=1:
             self.atkb=round(1/((1/self.atkb)-amount),2)
         if 1<self.atkb<=4:
             self.atkb=self.atkb+amount
         
     if amount==-1.5:
-        if (2/6)<self.atkb<=1   :
+        if (2/6)<self.atkb<=1:
             self.atkb=round(1/((1/self.atkb)-amount),2)
         if 1<self.atkb<=4:
             self.atkb=self.atkb+amount
    
-    else:
-        pass
+    if amount not in [0.5,1,1.5,4,-0.5,-1,-1.5]:
+        if 1<=self.atkb<4:
+            self.atkb+=amount
+            if self.atkb>4:
+                self.atkb=4
+        if 0.25<=self.atkb<1:
+            self.atkb=round(1/((1/self.atkb)-amount),2)
 
 
 
@@ -1254,19 +1282,19 @@ def defchange(self,amount):
             self.defb=round(1/((1/self.defb)-amount),2)
        
     if amount==-0.5:
-        if 0.25<self.defb<=1   :
+        if 0.25<self.defb<=1:
             self.defb=round(1/((1/self.defb)-amount),2)
         if 1<self.defb<=4:
             self.defb=self.defb+amount
       
     if amount==-1:
-        if (2/7)<self.defb<=1   :
+        if (2/7)<self.defb<=1:
             self.defb=round(1/((1/self.defb)-amount),2)
         if 1<self.defb<=4:
             self.defb=self.defb+amount
         
     if amount==-1.5:
-        if (2/6)<self.defb<=1   :
+        if (2/6)<self.defb<=1:
             self.defb=round(1/((1/self.defb)-amount),2)
         if 1<self.defb<=4:
             self.defb=self.defb+amount
@@ -1306,31 +1334,36 @@ def spatkchange(self,amount):
             self.spatkb=round(1/((1/self.spatkb)-amount),2)
         
     elif amount==4:
-        if 1<=self.spatkb:
+        if self.spatkb>=1:
             self.spatkb=amount
         if 0.25<=self.spatkb<1:
             self.spatkb=round(1/((1/self.spatkb)-amount),2)
        
     if amount==-0.5:
-        if 0.25<self.spatkb<=1   :
+        if 0.25<self.spatkb<=1:
             self.spatkb=round(1/((1/self.spatkb)-amount),2)
         if 1<self.spatkb<=4:
             self.spatkb=self.spatkb+amount
       
     if amount==-1:
-        if (2/7)<self.spatkb<=1   :
+        if (2/7)<self.spatkb<=1:
             self.spatkb=round(1/((1/self.spatkb)-amount),2)
         if 1<self.spatkb<=4:
             self.spatkb=self.spatkb+amount
         
     if amount==-1.5:
-        if (2/6)<self.spatkb<=1   :
+        if (2/6)<self.spatkb<=1:
             self.spatkb=round(1/((1/self.spatkb)-amount),2)
         if 1<self.spatkb<=4:
             self.spatkb=self.spatkb+amount
    
-    else:
-        pass
+    if amount not in [0.5,1,1.5,4,-0.5,-1,-1.5]:
+        if 1<=self.spatkb<4:
+            self.spatkb+=amount
+            if self.spatkb>4:
+                self.spatkb=4
+        if 0.25<=self.spatkb<1:
+            self.spatkb=round(1/((1/self.spatkb)-amount),2)
 
 def spdefchange(self,amount):
     if self.ability=="Defiant":
@@ -1370,19 +1403,19 @@ def spdefchange(self,amount):
             self.spdefb=round(1/((1/self.spdefb)-amount),2)
        
     if amount==-0.5:
-        if 0.25<self.spdefb<=1   :
+        if 0.25<self.spdefb<=1:
             self.spdefb=round(1/((1/self.spdefb)-amount),2)
         if 1<self.spdefb<=4:
             self.spdefb=self.spdefb+amount
       
     if amount==-1:
-        if (2/7)<self.spdefb<=1   :
+        if (2/7)<self.spdefb<=1:
             self.spdefb=round(1/((1/self.spdefb)-amount),2)
         if 1<self.spdefb<=4:
             self.spdefb=self.spdefb+amount
         
     if amount==-1.5:
-        if (2/6)<self.spdefb<=1   :
+        if (2/6)<self.spdefb<=1:
             self.spdefb=round(1/((1/self.spdefb)-amount),2)
         if 1<self.spdefb<=4:
             self.spdefb=self.spdefb+amount
@@ -1426,19 +1459,19 @@ def speedchange(self,amount):
             self.speedb=round(1/((1/self.speedb)-amount),2)
        
     if amount==-0.5:
-        if 0.25<self.speedb<=1   :
+        if 0.25<self.speedb<=1:
             self.speedb=round(1/((1/self.speedb)-amount),2)
         if 1<self.speedb<=4:
             self.speedb=self.speedb+amount
       
     if amount==-1:
-        if (2/7)<self.speedb<=1   :
+        if (2/7)<self.speedb<=1:
             self.speedb=round(1/((1/self.speedb)-amount),2)
         if 1<self.speedb<=4:
             self.speedb=self.speedb+amount
         
     if amount==-1.5:
-        if (2/6)<self.speedb<=1   :
+        if (2/6)<self.speedb<=1:
             self.speedb=round(1/((1/self.speedb)-amount),2)
         if 1<self.speedb<=4:
             self.speedb=self.speedb+amount

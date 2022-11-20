@@ -19,16 +19,19 @@ def  score(x,y,p1,p2,turn):
         for i in range(len(p1.hazard)):
             if len(p1.hazard)>0:
                 print(p1.hazard[i])
-                
+    if p1.tailwind==True:
+        print(f" 🍃 Tailwind({p1.twendturn-turn+1} turns left)")                   
     if p1.reflect==True:
         print(f" 🪞 Reflect({p1.rfendturn-turn+1} turns left)")   
     if p1.auroraveil==True:
         print(f" ❄️ Aurora Veil({p1.avendturn-turn+1} turns left)")
     if p1.lightscreen==True:              
         print(f" 🔲 Light Screen({p1.screenend-turn+1} turns left)")        
-    print(f" Lv.{x.level} {x.name}: {x.hp}/{x.maxhp}({round((x.hp/x.maxhp)*100,2)}%)[{x.status}]")
-    if x.teratype is not None:
-        print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item}")
+    print(f" Lv.{x.level} {x.name}: {round(x.hp)}/{x.maxhp}({round((x.hp/x.maxhp)*100,2)}%)[{x.status}]")
+    if x.teratype is not None and x.type2 is None:
+        print(f" Type:{x.type1}/{x.teratype} Ability: {x.ability} Item: {x.item}")
+    if x.teratype is not None and x.type2 is not None:
+        print(f" Type:{x.type1}/{x.type2}/{x.teratype} Ability: {x.ability} Item: {x.item}")
     if x.teratype is None and x.type2 is None and (p1.ai is False or (True in (p1.ai,p2.ai))):
         print(f" Type:{x.type1} Ability: {x.ability} Item: {x.item}")
     if x.teratype is None and x.type2 is not None and (p1.ai is False or (True in (p1.ai,p2.ai))):
@@ -44,15 +47,19 @@ def  score(x,y,p1,p2,turn):
         for i in range(len(p2.hazard)):
             if len(p2.hazard)>0:
                 print(p2.hazard[i])
+    if p2.tailwind==True:
+        print(f" 🍃 Tailwind({p2.twendturn-turn+1} turns left)")                
     if p2.reflect==True:
         print(f" 🪞 Reflect({p2.rfendturn-turn+1} turns left)")     
     if p2.auroraveil==True:
         print(f" ❄️ Aurora Veil({p2.avendturn-turn+1} turns left)")
     if p2.lightscreen==True:        
         print(f" 🔲 Light Screen({p2.screenend-turn+1} turns left)")               
-    print(f" Lv.{y.level} {y.name}: {y.hp}/{y.maxhp}({round((y.hp/y.maxhp)*100,2)}%)[{y.status}]")
-    if y.teratype is not None:
-        print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item}")
+    print(f" Lv.{y.level} {y.name}: {round(y.hp)}/{y.maxhp}({round((y.hp/y.maxhp)*100,2)}%)[{y.status}]")
+    if y.teratype is not None and y.type2 is None:
+        print(f" Type:{y.type1}/{y.teratype} Ability: {y.ability} Item: {y.item}")
+    if y.teratype is not None and y.type2 is not None:
+        print(f" Type:{y.type1}/{y.type2}/{y.teratype} Ability: {y.ability} Item: {y.item}")
     if y.teratype is None and y.type2 is None and (p2.ai is False or (True in (p1.ai,p2.ai))):
         print(f" Type:{y.type1} Ability: {y.ability} Item: {y.item}")
     if y.teratype is None and y.type2 is not None and (p2.ai is False or (True in (p1.ai,p2.ai))):
@@ -86,7 +93,7 @@ def faint(mon,mon2,trainer,trainer2,field,turn):
         if mon.owner==trainer.name:
             trainer.faintedmon.append(mon)
         print(f" \n 🏁 Refree: {mon.name} is unable to battle!")
-        print(f" \n 🪦 {trainer.name}'s {mon.name} fainted!\n")
+        print(f" \n 😵😵‍💫 {trainer.name}'s {mon.name} fainted!\n")
         if mon2.ability=="Battle Bond":
             print(f" {mon2.name}'s {mon2.ability}.")
             if "Ash" not in mon2.name and "Greninja" in mon2.name:
@@ -181,9 +188,9 @@ def movecat(sss):
     if sss=="Flying":
         return ["Brave Bird","Sky Attack","Air Slash","Roost"] 
     if sss=="Status":
-        return ["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect"]
+        return ["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect","Spiky Shield","King's Shield","Heal Order","Defend Order","Light Screen","Reflect","Defog","Tailwind","Aurora Veil","Tailwind"]
     if sss=="Priority":
-        return ["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Protect","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken","Spiky Shield","King's Shield","Baneful Bunker","Max Guard"]
+        return ["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Protect","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken","Spiky Shield","King's Shield","Baneful Bunker","Max Guard","Silk Trap","Jet Punch"]
 #def randomweather(turn,x,y,field):
 #    trn="Normal"
 #    ch=random.choices(["Clear","Rainy","Cloudy","Sandstorm","Hail","Sunny","Thunderstorm"], weights=[90,1,10,1,1,1,1],k=1)[0]    
@@ -240,7 +247,7 @@ def battle(x,y,tr1,tr2):
         print("===================================================================")
         print(" TURN:",turn)
         print("===================================================================")
-        print(f" Location: 🏙️ {field.location}")
+        print(f" Location: 🌏 {field.location}")
         if field.weather=="Desolate Land":
             print(f" Weather: 🌋 Extremely Harsh Sunlight")
         if field.weather=="Primordial Sea":
@@ -309,8 +316,8 @@ def battle(x,y,tr1,tr2):
             print(f" Dimension: 🌀 Trick Room ({field.troomendturn-turn} turns left)")           
         print(f" \n ⏩⏩ {tr1.name} 🆚 {tr2.name} ⏪⏪\n")
         print(f" \n ⏩⏩ Lv.{x.level} {x.name} 🆚 {y.name} Lv.{y.level} ⏪⏪\n")
-        prebuff(x,tr1,turn,field)
-        prebuff(y,tr2,turn,field)
+        prebuff(x,y,tr1,turn,field)
+        prebuff(y,x,tr2,turn,field)
         switchAI(x,y,tr1,tr2, field)
         switchAI(y,x,tr2,tr1,field)
         #score(x,y,p1,p2,turn)
@@ -346,10 +353,6 @@ def battle(x,y,tr1,tr2):
                     choice1=x.maxmove[choice1-1]
                 if x.dmax is False:
                     choice1=x.moves[choice1-1]
-            if x.ability=="Prankster":
-                prioritymove+=statusmove
-            if x.ability=="Gale Wings":
-                prioritymove+=flyingmove
             prioritymove=movecat("Priority")   
             if p2.ai==True or choice2=="":  
                 choice2=moveAI(y,x,tr2,tr1,field)[0]     
@@ -358,13 +361,9 @@ def battle(x,y,tr1,tr2):
                     choice2=y.moves[choice2-1]     
                 if y.dmax is True:
                     choice2=y.maxmove[choice2-1]
-            if y.ability=="Prankster":
-                prioritymove+=statusmove
-            if y.ability=="Gale Wings":
-                prioritymove+=flyingmove
             
 #P1 PRIORITY            
-            if (choice1 in prioritymove and choice2 not in prioritymove) or x.priority is True:
+            if (choice1 in prioritymove and choice2 not in prioritymove) or x.priority is True or (x.ability=="Prankster" and choice1 in statusmove and "Dark" not in (y.type1,y.type2)):
                 weather(x,y)
                 x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                 statchange(x,tr1,turn)
@@ -405,7 +404,7 @@ def battle(x,y,tr1,tr2):
                 x.priority=False
                 skip()
 #P2 PRIORITY 
-            elif (choice2 in prioritymove and choice1 not in prioritymove) or y.priority is True:
+            elif (choice2 in prioritymove and choice1 not in prioritymove) or y.priority is True or (y.ability=="Prankster" and choice2 in statusmove and "Dark" not in (x.type1,x.type2)):
                 weather(y,x)
                  
                 y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)

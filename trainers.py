@@ -11,26 +11,28 @@
 #pylint:disable=W0102
 from typematchup import *
 class Trainer:
-	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[]):
+	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[],tailwind=False):
 		self.name=name
 		self.ai=ai
 		self.pokemons=pokemons
 		self.faintedmon=faintedmon
 		self.lightscreen=lightscreen
-		self.reflect=reflect
+		self.reflect=reflect		
+		self.tailwind=tailwind
 		self.auroraveil=auroraveil
 		self.region=region
 		self.reflecturn=0
+		self.tailturn=0
 		self.auroraturn=0
 		self.lsturn=0
 		self.screenend=self.lsturn+5
+		self.twendturn=self.tailturn+4
 		self.rfendturn=self.reflecturn+5
 		self.avendturn=self.auroraturn+5
 		if hazard is None:
 		    self.hazard=[]
 		else:
-		    self.hazard=hazard
-
+		    self.hazard=hazard   
 	def lightscreenend(self,mon,mon2):
 	       if "Light Clay" not in (mon.item,mon2.item):
 	           self.screenend=self.lsturn+5
@@ -50,4 +52,7 @@ class Trainer:
 	           self.avendturn=self.auroraturn+5
 	       if "Light Clay" in (mon.item,mon2.item):
 	           self.avendturn=self.auroraturn+8
-	       return self.avendturn	           
+	       return self.avendturn
+	def twend(self,mon,mon2):
+	    self.twendturn=self.tailturn+4
+	    return self.twendturn              
