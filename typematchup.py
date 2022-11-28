@@ -9,6 +9,7 @@
 #pylint:disable=R0914
 #pylint:disable=C0303
 #pylint:disable=C0116
+from movelist import *
 import random
 from colorama import init
 from termcolor import colored
@@ -29,7 +30,7 @@ def weakness(self,other,field):
         self.type2=None
         self.type1=self.atktype
         print(f" {self.name} changed it's type to {self.type1} using {self.ability}!")
-    if other.hp==other.maxhp and other.ability in ["Multiscale"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if other.hp==other.maxhp and other.ability in ["Multiscale","Blubber Defense"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {other.name}'s {other.ability}.")
         eff*=0.5
     if self.ability=="Solar Power" and field.weather in ["Sunny","Desolate Land"]:
@@ -643,6 +644,8 @@ def weakness(self,other,field):
             eff*=1            
     #FIRE            
     if self.atktype=="Fire":
+        if other.ability=="Fluffy":
+            eff*=2
         if other.ability=="Steam Engine":
             print(f" 🚂 {other.name}'s {other.ability}!")
             speedchange (other,0.5)
@@ -935,13 +938,37 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if field.terrain=="Misty":
+        if self.item=="Misty Seed":
+            print(f" 🍇 {self.name} consumed {self.item} and raised its Sp.Def!")
+            spdefchange (self,0.5)
+            self.item=None
+    if field.terrain=="Electric":
+        if self.item=="Electric Seed":
+            print(f" 🍇 {self.name} consumed {self.item} and raised its Sp.Def!")
+            spdefchange (self,0.5)
+            self.item=None
+    if field.terrain=="Psychic":
+        if self.item=="Psychic Seed":
+            print(f" 🍇 {self.name} consumed {self.item} and raised its Sp.Def!")
+            spdefchange (self,0.5)
+            self.item=None
+    if field.terrain=="Grassy":
+        if self.item=="Grassy Seed":
+            print(f" 🍇 {self.name} consumed {self.item} and raised its Sp.Def!")
+            spdefchange (self,0.5)
+            self.item=None
     if other.ability=="Vessel of Ruin":
+        print(f" ♉ {other.name}'s {other.ability} weakened the Sp.Atk of all surrounding Pokémon!")
         spatkbuff*=0.75
     if other.ability=="Tablets of Ruin":
+        print(f" ♈ {other.name}'s {other.ability} weakened the Atk of all surrounding Pokémon!")
         atkbuff*=0.75
     if other.ability=="Sword of Ruin":
+        print(f" ♐ {other.name}'s {other.ability} weakened the Defense of all surrounding Pokémon!")
         defbuff*=0.75
     if other.ability=="Beads of Ruin":
+        print(f" ♋ {other.name}'s {other.ability} weakened the Sp.Def of all surrounding Pokémon!")
         spdefbuff*=0.75
     if self.protect is True:
         self.protect=False    

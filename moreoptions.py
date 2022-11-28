@@ -1,12 +1,13 @@
+#pylint:disable=C0303
 #pylint:disable=R0912
 #pylint:disable=C0116
 #pylint:disable=C0103
 #pylint:disable=C0103
 #pylint:disable=W0401
 #pylint:disable=C0304
-#pylint:disable=C0304
 from trainerlist import *
-def characters(text,nm):
+
+def characters(text,nm=1):
     print(" Text inserted:",text)
     text=text.lower()
     team=None
@@ -23,9 +24,9 @@ def characters(text,nm):
         team=fronlist
     if text in ["tl"]:
         team=talentlist
-    if text=="":
+    if text in ["",None,"rn"]:
         team=None
-    if text!="":
+    if text!="" and team is not None:
         for i in team:
             num+=1
             print(" "+str(num)+".",i.name)
@@ -35,7 +36,7 @@ def characters(text,nm):
         if nm==2:
             chosen=genplayer2(field)
     else:
-        ch=int(input(" Enter what you wannna play with: "))
+        ch=int(input(" Enter what you wanna play with: "))
         chosen=team[ch-1]
     print(f" ✅ You have chosen {chosen.name}!\n")
     return chosen

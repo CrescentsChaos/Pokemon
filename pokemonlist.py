@@ -1,3 +1,5 @@
+#pylint:disable=C0114
+#pylint:disable=R0912
 #pylint:disable=C0303
 #pylint:disable=C0116
 #pylint:disable=W0401
@@ -45,6 +47,8 @@ def smogonimport(spawn):
         name=name.split(" ")[1]+"-Dusk"
     if "Midday " in name:
         name=name.split(" ")[1]
+    if "Paldean " in name:
+        name=name.split(" ")[1]+"-Paldea"
     if "Galarian " in name:
         name=name.split(" ")[1]+"-Galar"
     if "Alolan " in name:

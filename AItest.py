@@ -385,7 +385,7 @@ def moveAI(self,other,mtr,otr,field):
         mymove=list(set(mymove)-set(typemoves.healingmoves))
     if self.canfakeout is False:
         mymove.remove("Fake Out")
-    if len(mtr.hazard)==0:
+    if mtr.hazard!=[]:
         if "Defog" in mymove:
             mymove.remove("Defog")       
     if self.choiced is True:

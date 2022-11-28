@@ -29,11 +29,11 @@ def  score(x,y,p1,p2,turn):
         print(f" Type:{x.type1}/{x.teratype} Ability: {x.ability} Item: {x.item}")
     if x.teratype is not None and x.type2 is not None:
         print(f" Type:{x.type1}/{x.type2}/{x.teratype} Ability: {x.ability} Item: {x.item}")
-    if x.teratype is None and x.type2 is None and (p1.ai is False or (True in (p1.ai,p2.ai))):
+    if x.teratype is None and x.type2 is None and False not in (p1.ai,p2.ai):
         print(f" Type:{x.type1} Ability: {x.ability} Item: {x.item}")
-    if x.teratype is None and x.type2 is not None and (p1.ai is False or (True in (p1.ai,p2.ai))):
+    if x.teratype is None and x.type2 is not None and False not in (p1.ai,p2.ai):
         print(f" Type:{x.type1}/{x.type2} Ability: {x.ability} Item: {x.item}")
-    if p1.ai is False or (True in (p1.ai,p2.ai)):        
+    if False not in (p1.ai,p2.ai):        
         print(f" Atk: {round(x.atk)}({round(x.atkb,2)}) Def: {round(x.defense)}({round(x.defb,2)}) SpA: {round(x.spatk)}({round(x.spatkb,2)}) SpD: {round(x.spdef)}({round(x.spdefb,2)}) Spe: {round(x.speed)}({round(x.speedb,2)})")
     print("")
     print(f" {p2.name}:")
@@ -54,11 +54,11 @@ def  score(x,y,p1,p2,turn):
         print(f" Type:{y.type1}/{y.teratype} Ability: {y.ability} Item: {y.item}")
     if y.teratype is not None and y.type2 is not None:
         print(f" Type:{y.type1}/{y.type2}/{y.teratype} Ability: {y.ability} Item: {y.item}")
-    if y.teratype is None and y.type2 is None and (p2.ai is False or (True in (p1.ai,p2.ai))):
+    if y.teratype is None and y.type2 is None and False not in (p1.ai,p2.ai):
         print(f" Type:{y.type1} Ability: {y.ability} Item: {y.item}")
-    if y.teratype is None and y.type2 is not None and (p2.ai is False or (True in (p1.ai,p2.ai))):
+    if y.teratype is None and y.type2 is not None and False not in (p1.ai,p2.ai):
         print(f" Type:{y.type1}/{y.type2} Ability: {y.ability} Item: {y.item}")
-    if p2.ai is False or (True in (p1.ai,p2.ai)):
+    if False not in (p1.ai,p2.ai):
         print(f" Atk: {round(y.atk)}({round(y.atkb,2)}) Def: {round(y.defense)}({round(y.defb,2)}) SpA: {round(y.spatk)}({round(y.spatkb,2)}) SpD: {round(y.spdef)}({round(y.spdefb,2)}) Spe: {round(y.speed)}({round(y.speedb,2)})\n")
     if field.weather=="Primordial Sea" and (x.ability!="Primordial Sea" and y.ability!="Primordial Sea" ):
         field.weather=None
@@ -227,6 +227,8 @@ def battle(x,y,tr1,tr2):
     #field.weather,field.terrain=randomweather(turn,x,y,field)
     intro(tr1,tr2,field)
     intro(tr2,tr1,field)
+    print(f" {p2.name} was challenged by {p1.name}!")
+    print(f" Battle between {p1.name} and {p2.name} begun!")
     if x.speed>=y.speed:
         entryeff(x,y,tr1,tr2,field,turn)
         entryeff(y,x,tr2,tr1,field,turn)
