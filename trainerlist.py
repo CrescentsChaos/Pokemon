@@ -2361,6 +2361,12 @@ def genplayer2(f):
     pl=None
     field.weather="Clear"
     field.terrain="Normal"
+    if "Kanto" in f.location:
+        pl=random.choice([ash,gary,red,giovanni,genTrainer(trclass=random.choice(["Kanto Trainer"]))])
+    if "Hoenn" in f.location:
+        pl=random.choice([ethan,silver,genTrainer(trclass=random.choice(["Hoenn Trainer"]))])
+    if "Paldea" in f.location:
+        pl=random.choice([hassel,larry,poppy,rika,geeta,genTrainer(trclass=random.choice(["Johto Trainer"]))])
     if "Johto" in f.location:
         pl=random.choice([ethan,silver,genTrainer(trclass=random.choice(["Johto Trainer"]))])
     if "Sinnoh" in f.location:
@@ -2368,9 +2374,9 @@ def genplayer2(f):
     if "Kalos" in f.location:
         pl=random.choice([diantha,genTrainer(trclass=random.choice(["Kalos Trainer"]))])
     if "Alola" in f.location:
-        pl=random.choice([kukui,genTrainer(trclass=random.choice(["Alola Trainer"]))])
-    if "Galar" in f.location:
-        pl=random.choice([leon, mustard,bea,milo,allister,piers,marnie,bede,opal,nessa,raihan,kabu,gordie,melony,genTrainer(trclass=random.choice(["Galar Trainer"]))])
+        pl=random.choice([kahili,acerola,olivia,molayne,hala,kukui,genTrainer(trclass=random.choice(["Alola Trainer"]))])
+    if " Galar" in f.location:
+        pl=random.choice([raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,miloleon,genTrainer(trclass=random.choice(["Galar Trainer"]))])
     if "Power Plant" in f.location:
         field.weather="Electric Terrain"
         pl=random.choice([czapdos,genTrainer(trclass=random.choice(["Rocket Grunt","Electrician"]))])

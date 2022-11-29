@@ -7,9 +7,8 @@
 #pylint:disable=C0304
 from trainerlist import *
 
-def characters(text,nm=1):
+def characters(text,nm=2):
     print(" Text inserted:",text)
-    text=text.lower()
     team=None
     num=0
     if text in ["e4","elite four"]:
@@ -33,7 +32,7 @@ def characters(text,nm=1):
     if team is None:
         if nm==1:
             chosen=matchx[0]
-        if nm==2:
+        else:
             chosen=genplayer2(field)
     else:
         ch=int(input(" Enter what you wanna play with: "))

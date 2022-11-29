@@ -2977,7 +2977,6 @@ def stoneaxe(self,other,optr):
     b=ab[1]   
     other.hp-=physical(self.level,self.atk,other.defense,65,a,b,c,r,al)       
     if "Stealth Rock" not in optr.hazard:
-        print(f" {self.name} used Stealth Rock.")
         print(" 🪨 Pointed stones float in the air around the opposing team!")
         optr.hazard.append("Stealth Rock")
 def petaldance(self,other):
