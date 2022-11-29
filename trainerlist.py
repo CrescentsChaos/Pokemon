@@ -2361,6 +2361,8 @@ def genplayer2(f):
     pl=None
     field.weather="Clear"
     field.terrain="Normal"
+    if "Johto" in f.location:
+        pl=random.choice([ethan,silver,genTrainer(trclass=random.choice(["Johto Trainer"]))])
     if "Sinnoh" in f.location:
         pl=random.choice([cynthia,genTrainer(trclass=random.choice(["Sinnoh Trainer"]))])
     if "Kalos" in f.location:

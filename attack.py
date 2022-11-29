@@ -450,22 +450,22 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
 def attack(self,other,tr,optr,use,opuse,field,turn):
     print(f"\n {tr.name}:")
     if self.dmax is False:
-        if len(tr.pokemons)>0 and use==self.moves[0]:
+        if len(tr.pokemons)>=0 and use==self.moves[0]:
             self.m1pp-=1
-        if len(tr.pokemons)>1 and use==self.moves[1]:
+        if len(tr.pokemons)>=1 and use==self.moves[1]:
             self.m2pp-=1
-        if len(tr.pokemons)>2 and use==self.moves[2]:
+        if len(tr.pokemons)>=2 and use==self.moves[2]:
             self.m3pp-=1
-        if len(tr.pokemons)>3 and use==self.moves[3]:
+        if len(tr.pokemons)>=3 and use==self.moves[3]:
             self.m4pp-=1
     if self.dmax is True:            
-        if len(tr.pokemons)>0 and use==self.maxmove[0]:
+        if len(tr.pokemons)>=0 and use==self.maxmove[0]:
             self.m1pp-=1
-        if len(tr.pokemons)>1 and use==self.maxmove[1]:
+        if len(tr.pokemons)>=1 and use==self.maxmove[1]:
             self.m2pp-=1
-        if len(tr.pokemons)>2 and use==self.maxmove[2]:
+        if len(tr.pokemons)>=2 and use==self.maxmove[2]:
             self.m3pp-=1
-        if len(tr.pokemons)>3 and use==self.maxmove[3]:
+        if len(tr.pokemons)>=3 and use==self.maxmove[3]:
             self.m4pp-=1
     if use in typemoves.contactmoves:
         if other.ability=="Fluffy":
