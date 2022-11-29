@@ -1,5 +1,5 @@
-<head><title>
-Trying to make a working pokémon games.</title></head>
+<head><bold>
+Trying to make a working pokémon games.</bold></head>
 ✴️ Run the main.py to play the game!
 1.Pokémon from all the regions.
 2.Unevolved pokémons aren't available.
