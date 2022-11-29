@@ -11,7 +11,9 @@ Pokémon Python</bold></h1>
 8.New Moves for old mons
 9.New Abilities for old mons
 10.Terastalization [Can't be controlled]
-11.Mega Evolutions [Can't be controlled]
+<a>
+  <img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047032986173976576/image_search_1669702475343.png"/>
+</a>[Can't be controlled]
 12.Dynamax and Gigantamax [Can't be controlled]
 13.New Weather effects
 14.Gen I - IX
