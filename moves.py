@@ -1,17 +1,3 @@
-#pylint:disable=W0611
-#pylint:disable=C0121
-#pylint:disable=R0916
-#pylint:disable=R1705
-#pylint:disable=W0613
-#pylint:disable=R0913
-#pylint:disable=C0116
-#pylint:disable=W0401
-#pylint:disable=C0301
-#pylint:disable=W0622
-#pylint:disable=W0621
-#pylint:disable=C0103
-#pylint:disable=C0303
-
 from colorama import init
 from termcolor import colored    
 from pokemonbase2 import *
