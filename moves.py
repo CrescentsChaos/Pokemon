@@ -522,7 +522,7 @@ def rapidspin(self,other,tr1):
     speedchange(self,0.5)
     print(f" Speed x{self.speedb}")    
     if len(tr1.hazard)>0:
-        tr1.hazard=None
+        tr1.hazard=[]
         print(f" {self.name} removed hazards from its side!")
         
 def dragondance(self):
