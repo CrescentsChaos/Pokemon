@@ -8,7 +8,6 @@
 from trainerlist import *
 
 def characters(text,nm=2):
-    print(" Text inserted:",text)
     team=None
     num=0
     if text in ["e4","elite four"]:

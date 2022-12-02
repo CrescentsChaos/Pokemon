@@ -4,6 +4,11 @@ from pokemonbase2 import *
 from typematchup import *
 from hiddenpower import *
 from movelist import *
+def yawn(self,other):
+    print(f" 🥱 {self.name} used  "+colored("Yawn","white")+"!")
+    if other.yawn is False:
+        other.yawn=True
+        print(f" {other.name} became drowsy!")
 def spicyextract(self,other):
     print(f" 🌶️🫑 {self.name} used  "+colored("Spicy Extract","green")+"!")
     atkchange (other,1)
@@ -1459,7 +1464,7 @@ def gmaxresonance(self,other,tr1,turn):
 def subzeroslammer(self,other):
     al=1
     r=randroll()
-    print(f" ❄️ {self.name} used Subzero Slammer.")
+    print(f" ❄️ {self.name} used "+colored("Subzero Slammer","cyan")+"!")
     self.atktype="Ice"
     w=weathereff(self)
     c=critch(self,other)
@@ -2774,6 +2779,8 @@ def jetpunch(self,other):
     a=ab[0]
     b=ab[1]   
     base=60
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Iron Fist":
         print(f" {self.name}'s {self.ability}!")
         al=1.3
@@ -4197,6 +4204,8 @@ def dynapunch(self,other):
     print(f" 👊🏽 {self.name} used "+colored(" Dynamic Punch","red")+"!")   
     c=critch(self,other)
     self.atktype="Fighting"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Tough Claws":
         print(f" {self.name}'s {self.ability}!")
         al=1.33
@@ -4273,6 +4282,8 @@ def bulletpunch(self,other):
     print(f" {self.name} used Bullet Punch.")
     c=critch(self,other)
     self.atktype="Steel"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Tough Claws":
         print(f" {self.name}'s {self.ability}!")
         al=1.33
@@ -4460,6 +4471,8 @@ def firepunch(self,other):
     print(f" {self.name} used  "+colored("Fire Punch","red")+"!")
     c=critch(self,other)
     self.atktype="Fire"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Tough Claws":
         print(f" {self.name}'s {self.ability}!")
         al=1.33
@@ -4547,7 +4560,7 @@ def flareblitz(self,other):
     w=weathereff(self)
     al=1
     r=randroll()
-    print(f" {self.name} used  "+colored("Flare Blitz","red")+"!")
+    print(f" 🔥 {self.name} used  "+colored("Flare Blitz","red")+"!")
     c=critch(self,other)
     ab=weakness(self,other,field)
     a=ab[0]
@@ -4616,6 +4629,8 @@ def tpunch(self,other):
     print(f" {self.name} used  "+colored("Thunder Punch","yellow")+"!")
     c=critch(self,other)
     self.atktype="Electric"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Tough Claws":
         print(f" {self.name}'s {self.ability}!")
         al=1.33
@@ -4699,6 +4714,8 @@ def plasmafists(self,other):
     print(f" {self.name} used  "+colored("Plasma Fists","yellow")+"!")
     c=critch(self,other)
     self.atktype="Electric"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Iron Fist":
         print(f" {self.name}'s {self.ability}!")
         al=1.3
@@ -4711,6 +4728,8 @@ def suckerpunch(self,other):
     r=randroll()
     print(f" {self.name} used  "+colored("Sucker Punch","white")+"!")
     c=critch(self,other)
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Iron Fist":
         print(f" {self.name}'s {self.ability}!")
         al=1.3
@@ -4728,6 +4747,8 @@ def machpunch(self,other):
     print(f" {self.name} used Mach Punch.")
     c=critch(self,other)
     self.atktype="Fighting"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Tough Claws":
         print(f" {self.name}'s {self.ability}!")
         al=1.33
@@ -4827,6 +4848,8 @@ def drainpunch(self,other):
     print(f" {self.name} used  "+colored("Drain Punch","red")+"!")
     c=critch(self,other)
     self.atktype="Fighting"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Tough Claws":
         print(f" {self.name}'s {self.ability}!")
         al=1.33
@@ -4911,6 +4934,8 @@ def icepunch(self,other):
     w=weathereff(self)
     c=critch(self,other)
     self.atktype="Ice"
+    if self.item=="Punching Glove":
+        al=1.5
     if self.ability=="Tough Claws":
         print(f" {self.name}'s {self.ability}!")
         al=1.33

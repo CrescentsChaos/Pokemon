@@ -157,6 +157,9 @@ def weakness(self,other,field):
             eff*=1 
     #electric
     if self.atktype=="Electric":
+        if other.ability=="Motor Drive":
+            speedchange (other,0.5)
+            eff*=0
         if other.ability=="Wonder Guard":
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0

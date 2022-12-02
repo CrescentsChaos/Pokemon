@@ -138,10 +138,10 @@ def entryeff(current,other,trainer,trainer2,field,turn):
     print("")
     if current.ability=="Illusion":
         current.name=trainer.pokemons[len(trainer.pokemons)-1].name.split(" ")[-1]
-    if "Legendary" in current.name and current.item in ["Silver Feather","Red Orb","Blue Orb","Jade Orb","Rainbow Feather"]:
+    if "Legendary" in current.name and current.item in ["Silver Feather","Red Orb","Blue Orb","Jade Orb","Rainbow Feather","Team Rocket Armor"]:
         print(f" 🔱 {current.item} shrouded {current.name} with mystical energy!")
-        current.hp*=6
-        current.maxhp*=6
+        current.hp*=6/len(trainer.pokemons)
+        current.maxhp*=6/len(trainer.pokemons)
 #        current.maxdef*=1.2
 #        current.maxspdef*=1.2
 #        current.maxatk*=1.2
@@ -467,7 +467,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             self.m3pp-=1
         if len(tr.pokemons)>=3 and use==self.maxmove[3]:
             self.m4pp-=1
-    if use in typemoves.contactmoves:
+    if use in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         if other.ability=="Fluffy":
             self.atk/=2
     if use not in typemoves.statusmove:
@@ -666,16 +666,16 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 used=None
                 self.protect=False
             
-            if "Spiky Shield" in other.moves and used in typemoves.contactmoves:
+            if "Spiky Shield" in other.moves and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                 self.hp-=round(self.maxhp/8)
                 print(f" {self.name} was hurt by Spiky Shield.") 
-            if "Silk Trap" in other.moves and used in typemoves.contactmoves:
+            if "Silk Trap" in other.moves and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                 speedchange(self,-0.5)
                 print(f" Speed x{self.atkb}")
-            if "King's Shield" in other.moves and used in typemoves.contactmoves:
+            if "King's Shield" in other.moves and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                 atkchange(self,-0.5)
                 print(f" Attack x{self.atkb}")
-            if "Baneful Bunker" in other.moves and used in typemoves.contactmoves:
+            if "Baneful Bunker" in other.moves and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                 if self.status=="Alive":
                     self.status=["Badly Poisoned"]   
                     print(f" ☠️ {self.name} was badly poisoned.")  
@@ -768,6 +768,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             maxgeyser(self,other,field,turn)
         elif used=="Max Rockfall":
             maxrockfall(self,other,field,turn)
+        elif used=="Yawn":
+            yawn(self,other)
         elif used=="Strange Steam":
             strangesteam(self,other)
         elif used=="G-Max Snooze":
@@ -2209,13 +2211,13 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             self.moves.remove(used)
         elif used=="Counter":
            print(f" {self.name} used Counter!")
-           if self.speed<other.speed and opuse in typemoves.contactmoves:
+           if self.speed<other.speed and opuse in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                other.hp-=self.dmgtaken*2
            else:
                print(" It failed.")
         elif used=="Mirror Coat":
            print(f" {self.name} used Mirror Coat!")
-           if self.speed<other.speed and opuse not in typemoves.contactmoves:
+           if self.speed<other.speed and opuse not in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                other.hp-=self.dmgtaken*2
            else:
                print(" It failed.")
@@ -2331,45 +2333,45 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         else:
             other.name="Hisuian Zoroark"
             print(f" {other.name}'s Illusion wore off!")
-    if other.ability=="Flame Body" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves:
+    if other.ability=="Flame Body" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         ch=random.randint(1,100)  
         if ch>70:
             print(f" 🔥 {other.name}'s {other.ability}!")
             me.status="Burned"  
             print(f" 🔥 {me.name} was burned.") 
-    if other.ability=="Toxic Debris" and "Toxic Spikes" not in tr.hazard and me.ability!="Long Reach" and used in typemoves.contactmoves:
+    if other.ability=="Toxic Debris" and "Toxic Spikes" not in tr.hazard and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         print(f" ☣️ {other.name}'s {other.ability}!")   
         print(" ☠️ Poison spikes were scattered all around the opposing team!")
         tr.hazard.append("Toxic Spikes")   
-    if other.ability=="Static" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves:
+    if other.ability=="Static" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         ch=random.randint(1,100)  
         if ch>70:
             print(f" ⚡ {other.name}'s {other.ability}!")
             me.status="Paralyzed"
             print(f" ⚡ {self.name} was paralyzed.")
-    if other.ability=="Poison Point" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves:
+    if other.ability=="Poison Point" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         ch=random.randint(1,100)  
         if ch>70:
             print(f" ☠️ {other.name}'s {other.ability}!")
             self.status="Badly Poisoned"  
             print(f" ☠️ {me.name} was badly poisoned.")
-    if self.ability=="Poison Touch" and other.status=="Alive" and other.ability!="Long Reach" and used in typemoves.contactmoves:
+    if self.ability=="Poison Touch" and other.status=="Alive" and other.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         ch=random.randint(1,100)  
         if ch>70:
             print(f" {self.name}'s {self.ability}!")
             other.status="Badly Poisoned"        
-    if used in typemoves.contactmoves and other.item=="Air Balloon":
+    if used in typemoves.contactmoves and other.item=="Air Balloon" and self.item not in ["Punching Glove"]:
         print(f" {other.name}'s Air Balloon popped off!")
         other.item=None                      
     if other.hp!=before and per>0:
         if used not in statusmove:
 #ROUGH SKIN/IRON BARBS            
-            if other.ability in ["Rough Skin","Iron Barbs"] and used in typemoves.contactmoves and self.ability!="Long Reach":
+            if other.ability in ["Rough Skin","Iron Barbs"] and used in typemoves.contactmoves and self.ability!="Long Reach" and self.item not in ["Punching Glove"]:
                 print(f" {me.name} was hurt by {other.name}'s {other.ability}!")
                 me.hp-=round((me.maxhp/16),2)
                 if me.hp<0:
                     me.hp=0
-        if other.item=="Rocky Helmet" and self.ability!="Magic Guard" and used in typemoves.contactmoves:
+        if other.item=="Rocky Helmet" and self.ability!="Magic Guard" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
             me.hp-=round(me.maxhp/6)
             print(f" {me.name} was hurt by {other.name}'s Rocky Helmet!")
             if me.hp<0:
