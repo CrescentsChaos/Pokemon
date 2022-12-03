@@ -615,7 +615,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                     used=moveAI(self,other,tr,optr,field)
                 if used not in statusmove:
                     break
-        if used not in ["Protect","Spiky Shield","King's Shield","Baneful Bunker"]:
+        if used not in ["Protect","Spiky Shield","King's Shield","Baneful Bunker","Obstruct"]:
             self.protect=False
         elif used=="Lunar Blessing":
             lunarblessing(self)
@@ -644,7 +644,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {self.name} flinched.")
             self.flinched=False
             used=None
-        elif self.protect=="Pending" and used in ["Protect","Spiky Shield","King's Shield","Baneful Bunker"]:
+        elif self.protect=="Pending" and used in ["Protect","Spiky Shield","King's Shield","Baneful Bunker","Obstruct"]:
             print(f" 🛡️ {self.name} used {used}!")
             print("  It failed.")
             self.protect=False
@@ -672,6 +672,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             if "Silk Trap" in other.moves and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                 speedchange(self,-0.5)
                 print(f" Speed x{self.atkb}")
+            if "Obstruct" in other.moves and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
+                spatkchange(self,-0.5)
+                print(f" Special Attack x{self.spatkb}")
             if "King's Shield" in other.moves and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
                 atkchange(self,-0.5)
                 print(f" Attack x{self.atkb}")
@@ -2339,6 +2342,12 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" 🔥 {other.name}'s {other.ability}!")
             me.status="Burned"  
             print(f" 🔥 {me.name} was burned.") 
+    if other.ability=="Seed Sower" and "Toxic Spikes" not in tr.hazard and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
+        print(f" {self.name}'s {self.ability}!")
+        print(" 🌿 Grass grew to cover the battlefield!")
+        field.terrain="Grassy"
+        field.grassturn=turn
+        field.grassend(self,other)          
     if other.ability=="Toxic Debris" and "Toxic Spikes" not in tr.hazard and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         print(f" ☣️ {other.name}'s {other.ability}!")   
         print(" ☠️ Poison spikes were scattered all around the opposing team!")
