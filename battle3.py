@@ -26,9 +26,9 @@ def  score(x,y,p1,p2,turn):
         print(f" 🔲 Light Screen({p1.screenend-turn+1} turns left)")        
     print(f" Lv.{x.level} {x.name}: {round(x.hp)}/{x.maxhp}({round((x.hp/x.maxhp)*100,2)}%)[{x.status}]")
     if x.teratype is not None and x.type2 is None:
-        print(f" Type:{x.type1}/{x.teratype} Ability: {x.ability} Item: {x.item}")
+        print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item}")
     if x.teratype is not None and x.type2 is not None:
-        print(f" Type:{x.type1}/{x.type2}/{x.teratype} Ability: {x.ability} Item: {x.item}")
+        print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item}")
     if x.teratype is None and x.type2 is None and False not in (p1.ai,p2.ai):
         print(f" Type:{x.type1} Ability: {x.ability} Item: {x.item}")
     if x.teratype is None and x.type2 is not None and False not in (p1.ai,p2.ai):
@@ -51,9 +51,9 @@ def  score(x,y,p1,p2,turn):
         print(f" 🔲 Light Screen({p2.screenend-turn+1} turns left)")               
     print(f" Lv.{y.level} {y.name}: {round(y.hp)}/{y.maxhp}({round((y.hp/y.maxhp)*100,2)}%)[{y.status}]")
     if y.teratype is not None and y.type2 is None:
-        print(f" Type:{y.type1}/{y.teratype} Ability: {y.ability} Item: {y.item}")
+        print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item}")
     if y.teratype is not None and y.type2 is not None:
-        print(f" Type:{y.type1}/{y.type2}/{y.teratype} Ability: {y.ability} Item: {y.item}")
+        print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item}")
     if y.teratype is None and y.type2 is None and False not in (p1.ai,p2.ai):
         print(f" Type:{y.type1} Ability: {y.ability} Item: {y.item}")
     if y.teratype is None and y.type2 is not None and False not in (p1.ai,p2.ai):

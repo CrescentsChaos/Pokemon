@@ -677,7 +677,6 @@ def weakness(self,other,field):
                 eff*=2.25
         if other.ability=="Thermal Exchange":
             print(f" 🌡️ {other.name}'s {other.ability}.")
-            eff*=0
             atkchange(other,0.5)
         if other.ability=="Flash Fire":
             print(f" 🔥 {other.name}'s {other.ability}.")

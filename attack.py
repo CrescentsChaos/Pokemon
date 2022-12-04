@@ -136,6 +136,17 @@ def entryeff(current,other,trainer,trainer2,field,turn):
     prebuff(current,other,trainer,turn,field)
     current.maxendturn(turn)
     print("")
+    abilitylist=[]
+    for i in trainer.pokemons:
+        abilitylist.append(i.ability)
+    if "Commander" in abilitylist and "Dondozo" in current.name:
+        print(f" 🪖 Tatsugiri's Commander!")
+        print(f" {current.name}'s stats raised sharply!")
+        atkchange(current,1)
+        spatkchange(current,1)
+        defchange(current,1)
+        spdefchange(current,1)
+        speedchange(current,1)
     if current.ability=="Illusion":
         current.name=trainer.pokemons[len(trainer.pokemons)-1].name.split(" ")[-1]
     if "Legendary" in current.name and current.item in ["Silver Feather","Red Orb","Blue Orb","Jade Orb","Rainbow Feather","Team Rocket Armor"]:
@@ -196,7 +207,7 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         prevname=current.name.split(" ")[-1]
         trname=trainer.name.split(" ")[-1]
         print(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {current.name}!\n")
-    if current.megaintro is False and "💎" in current.name:
+    if current.megaintro is False and "💎" in current.name and current.teratype!=None:
         typ=None
         current.name=current.name.split("💎")[0]+"-"+current.teratype
         if current.teratype=="Dragon":
@@ -236,7 +247,7 @@ def entryeff(current,other,trainer,trainer2,field,turn):
         if current.teratype=="Fire":
             typ="🔥"
         name=current.name.split("💎")[0]
-        print(f" {typ}{name} terastalized into {current.teratype}-type!")
+        print(f" {typ}{name} terastallized into {current.teratype}-type!")
         current.megaintro=True
     if current.megaintro is False and "Mega " in current.name and "Rayquaza" not in current.name:
         trname=trainer.name.split(" ")[-1]
