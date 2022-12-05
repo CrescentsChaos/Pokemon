@@ -6,23 +6,26 @@
 #pylint:disable=W0401
 #pylint:disable=C0304
 from trainerlist import *
-
+print(f" 🌁 {field.location}")
+p1=None
+p2=None
 def characters(text,nm=2):
     team=None
     num=0
+    chosen=None
     if text in ["e4","elite four"]:
         team=e4list
-    if text in ["evil","villain","ev"]:
+    elif text in ["evil","villain","ev"]:
         team=evilist
-    if text in ["champ","champion","ch"]:
+    elif text in ["champ","champion","ch"]:
         team=champlist
-    if text in ["gm"]:
+    elif text in ["gm"]:
         team=gymlist
-    if text in ["fr"]:
+    elif text in ["fr"]:
         team=fronlist
-    if text in ["tl"]:
+    elif text in ["tl"]:
         team=talentlist
-    if text in ["",None,"rn"]:
+    elif text in ["",None,"rn"]:
         team=None
     if text!="" and team is not None:
         for i in team:
@@ -61,7 +64,7 @@ if p1.ai is False:
         mon=int(mon)
         mon1=p1.pokemons[mon-1]
 if p1.ai is True:
-    mon1=p1.pokemons[random.randint(1,len(p1.pokemons))-1]
+    mon1=p1.pokemons[random.randint(1,(len(p1.pokemons))-1)]
 if p2.ai is False:
     showmon(p2)
     mon=input(" Choose your leading mon: ")

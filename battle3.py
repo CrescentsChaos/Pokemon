@@ -243,7 +243,7 @@ def battle(x,y,tr1,tr2):
         print("===================================================================")
         print(" TURN:",turn)
         print("===================================================================")
-        print(f" Location: 🌏 {field.location}")
+        print(f" Location: {field.location}")
         if field.weather=="Desolate Land":
             print(f" Weather: 🌋 Extremely Harsh Sunlight")
         if field.weather=="Primordial Sea":
@@ -361,7 +361,7 @@ def battle(x,y,tr1,tr2):
 #P1 PRIORITY            
             if (choice1 in prioritymove and choice2 not in prioritymove) or x.priority is True or (x.ability=="Prankster" and choice1 in statusmove and "Dark" not in (y.type1,y.type2)):
                 weather(x,y)
-                x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+                x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if x.hp<=0:
@@ -371,7 +371,7 @@ def battle(x,y,tr1,tr2):
                         break
                 elif y.hp>0:
                      
-                    y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
+                    y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,turn)
                     effects(y,x,turn)
                     statchange(x,tr1,turn)
@@ -403,7 +403,7 @@ def battle(x,y,tr1,tr2):
             elif (choice2 in prioritymove and choice1 not in prioritymove) or y.priority is True or (y.ability=="Prankster" and choice2 in statusmove and "Dark" not in (x.type1,x.type2)):
                 weather(y,x)
                  
-                y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
+                y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if y.hp<=0:
@@ -413,7 +413,7 @@ def battle(x,y,tr1,tr2):
                         break
                 elif x.hp>0:
                      
-                    x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+                    x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,turn)
                     effects (x,y,turn)
                     statchange(x,tr1,turn)
@@ -445,7 +445,7 @@ def battle(x,y,tr1,tr2):
             elif x.speed>=y.speed and field.trickroom==False:
                 weather(x,y)
                  
-                x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+                x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if x.hp<=0:
@@ -456,7 +456,7 @@ def battle(x,y,tr1,tr2):
                 elif y.hp>0:
                      
                     
-                    y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
+                    y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,turn)
                     effects(y,x,turn)
                     statchange(x,tr1,turn)
@@ -487,7 +487,7 @@ def battle(x,y,tr1,tr2):
             elif x.speed<y.speed and field.trickroom==True:
                 weather(x,y)
                  
-                x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+                x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if x.hp<=0:
@@ -497,7 +497,7 @@ def battle(x,y,tr1,tr2):
                         break
                 elif y.hp>0:
                      
-                    y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
+                    y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,turn)
                     effects(y,x,turn)
                     statchange(x,tr1,turn)
@@ -528,7 +528,7 @@ def battle(x,y,tr1,tr2):
             elif y.speed>x.speed and field.trickroom==False:
                 weather(y,x)
                  
-                y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
+                y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if y.hp<=0:
@@ -538,7 +538,7 @@ def battle(x,y,tr1,tr2):
                         break
                 elif x.hp>0:
                      
-                    x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+                    x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,turn)
                     effects (x,y,turn)
                     statchange(x,tr1,turn)
@@ -569,7 +569,7 @@ def battle(x,y,tr1,tr2):
             elif y.speed<=x.speed and field.trickroom==True:
                 weather(y,x)
                  
-                y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
+                y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                 statchange(x,tr1,turn)
                 statchange(y,tr2,turn)
                 if y.hp<=0:
@@ -579,7 +579,7 @@ def battle(x,y,tr1,tr2):
                         break
                 elif x.hp>0:
                      
-                    x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+                    x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,turn)
                     effects (x,y,turn)
                     statchange(x,tr1,turn)
@@ -620,7 +620,7 @@ def battle(x,y,tr1,tr2):
                     choice2=y.moves[choice2-1]
             weather(y,x)
             x=switch(x,y,tr1,tr2,field,turn)
-            y=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
+            y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
             effects(x,y,turn)
             effects(y,x,turn)
             statchange(x,tr1,turn)
@@ -651,7 +651,7 @@ def battle(x,y,tr1,tr2):
                     choice1=x.moves[choice1-1]        
             weather(y,x)
             y=switch(y,x,tr2,tr1,field,turn)
-            x=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+            x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
             if x.hp<=0:
                 x=faint(x,y,tr1,tr2,field,turn)
                 if len(tr1.pokemons)==0:

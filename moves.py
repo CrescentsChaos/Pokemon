@@ -4,6 +4,20 @@ from pokemonbase2 import *
 from typematchup import *
 from hiddenpower import *
 from movelist import *
+def painsplit(self,other):
+    print(f" {self.name} used  "+colored("Pain Split","white")+"!")
+    self.atktype="Normal"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    if a>0:
+        self.hp=other.hp=(other.hp+self.hp)/2
+def endeavor (self,other):
+    print(f" {self.name} used  "+colored("Endeavor","white")+"!")
+    self.atktype="Normal"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    if self.hp<other.hp and a>0:
+        other.hp=self.hp
 def yawn(self,other):
     print(f" 🥱 {self.name} used  "+colored("Yawn","white")+"!")
     if other.yawn is False:
@@ -378,12 +392,10 @@ def cottonguard(self):
     print(f" Defense x{self.defb}")     
 def leechseed(self,other):
     print(f" 🌱 {self.name} used Leech Seed.")
-    if (self.type1=="Grass" or self.type2=="Grass") or other.seeded is True:
-        print(" It failed!")
-    if other.type1!="Grass" and other.type2!="Grass" and other.ability!="Magic Bounce" and other.seeded is False:
+    if "Grass" not in (other.type1,other.type2,other.teratype) and other.ability!="Magic Bounce" and other.seeded is False:
         other.seeded=True
         print(f" 🌱{other.name} was seeded.")
-    elif self.type1!="Grass" and self.type2!="Grass"  and other.ability=="Magic Bounce" and self.seeded is False:
+    elif "Grass" not in (self.type1,self.type2)and other.ability=="Magic Bounce" and self.seeded is False:
         self.seeded=True
         print(f" {self.name} was seeded.")
     
@@ -1079,7 +1091,19 @@ def maxsteelspike(self,other):
         other.hp-=physical(self.level,self.atk,other.defense,150,a,b,c,r,al)                  
     defchange(self,0.5)
     print(f" {self.name}'s defense rose!")
-    
+def gmaxmeltdown(self,other):
+    al=1
+    r=randroll()
+    print(f" 🔺🔩 {self.name} used  "+colored(" G-Max Meltdown","white")+"!")
+    self.atktype="Steel"
+    c=critch(self,other)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    if self.spatk>self.atk:
+        other.hp-=special(self.level,self.spatk,other.spdef,150,a,b,c,r,al)    
+    else:
+        other.hp-=physical(self.level,self.atk,other.defense,150,a,b,c,r,al)     
 def breakneckblitz(self,other):
     al=1
     r=randroll()
@@ -1657,7 +1681,24 @@ def aciddownpour(self,other):
     if self.spatk>self.atk:
         other.hp-=special(self.level,self.spatk,other.spdef,200,a,b,c,r,al)    
     else:
-        other.hp-=physical(self.level,self.atk,other.defense,200,a,b,c,r,al)            
+        other.hp-=physical(self.level,self.atk,other.defense,200,a,b,c,r,al)         
+def gmaxmalodor(self,other):
+    al=1
+    r=randroll()
+    print(f" 🛳️☣️ {self.name} used "+colored(" G-Max Malodor","magenta")+"!")
+    self.atktype="Poison"
+    c=critch(self,other)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    if self.spatk>self.atk:
+        other.hp-=special(self.level,self.spatk,other.spdef,150,a,b,c,r,al)    
+    else:
+        other.hp-=physical(self.level,self.atk,other.defense,150,a,b,c,r,al)        
+    if other.status=="Alive":
+           other.status="Badly Poisoned"
+           
+                 
 def supersonicskystrike(self,other):
     al=1
     r=randroll()
@@ -1837,7 +1878,7 @@ def bugbuzz (self,other):
     if self.ability=="Sheer Force":
         al=1.5
         print(f" {self.name}'s {self.ability}.")
-    print(f" {self.name} used Bug Buzz.")
+    print(f" 🪰 {self.name} used "+colored("Bug Buzz","green")+"!")
     self.atktype="Bug"
     c=critch(self,other)
     if self.ability=="Punk Rock":
@@ -3243,6 +3284,20 @@ def twinbeam(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self.level,self.spatk,other.spdef,base,a,b,c,r,al)    
+def geargrind(self,other):
+    al=1
+    r=randroll()
+    print(f" ⚙️ {self.name} used  "+colored("Gear Grind","white")+"!")
+    c=critch(self,other)
+    self.atktype="Steel"
+    base=50
+    if self.ability=="Technician":
+        print(f" {self.name}'s {self.ability}.")
+        base*=1.5
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=physical(self.level,self.atk,other.defense,base,a,b,c,r,al)    
 def bulletseed(self,other):
     al=1
     r=randroll()
@@ -4240,7 +4295,7 @@ def armorcannon(self,other):
 def electrodrift(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used  "+colored("Electro Drift","yellow")+"!")
+    print(f" 🧞 {self.name} used  "+colored("Electro Drift","yellow")+"!")
     c=critch(self,other)
     self.atktype="Electric"
     ab=weakness(self,other,field)
@@ -4252,7 +4307,7 @@ def electrodrift(self,other):
 def collisioncourse(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used  "+colored("Collision Course","red")+"!")
+    print(f" 🏍️ {self.name} used  "+colored("Collision Course","red")+"!")
     c=critch(self,other)
     self.atktype="Fighting"
     ab=weakness(self,other,field)
@@ -5022,7 +5077,20 @@ def smartstrike(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    other.hp-=physical (self.level,self.atk,other.defense,70,a,b,c,r,al)         
+    other.hp-=physical (self.level,self.atk,other.defense,70,a,b,c,r,al)   
+def anchorshot(self,other):
+    al=1
+    r=randroll()
+    print(f" ⚓ {self.name} used Anchor Shot.")
+    c=critch(self,other,2)
+    self.atktype="Steel"
+    if self.ability=="Tough Claws":
+        print(f" {self.name}'s {self.ability}!")
+        al=1.33
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=physical (self.level,self.atk,other.defense,80,a,b,c,r,al)             
 def lightofruin(self,other):
     al=1
     r=randroll()
@@ -6087,7 +6155,7 @@ def maxflare(self,other,tr1,turn):
     self.atktype="Fire"
     al=1
     r=randroll()
-    print(f" 🔺🔥 {self.name} used  "+colored(" Max Flare","red")+"!")
+    print(f" 🔺🔥 {self.name} used "+colored(" Max Flare","red")+"!")
     c=critch(self,other)
     ab=weakness(self,other,field)
     a=ab[0]
@@ -6140,7 +6208,7 @@ def chillyreception (self,other,tr1,turn):
         print(" It failed.")        
               
 def snowscape(self,other,tr1,turn):
-    print(f" {self.name} used Snowscape.")
+    print(f" {self.name} used "+colored(" Snowscape","cyan")+"!")
     if field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Snowstorm"]:
         print(f" {self.name} started a snowstorm.")
         field.weather="Snowstorm" 
@@ -6188,7 +6256,7 @@ def maxhailstorm(self,other,tr1,turn):
 def dualchop(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used Dual Chop")
+    print(f" {self.name} used "+colored(" Dual Chop","red")+"!")
     c=critch(self,other)
     self.atktype="Dragon"
     ab=weakness(self,other,field)
@@ -6198,11 +6266,25 @@ def dualchop(self,other):
     if self.ability=="Technician":
         print(f" {self.name}'s {self.ability}.")
         base*=1.5
-    other.hp-=physical (self.level,self.atk,other.defense,base,a,b,c,r,al)             
+    other.hp-=physical (self.level,self.atk,other.defense,base,a,b,c,r,al)       
+def scaleshot(self,other):
+    al=1
+    r=randroll()
+    print(f" {self.name} used "+colored(" Scale Shot","red")+"!")
+    c=critch(self,other)
+    self.atktype="Dragon"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    base=25
+    if self.ability=="Technician":
+        print(f" {self.name}'s {self.ability}.")
+        base*=1.5
+    other.hp-=physical (self.level,self.atk,other.defense,base,a,b,c,r,al)                   
 def dragondarts(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used Dragon Darts!")
+    print(f" {self.name} used "+colored(" Dragon Darts","red")+"!")
     c=critch(self,other)
     self.atktype="Dragon"
     ab=weakness(self,other,field)
@@ -6568,13 +6650,13 @@ def terablast(self,other):
         if self.teratype=="Ghost":
             typ="👻"
         if self.teratype=="Normal":
-            typ="🏳️"
+            typ="💎"
         if self.teratype=="Bug":
             typ="🪲"
         if self.teratype=="Steel":
-            typ="🔩"
+            typ="🪓"
         if self.teratype=="Ice":
-            typ="🧊"
+            typ="❄️"
         if self.teratype=="Fighting":
             typ="👊🏽"
         if self.teratype=="Dark":
@@ -6582,21 +6664,21 @@ def terablast(self,other):
         if self.teratype=="Fairy":
             typ="🧚🏻‍♂️"
         if self.teratype=="Flying":
-            typ="🕊️"
+            typ="🎈"
         if self.teratype=="Poison":
-            typ="☣️"
+            typ="☠️"
         if self.teratype=="Ground":
             typ="🌍"
         if self.teratype=="Rock":
             typ="🪨"
         if self.teratype=="Grass":
-            typ="🌿"
+            typ="🌻"
         if self.teratype=="Electric":
-            typ="⚡"
+            typ="💡"
         if self.teratype=="Water":
-            typ="💧"
+            typ="⛲"
         if self.teratype=="Fire":
-            typ="🔥"
+            typ="🕯️"
         print(f" {typ} {self.name} used Tera Blast!")
     self.atktype=self.teratype
     w=weathereff(self)

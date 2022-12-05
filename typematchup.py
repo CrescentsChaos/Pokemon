@@ -173,10 +173,7 @@ def weakness(self,other,field):
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
             other.item=None
         if field.terrain=="Electric" and (self.ability not in ["Levitate"] and self.ability!="Mold Breaker") and self.type1!="Flying" and self.type2!="Flying":
-            if self.name=="Miraidon":
-                eff*=2
-            else:
-                eff*=1.3
+            eff*=1.3
         if other.ability=="Delta Stream":
             eff*=0.5
         if self.item == "Electric Gem":
@@ -940,6 +937,44 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if field.weather in ["Sunny","Desolate Land"] and self.ability=="Orichalcum Pulse":
+        atkbuff*=1.3
+    if field.terrain=="Electric" and self.ability=="Hadron Engine":
+        spatkbuff*=1.3
+    if self.ability=="Protosynthesis" and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
+        m=[a,b,c,d,e]=[self.atk,self.defense,self.spatk,self.spdef,self.speed]
+        if tr1.reflect==True:
+            m=[self.atk,self.defense/2,self.spatk,self.spdef,self.speed]
+        if tr1.lightscreen==True:
+            m=[self.atk,self.defense,self.spatk,self.spdef/2,self.speed]
+        x=max(m)
+        if x==a:
+        	atkbuff*=1.3
+        elif x==b:
+        	defbuff*=1.3
+        elif x==c:
+        	spatkbuff*=1.3
+        elif x==d:
+        	spdefbuff*=1.3
+        elif x==e:
+        	speedbuff*=1.5
+    if self.ability=="Quark Drive" and (field.terrain=="Electric" or self.item=="Booster Energy"):
+        m=[a,b,c,d,e]=[self.atk,self.defense,self.spatk,self.spdef,self.speed]
+        if tr1.reflect==True:
+            m=[self.atk,self.defense/2,self.spatk,self.spdef,self.speed]
+        if tr1.lightscreen==True:
+            m=[self.atk,self.defense,self.spatk,self.spdef/2,self.speed]
+        x=max(m)
+        if x==a:
+        	atkbuff*=1.3
+        elif x==b:
+        	defbuff*=1.3
+        elif x==c:
+        	spatkbuff*=1.3
+        elif x==d:
+        	spdefbuff*=1.3
+        elif x==e:
+        	speedbuff*=1.5
     if field.terrain=="Misty":
         if self.item=="Misty Seed":
             print(f" 🍇 {self.name} consumed {self.item} and raised its Sp.Def!")
