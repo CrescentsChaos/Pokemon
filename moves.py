@@ -4387,8 +4387,7 @@ def flipturn(self,other):
 def uturn(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used  "+colored("U-Turn","green")+"!")
-    print(""" ⤴️⤴️⤴️⤴️⤴️⤴️""")
+    print(f" ⤴️ {self.name} used  "+colored("U-Turn","green")+"!")
     c=critch(self,other)
     self.atktype="Bug"
     ab=weakness(self,other,field)

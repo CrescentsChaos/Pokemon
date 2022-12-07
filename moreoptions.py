@@ -33,7 +33,7 @@ def characters(text,nm=2):
             print(" "+str(num)+".",i.name)
     if team is None:
         if nm==1:
-            chosen=matchx[0]
+            chosen=random.choice([genTrainer("Pokémon Trainer"),matchx[0]])
         else:
             chosen=genplayer2(field)
     else:

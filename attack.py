@@ -389,11 +389,10 @@ def stancechange(self,used):
         self.maxatk,self.maxspatk,self.maxdef,self.maxspdef=self.maxdef,self.maxspdef,self.maxatk,self.maxspatk
  #PREATTACK       
 def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
-    if self.status=="Sleep":
-        self.yawn=False
     if self.yawn is not True and self.yawn=="Sleep":
         self.status="Sleep"
         print(f" {self.name} fell asleep!")
+        self.yawn=False
     if self.yawn is True:
         self.yawn="Sleep"
     if self.status!="Alive" and self.ability in ["Purifying Salt","Good as Gold"]:
@@ -2430,7 +2429,7 @@ def effects(self,other,turn):
     if self.m3pp<=0:
         self.moves.remove(self.moves[2])
     if self.m4pp<=0:
-        self.moves.remove(self.moves[3])
+        self.moves.remove(self.moves[-1])
     if len(self.moves)==0:
         self.moves=["Struggle"]        
     if self.status!="Alive" and self.ability in ["Purifying Salt","Good as Gold"]:
