@@ -240,8 +240,15 @@ def entryeff(self,other,trainer,trainer2,field,turn):
             print(f" 🔺{trainer.name} dynamaxed {prevname}!\n")
         if "Gigantamax" in self.name:
             print(f" 🔺{trainer.name} gigantamaxed {prevname}!\n")
+    if self.ability=="Costar":     
+        print(f" 🦩 {self.name}'s {self.ability}!")
+        self.atkb=other.atkb
+        self.defb=other.defb
+        self.spatkb=other.spatkb
+        self.spdefb=other.spdefb
+        self.speedb=other.speedb   
     if self.ability=="Imposter" and other.dmax is False:
-        print(f" 👾{self.name}'s {self.ability}!")
+        print(f" 👾 {self.name}'s {self.ability}!")
         print(f' {self.name} transformed into {other.name}!')
         self.hp=round(other.maxhp*(self.hp/self.maxhp))
         self.maxhp=other.maxhp
@@ -777,6 +784,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             gmaxsmite(self,other)
         elif used=="Rage Fist":
             ragefist(self,other)
+        elif used=="Petal Blizzard":
+            petalblizzard(self,other)
         elif used=="Double Shock":
             doubleshock(self,other)
         elif used=="G-Max Steelsurge":

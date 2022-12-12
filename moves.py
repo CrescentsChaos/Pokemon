@@ -3022,7 +3022,17 @@ def petaldance(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    other.hp-=physical(self.level,self.atk,other.defense,120,a,b,c,r,al)       
+    other.hp-=special(self.level,self.spatk,other.spdef,120,a,b,c,r,al) 
+def petalblizzard(self,other):
+    al=1
+    r=randroll()
+    print(f" 🌸 {self.name} used  "+colored("Petal Blizzard","green")+"!")
+    c=critch(self,other,2)
+    self.atktype="Grass"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=physical(self.level,self.atk,other.defense,90,a,b,c,r,al)                 
 def ragingfury(self,other):
     al=1
     r=randroll()
@@ -6154,15 +6164,16 @@ def maxflare(self,other,tr1,turn):
     self.atktype="Fire"
     al=1
     r=randroll()
+    w=weathereff(self)
     print(f" 🔺🔥 {self.name} used "+colored(" Max Flare","red")+"!")
     c=critch(self,other)
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
     if self.spatk>self.atk:
-        other.hp-=special(self.level,self.spatk,other.spdef,150,a,b,c,r,al)    
+        other.hp-=special(self.level,self.spatk,other.spdef,150,a,b,c,r,al,w)    
     else:
-        other.hp-=physical(self.level,self.atk,other.defense,150,a,b,c,r,al)
+        other.hp-=physical(self.level,self.atk,other.defense,150,a,b,c,r,al,w)
     if field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Sunny"]:
         print(f" ☀️ {self.name} made the sunlight harsh.")
         field.weather="Sunny"

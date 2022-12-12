@@ -6547,7 +6547,7 @@ class Bombirdier(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)          
 #Flamigo
 class Flamigo(Pokemon2):
-    def __init__(self,name="Flamigo",type1="Flying",type2="Fighting",nature=None,level=100,happiness=255,hp=82,atk=115,defense=74,spatk=75,spdef=64,speed=90,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Scrappy"]),item=random.choice(["Leftovers"])):
+    def __init__(self,name="Flamigo",type1="Flying",type2="Fighting",nature=None,level=100,happiness=255,hp=82,atk=115,defense=74,spatk=75,spdef=64,speed=90,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Scrappy","Costar"]),item=random.choice(["Leftovers"])):
         if move is None:
             avmoves=["Brave Bird","Roost","Throat Chop","Sky Attack","Knock Off","Close Combat"]
             moves=moveset(avmoves)
@@ -6871,7 +6871,7 @@ class Cincinno(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)       
 #Sawsbuck
 class Sawsbuck(Pokemon2):
-    def __init__(self,name="Sawsbuck",type1="Normal",type2="Grass",nature=None,level=100,happiness=255,hp=80,atk=100,defense=70,spatk=60,spdef=70,speed=95,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random choice(["Chlorophyll","Sap Sipper","Serene Grace"]),item=random.choice(["Leftovers"])):
+    def __init__(self,name="Sawsbuck",type1="Normal",type2="Grass",nature=None,level=100,happiness=255,hp=80,atk=100,defense=70,spatk=60,spdef=70,speed=95,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Chlorophyll","Sap Sipper","Serene Grace"]),item=random.choice(["Leftovers"])):
         if move is None:
             avmoves=["Horn Leech","Bullet Seed","Megahorn","Double-Edge"]
             moves=moveset(avmoves)
@@ -6880,10 +6880,19 @@ class Sawsbuck(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)    
 #Alomomola
 class Amomola(Pokemon2):
-    def __init__(self,name="Alomomola",type1="Water",type2=None,nature=None,level=100,happiness=255,hp=165,atk=75,defense=80,spatk=40,spdef=45,speed=65,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random choice(["Hydration","Regenerator"]),item=random.choice(["Leftovers"])):
+    def __init__(self,name="Alomomola",type1="Water",type2=None,nature=None,level=100,happiness=255,hp=165,atk=75,defense=80,spatk=40,spdef=45,speed=65,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Hydration","Regenerator"]),item=random.choice(["Leftovers"])):
         if move is None:
             avmoves=["Hydro Pump","Aqua Jet","Ice Beam","Surf"]
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                   
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)             
+#Passimian
+class Passimian(Pokemon2):
+    def __init__(self,name="Passimian",type1="Fighting",type2=None,nature=None,level=100,happiness=255,hp=100,atk=120,defense=90,spatk=40,spdef=60,speed=80,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Defiant"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Giga Impact","Close Combat","Bulk Up","Double-Edge"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)              

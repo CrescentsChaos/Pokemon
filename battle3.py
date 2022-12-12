@@ -261,41 +261,12 @@ def battle(x,y,tr1,tr2):
                 print(f" Weather: ❄️ {field.weather} ({field.hailendturn-turn} turns left)")
         if field.weather=="Clear":
             print(f" Weather: 🌥️ {field.weather}")
-            ch=random.randint(1,100)
-            if 95>=ch>90:
-                print(" ☀️ The sun is so bright all of a sudden!")
-                field.weather="Sunny"  
-            if ch>95:
-                print(" 🌥️ The weather got cloudy all of a sudden!")
-                field.weather="Cloudy"
         if field.weather=="Cloudy":
-            print(f" Weather: ☁️ {field.weather}")
-            ch=random.randint(1,100)
-            if 85>=ch>80:
-                print(" 🌨️ It started to snow!")
-                field.weather="Snowstorm"
-            if 90>=ch>85:
-                print(" 🌥️ The clouds subsided!")
-                field.weather="Clear"     
-            if 95>=ch>90:
-                print(" 🌨️ It started to hail!")
-                field.weather="Hail"        
-            if ch>95:
-                print(" 🌧️ It started to rain!")
-                field.weather="Rainy"        
+            print(f" Weather: ☁️ {field.weather}")       
         if field.weather=="Rainy" and field.terrain not in ["Electric","Grassy"]:
             print(f" Weather: ☔ {field.weather} ({field.rainendturn-turn} turns left)")
-            ch=random.randint(1,100)
-            if ch>95:
-                print(" ⛈️ A thunderstorm was created suddenly!")
-                field.weather="Rainy"
-                field.terrain="Electric"                        
         if field.weather=="Sunny":
             print(f" Weather: ☀️ {field.weather} ({field.sunendturn-turn} turns left)")
-            ch=random.randint(1,100)
-            if ch>95:
-                print(" 🏜️ A sandstorm was created suddenly!")
-                field.weather="Sandstorm"
         if field.weather=="Sandstorm":
             print(f" Weather: 🏜️ {field.weather} ({field.sandendturn-turn} turns left)")    
         if field.terrain=="Misty":      
