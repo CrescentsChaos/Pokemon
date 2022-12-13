@@ -162,13 +162,6 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         print(f" ⚡ {self.name}'s {self.ability}!")
     if self.ability=="Protosynthesis" and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
         print(f" ☀️ {self.name}'s {self.ability}!")
-        
-    if self.ability=="Supreme Overlord" and len(trainer.pokemons)<6:
-        print(f" 👾{self.name}'s {self.ability}!")
-        atkchange(self,0.5*(6-len(trainer.pokemons)))
-        print(f" Attack x{self.atkb}")
-        spatkchange(self,0.5*(6-len(trainer.pokemons)))
-        print(f" Special Attack x{self.spatkb}")
     if self.megaintro is False and "Ultra " in self.name:
         prevname=self.name.split(" ")[-1]
     if self.megaintro is False and "Primal Kyogre" in self.name:

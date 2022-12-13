@@ -937,6 +937,9 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if self.ability=="Supreme Overlord":
+        atkbuff*=0.1*(6-len(tr1.pokemons))
+        spatkbuff*=0.1*(6-len(tr1.pokemons))
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Orichalcum Pulse":
         atkbuff*=1.3
     if field.terrain=="Electric" and self.ability=="Hadron Engine":
