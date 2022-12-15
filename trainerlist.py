@@ -96,14 +96,14 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
         #BUG
     if trclass in ["Bug Catcher","Bug Researcher"]:
         if "Hoenn" in field.location:
-            mons=[Shuckle,Forretress,Ariados,Ledian,Scyther,Venomoth,Parasect,Butterfree,Beedrill,Scizor,Heracross,Pinsir,Shedinja,Ninjask,Masquerain,Beautifly,Dustox,MScizor,MHeracross,MPinsir,MBeedrill]
+            mons=[Ribombee,Shuckle,Forretress,Ariados,Ledian,Scyther,Venomoth,Parasect,Butterfree,Beedrill,Scizor,Heracross,Pinsir,Shedinja,Ninjask,Masquerain,Beautifly,Dustox,MScizor,MHeracross,MPinsir,MBeedrill]
         if "Johto" in field.location:
             mons=[Shuckle,Forretress,Ariados,Ledian,Scyther,Venomoth,Parasect,Butterfree,Beedrill,Scizor,Heracross,Pinsir,MScizor,MHeracross,MPinsir,MBeedrill]
         else:
             mons=[Rabsca,Ironmoth,Spidops,Lokix,Slitherwing,Wormadam,Mothim,TWormadam,SWormadam,Kricketune,Shuckle,Forretress,Ariados,Ledian,Scyther,Venomoth,Parasect,Butterfree,Beedrill,Frosmoth,Kleavor,Centiskorch,Orbeetle,Golisopod,Araquanid,Vikavolt,Volcarona,Durant,Accelgor,Galvantula,Escavalier,Scolipede,Leavanny,Scizor,Heracross,Pinsir,Drapion,Vespiquen,Yanmega,MScizor,MHeracross,MPinsir,MBeedrill]        
         #ICE SPECIALISTS
     if trclass in ["Skier","Boarder"]:
-        mons=[Ironbundle,Cryogonal,Baxcalibur,Ironbundle,Glaceon,Delibird,ASandslash,Cetitan,Frosmoth,MrRime,Avalugg,HAvalugg,Aurorus,Beartic,Vanilluxe,GDarmanitan,Weavile,Abomasnow,Walrein,Lapras,Mamoswine,Glalie,MGlalie,Jynx,Cloyster,ANinetales,MAbomasnow]
+        mons=[FrRotom,Arctovish, Arctozolt,Ironbundle,Cryogonal,Baxcalibur,Ironbundle,Glaceon,Delibird,ASandslash,Cetitan,Frosmoth,MrRime,Avalugg,HAvalugg,Aurorus,Beartic,Vanilluxe,GDarmanitan,Weavile,Abomasnow,Walrein,Lapras,Mamoswine,Glalie,MGlalie,Jynx,Cloyster,ANinetales,MAbomasnow]
         ch=random.randint(1,10)
         if ch==7:
             mons+=[Articuno]
@@ -159,7 +159,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
         mons=[Flamigo,Kilowattrel,Bombirdier,Ironjugulis,Xatu,Noctowl,Corviknight,Toucannon,Hawlucha,Talonflame,Mandibuzz,HBraviary,Braviary,Swanna,Archeops,Unfezant,Gliscor,Togekiss,Honchkrow,Staraptor,Pelipper,Swellow,MPidgeot,Charizard,Skarmory,Altaria,Crobat,Dodrio,MSalamence]
         mons+=random.choices([Articuno,Zapdos,Moltres,Thundurus,Landous,Tornadus,Enamorus],k=1)      
     if trclass in ["Scientist","Super Nerd"]:
-        mons=[Electrode,Magnezone,Metagross,Klinklang, Alakazam,MAlakazam,MMetagross, Revavroom,Irontreads,Electivire,WRotom,Ironhands, Ironthorns,Ironvaliant,Ironbundle, Ironjugulis,Ironmoth]
+        mons=[Electrode,Magnezone,Metagross,Klinklang, Alakazam,MAlakazam,MMetagross, Revavroom,Irontreads,Electivire,WRotom,Ironhands, Ironthorns,Ironvaliant,Ironbundle, Ironjugulis,Ironmoth,FRotom,HRotom,FrRotom,MRotom,PorygonZ,Porygon2]
         #DECENT TRAINERS
     if trclass in ["Expert","Veteran","Businessman","Gentleman"]:
         mons=[Audino,Dudunsparce,Noctowl,Furret,Ditto,Chansey,Persian,Vileplume,Wigglytuff,Clefable,Pikachu,Raticate,ARaticate,Butterfree,Beedrill,MDLycanroc,MNLycanroc,DLycanroc,Aegislash,Delphox,Greninja,Chesnaught,Basculegion,Stoutland,Probopass,Ursaluna,Yanmega,Magnezone,Tangrowth,Hippowdon,Lucario,Mismagius,Luxray,Roserade,Torterra,Glalie,Absol,Banette,Milotic,Armaldo,Cradily,Aggron,Hariyama,Breloom,Gardevoir,Swellow,Ludicolo,Swampert,Houndoom,Heracross,Steelix,Espeon,Ampharos,Flareon,Jolteon,Vaporeon,Snorlax,Lapras,Gyarados,Tauros,Kangaskhan,Hitmonchan,Hitmonlee,Exeggutor,Gengar,Dodrio,Slowbro,Rapidash,AGolem,Victreebel,Machamp,Golduck,Alakazam,Pidgeot,Blastoise,Ninetales,Primeape,MBeedrill, Venusaur, Charizard,Cloyster,MBanette,MGlalie]
@@ -360,7 +360,7 @@ brunoteam=teamset([bruno6,bruno2,bruno3,bruno4,bruno5,bruno7,bruno8,bruno9,bruno
 bruno=Trainer("Elite Four Bruno",brunoteam,"Kanto")
 #E4 Lance
 lance1=Hydreigon(maxiv="Yes",move=["Dark Pulse","Flamethrower","Thunderbolt","Dragon Pulse"],nature="Modest")
-lance2=MGyarados(name="Gyarados✨",maxiv="Yes",move=["Dragon Dance","Waterfall","Earthquake","Ice Fang"],nature="Adamant")
+lance2=Gyarados(name="Gyarados✨",maxiv="Yes",move=["Dragon Dance","Waterfall","Earthquake","Ice Fang"],nature="Adamant")
 lance3=Aerodactyl(maxiv="Yes",move=["Stone Edge","Earthquake","Roost","Stealth Rock"],nature="Jolly")
 lance4=Dragonite (maxiv="gmax",move=["Dragon Dance","Extreme Speed","Dragon Claw","Roost"],nature="Adamant")
 lance5=Kingdra(maxiv="Yes",move=["Rain Dance","Draco Meteor","Surf","Ice Beam"],nature="Modest",ability="Swift Swim")

@@ -6895,4 +6895,95 @@ class Passimian(Pokemon2):
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)              
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+#Lopunny
+class Lopunny(Pokemon2):
+    def __init__(self,name="Lopunny",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=65,atk=76,defense=84,spatk=54,spdef=96,speed=105,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Limber"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["High Jump Kick","Close Combat","Bulk Up","Double-Edge"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+#Rotom
+class MRotom(Pokemon2):
+    def __init__(self,name="Mow Rotom",type1="Electric",type2="Grass",nature=None,level=100,happiness=255,hp=50,atk=65,defense=107,spatk=105,spdef=107,speed=86,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Levitate"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Volt Switch","Leaf Storm","Discharge","Trick"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+#Rotom
+class FRotom(Pokemon2):
+    def __init__(self,name="Fan Rotom",type1="Electric",type2="Flying",nature=None,level=100,happiness=255,hp=50,atk=65,defense=107,spatk=105,spdef=107,speed=86,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Levitate"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Volt Switch","Hurricane","Discharge","Trick"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+#Rotom
+class HRotom(Pokemon2):
+    def __init__(self,name="Heat Rotom",type1="Electric",type2="Fire",nature=None,level=100,happiness=255,hp=50,atk=65,defense=107,spatk=105,spdef=107,speed=86,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Levitate"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Volt Switch","Flamethrower","Discharge","Will-O-Wisp"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)    
+#Rotom
+class FrRotom(Pokemon2):
+    def __init__(self,name="Frost Rotom",type1="Electric",type2="Ice",nature=None,level=100,happiness=255,hp=50,atk=65,defense=107,spatk=105,spdef=107,speed=86,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Levitate"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Volt Switch","Blizzard","Discharge","Trick"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item) 
+#Arctovish
+class Arctovish(Pokemon2):
+    def __init__(self,name="Arctovish",type1="Water",type2="Ice",nature=None,level=100,happiness=255,hp=90,atk=90,defense=100,spatk=80,spdef=90,speed=55,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Water Absorb","Ice Body","Slush Rush"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Fishious Rend","Icicle Crash","Crunch","Ancient Power"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item) 
+#Arctozolt
+class Arctozolt(Pokemon2):
+    def __init__(self,name="Arctozolt",type1="Electric",type2="Ice",nature=None,level=100,happiness=255,hp=90,atk=100,defense=90,spatk=90,spdef=80,speed=55,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Volt Absorb","Static","Slush Rush"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Bolt Beak","Discharge","Icicle Crash","Ancient Power"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)   
+#Aromatisse
+class Aromatisse(Pokemon2):
+    def __init__(self,name="Aromatisse",type1="Fairy",type2=None,nature=None,level=100,happiness=255,hp=101,atk=72,defense=72,spatk=99,spdef=89,speed=29,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Aroma Veil"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Draining Kiss","Moonblast","Calm Mind","Psychic"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)  
+#Ribombee
+class Ribombee(Pokemon2):
+    def __init__(self,name="Ribombee",type1="Bug",type2="Fairy",nature=None,level=100,happiness=255,hp=60,atk=55,defense=60,spatk=95,spdef=70,speed=124,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Sweet Veil","Shield Dust"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Polen Puff","Moonblast","Quiver Dance","Draining Kiss"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)  
+#Comfey
+class Comfey(Pokemon2):
+    def __init__(self,name="Aromatisse",type1="Fairy",type2=None,nature=None,level=100,happiness=255,hp=51,atk=52,defense=90,spatk=82,spdef=110,speed=100,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Flower Veil","Triage","Natural Cure"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Draining Kiss","Moonblast","Calm Mind","Grass Knot"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                  
+                                                                                                                        
