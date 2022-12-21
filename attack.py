@@ -433,23 +433,31 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
 def attack(self,other,tr,optr,use,opuse,field,turn):
     print(f"\n {tr.name}:")
     if self.dmax is False:
-        if len(self.moves)>=1 and use==self.moves[0]:
-            self.m1pp-=1
-        if len(self.moves)>=2 and use==self.moves[1]:
-            self.m2pp-=1
-        if len(self.moves)>=3 and use==self.moves[2]:
-            self.m3pp-=1
-        if len(self.moves)>3 and use==self.moves[3]:
-            self.m4pp-=1
+        if len(self.moves)==0:
+            use="Struggle"
+        if len(self.moves)>=1 and use==self.moves[0] and len(self.pplist)>=1:
+            self.pplist[0]-=1
+        if len(self.moves)>=2 and use==self.moves[1] and len(self.pplist)>=2:
+            self.pplist[1]-=1
+        if len(self.moves)>=3 and use==self.moves[2] and len(self.pplist)>=3:
+            self.pplist[2]-=1
+        if len(self.moves)>=4 and use==self.moves[3] and len(self.pplist)>=4:
+            self.pplist[3]-=1
     if self.dmax is True:            
-        if len(self.maxmove)>=1 and use==self.maxmove[0]:
-            self.m1pp-=1
-        if len(self.maxmove)>=2 and use==self.maxmove[1]:
-            self.m2pp-=1
-        if len(self.maxmove)>=3 and use==self.maxmove[2]:
-            self.m3pp-=1
-        if len(self.maxmove)>3 and use==self.maxmove[3]:
-            self.m4pp-=1
+        if use==self.maxmove[0]:
+            self.pplist[0]-=1
+        if use==self.maxmove[1]:
+            self.pplist[1]-=1
+        if use==self.maxmove[2]:
+            self.pplist[2]-=1
+        if use==self.maxmove[3]:
+            self.pplist[3]-=1
+    if use in typemoves.prioritymove and other.ability in ["Armor Tail","Queenly Majesty","Dazzling"]:
+        print(" {other.name}'s {other.ability}!")
+        use=None
+    if use in typemoves.bulletmove and other.ability=="Bulletproof":
+        print(" {other.name}'s {other.ability}!")
+        use=None
     if use in typemoves.contactmoves and self.item not in ["Punching Glove"]:
         if other.ability=="Fluffy":
             self.atk/=2
@@ -761,6 +769,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             endeavor(self,other)
         elif used=="Yawn":
             yawn(self,other)
+        elif used=="Ice Hammer":
+            icehammer(self,other)
         elif used=="Strange Steam":
             strangesteam(self,other)
         elif used=="G-Max Malodor":
@@ -797,6 +807,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             flowertrick(self,other)
         elif used=="Aqua Step":
             aquastep(self,other)
+        elif used=="Struggle":
+            struggle(self,other)
         elif used=="Last Respects":
             lastrespects(self,other,tr)
         elif used=="Chilling Water":
@@ -876,7 +888,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         elif used=="Accelerock":
             accelerock(self,other)
         elif used=="Geomancy":
-            geomancy(self,other)
+            geomancy(self)
         elif used=="Heavy Slam":
             heavyslam(self,other)
         elif used=="Heart Swap":
@@ -2424,16 +2436,12 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
 def effects(self,other,turn):
     print("  ")
     self.flinched=False
-    if self.m1pp<=0:
-        self.moves.remove(self.moves[0])
-    if self.m2pp<=0:
-        self.moves.remove(self.moves[1])
-    if self.m3pp<=0:
-        self.moves.remove(self.moves[2])
-    if self.m4pp<=0:
-        self.moves.remove(self.moves[-1])
-    if len(self.moves)==0:
-        self.moves=["Struggle"]        
+    if 0 in self.pplist:
+        if self.dmax is False:
+            self.moves.remove(self.moves[self.pplist.index(0)])
+        if self.dmax is True:
+            self.maxmove.remove(self.maxmove[self.pplist.index(0)])
+        self.pplist.remove(0)     
     if self.status!="Alive" and self.ability in ["Purifying Salt","Good as Gold"]:
         print(f" {self.name}'s {self.ability}!")
         self.status="Alive"

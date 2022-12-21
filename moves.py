@@ -231,7 +231,18 @@ def pyroball(self,other):
     if ch==1 and other.status is None and self.ability!="Sheer Force":
         other.status="Burned"
         print(f" 🔥 {other.name} was burned.")
-        
+def struggle(self,other):
+    self.atktype="None"
+    w=weathereff(self)
+    al=1
+    r=randroll()
+    print(f" 😣 {self.name} used  "+colored("Struggle","white")+"!")
+    c=critch(self,other)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=special(self.level,self.spatk,other.spdef,50,a,b,c,r,al,w)     
+    self.hp-=(self.hp/4)    
 def fierydance(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -5779,6 +5790,22 @@ def drumbeating(self,other):
         other.hp-=dmg  
         speedchange(other,-0.5)
         print(f" {other.name}: Speed x{other.speedb}")             
+def icehammer(self,other):
+    al=1
+    r=randroll()
+    print(f" {self.name} used  "+colored("Ice Hammer","cyan")+"!")
+    c=critch(self,other)
+    self.atktype="Ice"
+    if self.ability=="Tough Claws":
+        print(f" {self.name}'s {self.ability}!")
+        al=1.33
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    dmg=physical (self.level,self.atk,other.defense,100,a,b,c,r,al)     
+    other.hp-=dmg  
+    speedchange(self,-0.5)
+    print(f" Speed x{self.speedb}")          
 def hammerarm(self,other):
     al=1
     r=randroll()

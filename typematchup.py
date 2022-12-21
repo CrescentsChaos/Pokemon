@@ -445,7 +445,7 @@ def weakness(self,other,field):
             self.item=None
         if self.ability=="Swarm":
             if self.hp<=(self.maxhp/3):
-                print(f" {self.name}'s {self.ability}.")
+                print(f" 🪲 {self.name}'s {self.ability}.")
                 eff*=2.25
         if other.type1 in bugeff and other.teratype is None:
             eff*=2
@@ -937,9 +937,11 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if "Poison" in self.status and self.ability=="Toxic Boost":
+        atkbuff*=1.5
     if self.ability=="Supreme Overlord":
-        atkbuff*=0.1*(6-len(tr1.pokemons))
-        spatkbuff*=0.1*(6-len(tr1.pokemons))
+        atkbuff*=1+0.1*(6-len(tr1.pokemons))
+        spatkbuff*=1+0.1*(6-len(tr1.pokemons))
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Orichalcum Pulse":
         atkbuff*=1.3
     if field.terrain=="Electric" and self.ability=="Hadron Engine":
@@ -1311,6 +1313,8 @@ def atkchange(self,amount):
 
 
 def defchange(self,amount):
+    if self.ability=="Big Pecks":
+        amount=0
     if self.ability=="Defiant":
         if amount<0:
             print(f" {self.name}'s {self.ability}!")

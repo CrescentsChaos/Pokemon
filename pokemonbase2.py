@@ -19,7 +19,7 @@ import random
 naturelist=["Hardy","Lonely","Adamant","Naughty","Brave", "Bold",'Docile','Impish','Lax','Relaxed' ,'Modest','Mild','Bashful','Rash','Quiet' ,'Calm','Gentle','Careful','Quirky','Sassy', 'Timid','Hasty','Jolly','Naive','Serious']
 class Pokemon2:
     "Pokemon2"
-    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,primalintro=False,fsprite="graphics/fsprites/unknown.png", bsprite="graphics/bsprites/Gengar.png", priority=False,dbond=False, abilityused=False,healcount=0,confused=False,dmgtaken=0,yawn=False,m1pp=10,m2pp=10,m3pp=10,m4pp=10,mx1pp=10,mx2pp=10,mx3pp=10,mx4pp=10):
+    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,primalintro=False,fsprite="graphics/fsprites/unknown.png", bsprite="graphics/bsprites/Gengar.png", priority=False,dbond=False, abilityused=False,healcount=0,confused=False,dmgtaken=0,yawn=False,m1pp=10,m2pp=10,m3pp=10,m4pp=10,mx1pp=10,mx2pp=10,mx3pp=10,mx4pp=10,pplist=None):
         #Name
         self.name=name
         if moves is None:
@@ -50,6 +50,7 @@ class Pokemon2:
             self.m3pp=self.mx3pp=5
         if self.moves[3] in typemoves.pp5:
             self.m4pp=self.mx4pp=5
+        self.pplist=[self.m1pp,self.m2pp,self.m3pp,self.m4pp]
         self.yawn=yawn
         self.dmgtaken=dmgtaken
         self.confused=confused
@@ -321,29 +322,21 @@ def movelist(self):
     if self.dmax is True:
         for i in self.maxmove:
             num+=1
-            if num==1:
-                print(f" {num}. {i} ({self.m1pp}/{self.mx1pp})")
-            if num==2:
-                print(f" {num}. {i} ({self.m2pp}/{self.mx2pp})")
-            if num==3:
-                print(f" {num}. {i} ({self.m3pp}/{self.mx3pp})")
-            if num==4:
-                print(f" {num}. {i} ({self.m4pp}/{self.mx4pp})")
-            if num==5:
-                print(f" {num}. {i} (1/1)")
+            print(f" {num}. {i} ({self.pplist[self.maxmove.index(i)]})")
     if self.dmax is False:
         for i in self.moves:
             num+=1
-            if num==1:
-                print(f" {num}. {i} ({self.m1pp}/{self.mx1pp})")
-            if num==2:
-                print(f" {num}. {i} ({self.m2pp}/{self.mx2pp})")
-            if num==3:
-                print(f" {num}. {i} ({self.m3pp}/{self.mx3pp})")
-            if num==4:
-                print(f" {num}. {i} ({self.m4pp}/{self.mx4pp})")
-            if num==5:
-                print(f" {num}. {i} (1/1)")
+            print(f" {num}. {i} ({self.pplist[self.moves.index(i)]})")          
+#            if num==1:
+#                print(f" {num}. {i} ({self.pplist[self.moves.index(i)]}/{self.mx1pp})")
+#            if num==2:
+#                print(f" {num}. {i} ({self.m2pp}/{self.mx2pp})")
+#            if num==3:
+#                print(f" {num}. {i} ({self.m3pp}/{self.mx3pp})")
+#            if num==4:
+#                print(f" {num}. {i} ({self.m4pp}/{self.mx4pp})")
+#            if num==5:
+#                print(f" {num}. {i} (1/1)")
     print("=============================================")
 def moveset(moves,num=4):
     new=[]
@@ -2235,7 +2228,7 @@ class MAltaria(Pokemon2):
 #Zangoose
 class Zangoose(Pokemon2):
     "Zangoose"
-    def __init__(self,name="Zangoose",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=73,atk=115,defense=70,spatk=60,spdef=70,speed=100,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Toxic Boost",item="Leftovers"):
+    def __init__(self,name="Zangoose",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=73,atk=115,defense=70,spatk=60,spdef=70,speed=100,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Toxic Boost",item="Toxic Orb"):
         if move is None:
             avmoves=["Protect","Clush Claw","Slash","Crunch","X-Scissor","Facade","Close Combat"]
             moves=moveset(avmoves)
@@ -3945,7 +3938,7 @@ class TMalevorus(Pokemon2):
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                               
 #Landorus
-class Landous(Pokemon2):
+class Landorus(Pokemon2):
     "Landorus"
     def __init__(self,name="Landorus",type1="Ground",type2="Flying",nature=None,level=100,happiness=255,hp=89,atk=125,defense=90,spatk=115,spdef=80,speed=101,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Prankster",item="Leftovers"):
         if move is None:
@@ -3973,7 +3966,7 @@ class TThundurus(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Therian Landorus
-class TLandous(Pokemon2):
+class TLandorus(Pokemon2):
     "Therian Landorus"
     def __init__(self,name="Therian Landorus",type1="Ground",type2="Flying",nature=None,level=100,happiness=255,hp=89,atk=145,defense=90,spatk=105,spdef=80,speed=91,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Intimidate",item="Leftovers"):
         if move is None:
@@ -6985,5 +6978,41 @@ class Comfey(Pokemon2):
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                  
-                                                                                                                        
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)         
+#Lurwntis
+class Lurantis(Pokemon2):
+    def __init__(self,name="Lurantis",type1="Grass",type2=None,nature=None,level=100,happiness=255,hp=70,atk=105,defense=90,spatk=80,spdef=90,speed=45,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Contrary"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Solar Blade","Leaf Blade","Synthesis","X-Scissor"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)      
+#Shiinotic
+class Shiinotic(Pokemon2):
+    def __init__(self,name="Shiinotic",type1="Grass",type2="Fairy",nature=None,level=100,happiness=255,hp=60,atk=45,defense=80,spatk=90,spdef=100,speed=30,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Rain Dish","Effect Spore"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Moonblast","Spore","Synthesis","Giga Drain","Strength Sap"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)           
+#Brambleghast
+class Brambleghast(Pokemon2):
+    def __init__(self,name="Brambleghast",type1="Grass",type2="Ghost",nature=None,level=100,happiness=255,hp=55,atk=115,defense=70,spatk=80,spdef=70,speed=90,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Wind Rider","Infiltrator"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Power Whip","Pain Split","Phantom Force","Bullet Seed"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)    
+#Crabominable
+class Crabominable(Pokemon2):
+    def __init__(self,name="Crabominable",type1="Fighting",type2="Ice",nature=None,level=100,happiness=255,hp=97,atk=132,defense=77,spatk=62,spdef=67,speed=43,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Iron Fist","Anger Point"]),item=random.choice(["Leftovers"])):
+        if move is None:
+            avmoves=["Ice Hammer","Close Combat","Ice Punch","Ice Spinner"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                                           
+                                                                           

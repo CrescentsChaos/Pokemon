@@ -38,7 +38,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
     if trclass=="Pokémon Trainer":
         mons=allmon
     ultrabeasts=[MDiancie,Blacephalon,Stakataka,Naganadel,UNecrozma,Necrozma,DMNecrozma,DWNecrozma,FMLunala,RSSolgaleo,Lunala,Solgaleo,Guzzlord,Kartana,Celesteela,Xurkitree,Buzzwole,Nihilego,Pheromosa]
-    legendary=[Chiyu,Tinglu,Chienpao,Wochien,MMewtwoX,MMewtwoY,Enamorus,TEnamorus,Koraidon,Miraidon,ICalyrex,SCalyrex,Regieleki,Regidrago,Glastrier,Spectrier,Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,MDiancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandous,TThundurus,TTornadus,Thundurus,Tornadus,Landous,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,MLatias,MLatios,Groudon,Kyogre,PGroudon,PKyogre,MRayquaza,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
+    legendary=[Chiyu,Tinglu,Chienpao,Wochien,MMewtwoX,MMewtwoY,Enamorus,TEnamorus,Koraidon,Miraidon,ICalyrex,SCalyrex,Regieleki,Regidrago,Glastrier,Spectrier,Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,MDiancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandorus,TThundurus,TTornadus,Thundurus,Tornadus,Landorus,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,MLatias,MLatios,Groudon,Kyogre,PGroudon,PKyogre,MRayquaza,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
     if trclass in ["UB Expert"]:
         mons=ultrabeasts
     if trclass in ["Galar Trainer"]:
@@ -157,7 +157,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
 #FLYING SPECIALISTS
     if trclass in ["Bird Keeper","Pilot","Sky Diver"]:
         mons=[Flamigo,Kilowattrel,Bombirdier,Ironjugulis,Xatu,Noctowl,Corviknight,Toucannon,Hawlucha,Talonflame,Mandibuzz,HBraviary,Braviary,Swanna,Archeops,Unfezant,Gliscor,Togekiss,Honchkrow,Staraptor,Pelipper,Swellow,MPidgeot,Charizard,Skarmory,Altaria,Crobat,Dodrio,MSalamence]
-        mons+=random.choices([Articuno,Zapdos,Moltres,Thundurus,Landous,Tornadus,Enamorus],k=1)      
+        mons+=random.choices([Articuno,Zapdos,Moltres,Thundurus,Landorus,Tornadus,Enamorus],k=1)      
     if trclass in ["Scientist","Super Nerd"]:
         mons=[Electrode,Magnezone,Metagross,Klinklang, Alakazam,MAlakazam,MMetagross, Revavroom,Irontreads,Electivire,WRotom,Ironhands, Ironthorns,Ironvaliant,Ironbundle, Ironjugulis,Ironmoth,FRotom,HRotom,FrRotom,MRotom,PorygonZ,Porygon2]
         #DECENT TRAINERS
@@ -807,7 +807,7 @@ gio12=Sandslash(maxiv="Yes")
 gio13=Gliscor(maxiv="Yes")
 gio14=Krookodile(maxiv="Yes")
 gio15=Hippowdon(maxiv="Yes")
-gio16=TLandous(maxiv="Yes")
+gio16=TLandorus(maxiv="Yes")
 gio17=TThundurus(maxiv="Yes")
 gio18=TTornadus(maxiv="Yes")
 gio19=MMewtwoX(maxiv="Yes")
@@ -2052,7 +2052,7 @@ mable=Trainer ("Team Flare Mable",mableteam,"Kalos")
 #giallo
 giallo1=Tornadus(maxiv="Yes")
 giallo2=Thundurus(maxiv="Yes")
-giallo3=Landous(maxiv="Yes")
+giallo3=Landorus(maxiv="Yes")
 giallo4=Mandibuzz(maxiv="Yes")
 giallo5=Hydreigon(maxiv="Yes")
 giallo6=Krookodile(maxiv="gmax")
@@ -2166,8 +2166,8 @@ kofu2=Clawitzer(maxiv="Yes")
 kofu3=Pelipper(maxiv="Yes")
 kofu4=Wugtrio(maxiv="Yes")
 kofu5=Basculegion(maxiv="Yes")
-kofu6=Beartic(name="Beartic💎",maxiv="Water",ability="Swift Swim")
-kofuteam=teamset([kofu2,kofu3,kofu4,kofu5,kofu1],5)+[kofu6]
+kofu6=Basculegion(maxiv="Yes")
+kofuteam=teamset([kofu2,kofu3,kofu4,kofu5,kofu1,kofu6],6)
 kofu=Trainer ("Gym Leader Kofu",kofuteam,"Paldea")
 #ryme
 ryme1=Mimikyu(maxiv="Yes")
@@ -2705,7 +2705,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
     if trclass=="Pokémon Trainer":
         mons=allmon
     ultrabeasts=[MDiancie,Blacephalon,Stakataka,Naganadel,UNecrozma,Necrozma,DMNecrozma,DWNecrozma,FMLunala,RSSolgaleo,Lunala,Solgaleo,Guzzlord,Kartana,Celesteela,Xurkitree,Buzzwole,Nihilego,Pheromosa]
-    legendary=[Chiyu,Tinglu,Chienpao,Wochien,MMewtwoX,MMewtwoY,Enamorus,TEnamorus,Koraidon,Miraidon,ICalyrex,SCalyrex,Regieleki,Regidrago,Glastrier,Spectrier,Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,MDiancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandous,TThundurus,TTornadus,Thundurus,Tornadus,Landous,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,MLatias,MLatios,Groudon,Kyogre,PGroudon,PKyogre,MRayquaza,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
+    legendary=[Chiyu,Tinglu,Chienpao,Wochien,MMewtwoX,MMewtwoY,Enamorus,TEnamorus,Koraidon,Miraidon,ICalyrex,SCalyrex,Regieleki,Regidrago,Glastrier,Spectrier,Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,MDiancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandorus,TThundurus,TTornadus,Thundurus,Tornadus,Landorus,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,MLatias,MLatios,Groudon,Kyogre,PGroudon,PKyogre,MRayquaza,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
     if trclass in ["UB Expert"]:
         mons=ultrabeasts
     if trclass in ["Galar Trainer"]:
@@ -2824,7 +2824,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
 #FLYING SPECIALISTS
     if trclass in ["Bird Keeper","Pilot","Sky Diver"]:
         mons=[Flamigo,Kilowattrel,Bombirdier,Ironjugulis,Xatu,Noctowl,Corviknight,Toucannon,Hawlucha,Talonflame,Mandibuzz,HBraviary,Braviary,Swanna,Archeops,Unfezant,Gliscor,Togekiss,Honchkrow,Staraptor,Pelipper,Swellow,MPidgeot,Charizard,Skarmory,Altaria,Crobat,Dodrio,MSalamence]
-        mons+=random.choices([Articuno,Zapdos,Moltres,Thundurus,Landous,Tornadus,Enamorus],k=1)      
+        mons+=random.choices([Articuno,Zapdos,Moltres,Thundurus,Landorus,Tornadus,Enamorus],k=1)      
     if trclass in ["Scientist","Super Nerd"]:
         mons=[Electrode,Magnezone,Metagross,Klinklang, Alakazam,MAlakazam,MMetagross, Revavroom,Irontreads,Electivire,WRotom,Ironhands, Ironthorns,Ironvaliant,Ironbundle, Ironjugulis,Ironmoth]
         #DECENT TRAINERS
@@ -3484,7 +3484,7 @@ gio12=Sandslash(maxiv="Yes")
 gio13=Gliscor(maxiv="Yes")
 gio14=Krookodile(maxiv="Yes")
 gio15=Hippowdon(maxiv="Yes")
-gio16=TLandous(maxiv="Yes")
+gio16=TLandorus(maxiv="Yes")
 gio17=TThundurus(maxiv="Yes")
 gio18=TTornadus(maxiv="Yes")
 gio19=MMewtwoX(maxiv="Yes")
@@ -4729,7 +4729,7 @@ mable=Trainer ("Team Flare Mable",mableteam,"Kalos")
 #giallo
 giallo1=Tornadus(maxiv="Yes")
 giallo2=Thundurus(maxiv="Yes")
-giallo3=Landous(maxiv="Yes")
+giallo3=Landorus(maxiv="Yes")
 giallo4=Mandibuzz(maxiv="Yes")
 giallo5=Hydreigon(maxiv="Yes")
 giallo6=Krookodile(maxiv="gmax")

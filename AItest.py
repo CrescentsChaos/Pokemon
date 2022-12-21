@@ -107,7 +107,9 @@ def moveAI(self,other,mtr,otr,field):
     #ground
     groundres=['Poison', 'Rock']
     groundwk=['Water', 'Grass',"Ice"]
-    groundimmune=["Electric"]        
+    groundimmune=["Electric"] 
+    if len(mymove)==0 and len(self.moves)==0:  
+        use="Struggle"     
     if "Water" in types:
         stablist+=typemoves.watermoves
         weaklist=weaklist+waterwk
