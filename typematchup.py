@@ -940,6 +940,7 @@ def prebuff(self,other,tr1,turn,field):
     if "Poison" in self.status and self.ability=="Toxic Boost":
         atkbuff*=1.5
     if self.ability=="Supreme Overlord":
+        print(f" {self.name} gained strength from the fallen!")
         atkbuff*=1+0.1*(6-len(tr1.pokemons))
         spatkbuff*=1+0.1*(6-len(tr1.pokemons))
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Orichalcum Pulse":

@@ -214,10 +214,16 @@ def movecat(sss):
 #        trn="Electric"
 #    return ch,trn
 #SKIP
-def skip():
+def skip(x,y):
     skip=False
     while skip==False:
         kk=input("\n Do you want to skip this turn? (Enter anything)\n >>> ")
+        if kk=="info":
+            x.info()
+            y.info()
+            movelist(x)
+            movelist(y)
+            skip=False
         if kk!=None:
             skip=True
 #BATTLE
@@ -369,7 +375,7 @@ def battle(x,y,tr1,tr2):
                         print(" "+tr1.name,"wins.")
                         break
                 x.priority=False
-                skip()
+                skip(x,y)
 #P2 PRIORITY 
             elif (choice2 in prioritymove and choice1 not in prioritymove) or y.priority is True or (y.ability=="Prankster" and choice2 in statusmove and "Dark" not in (x.type1,x.type2)):
                 weather(y,x)
@@ -411,7 +417,7 @@ def battle(x,y,tr1,tr2):
                         print(" "+tr2.name,"wins.")
                         break
                 y.priority=False
-                skip()
+                skip(x,y)
 #P1 FAST
             elif x.speed>=y.speed and field.trickroom==False:
                 weather(x,y)
@@ -453,7 +459,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr2.pokemons)==0:
                         print(" "+tr1.name,"wins.")
                         break
-                skip()
+                skip(x,y)
 #P2 FAST (TRICK ROOM)
             elif x.speed<y.speed and field.trickroom==True:
                 weather(x,y)
@@ -494,7 +500,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr2.pokemons)==0:
                         print(" "+tr1.name,"wins.")
                         break
-                skip()
+                skip(x,y)
 #P2 FAST
             elif y.speed>x.speed and field.trickroom==False:
                 weather(y,x)
@@ -535,7 +541,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr1.pokemons)==0:
                         print(" "+tr2.name,"wins.")
                         break
-                skip()
+                skip(x,y)
 #P2 FAST (TRICK ROOM)
             elif y.speed<=x.speed and field.trickroom==True:
                 weather(y,x)
@@ -576,7 +582,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr1.pokemons)==0:
                         print(" "+tr2.name,"wins.")
                         break
-                skip()
+                skip(x,y)
 #P1 SWITCH AND P2 ATTACK                
         elif action1==2 and action2==1:
             choice1=None
@@ -607,7 +613,7 @@ def battle(x,y,tr1,tr2):
                     print(" "+tr2.name,"wins.")
                     break
             y.protect=False
-            skip()
+            skip(x,y)
 #P1 ATTACKS AND P2 SWITCHES                
         elif action1==1 and action2==2:
             choice2=None
@@ -643,7 +649,7 @@ def battle(x,y,tr1,tr2):
                     print(" "+tr1.name,"wins.")
                     break
             x.protect=False
-            skip()
+            skip(x,y)
 #IF BOTH SWITCHES                
         elif action1==2 and action2==2:
             y=switch(y,x,tr2,tr1,field,turn)
@@ -660,4 +666,4 @@ def battle(x,y,tr1,tr2):
                 if len(tr1.pokemons)==0:
                     print(" "+tr2.name,"wins.")
                     break   
-                skip()                    
+                skip(x,y)                    

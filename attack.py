@@ -432,6 +432,9 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
 #ATTACK
 def attack(self,other,tr,optr,use,opuse,field,turn):
     print(f"\n {tr.name}:")
+    if self.ability=="Prankster" and "Dark" in (other.type1,other.type2,other.teratype) and use in typemoves.statusmove:
+        use = None
+        print(f" {other.name} is immune to {self.name}'s Prankster!")
     if self.dmax is False:
         if len(self.moves)==0:
             use="Struggle"
@@ -491,7 +494,9 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
     if self.dmax is True:
         #print(self.maxmove)
         moves=self.maxmove
-    used=use
+    used=""    
+    if use!=None:
+        used=use
 #    print(used)
     hit=1
     me=self
@@ -769,6 +774,12 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             endeavor(self,other)
         elif used=="Yawn":
             yawn(self,other)
+        elif used=="Doodle":
+            doodle(self,other)
+        elif used=="Glaciate":
+            glaciate(self,other)
+        elif used=="Fillet Away":
+            filletaway(self)
         elif used=="Ice Hammer":
             icehammer(self,other)
         elif used=="Strange Steam":
@@ -2268,7 +2279,10 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {other.name}'s {other.item} damaged {self.name}!")
             self.hp-=round(self.maxhp/8)
             other.item=None
-            
+    if self.item=="Throat Spray" and used in typemoves.soundmoves:
+        spatkchange(self,0.5)
+        print(" The Throat Spray raised {self.name}'s Special Attack!")
+        self.item=None            
     
     if other.hp>0:
           if other.hp<=(other.maxhp/4)  and before>(other.maxhp/4):

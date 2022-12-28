@@ -4,9 +4,15 @@ from pokemonbase2 import *
 from typematchup import *
 from hiddenpower import *
 from movelist import *
+def doodle(self,other):
+    print(f" 🎨 {self.name} used  "+colored("Doodle","white")+"!")
+    self.atktype="Normal"
+    self.ability=other.ability
+    print (f"{self.name} gained {other.ability}.")
 def painsplit(self,other):
     print(f" {self.name} used  "+colored("Pain Split","white")+"!")
     self.atktype="Normal"
+    print(" The battlers shared their pain.")
     ab=weakness(self,other,field)
     a=ab[0]
     if a>0:
@@ -242,7 +248,7 @@ def struggle(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self.level,self.spatk,other.spdef,50,a,b,c,r,al,w)     
-    self.hp-=(self.hp/4)    
+    self.hp-=(self.maxhp/8)    
 def fierydance(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -355,7 +361,15 @@ def swordsdance(self):
     print(f" ⚔️ {self.name} used Swords Dance.")
     atkchange(self,1)
     print(f" Attack x{self.atkb}")
-    
+def filletaway(self):
+    print(f" 🐟 {self.name} used Fillet Away.")
+    atkchange(self,1)
+    spatkchange(self,1)
+    speedchange(self,1)
+    self.hp-=self.maxhp/2
+    print(f" Attack x{self.atkb}")    
+    print(f" Special Attack x{self.spatkb}")
+    print(f" Speed x{self.speedb}")    
 def curse(self):
     print(f" {self.name} used Curse.")
     atkchange(self,0.5)
@@ -3413,6 +3427,19 @@ def icebeam(self,other):
     if ch==7 and other.status=="Alive":
         other.status=random.choice(["Frozen","Frostbite"])
         print(f" ❄️ {other.name} was frozen.")
+def glaciate(self,other):
+    al=1
+    r=randroll()
+    print(f" ❄️ {self.name} used  "+colored("Glaciate","cyan")+"!")
+    c=critch(self,other)
+    self.atktype="Ice"
+    w=weathereff(self)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=special(self.level,self.spatk,other.spdef,65,a,b,c,r,al,w)
+    speedchange(other,-0.5)
+    print(f" {other.name}: Speed x{other.speedb}")
 def flowertrick(self,other):
     al=1
     r=randroll()

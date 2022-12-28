@@ -907,8 +907,8 @@ ethan1=Tauros(maxiv="Yes")
 ethan2=Tangrowth(maxiv="Yes")
 ethan3=PorygonZ(maxiv="Yes")
 ethan4=Azumarill(maxiv="Yes")
-ethan5=Venusaur(maxiv="Yes")
-ethan6=Typhlosion(maxiv="gmax")
+ethan5=MVenusaur(maxiv="Yes")
+ethan6=Typhlosion(maxiv="Grass",move=["Hidden Power","Eruption","Fire Blast","Focus Blast"])
 ethan=Trainer ("Pokémon Trainer Ethan",[ethan1,ethan2,ethan3,ethan4,ethan5,ethan6],"Johto")
 #Kukui
 kukui1=Braviary(maxiv="Yes")
@@ -1203,13 +1203,22 @@ odrake5=Electivire(maxiv="Yes")
 odrake6=Dragonite(maxiv="Yes")
 odrake=Trainer ("Supreme Gym Leader Drake",[odrake1,odrake2,odrake3,odrake4,odrake5,odrake6],"Orange Islands")
 #Leon
+gmaxleon=random.randint(1,2)
+chmax="Yes"
+cimax="Yes"
+if gmaxleon==1:
+    chmax="gmax"
+    cimax="Yes"
+if gmaxleon==2:
+    chmax="Yes"
+    cimax="gmax"    
 leon1=MrRime(maxiv="Yes")
 leon2=Aegislash(maxiv="Yes")
 leon3=Dragapult (maxiv="Yes")
 leon4=Inteleon(maxiv="Yes")
 leon5=Rillaboom(maxiv="Yes",move=["Drum Beating","Acrobatics","High Horsepower","Knock Off"])
-leon6=Cinderace(maxiv="Yes",ability="Libero",move=["Scorching Sands","Pyro Ball","Sucker Punch","Grass Knot"])
-leon7=Charizard (maxiv="gmax",move=["Flamethrower","Ancient Power","Air Slash","Dragon Pulse"],atkev=0,spatkev=252,dmax=True)
+leon6=Cinderace(maxiv=cimax,ability="Libero",move=["Scorching Sands","Pyro Ball","Sucker Punch","Grass Knot"])
+leon7=Charizard (maxiv=chmax,move=["Flamethrower","Ancient Power","Air Slash","Dragon Pulse"],atkev=0,spatkev=252,dmax=True)
 leon8=Seismitoad(maxiv="Yes")
 leon9=Rhyperior(maxiv="Yes")
 leon10=Eternatus (maxiv="Yes")
@@ -3579,14 +3588,6 @@ falkner12=Aerodactyl(maxiv="Yes")
 falkner13=Lugia(maxiv="Yes")
 falknerteam=teamset([falkner1,falkner2,falkner3,falkner4,falkner5,falkner7,falkner8,falkner9,falkner10,falkner11,falkner12,falkner13],5)+[falkner6]
 falkner=Trainer ("Gym Leader Falkner",falknerteam,"Johto")
-#Ethan
-ethan1=Tauros(maxiv="Yes")
-ethan2=Tangrowth(maxiv="Yes")
-ethan3=PorygonZ(maxiv="Yes")
-ethan4=Azumarill(maxiv="Yes")
-ethan5=Venusaur(maxiv="Yes")
-ethan6=Typhlosion(maxiv="gmax")
-ethan=Trainer ("Pokémon Trainer Ethan",[ethan1,ethan2,ethan3,ethan4,ethan5,ethan6],"Johto")
 #Kukui
 kukui1=Braviary(maxiv="Yes")
 kukui2=Venusaur(maxiv="gmax")
@@ -3595,6 +3596,14 @@ kukui4=Lucario(maxiv="Yes")
 kukui5=MDLycanroc(maxiv="Yes")
 kukui6=Incineroar(name="Incineroar(Z-Crystal)",maxiv="Yes")
 kukui=Trainer("Professor Kukui",[kukui1,kukui2,kukui3,kukui4,kukui5,kukui6],"Alola")
+#Ethan
+ethan1=Tauros(maxiv="Yes")
+ethan2=Tangrowth(maxiv="Yes")
+ethan3=PorygonZ(maxiv="Yes")
+ethan4=Azumarill(maxiv="Yes")
+ethan5=MVenusaur(maxiv="Yes")
+ethan6=Typhlosion(maxiv="Grass")
+ethan=Trainer ("Pokémon Trainer Ethan",[ethan1,ethan2,ethan3,ethan4,ethan5,ethan6],"Johto")
 #Mustard
 mustard1=WUrshifu(maxiv="gmax")
 mustard9=WUrshifu(maxiv="Yes")
@@ -4843,7 +4852,7 @@ kofu2=Clawitzer(maxiv="Yes")
 kofu3=Pelipper(maxiv="Yes")
 kofu4=Wugtrio(maxiv="Yes")
 kofu5=Basculegion(maxiv="Yes")
-kofu6=Beartic(name="Beartic💎",maxiv="Water",ability="Swift Swim")
+kofu6=Crabominable(name="Crabominable💎",maxiv="Water",ability="Swift Swim")
 kofuteam=teamset([kofu2,kofu3,kofu4,kofu5,kofu1],5)+[kofu6]
 kofu=Trainer ("Gym Leader Kofu",kofuteam,"Paldea")
 #ryme
@@ -5190,13 +5199,13 @@ test2=Trainer("Test-02",[t3,t4,t5,t6,t7,t8])
 matchx=match()
 e4list=[hassel,larry,poppy,rika,will,koga,kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva]
 
-champlist=[geeta,oak,odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha,mustard]
+champlist=[ethan,geeta,oak,odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha,mustard]
 
 fronlist=[noland,lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser,argenta,Thorton]
 
 gymlist=[tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,wulfric,olympia,valerie,clemont,ramos,korrina,viola,luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant,janine]
 
-talentlist=[palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
+talentlist=[palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
 
 evilist=[volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,giovanni,butler]
 
