@@ -1543,7 +1543,8 @@ roark8=Archeops(maxiv="Yes")
 roark9=Sudowoodo(maxiv="Yes")
 roark10=Salamence(maxiv="Yes")
 roark11=Lunatone(maxiv="Yes")
-roarkteam=teamset([roark1,roark2,roark3,roark4,roark7,roark8,roark9,roark10,roark11],4)+[roark6,roark5]
+roark12=Torkoal(maxiv="Yes")
+roarkteam=teamset([roark1,roark2,roark3,roark4,roark7,roark8,roark9,roark10,roark11,roark12],4)+[roark6,roark5]
 roark=Trainer("Gym Leader Roark",roarkteam,"Sinnoh")
 #gardenia
 gardenia1=Jumpluff(maxiv="Yes")
@@ -1556,8 +1557,12 @@ gardenia7=Leafeon(maxiv="Yes")
 gardenia8=Tropius(maxiv="Yes")
 gardenia9=Breloom(maxiv="Yes")
 gardenia10=Sunflora(maxiv="Yes")
-gardenia11=Venusaur(maxiv="Yes")
-gardeniateam=teamset([gardenia1,gardenia5,gardenia3,gardenia4,gardenia7,gardenia8,gardenia9,gardenia10,gardenia11],4)+[gardenia2,gardenia6]
+gardenia11=Venusaur(maxiv="Yes",ability="Chlorophyll")
+gardenia12=Cradily(maxiv="Yes")
+gardenia13=Milotic(maxiv="Yes")
+gardenia14=Ninetales(maxiv="Yes",ability="Drought",item="Heat Rock")
+gardenia15=MRotom(maxiv="Yes")
+gardeniateam=teamset([gardenia1,gardenia5,gardenia3,gardenia4,gardenia7,gardenia8,gardenia9,gardenia10,gardenia11,gardenia12,gardenia13,gardenia14, gardenia15],4)+[gardenia2,gardenia6]
 gardenia=Trainer("Gym Leader Gardenia",gardeniateam,"Sinnoh")
 #fantina
 fantina1=Banette(maxiv="Yes")
@@ -1601,7 +1606,9 @@ maylene7=Gallade(maxiv="Yes")
 maylene8=Toxicroak(maxiv="Yes")
 maylene9=Heracross(maxiv="Yes")
 maylene10=Blaziken(maxiv="Yes")
-mayleneteam=teamset([maylene5,maylene2,maylene3,maylene4,maylene7,maylene8,maylene9,maylene10],4)+[maylene1,maylene6]
+maylene11=Empoleon(maxiv="Yes")
+maylene12=Dragonite (maxiv="Yes")
+mayleneteam=teamset([maylene5,maylene2,maylene3,maylene4,maylene7,maylene8,maylene9,maylene10, maylene11,maylene12],4)+[maylene1,maylene6]
 maylene=Trainer("Gym Leader Maylene",mayleneteam,"Sinnoh")
 #wake
 wake1=Floatzel(maxiv="gmax")
@@ -1618,7 +1625,10 @@ wake11=Politoed(maxiv="Yes")
 wake12=Huntail(maxiv="Yes")
 wake13=Suicune(maxiv="Yes")
 wake14=Swampert (maxiv="Yes")
-waketeam=teamset([wake5,wake2,wake3,wake4,wake7,wake8,wake9,wake10,wake11,wake12,wake13,wake14],4)+[wake1,wake6]
+wake15=Armaldo(maxiv="Yes")
+wake16=Pelipper(maxiv="Yes", ability="Drizzle",item="Damp Rock")
+wake17=Scizor (maxiv="Yes")
+waketeam=teamset([wake5,wake2,wake3,wake4,wake7,wake8,wake9,wake10,wake11,wake12,wake13,wake14,wake15,wake16    ],4)+[wake1,wake6]
 wake=Trainer("Gym Leader Crasher Wake",waketeam,"Sinnoh")
 #candice
 candice1=Froslass(maxiv="gmax")
@@ -2481,7 +2491,7 @@ champlist=[geeta,oak,odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven
 
 fronlist=[noland,lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser,argenta,Thorton]
 
-gymlist=[tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,wulfric,olympia,valerie,clemont,ramos,korrina,viola,luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant,janine]
+gymlist=[tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,wulfric,olympia,valerie,clemont,ramos,korrina,viola,luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,wake,gardenia,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant,janine]
 
 talentlist=[goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
 
@@ -2597,7 +2607,7 @@ def genplayer2(f):
     if "Rustboro City" in f.location:
         pl=random.choice([roxanne,genTrainer(trclass=random.choice(["Hoenn Trainer","Paleontologist","Aqua Grunt","Ruin Explorer"]))])
     if "Petalburg City" in f.location:
-        pl=random.choice([norman,wally,genTrainer(trclass=random.choice(["Hoenn Trainer","Zoologist","Bug Catcher","Bug Researcher"]))])
+        pl=random.choice([norman,wally,genTrainer(trclass=random.choice(["Hoenn Trainer","Bug Catcher","Bug Researcher"]))])
     if "Twinleaf Town" in f.location:
         pl=random.choice([barry,genTrainer(trclass=random.choice(["Sinnoh Trainer"]))])
     if "Littleroot Town" in f.location:
@@ -3365,14 +3375,46 @@ cyrus8=Entei(maxiv="gmax")
 cyrus6=Dialga(maxiv="Yes")
 cyrus7=Palkia(maxiv="Yes")
 cyrus=Trainer("Galactic Leader Cyrus",[cyrus1,cyrus2,cyrus8,cyrus4,cyrus6,cyrus7],"Sinnoh")
-#Saturn
+#saturn
 saturn1=Alakazam(maxiv="Yes")
 saturn2=Bronzong(maxiv="Yes")
 saturn3=Toxicroak(maxiv="Yes")
-saturn4=Absol(maxiv="Yes")
+saturn4=Sharpedo(maxiv="Yes")
 saturn5=Crobat(maxiv="Yes")
-saturn6=Heatran(maxiv="gmax")
-saturn=Trainer("Galactic Commander Saturn",[saturn1,saturn2,saturn3,saturn4,saturn5,saturn6],"Sinnoh")
+saturn6=Heatran(maxiv="Yes")
+saturn7=Sableye(maxiv="Yes")
+saturn8=Skuntank(maxiv="Yes")
+saturn9=Tyranitar(maxiv="Yes")
+saturn10=MGallade(maxiv="Yes")
+saturn11=Rhyperior(maxiv="Yes")
+saturn12=Magmortar(maxiv="Yes")
+saturnteam=teamset([saturn1,saturn2,saturn7,saturn4,saturn5,saturn6,saturn8,saturn9,saturn10,saturn11,saturn12],5)+[saturn3]
+saturn=Trainer("Galactic Commander Saturn",saturnteam,"Sinnoh")
+#mars
+mars1=Raichu(maxiv="Yes")
+mars2=Bronzong(maxiv="Yes")
+mars3=Purugly(maxiv="Yes")
+mars4=Togekiss(maxiv="Yes")
+mars5=Crobat(maxiv="Yes")
+mars6=Espeon(maxiv="Yes")
+mars7=Yanmega(maxiv="Yes")
+mars8=Electivire(maxiv="Yes")
+mars9=MKangaskhan(maxiv="Yes")
+mars10=Magnezone (maxiv="Yes")
+marsteam=teamset([mars1,mars2,mars7,mars4,mars5,mars6,mars8,mars9,mars10],5)+[mars3]
+mars=Trainer("Galactic Commander Mars",marsteam,"Sinnoh")
+#jupiter
+jupiter1=Nidoking(maxiv="Yes")
+jupiter2=Bronzong(maxiv="Yes")
+jupiter3=Skuntank(maxiv="Yes")
+jupiter4=MGengar(maxiv="Yes")
+jupiter5=Crobat(maxiv="Yes")
+jupiter6=Toxicroak(maxiv="Yes")
+jupiter7=Sableye(maxiv="Yes")
+jupiter8=EGastrodon(maxiv="Yes")
+jupiter9=Tangrowth(maxiv="Yes")
+jupiterteam=teamset([jupiter1,jupiter2,jupiter7,jupiter4,jupiter5,jupiter6,jupiter8,jupiter9],5)+[jupiter3]
+jupiter=Trainer("Galactic Commander Jupiter",jupiterteam,"Sinnoh")
 #E4 Siebold
 siebold1=Clawitzer(maxiv="Yes")
 siebold2=Gyarados(maxiv="Yes")
@@ -5207,7 +5249,7 @@ gymlist=[tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,piers,melony,go
 
 talentlist=[palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
 
-evilist=[volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,giovanni,butler]
+evilist=[volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,mars,jupiter,giovanni,butler]
 
 gym=random.choice(gymlist)
 elite4=random.choice(e4list)

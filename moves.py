@@ -4,6 +4,9 @@ from pokemonbase2 import *
 from typematchup import *
 from hiddenpower import *
 from movelist import *
+def aquaring(self):
+    print(f" 💦 {self.name} used  "+colored("Aqua Ring","blue")+"!")
+    self.aring=True
 def doodle(self,other):
     print(f" 🎨 {self.name} used  "+colored("Doodle","white")+"!")
     self.atktype="Normal"
@@ -356,7 +359,10 @@ def superfang(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     other.hp-=a*(round(other.hp/2))
-    
+def charm(other):
+    print(f" 🥰 {self.name} used Charm.")
+    atkchange(self,-1)
+    print(f" {other.name}: Attack x{other.atkb}")    
 def swordsdance(self):
     print(f" ⚔️ {self.name} used Swords Dance.")
     atkchange(self,1)
@@ -406,7 +412,16 @@ def shelter(self):
     print(f" 🐚 {self.name} used Shelter.")    
     defchange(self,1)
     print(f" Defense x{self.defb}")   
-    
+def cosmicpower(self):
+    print(f" 🌌 {self.name} used Cosmic Power.")   
+    defchange(self,0.5)
+    print(f" Defense x{self.defb}")      
+    spdefchange(self,0.5)
+    print(f" Special Defense x{self.spdefb}")  
+def amnesia(self):
+    print(f" ❓ {self.name} used Amnesia.")   
+    spdefchange(self,1)
+    print(f" Special Defense x{self.spdefb}")     
 def irondefense(self):
     print(f" ⛑️ {self.name} used Iron Defense.")   
     defchange(self,1)
@@ -2311,7 +2326,24 @@ def tbolt(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    other.hp-=special(self.level,self.spatk,other.spdef,90,a,b,c,r,al)    
+    other.hp-=special(self.level,self.spatk,other.spdef,90,a,b,c,r,al) 
+    ch=random.randint(1,10)
+    if ch==10 and other.status=="Alive":
+        other.status="Paralyzed"
+        print(f" ⚡ {other.name} was paralyzed.")
+def nuzzle(self,other):
+    al=1
+    r=randroll()
+    print(f" ⚡ {self.name} used  "+colored("Nuzzle","yellow")+"!")
+    c=critch(self,other)
+    self.atktype="Electric"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=special(self.level,self.spatk,other.spdef,20,a,b,c,r,al)        
+    if other.status=="Alive":
+        other.status="Paralyzed"
+        print(f" ⚡ {other.name} was paralyzed.")
 def technoblast(self,other):
     al=1
     r=randroll()
@@ -2481,13 +2513,34 @@ def freezedry(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    if other.type1=="Water" or other.type2=="Water":
+    if "Water" in (other.type1,other.type2,other.teratype):
         if a==1:
             a*=2
             print(" It's super effective!")
         if a!=1:
             a*=2
     other.hp-=special(self.level,self.spatk,other.spdef,70,a,b,c,r,al,w) 
+def saltcure(self,other):
+    al=1
+    r=randroll()
+    print(f" 🧂 {self.name} used  "+colored("Salt Cure","white")+"!")
+    c=critch(self,other)
+    self.atktype="Rock"
+    w=weathereff(self)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    if "Steel" in (other.type1,other.type2,other.teratype):
+        if a==1:
+            a*=2
+        if a!=1:
+            a*=2
+    if "Water" in (other.type1,other.type2,other.teratype):
+        if a==1:
+            a*=1.5
+        if a!=1:
+            a*=1.5
+    other.hp-=special(self.level,self.spatk,other.spdef,65,a,b,c,r,al,w)     
 def shellsidearm(self,other):
     al=1
     r=randroll()
@@ -2771,6 +2824,22 @@ def bonerush(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=physical(self.level,self.atk,other.defense,125,a,b,c,r,al)  
+def mistyexplosion(self,other):
+    al=1
+    r=randroll()
+    print(f" 🌸💥 {self.name} used  "+colored("Misty Explosion","magenta")+"!")
+    c=critch(self,other)
+    if self.ability=="Reckless":
+        al*=1.2  
+    self.atktype="Fairy"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    base=100
+    if field.terrain=="Misty":
+        base*=1.5
+    other.hp-=special(self.level,self.spatk,other.spdef,base,a,b,c,r,al)         
+    self.hp=0     
 def explosion(self,other):
     al=1
     r=randroll()
@@ -3584,13 +3653,15 @@ def bittermalice(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    base=65
+    base=75
     if self.ability=="Technician":
         print(f" {self.name}'s {self.ability}.")
         base*=1.5
     if other.status!="Alive":
         base*=2
-    other.hp-=special(self.level,self.spatk,other.spdef,base,a,b,c,r,al)  
+    other.hp-=special(self.level,self.spatk,other.spdef,base,a,b,c,r,al) 
+    atkchange(other,-0.5)
+    print(f" {other.name}: Attack x{other.atkb}")
     ch=random.randint(1,100)
     if ch>70 and other.status=="Alive":
         other.status="Frostbite"
@@ -4052,7 +4123,7 @@ def thousandarrows(self,other):
 def coreenforcer(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used Core Enforcer!")
+    print(f" ⚕️ {self.name} used Core Enforcer!")
     c=critch(self,other)
     self.atktype="Dragon"
     ab=weakness(self,other,field)
@@ -4107,7 +4178,7 @@ def mysticalfire(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    other.hp-=physical (self.level,self.atk,other.defense,70,a,b,c,r,al,w)    
+    other.hp-=physical (self.level,self.atk,other.defense,75,a,b,c,r,al,w)    
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         spatkchange (other,-0.5)
         print(f" {other.name}: Special Attack x{other.spatkb}")    
@@ -6570,7 +6641,18 @@ def doomdesire(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self.level,self.spatk,other.spdef,140,a,b,c,r,al)        
-    
+def fleurcannon(self,other):
+    al=1
+    r=randroll()
+    print(f" {self.name} used Fleur Cannon.")
+    c=critch(self,other)
+    self.atktype="Fairy"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=special(self.level,self.spatk,other.spdef,130,a,b,c,r,al)        
+    spdefchange(self,-1)
+    print(f" Special Defense x{self.spdefb}")    
 def flashcannon(self,other):
     al=1
     r=randroll()

@@ -947,7 +947,7 @@ def prebuff(self,other,tr1,turn,field):
         atkbuff*=1.3
     if field.terrain=="Electric" and self.ability=="Hadron Engine":
         spatkbuff*=1.3
-    if self.ability=="Protosynthesis" and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
+    if "Protosynthesis" in self.ability and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
         m=[a,b,c,d,e]=[self.atk,self.defense,self.spatk,self.spdef,self.speed]
         if tr1.reflect==True:
             m=[self.atk,self.defense/2,self.spatk,self.spdef,self.speed]
@@ -956,15 +956,20 @@ def prebuff(self,other,tr1,turn,field):
         x=max(m)
         if x==a:
         	atkbuff*=1.3
+        	self.ability="Protosynthesis [Attack]"
         elif x==b:
         	defbuff*=1.3
+        	self.ability="Protosynthesis [Defense]"
         elif x==c:
         	spatkbuff*=1.3
+        	self.ability="Protosynthesis [Sp. Attack]"
         elif x==d:
         	spdefbuff*=1.3
+        	self.ability="Protosynthesis [Sp. Defense]"
         elif x==e:
         	speedbuff*=1.5
-    if self.ability=="Quark Drive" and (field.terrain=="Electric" or self.item=="Booster Energy"):
+        	self.ability="Protosynthesis [Speed]"
+    if "Quark Drive" in self.ability and (field.terrain=="Electric" or self.item=="Booster Energy"):
         m=[a,b,c,d,e]=[self.atk,self.defense,self.spatk,self.spdef,self.speed]
         if tr1.reflect==True:
             m=[self.atk,self.defense/2,self.spatk,self.spdef,self.speed]
@@ -973,14 +978,19 @@ def prebuff(self,other,tr1,turn,field):
         x=max(m)
         if x==a:
         	atkbuff*=1.3
+        	self.ability="Quark Drive [Attack]"
         elif x==b:
         	defbuff*=1.3
+        	self.ability="Quark Drive [Defense]"
         elif x==c:
         	spatkbuff*=1.3
+        	self.ability="Quark Drive [Sp. Attack]"
         elif x==d:
         	spdefbuff*=1.3
+        	self.ability="Quark Drive [Sp. Defense]"
         elif x==e:
         	speedbuff*=1.5
+        	self.ability="Quark Drive [Speed]"
     if field.terrain=="Misty":
         if self.item=="Misty Seed":
             print(f" 🍇 {self.name} consumed {self.item} and raised its Sp.Def!")
@@ -1178,7 +1188,6 @@ def statchange(self,tr1,turn):
             tr1.auroraveil=False
             print(" ⚠️The Aurora Veil wore off!")  
     if tr1.tailwind is True:
-        print("Nigga")
         speedbuff*=2
         if turn==tr1.twendturn:
             tr1.tailwind=False

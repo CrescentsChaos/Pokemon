@@ -501,6 +501,8 @@ def moveAI(self,other,mtr,otr,field):
         use=self.choicedmove      
     if self.hp<=(self.maxhp*0.25) and "Destiny Bond" in mymove and self.speed>other.speed:
         use="Destiny Bond"
+    if self.hp<=(self.maxhp*0.25) and "Misty Explosion" in mymove:
+        use="Misty Explosion"
     if self.hp<=(self.maxhp*0.25) and "Explosion" in mymove:
         use="Explosion"
     if use is None or use==[]:

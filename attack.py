@@ -37,6 +37,7 @@ def switch(self,other,trainer,trainer2,field,turn):
         self.ability="Imposter"
     self.atkb=self.defb=self.spatkb=self.spdefb=self.speedb=1
     self.yawn=False
+    self.aring=False
     self.atk=self.maxatk
     self.speed=self.maxspeed
     self.spatk=self.maxspatk
@@ -158,9 +159,9 @@ def entryeff(self,other,trainer,trainer2,field,turn):
 #        self.maxatk*=1.2
 #        self.maxspatk*=1.2
 #        self.maxspeed*=1.2
-    if self.ability=="Quark Drive" and (field.terrain=="Electric" or self.item=="Booster Energy"):
+    if "Quark Drive" in self.ability and (field.terrain=="Electric" or self.item=="Booster Energy"):
         print(f" ⚡ {self.name}'s {self.ability}!")
-    if self.ability=="Protosynthesis" and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
+    if "Protosynthesis" in self.ability and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
         print(f" ☀️ {self.name}'s {self.ability}!")
     if self.megaintro is False and "Ultra " in self.name:
         prevname=self.name.split(" ")[-1]
@@ -186,35 +187,35 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         if self.teratype=="Ghost":
             typ="👻"
         if self.teratype=="Normal":
-            typ="🏳️"
+            typ="💎"
         if self.teratype=="Bug":
             typ="🪲"
         if self.teratype=="Steel":
-            typ="🔩"
+            typ="🪓"
         if self.teratype=="Ice":
-            typ="🧊"
+            typ="❄️"
         if self.teratype=="Fighting":
             typ="👊🏽"
         if self.teratype=="Dark":
-            typ="🌑"
+            typ="😈"
         if self.teratype=="Fairy":
-            typ="🧚🏻‍♂️"
+            typ="❤️"
         if self.teratype=="Flying":
-            typ="🕊️"
+            typ="🎈"
         if self.teratype=="Poison":
-            typ="☣️"
+            typ="☠️"
         if self.teratype=="Ground":
             typ="🌍"
         if self.teratype=="Rock":
             typ="🪨"
         if self.teratype=="Grass":
-            typ="🌿"
+            typ="🌻"
         if self.teratype=="Electric":
-            typ="⚡"
+            typ="💡"
         if self.teratype=="Water":
-            typ="💧"
+            typ="⛲"
         if self.teratype=="Fire":
-            typ="🔥"
+            typ="🕯️"
         name=self.name.split("💎")[0]
         print(f" {typ}{name} terastallized into {self.teratype}-type!")
         self.megaintro=True
@@ -398,9 +399,6 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
     if self.status!="Alive" and self.ability in ["Purifying Salt","Good as Gold"]:
         print(f" {self.name}'s {self.ability}!")
         self.status="Alive"    
-    if self.item=="Throat Spray" and use in ["Hyper Voice","Boomburst","Overdrive","Clanging Scales"]:
-        spatkchange(self,0.5)
-        print(f" {self.name}'s Special Attack rose!")
     if self.ability=="Mold Breaker":
         print(f" {self.name} breaks the mold!")
     if field.terrain=="Electric":
@@ -432,29 +430,12 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
 #ATTACK
 def attack(self,other,tr,optr,use,opuse,field,turn):
     print(f"\n {tr.name}:")
+    if self.status=="Sleep" and self.ability in ["Insomnia","Vital Spirit"]:
+        self.status="Alive"
     if self.ability=="Prankster" and "Dark" in (other.type1,other.type2,other.teratype) and use in typemoves.statusmove:
         use = None
         print(f" {other.name} is immune to {self.name}'s Prankster!")
-    if self.dmax is False:
-        if len(self.moves)==0:
-            use="Struggle"
-        if len(self.moves)>=1 and use==self.moves[0] and len(self.pplist)>=1:
-            self.pplist[0]-=1
-        if len(self.moves)>=2 and use==self.moves[1] and len(self.pplist)>=2:
-            self.pplist[1]-=1
-        if len(self.moves)>=3 and use==self.moves[2] and len(self.pplist)>=3:
-            self.pplist[2]-=1
-        if len(self.moves)>=4 and use==self.moves[3] and len(self.pplist)>=4:
-            self.pplist[3]-=1
-    if self.dmax is True:            
-        if use==self.maxmove[0]:
-            self.pplist[0]-=1
-        if use==self.maxmove[1]:
-            self.pplist[1]-=1
-        if use==self.maxmove[2]:
-            self.pplist[2]-=1
-        if use==self.maxmove[3]:
-            self.pplist[3]-=1
+    
     if use in typemoves.prioritymove and other.ability in ["Armor Tail","Queenly Majesty","Dazzling"]:
         print(" {other.name}'s {other.ability}!")
         use=None
@@ -488,7 +469,6 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
     if opuse in typemoves.statusmove and use=="Protect":
         use=None
         print("It failed!")
-    moves=["Struggle"]
     if self.dmax is False:
         moves=self.moves
     if self.dmax is True:
@@ -501,6 +481,69 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
     hit=1
     me=self
     canatk=True
+    if self.ability!="Oblivious":
+        if self.confused is True:
+            print(f" 😵‍💫 {self.name} is confused!")
+            ch=random.randint(1,100)
+            if ch<30:
+                print(f" ‼️ {self.name} snapped out of confusion!")
+                self.confused=False        
+            if ch>70:
+                canatk=False
+                used=None
+                print(f" 😵  It hurt itself in confusion.")
+                r=randroll()
+                self.hp-=physical(self.level,self.atk,self.defense,40,a=1,r=r)
+            else:
+                canatk=True
+    if self.status=="Paralyzed":
+        ch=random.randint(1,100)
+        if ch>75:
+            canatk=False
+            used=None
+            print(f" ⚡ {self.name} is paralyzed and unable to move.")
+        else:
+            print(f" ⚡ {self.name} is paralyzed.")
+            canatk=True
+    if self.status=="Sleep":
+        ch=random.randint(1,4)
+        if ch==3:
+            print(f" ‼️ {self.name} woke up!")
+            self.status="Alive"
+        else:
+            print(f" 💤 {self.name} is fast asleep!")
+            used=None
+    if self.status=="Frozen":
+        ch=random.randint(1,5)
+        if ch==3:
+            print(f" ‼️ {self.name} thawed out.")
+            self.status="Alive"
+        else:
+            print(f" 🧊 {self.name} is frozen solid.")
+            used=None
+    pp=1
+    if other.ability=="Pressure":
+        pp=2
+    if self.dmax is False and canatk is True:
+        if len(self.moves)==0:
+            used="Struggle"
+        if len(self.moves)>=1 and used==self.moves[0] and len(self.pplist)>=1:
+            self.pplist[0]-=pp
+        if len(self.moves)>=2 and used==self.moves[1] and len(self.pplist)>=2:
+            self.pplist[1]-=pp
+        if len(self.moves)>=3 and used==self.moves[2] and len(self.pplist)>=3:
+            self.pplist[2]-=pp
+        if len(self.moves)>=4 and used==self.moves[3] and len(self.pplist)>=4:
+            self.pplist[3]-=pp
+    if self.dmax is True and canatk is True:            
+        if used==self.maxmove[0]:
+            self.pplist[0]-=pp
+        if used==self.maxmove[1]:
+            self.pplist[1]-=pp
+        if used==self.maxmove[2]:
+            self.pplist[2]-=pp
+        if used==self.maxmove[3]:
+            self.pplist[3]-=pp
     stancechange(self,used)
     preattackcheck(self,other,tr,optr,use,opuse,field,turn)
     #if self.choiced==True and self.choicedmove is not None and self.dmax is False:
@@ -516,45 +559,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {other.name}'s {other.ability}.")
         used=None
         print("  🚳 Cannot use priority moves!")
-    if self.ability!="Oblivious":
-        if self.confused is True:
-            print(f" 😵‍💫 {self.name} is confused!")
-            ch=random.randint(1,100)
-            if ch<40:
-                print(f" ‼️ {self.name} snapped out of confusion!")
-                self.confused=False        
-            if ch>67:
-                canatk=False
-                used=None
-                print(f" 😵  It hurt itself in confusion.")
-                r=randroll()
-                self.hp-=physical(self.level,self.atk,other.defense,40,a=1,r=r)
-            else:
-                canatk=True
-    if self.status=="Paralyzed":
-        ch=random.randint(1,100)
-        if ch>75:
-            canatk=False
-            used=None
-            print(f" ⚡ {self.name} is paralyzed and unable to move.")
-        else:
-            canatk=True
-    if self.status=="Sleep":
-        ch=random.randint(1,3)
-        if ch==3:
-            print(f" ‼️ {self.name} woke up!")
-            self.status="Alive"
-        else:
-            print(f" 💤 {self.name} is fast asleep!")
-            used=None
-    if self.status=="Frozen":
-        ch=random.randint(1,5)
-        if ch==3:
-            print(f" ‼️ {self.name} thawed out.")
-            self.status="Alive"
-        else:
-            print(f" 🧊 {self.name} is frozen solid.")
-            used=None
+    
     before=other.hp
     sbefore=self.hp
     if self.ability=="Truant":
@@ -567,7 +572,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             self.truant=False
         else:
             self.truant=True
-    if self.ability=="Hustle":
+    if self.ability=="Hustle" and self.dmax is False:
         ch=random.randint(1,self.accuracy)
         if ch<20:
             print(f" {self.name}'s {self.ability}.")
@@ -778,8 +783,20 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             doodle(self,other)
         elif used=="Glaciate":
             glaciate(self,other)
+        elif used=="Salt Cure":
+            saltcure(self,other)
+        elif used=="Nuzzle":
+            nuzzle(self,other)
         elif used=="Fillet Away":
             filletaway(self)
+        elif used=="Cosmic Power":
+            cosmicpower (self)
+        elif used=="Amnesia":
+            amnesia(self)
+        elif used=="Aqua Ring":
+            aquaring(self)
+        elif used=="Charm":
+            charm(other)
         elif used=="Ice Hammer":
             icehammer(self,other)
         elif used=="Strange Steam":
@@ -1169,6 +1186,12 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 print(f" {other.name} avoided the attack({used}).")
             else:
                 inferno(self,other)
+        elif used=="Fleur Cannon":
+            miss=random.randint(1,self.accuracy)
+            if miss<10:
+                print(f" {other.name} avoided the attack({used}).")
+            else:
+                fleurcannon(self,other)                
         elif used=="Overheat":
             miss=random.randint(1,self.accuracy)
             if miss<10:
@@ -1810,6 +1833,11 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             for i in range(hit):
                 pinmissile(self,other)
             print(f" It hit {hit} time(s).")
+        elif used=="Misty Explosion":
+            if other.ability=="Damp":
+                print("  Can't explode on Damp Pokémons.")
+            if other.ability!="Damp":
+                mistyexplosion(self,other)
         elif used=="Explosion":
             if other.ability=="Damp":
                 print("  Can't explode on Damp Pokémons.")
@@ -2330,6 +2358,11 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                   self.item=None
               
 #STURDY        
+    if used in typemoves.contactmoves and other.ability == "Sand Spit" and field.weather not in ["Sandstorm","Primordial Sea","Desolate Land"]:
+        print(f" 🏜️{other.name}'s {other.ability} whipped up a sandstorm!")
+        field.weather="Sandstorm" 
+        field.sandturn=turn
+        field.sandend(self,other)
     if used in typemoves.contactmoves and other.abilityused=="Shell Trap":
         shelltrap(other,self)
         other.abilityused=False
@@ -2544,6 +2577,9 @@ def effects(self,other,turn):
     #LEFTOVERS        
     if self.hp>0 and self.item=="Leftovers" and self.hp<self.maxhp:
         print(f" 🍎 {self.name} restored a little HP using its Leftovers.")
+        self.hp+=round(self.maxhp/16)
+    if self.aring==True and self.hp<self.maxhp:
+        print(f" 💦 {self.name} restored a little HP using its Aqua Ring.")
         self.hp+=round(self.maxhp/16)
         
     #BLACK SLUDGE        

@@ -33,9 +33,9 @@ def characters(text,nm=2):
             print(" "+str(num)+".",i.name)
     if team is None:
         if nm==1:
-            chosen=random.choice([genTrainer("Pokémon Trainer"),matchx[0]])
+            chosen=genTrainer("Pokémon Trainer")
         else:
-            chosen=genplayer2(field)
+            chosen=random.choice([genTrainer("Pokémon Trainer"),matchx[0],genplayer2(field)])
     else:
         ch=int(input(" Enter what you wanna play with: "))
         chosen=team[ch-1]

@@ -19,7 +19,7 @@ import random
 naturelist=["Hardy","Lonely","Adamant","Naughty","Brave", "Bold",'Docile','Impish','Lax','Relaxed' ,'Modest','Mild','Bashful','Rash','Quiet' ,'Calm','Gentle','Careful','Quirky','Sassy', 'Timid','Hasty','Jolly','Naive','Serious']
 class Pokemon2:
     "Pokemon2"
-    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,primalintro=False,fsprite="graphics/fsprites/unknown.png", bsprite="graphics/bsprites/Gengar.png", priority=False,dbond=False, abilityused=False,healcount=0,confused=False,dmgtaken=0,yawn=False,m1pp=10,m2pp=10,m3pp=10,m4pp=10,mx1pp=10,mx2pp=10,mx3pp=10,mx4pp=10,pplist=None):
+    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,primalintro=False,fsprite="graphics/fsprites/unknown.png", bsprite="graphics/bsprites/Gengar.png", priority=False,dbond=False, abilityused=False,healcount=0,confused=False,dmgtaken=0,yawn=False,m1pp=10,m2pp=10,m3pp=10,m4pp=10,mx1pp=10,mx2pp=10,mx3pp=10,mx4pp=10,pplist=None,aring=False):
         #Name
         self.name=name
         if moves is None:
@@ -32,6 +32,7 @@ class Pokemon2:
         #Type
         self.type1=type1
         self.type2=type2
+        self.aring=aring
         self.atkby=None
         self.atktime=0
         self.m1pp=m1pp
@@ -122,7 +123,8 @@ class Pokemon2:
         self.teratype=random.randint(1,50)
         if self.teratype==2 and "Mega" not in self.name and "Alpha " not in self.name and self.dmax is False and maxiv not in ["gmax","Yes"]:
             self.teratype=random.choices([self.type1,self.type2,random.choice(["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"])],weights=[40,40,20],k=1)[0]
-            self.moves[0]="Tera Blast"
+            if self.teratype not in (self.type1,self.type2):
+                self.moves[0]="Tera Blast"
             self.name+="💎"
         self.movez=movez
         if self.teratype not in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
@@ -150,10 +152,8 @@ class Pokemon2:
         self.ability=ability
         self.status=status
         mch=random.randint(1,2)
-        if "💎" in self.name and "Tera Blast" not in self.moves:
+        if "💎" in self.name and self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]: 
             self.teratype=self.maxiv
-            if self.teratype not in (self.type1,self.type2):
-                self.moves[0]="Tera Blast"
             
         if (((("Mega " not in self.name and "Z-Crystal" not in self.name and "Zacian" not in self.name and "Zamazenta" not in self.name) and mch==1 and self.maxiv!="Yes" and "Battle Bond" not in self.ability) or self.maxiv=="gmax" ) and "💎" not in self.name):
             self.dmax=True
@@ -744,7 +744,7 @@ class Primeape(Pokemon2):
     "Primeape"
     def __init__(self,name="Primeape",type1="Fighting",type2=None,nature=None,level=100,happiness=255,hp=65,atk=105,defense=60,spatk=60,spdef=70,speed=95,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Gorilla Tactics",item=random.choice(["Choice Scarf","Life Orb"])):
         if move is None:
-            avmoves=["Hidden Power","Dynamic Punch","Close Combat","Superpower","Fire Punch","U-Turn","Cross Chop","Skull Bash"]
+            avmoves=["Hidden Power","Dynamic Punch","Close Combat","Superpower","Fire Punch","U-Turn","Cross Chop","Skull Bash","Rage Fist"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -753,7 +753,7 @@ class Primeape(Pokemon2):
 class Anihilape(Pokemon2):
     def __init__(self,name="Annihilape",type1="Fighting",type2="Ghost",nature=None,level=100,happiness=255,hp=75,atk=125,defense=70,spatk=60,spdef=80,speed=105,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Gorilla Tactics",item=random.choice(["Choice Scarf","Life Orb"])):
         if move is None:
-            avmoves=["Hidden Power","Dynamic Punch","Close Combat","Superpower","Fire Punch","U-Turn","Cross Chop","Skull Bash","Shadow Claw","Shadow Sneak"]
+            avmoves=["Hidden Power","Dynamic Punch","Close Combat","Superpower","Fire Punch","U-Turn","Cross Chop","Skull Bash","Shadow Claw","Shadow Sneak","Final Gambit"]
             moves=moveset(avmoves,3)+["Rage Fist"]
         else:
             moves=move
@@ -1448,7 +1448,7 @@ class Vaporeon(Pokemon2):
     "Vaporeon"
     def __init__(self,name="Vaporeon",type1="Water",type2=None,nature=None,level=100,happiness=255,hp=130,atk=65,defense=60,spatk=110,spdef=95,speed=65,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=252,speedev=0,maxiv="No",move=None, ability="Water Absorb",item=random.choice(["Leftovers","Heavy-Duty Boots"])):
         if move is None:
-            avmoves=["Protect","Hidden Power","Ice Beam","Hydro Pump","Acid Armor","Surf","Rain Dance","Flip Turn","Chilling Water","Calm Mind"]
+            avmoves=["Protect","Hidden Power","Ice Beam","Hydro Pump","Acid Armor","Surf","Rain Dance","Flip Turn","Chilling Water","Calm Mind","Aqua Ring"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -2179,7 +2179,7 @@ class Camerupt(Pokemon2):
 #Arbok
 class Arbok(Pokemon2):
     "Arbok"
-    def __init__(self,name="Arbok",type1="Poison",type2="Dark",nature=None,level=100,happiness=255,hp=75,atk=85,defense=75,spatk=65,spdef=79,speed=80,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Intimidate",item="Black Sludge"):
+    def __init__(self,name="Arbok",type1="Poison",type2="Dark",nature=None,level=100,happiness=255,hp=75,atk=85,defense=75,spatk=65,spdef=79,speed=80,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Intimidate","Strong Jaw"]),item="Black Sludge"):
         if move is None:
             avmoves=["Protect","Venoshock","Earth Power","Poison Fang","Crunch","Gunk Shot","Belch"]
             moves=moveset(avmoves)
@@ -2406,7 +2406,7 @@ class Milotic(Pokemon2):
     "Milotic"
     def __init__(self,name="Milotic",type1="Water",type2=None,nature=None,level=100,happiness=255,hp=95,atk=60,defense=84,spatk=100,spdef=125,speed=86,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Competitive","Marvel Scale"]),item="Leftovers"):
         if move is None:
-            avmoves=["Protect","Recover","Ice Beam","Surf","Rain Dance","Hydro Pump","Coil","Thunderbolt","Light Screen","Scale Shot"]
+            avmoves=["Protect","Recover","Ice Beam","Surf","Rain Dance","Hydro Pump","Coil","Thunderbolt","Light Screen","Scale Shot","Aqua Ring"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -3574,7 +3574,7 @@ class HLilligant(Pokemon2):
     "Hisuian Lilligant"
     def __init__(self,name="Hisuian Lilligant",type1="Grass",type2="Fighting",nature=None,level=100,happiness=255,hp=70,atk=105,defense=75,spatk=50,spdef=75,speed=105,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=4,speedev=252,maxiv="No",move=None, ability="Chlorophyll",item="Leftovers"):
         if move is None:
-            avmoves=["Protect","Leaf Blade","Swords Dance","Victory Dance","Close Combat","Petal Dance","Recover","Drain Punch","Sleep Powder"]
+            avmoves=["Protect","Leaf Blade","Swords Dance","Victory Dance","Close Combat","Petal Dance","Recover","Drain Punch","Sleep Powder","Ice Spinner","Solar Blade"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -4610,7 +4610,7 @@ class Araquanid(Pokemon2):
     "Araquanid"
     def __init__(self,name="Araquanid",type1="Water",type2="Bug",nature=None,level=100,happiness=255,hp=68,atk=70,defense=92,spatk=50,spdef=132,speed=42,hpev=252,atkev=0,defev=0,spatkev=0,spdefev=252,speedev=0,maxiv="No",move=None, ability="Water Absorb",item="Leftovers"):
         if move is None:
-            avmoves=["Leech Life","Lunge","Liquidation","Crunch","Scald","Ice Beam","X-Scissor","Sticky Web"]
+            avmoves=["Leech Life","Lunge","Liquidation","Crunch","Scald","Ice Beam","X-Scissor","Sticky Web","Aqua Ring"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -4989,7 +4989,7 @@ class GWeezing(Pokemon2):
     "Weezing"
     def __init__(self,name="Galarian Weezing",type1="Poison",type2="Fairy",nature=None,level=100,happiness=255,hp=65,atk=90,defense=120,spatk=85,spdef=70,speed=60,hpev=0,atkev=0,defev=252,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Levitate","Misty Surge"]),item="Black Sludge"):
         if move is None:
-            avmoves=["Sludge Bomb","Toxic","Venoshock","Explosion","Toxic Spikes","Strange Stream"]
+            avmoves=["Sludge Bomb","Toxic","Venoshock","Explosion","Toxic Spikes","Strange Stream","Misty Explosion"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -5108,10 +5108,10 @@ class Coalossal(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item) 
 #Garganacl
 class Garganacl(Pokemon2):
-    def __init__(self,name="Garganacl",type1="Rock",type2=None,nature=None,level=100,happiness=255,hp=100,atk=100,defense=130,spatk=45,spdef=90,speed=35,hpev=252,atkev=0,defev=4,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Purify Salt"]),item="Heavy-Duty Boots"):
+    def __init__(self,name="Garganacl",type1="Rock",type2=None,nature=None,level=100,happiness=255,hp=100,atk=100,defense=130,spatk=45,spdef=90,speed=35,hpev=252,atkev=0,defev=4,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Purifying Salt","Clear Body","Sturdy"]),item="Heavy-Duty Boots"):
         if move is None:
-            avmoves=["Stealth Rock","Rock Blast","Rapid Spin","Earth Power","Body Press","Meteor Beam"]
-            moves=moveset(avmoves)
+            avmoves=["Stealth Rock","Rock Blast","Rapid Spin","Earth Power","Body Press","Meteor Beam","Explosion","Heavy Slam","Earthquake","Recover","Hammer Arm"]
+            moves=moveset(avmoves,3)+["Salt Cure"]
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)         
@@ -5198,7 +5198,7 @@ class Hatterene(Pokemon2):
     "Hatterene"
     def __init__(self,name="Hatterene",type1="Psychic",type2="Fairy",nature=None,level=100,happiness=255,hp=57,atk=90,defense=95,spatk=136,spdef=103,speed=29,hpev=252,atkev=0,defev=4,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Magic Bounce"]),item="Leftovers"):
         if move is None:
-            avmoves=["Calm Mind","Dazzling Gleam","Mystical Fire","Moonblast","Psychic","Draining Kiss","Trick Room","Expanding Force"]
+            avmoves=["Calm Mind","Dazzling Gleam","Mystical Fire","Moonblast","Psychic","Draining Kiss","Trick Room","Expanding Force","Misty Explosion"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -5262,7 +5262,7 @@ class Alcremie(Pokemon2):
     "Alcremie"
     def __init__(self,name="Alcremie",type1="Fairy",type2=None,nature=None,level=100,happiness=255,hp=65,atk=60,defense=75,spatk=110,spdef=121,speed=64,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Sweet Veil",item="Leftovers"):
         if move is None:
-            avmoves=["Decorate","Misty Terrain","Freeze-Dry","Draining Kiss","Dazzling Gleam","Calm Mind"]
+            avmoves=["Misty Terrain","Freeze-Dry","Draining Kiss","Dazzling Gleam","Calm Mind","Misty Explosion"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -5663,7 +5663,7 @@ class Clefable(Pokemon2):
     "Clefable"
     def __init__(self,name="Clefable",type1="Fairy",type2=None,nature=None,level=100,happiness=255,hp=95,atk=76,defense=73,spatk=95,spdef=90,speed=60,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability="Magic Guard",item="Leftovers"):
         if move is None:
-            avmoves=["Cosmic Power","Moonblast","Meteor Mash","Stored Power","Moonlight","Meteor Beam","Metronome"]
+            avmoves=["Cosmic Power","Moonblast","Meteor Mash","Stored Power","Moonlight","Meteor Beam","Metronome","Misty Explosion"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -5671,23 +5671,23 @@ class Clefable(Pokemon2):
 class Wigglytuff(Pokemon2):
     def __init__(self,name="Wigglytuff",type1="Normal",type2="Fairy",nature=None,level=100,happiness=255,hp=140,atk=70,defense=45,spatk=85,spdef=50,speed=45,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability="Competitive",item="Leftovers"):
         if move is None:
-            avmoves=["Body Slam","Moonblast","Rest","Play Rough","Gyro Ball","Expanding Force"]
+            avmoves=["Body Slam","Moonblast","Rest","Play Rough","Gyro Ball","Expanding Force","Misty Explosion"]
             moves=moveset(avmoves)
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Vileplume
 class Vileplume(Pokemon2):
-    def __init__(self,name="Vileplume",type1="Grass",type2="Poison",nature=None,level=100,happiness=255,hp=85,atk=80,defense=85,spatk=110,spdef=90,speed=50,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability="Chlorophyll",item="Black Sludge"):
+    def __init__(self,name="Vileplume",type1="Grass",type2="Poison",nature=None,level=100,happiness=255,hp=85,atk=80,defense=85,spatk=110,spdef=90,speed=50,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Chlorophyll","Effect Spore"]),item="Black Sludge"):
         if move is None:
-            avmoves=["Grassy Terrain","Moonblast","Giga Drain","Sleep Powder","Moonlight","Sludge Bomb","Toxic"]
+            avmoves=["Grassy Terrain","Moonblast","Giga Drain","Sleep Powder","Moonlight","Sludge Bomb","Toxic","Apple Acid","Strength Sap","Solar Beam"]
             moves=moveset(avmoves)
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Parasect
 class Parasect(Pokemon2):
-    def __init__(self,name="Parasect",type1="Bug",type2="Grass",nature=None,level=100,happiness=255,hp=80,atk=110,defense=100,spatk=60,spdef=80,speed=30,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Dry Skin",item="Leftovers"):
+    def __init__(self,name="Parasect",type1="Bug",type2="Grass",nature=None,level=100,happiness=255,hp=80,atk=110,defense=100,spatk=60,spdef=80,speed=30,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Dry Skin","Effect Spore"]),item="Leftovers"):
         if move is None:
-            avmoves=["Spore","X-Scissor","Giga Drain","Cross Poison","Synthesis"]
+            avmoves=["Spore","X-Scissor","Giga Drain","Cross Poison","Synthesis","Leaf Blade"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -5704,7 +5704,7 @@ class Venomoth(Pokemon2):
 class Dugtrio(Pokemon2):
     def __init__(self,name="Dugtrio",type1="Ground",type2=None,nature=None,level=100,happiness=255,hp=45,atk=100,defense=60,spatk=50,spdef=70,speed=120,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Sand Force","Sand Veil"]),item="Leftovers"):
         if move is None:
-            avmoves=["Sucker Punch","Earthquake","Night Slash","Bulldoze","Rock Slide"]
+            avmoves=["Sucker Punch","Earthquake","Night Slash","Bulldoze","Rock Slide","Scorching Sands","Shadow Claw","Stone Edge"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -6317,7 +6317,7 @@ class Floatzel(Pokemon2):
 class Pachirisu(Pokemon2):
     def __init__(self,name="Pachirisu",type1="Electric",type2=None,nature=None,level=100,happiness=255,hp=60,atk=45,defense=70,spatk=45,spdef=90,speed=95,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=252,speedev=0,maxiv="No",move=None, ability="Volt Absorb",item="Leftovers"):
         if move is None:
-            avmoves=["Protect","Volt Switch","Thunderbolt","Super Fang","Sweet Kiss","Nuzzle","Light Screen","Reflect"]
+            avmoves=["Protect","Volt Switch","Thunderbolt","Super Fang","Sweet Kiss","Nuzzle","Light Screen","Reflect","Charm"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -6532,7 +6532,7 @@ class Ironbundle(Pokemon2):
 class Ironvaliant(Pokemon2):
     def __init__(self,name="Iron Valiant",type1="Fairy",type2="Fighting",nature=None,level=100,happiness=255,hp=74,atk=130,defense=90,spatk=120,spdef=60,speed=116,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Quark Drive",item=random.choice(["Booster Energy"])):
         if move is None:
-            avmoves=["Close Combat","Swords Dance","Moonblast","Aura Sphere"]
+            avmoves=["Close Combat","Swords Dance","Moonblast","Aura Sphere","Spirit Break"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -6766,7 +6766,7 @@ class Mabosstiff(Pokemon2):
 class Pawmot(Pokemon2):
     def __init__(self,name="Pawmot",type1="Electric",type2="Fighting",nature=None,level=100,happiness=255,hp=70,atk=115,defense=70,spatk=70,spdef=60,speed=105,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Volt Absorb","Natural Cure","Iron Fist"]),item=random.choice(["Leftovers"])):
         if move is None:
-            avmoves=["Close Combat","Thunder Wave","Wild Charge","Discharge"]
+            avmoves=["Close Combat","Thunder Wave","Wild Charge","Discharge","Nuzzle"]
             moves=moveset(avmoves,3)+["Double Shock"]
         else:
             moves=move
