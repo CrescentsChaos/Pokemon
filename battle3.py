@@ -12,8 +12,6 @@ def  score(x,y,p1,p2,turn):
         y=p2.pokemons[0]
         pass
     print(f" {p1.name}:")
-    if len(p1.hazard)==0:
-        print(" Hazard:",None)
     if len(p1.hazard)!=0:
         print(" Hazard:",p1.hazard)
     if p1.tailwind==True:
@@ -37,8 +35,6 @@ def  score(x,y,p1,p2,turn):
         print(f" Atk: {round(x.atk)}({round(x.atkb,2)}) Def: {round(x.defense)}({round(x.defb,2)}) SpA: {round(x.spatk)}({round(x.spatkb,2)}) SpD: {round(x.spdef)}({round(x.spdefb,2)}) Spe: {round(x.speed)}({round(x.speedb,2)})")
     print("")
     print(f" {p2.name}:")
-    if len(p2.hazard)==0:
-        print(" Hazard:",None)
     if len(p2.hazard)!=0:
         print(" Hazard:",p2.hazard)
     if p2.tailwind==True:
@@ -184,7 +180,7 @@ def movecat(sss):
     if sss=="Status":
         return ["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect","Spiky Shield","King's Shield","Heal Order","Defend Order","Light Screen","Reflect","Defog","Tailwind","Aurora Veil","Tailwind"]
     if sss=="Priority":
-        return ["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Protect","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken","Spiky Shield","King's Shield","Baneful Bunker","Max Guard","Silk Trap","Jet Punch"]
+        return ["Mach Punch","Bullet Punch","Sucker Punch","Fake Out","Extreme Speed","Protect","Aqua Jet","Shadow Sneak","Accelerock","Ice Shard","Water Shuriken","Spiky Shield","King's Shield","Baneful Bunker","Max Guard","Silk Trap","Jet Punch","Quick Attack"]
 #def randomweather(turn,x,y,field):
 #    trn="Normal"
 #    ch=random.choices(["Clear","Rainy","Cloudy","Sandstorm","Hail","Sunny","Thunderstorm"], weights=[90,1,10,1,1,1,1],k=1)[0]    

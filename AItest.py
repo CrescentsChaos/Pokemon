@@ -642,6 +642,8 @@ def decision (self,other,tr1,tr2,field):
             action=1                   
         if other.ability=="Shadow Tag" and "Ghost" not in (self.type1,self.type2):
             action=1    
+        if self.olock is True:
+            action=1
         if self.dmax is True:
             action=1            
     return action              

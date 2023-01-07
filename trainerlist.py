@@ -1,15 +1,3 @@
-#pylint:disable=C0116
-#pylint:disable=W0311
-#pylint:disable=R0916
-#pylint:disable=C0304
-#pylint:disable=C0103
-#pylint:disable=C0103
-#pylint:disable=R0915
-#pylint:disable=R0912
-#pylint:disable=C0303
-#pylint:disable=C0114
-#pylint:disable=W0401
-#pylint:disable=C0301
 from pokemonlist import *
 from trainers import *
 p1AI=True
@@ -1544,7 +1532,9 @@ roark9=Sudowoodo(maxiv="Yes")
 roark10=Salamence(maxiv="Yes")
 roark11=Lunatone(maxiv="Yes")
 roark12=Torkoal(maxiv="Yes")
-roarkteam=teamset([roark1,roark2,roark3,roark4,roark7,roark8,roark9,roark10,roark11,roark12],4)+[roark6,roark5]
+roark13=Slowbro(maxiv="Yes")
+roark14=Torkoal(maxiv="Yes")
+roarkteam=teamset([roark1,roark2,roark3,roark4,roark7,roark8,roark9,roark10,roark11,roark12,roark13,roark14],4)+[roark6,roark5]
 roark=Trainer("Gym Leader Roark",roarkteam,"Sinnoh")
 #gardenia
 gardenia1=Jumpluff(maxiv="Yes")
@@ -2475,6 +2465,18 @@ penny4=Jolteon(maxiv="Yes")
 penny5=Vaporeon(maxiv="Yes")
 penny6=Sylveon(name="Sylveon💎",maxiv="Fairy")
 penny=Trainer("Star Leader Penny",[penny1,penny2,penny3,penny4,penny5,penny6],"Paldea")
+#clavell
+clavell1=Oranguru(maxiv="Yes")
+clavell2=Abomasnow(maxiv="Yes")
+clavell3=Polteageist(maxiv="Yes")
+clavell4=Gyarados(maxiv="Yes")
+clavell5=Houndoom(maxiv="Yes")
+clavell6=Quaquaval(name="Quaquaval💎",maxiv=random.choice(["Water","Fighting"]))
+clavell7=Amoongus(maxiv="Yes")
+clavell8=Meowscarada(name="Meowscarad💎",maxiv=random.choice(["Grass","Dark"]))
+clavell9=Skeledirge(name="Skeledirge💎",maxiv=random.choice(["Fire","Ghost"]))
+clavellteam=teamset([clavell2,clavell3,clavell4,clavell5,clavell1,clavell7],5)+teamset([clavell6, clavell9, clavell8],1)
+clavell=Trainer ("Director Clavell Mesagoza",clavellteam,"Paldea")
 #TEST2
 t3=Palafin(maxiv="Yes")
 t4=Tinglu(maxiv="Yes")
@@ -2493,7 +2495,7 @@ fronlist=[noland,lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser,a
 
 gymlist=[tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,wulfric,olympia,valerie,clemont,ramos,korrina,viola,luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,wake,gardenia,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant,janine]
 
-talentlist=[goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
+talentlist=[clavell,goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,ethan,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
 
 evilist=[penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,giovanni,butler]
 
@@ -2625,7 +2627,7 @@ def genplayer2(f):
     if "Lavender Town" in f.location:
         pl=random.choice([morty,blue,genTrainer(trclass="Exorcist")])
     if "Safari Zone" in f.location:
-        pl=genTrainer(trclass=random.choice(["Fisherman","Bug Researcher","Bug Catcher","Zoologist","Rocket Grunt"]))
+        pl=genTrainer(trclass=random.choice(["Fisherman","Bug Researcher","Bug Catcher","Rocket Grunt"]))
     if "Cycling Road" in f.location:
         pl=genTrainer(trclass=random.choice(["Biker","Cueball","Thief","Smuggler","Goon","Driver","Street Punk"]))
     if "Seafoam Island" in f.location:
@@ -2648,7 +2650,7 @@ def genplayer2(f):
         if ch==2:
             lance.name="Kanto Champion Lance"
     if "Goldenrod City" in f.location:
-        pl=random.choice([whitney,genTrainer(trclass=random.choice(["Rocket Grunt","Paleontologist","Zoologist"]))])
+        pl=random.choice([whitney,genTrainer(trclass=random.choice(["Rocket Grunt","Paleontologist"]))])
     if "New Bark Town" in f.location:
         pl=random.choice([ethan,silver])
     if "Mount Silver" in f.location:
@@ -3931,13 +3933,26 @@ odrake5=Electivire(maxiv="Yes")
 odrake6=Dragonite(maxiv="Yes")
 odrake=Trainer ("Supreme Gym Leader Drake",[odrake1,odrake2,odrake3,odrake4,odrake5,odrake6],"Orange Islands")
 #Leon
+leonmax=random.randint(1,4)
+cimax="Yes"
+chmax="Yes"
+rimax="Yes"
+inmax="Yes"
+if leonmax==1:
+    cimax="gmax"
+if leonmax==2:
+    chmax="gmax"
+if leonmax==3:
+    rimax="gmax"
+if leonmax==4:
+    inmax="gmax"            
 leon1=MrRime(maxiv="Yes")
 leon2=Aegislash(maxiv="Yes")
 leon3=Dragapult (maxiv="Yes")
-leon4=Inteleon(maxiv="Yes")
-leon5=Rillaboom(maxiv="Yes",move=["Drum Beating","Acrobatics","High Horsepower","Knock Off"])
-leon6=Cinderace(maxiv="Yes",ability="Libero",move=["Scorching Sands","Pyro Ball","Sucker Punch","Grass Knot"])
-leon7=Charizard (maxiv="gmax",move=["Flamethrower","Ancient Power","Air Slash","Dragon Pulse"],atkev=0,spatkev=252,dmax=True)
+leon4=Inteleon(maxiv=inmax)
+leon5=Rillaboom(maxiv=rimax,move=["Drum Beating","Acrobatics","High Horsepower","Knock Off"],item="Flying Gem")
+leon6=Cinderace(maxiv=cimax,ability="Libero",move=["Scorching Sands","Pyro Ball","Sucker Punch","Grass Knot"])
+leon7=Charizard (maxiv=chmax,move=["Flamethrower","Ancient Power","Air Slash","Dragon Pulse"],atkev=0,spatkev=252)
 leon8=Seismitoad(maxiv="Yes")
 leon9=Rhyperior(maxiv="Yes")
 leon10=Eternatus (maxiv="Yes")
@@ -4030,6 +4045,19 @@ koga9=Tentacruel (maxiv="Yes")
 koga10=Naganadel(maxiv="Yes")
 kogateam=teamset([koga1,koga2,koga3,koga4,koga5,koga7,koga8,koga9,koga10],5)+[koga6]
 koga=Trainer ("Elite Four Koga",kogateam,"Kanto")
+#Guzma
+Guzma1=Ariados(maxiv="Yes")
+Guzma2=Masquerain (maxiv="Yes")
+Guzma3=Pinsir(maxiv="Yes")
+Guzma4=Scizor(maxiv="Yes")
+Guzma5=Vikavolt(maxiv="Yes")
+Guzma6=Golisopod(maxiv="gmax")
+Guzma7=Toxapex(maxiv="Yes")
+Guzma8=Kingambit(maxiv="Yes")
+Guzma9=Honchkrow(name="Honchkrow (Z-Crystal)",maxiv="Yes")
+Guzma10=Liepard(maxiv="Yes")
+Guzmateam=teamset([Guzma1,Guzma2,Guzma3,Guzma4,Guzma5,Guzma7,Guzma8,Guzma9,Guzma10],5)+[Guzma6]
+Guzma=Trainer ("Skull Leader Guzma",Guzmateam,"Alola")
 #blaine
 blaine1=Arcanine(maxiv="gmax")
 blaine2=Ninetales(maxiv="Yes")
@@ -4262,7 +4290,9 @@ roark8=Archeops(maxiv="Yes")
 roark9=Sudowoodo(maxiv="Yes")
 roark10=Salamence(maxiv="Yes")
 roark11=Lunatone(maxiv="Yes")
-roarkteam=teamset([roark1,roark2,roark3,roark4,roark7,roark8,roark9,roark10,roark11],4)+[roark6,roark5]
+roark13=Slowbro(maxiv="Yes")
+roark14=Torkoal(maxiv="Yes")
+roarkteam=teamset([roark1,roark2,roark3,roark4,roark7,roark8,roark9,roark10,roark11,roark12,roark13,roark14],4)+[roark6,roark5]
 roark=Trainer("Gym Leader Roark",roarkteam,"Sinnoh")
 #gardenia
 gardenia1=Jumpluff(maxiv="Yes")
@@ -4748,6 +4778,15 @@ bea5=Sirfetchd(maxiv="Yes")
 bea6=Machamp(maxiv="gmax")
 beateam=teamset([bea2,bea3,bea4,bea5,bea1],5)+[bea6]
 bea=Trainer ("Gym Leader Bea",beateam,"Galar")
+#rose
+rose1=Klinklang(maxiv="Yes")
+rose2=Perrserker(maxiv="Yes")
+rose3=Escavalier (maxiv="Yes")
+rose4=Ferrothorn (maxiv="Yes")
+rose5=Eternatus(maxiv="Yes")
+rose6=Copperajah(maxiv="gmax")
+roseteam=teamset([rose1,rose2,rose3,rose4,rose5],5)+[rose6]
+rose=Trainer ("Chairman Rose",roseteam,"Galar")
 #allister
 allister1=Chandelure(maxiv="Yes")
 allister2=Dusknoir(maxiv="Yes")
@@ -4933,6 +4972,24 @@ gorm5=MBanette(maxiv="Yes")
 gorm6=Cofagrigus(maxiv="gmax")
 gormteam=teamset([gorm2,gorm3,gorm4,gorm5,gorm1],5)+[gorm6]
 gorm=Trainer ("Plasma Sage Gorm",gormteam,"Unova")
+#sordward
+sordward1=Falinks(maxiv="Yes")
+sordward2=Golisopod(maxiv="Yes")
+sordward3=Sirfetchd (maxiv="Yes")
+sordward4=Kingambit(maxiv="Yes")
+sordward5=Aegislash(maxiv="Yes")
+sordward6=Zacian(maxiv="Yes")
+sordwardteam=teamset([sordward2,sordward3,sordward4,sordward5,sordward1],5)+[sordward6]
+sordward=Trainer ("Pokémon Trainer Sordward",sordwardteam,"Galar")
+#shielbert
+shielbert1=Falinks(maxiv="Yes")
+shielbert2=Bronzong(maxiv="Yes")
+shielbert3=Sirfetchd (maxiv="Yes")
+shielbert4=Klinklang(maxiv="Yes")
+shielbert5=Aegislash(maxiv="Yes")
+shielbert6=Zamazenta(maxiv="Yes")
+shielbertteam=teamset([shielbert2,shielbert3,shielbert4,shielbert5,shielbert1],5)+[shielbert6]
+shielbert=Trainer ("Pokémon Trainer Shielbert",shielbertteam,"Galar")
 #gladion
 gladion1=Zoroark(maxiv="Yes")
 gladion2=Crobat(maxiv="Yes")
@@ -4946,6 +5003,33 @@ gladion9=Blastoise(maxiv="gmax")
 gladion10=Nihilego(name="Lille✨",maxiv="Yes")
 gladionteam=teamset([gladion2,gladion3,gladion4,gladion5,gladion1,gladion10],4)+teamset([gladion7,gladion8,gladion9],1)+[gladion6]
 gladion=Trainer ("Pokémon Trainer Gladion",gladionteam,"Alola")
+#morimoto
+morimoto1=Spiritomb(maxiv="Yes")
+morimoto2=Ambipom(maxiv="Yes")
+morimoto3=Hippowdon(maxiv="Yes")
+morimoto4=Jolteon(maxiv="Yes")
+morimoto5=Vaporeon(maxiv="Yes")
+morimoto6=Flareon(maxiv="Yes")
+morimoto7=Cursola(maxiv="Yes")
+morimoto8=Grapplot(maxiv="Yes")
+morimoto9=Dragapult(maxiv="Yes")
+morimoto10=Coalossal(maxiv="Yes")
+morimoto11=Snorlax(maxiv="Yes")
+morimoto12=Stonjourner (maxiv="Yes")
+morimoto13=Kangaskhan(maxiv="Yes")
+morimoto14=Machamp(maxiv="Yes")
+morimoto15=Dragonite (maxiv="Yes")
+morimoto16=Kecleon(maxiv="Yes")
+morimoto17=Gengar(maxiv="Yes")
+morimoto18=Blissey (maxiv="Yes")
+morimoto19=Zebstrika(maxiv="Yes")
+morimoto20=Swoobat(maxiv="Yes")
+morimoto21=Liepard(maxiv="Yes")
+morimoto22=Simipour(maxiv="Yes")
+morimoto23=Simisage(maxiv="Yes")
+morimoto24=Simisear (maxiv="Yes")
+morimototeam=teamset([morimoto2,morimoto3,morimoto4,morimoto5,morimoto1,morimoto10,morimoto7,morimoto8,morimoto9,morimoto6,morimoto11,morimoto12,morimoto13,morimoto14,morimoto15,morimoto16,morimoto17,morimoto18,morimoto19,morimoto20,morimoto21,morimoto22,morimoto23,morimoto24],6)
+morimoto=Trainer ("GAME FREAK's Morimoto",morimototeam,"Alola")
 #bronius
 bronius1=Liepard(maxiv="Yes")
 bronius2=Mandibuzz(maxiv="Yes")
@@ -5229,6 +5313,54 @@ palina5=Camerupt(maxiv="Yes")
 palina6=HArcanine(maxiv="Yes")
 palinateam=teamset([palina1,palina2,palina3,palina4,palina5],5)+[palina6]
 palina=Trainer("Warden Palina",palinateam,"Hisui")
+#peony
+peony1=Bronzong(maxiv="Yes")
+peony2=Perrserker(maxiv="Yes")
+peony3=Escavalier (maxiv="Yes")
+peony4=Aggron(maxiv="Yes")
+peony5=Scizor(maxiv="Yes")
+peony6=Copperajah(maxiv="gmax")
+peonyteam=teamset([peony1,peony2,peony3,peony4,peony5],5)+[peony6]
+peony=Trainer ("Champion Peony",peonyteam,"Alola")
+#klara
+klara1=Amoongus(maxiv="Yes")
+klara2=Drapion(maxiv="Yes")
+klara3=Scolipede (maxiv="Yes")
+klara4=GWeezing(maxiv="Yes")
+klara5=GSlowking (maxiv="Yes")
+klara6=GSlowbro(maxiv="Yes")
+klarateam=teamset([klara2,klara3,klara4,klara5,klara1],5)+[klara6]
+klara=Trainer ("Gym Leader Klara",klarateam,"Galar")
+#avery
+avery1=Indeedee(maxiv="Yes")
+avery2=GSlowking(maxiv="Yes")
+avery3=Swoobat(maxiv="Yes")
+avery4=Alakazam(maxiv="Yes")
+avery5=GRapidash(maxiv="Yes")
+avery6=GSlowbro(maxiv="Yes")
+averyteam=teamset([avery2,avery3,avery4,avery5,avery1],5)+[avery6]
+avery=Trainer ("Gym Leader Avery",averyteam,"Galar")
+#arven
+arven1=Greedent(maxiv="Yes")
+arven2=Cloyster(maxiv="Yes")
+arven3=Scovillain(maxiv="Yes")
+arven4=Toedscruel(maxiv="Yes")
+arven5=Garganacl(maxiv="Yes")
+arven6=Mabosstiff(name="Mabosstiff💎",maxiv="Dark")
+arventeam=teamset([arven2,arven3,arven4,arven5,arven1],5)+[arven6]
+arven=Trainer ("Pokémon Trainer Arven",arventeam,"Paldea")
+#clavell
+clavell1=Oranguru(maxiv="Yes")
+clavell2=Abomasnow(maxiv="Yes")
+clavell3=Polteageist(maxiv="Yes")
+clavell4=Gyarados(maxiv="Yes")
+clavell5=Houndoom(maxiv="Yes")
+clavell6=Quaquaval(name="Quaquaval💎",maxiv=random.choice(["Water","Fighting"]))
+clavell7=Amoongus(maxiv="Yes")
+clavell8=Meowscarada(name="Meowscarad💎",maxiv=random.choice(["Grass","Dark"]))
+clavell9=Skeledirge(name="Skeledirge💎",maxiv=random.choice(["Fire","Ghost"]))
+clavellteam=teamset([clavell2,clavell3,clavell4,clavell5,clavell1,clavell7],5)+teamset([clavell6, clavell9, clavell8],1)
+clavell=Trainer ("Director Clavell Mesagoza",clavellteam,"Paldea")
 #TEST2
 t3=Palafin(maxiv="Yes")
 t4=Tinglu(maxiv="Yes")
@@ -5241,15 +5373,15 @@ test2=Trainer("Test-02",[t3,t4,t5,t6,t7,t8])
 matchx=match()
 e4list=[hassel,larry,poppy,rika,will,koga,kahili,acerola,olivia,molayne,hala,caitlin,grimsley,shauntal,marshal,karen,drake,glacia,sidney,phoebe,siebold,lorelei,agatha,bruno,lance,aaron,bertha,lucian,flint,wikstrom,drasna,malva]
 
-champlist=[ethan,geeta,oak,odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha,mustard]
+champlist=[peony,geeta,oak,odrake,may,leon,alder,brendan,kukui,blue,red,wallace,steven,cynthia,diantha,mustard]
 
 fronlist=[noland,lucy,tucker,greta,anabel,palmer,darach,dahlia,brandon,spenser,argenta,Thorton]
 
-gymlist=[tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,wulfric,olympia,valerie,clemont,ramos,korrina,viola,luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant,janine]
+gymlist=[avery,klara,tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,wulfric,olympia,valerie,clemont,ramos,korrina,viola,luana,rudy,danny,cissy,jasmine,brock,misty,surge,erika,sabrina,blaine,falkner,bugsy,whitney,chuck,pryce,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,fantina,byron,maylene,wake,gardenia,candice,volkner,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,grant,janine]
 
-talentlist=[palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
+talentlist=[arven,clavell,sordward,shielbert,morimoto,ethan,palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
 
-evilist=[volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,mars,jupiter,giovanni,butler]
+evilist=[rose,Guzma,volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,mars,jupiter,giovanni,butler]
 
 gym=random.choice(gymlist)
 elite4=random.choice(e4list)

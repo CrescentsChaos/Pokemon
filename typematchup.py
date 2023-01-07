@@ -30,7 +30,7 @@ def weakness(self,other,field):
         self.type2=None
         self.type1=self.atktype
         print(f" {self.name} changed it's type to {self.type1} using {self.ability}!")
-    if other.hp==other.maxhp and other.ability in ["Multiscale","Blubber Defense"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if other.hp==other.maxhp and other.ability in ["Multiscale","Blubber Defense","Shadow Shield"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {other.name}'s {other.ability}.")
         eff*=0.5
     if self.ability=="Solar Power" and field.weather in ["Sunny","Desolate Land"]:
@@ -39,7 +39,7 @@ def weakness(self,other,field):
     if "Zoroark" not in self.name and self.ability=="Illusion":
         eff*=1.3
     if self.ability=="Analytic":
-        if self.speed>other.speed:
+        if self.speed<other.speed:
             print(f" {self.name}'s {self.ability}.")
             eff*=1.3
     if self.ability=="Normalize":
@@ -157,6 +157,9 @@ def weakness(self,other,field):
             eff*=1 
     #electric
     if self.atktype=="Electric":
+        if self.atktime>0 and self.ability=="Electromorphosis" and self.speed<other.speed:
+            print(f" {self.name}'s {self.ability}!")
+            eff*=1.34
         if other.ability=="Motor Drive":
             speedchange (other,0.5)
             eff*=0
@@ -830,6 +833,8 @@ def weakness(self,other,field):
             eff*=1 
     if eff>=2:
         print(" 🟢 It's super effective!") 
+        if self.ability=="Fatal Precision":
+            eff*=1.2
         if other.item=="Enigma Berry":
             other.hp+=round(other.maxhp/4)
             other.item=None
@@ -883,6 +888,8 @@ def critch(self,other,num=None):
     crit=round(16/(self.critrate*num))
     if crit>1:
         crit=random.randint(1,crit)
+    if self.ability=="Merciless" and other.status=="Badly Poisoned":
+        crit=1
     if crit==1 and other.ability not in ["Shell Armor","Battle Armor"]:
         if self.owner.lightscreen is True:
             self.spdef/=2
@@ -937,6 +944,28 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if other.ability=="Screen Cleaner":
+        tr1.lightscreen=False
+        tr1.reflect=False
+        tr1.auroraveil=False
+    if self.ability=="Unburden" and self.item is None:
+        speedbuff*=2
+    if self.ability=="Grass Pelt" and field.terrain=="Grassy":
+        defbuff*=1.5
+    if self.ability=="Forecast":
+        if field.weather=="Clear":
+            self.type1="Normal"
+        if field.weather=="Sandstorm":
+            self.type1="Rock"
+        if field.weather=="Snowstrom":
+            self.type1="Ice"
+        if field.weather=="Rainy":
+            self.type1="Water"
+        if field.weather=="Sunny":
+            self.type1="Fire"
+    if self.ability=="Defeatist" and self.hp<=(self.maxhp/2):
+        atkbuff*=0.5
+        spatkbuff*=0.5
     if "Poison" in self.status and self.ability=="Toxic Boost":
         atkbuff*=1.5
     if self.ability=="Supreme Overlord":
@@ -1012,16 +1041,12 @@ def prebuff(self,other,tr1,turn,field):
             spdefchange (self,0.5)
             self.item=None
     if other.ability=="Vessel of Ruin":
-        print(f" ♉ {other.name}'s {other.ability} weakened the Sp.Atk of all surrounding Pokémon!")
         spatkbuff*=0.75
     if other.ability=="Tablets of Ruin":
-        print(f" ♈ {other.name}'s {other.ability} weakened the Atk of all surrounding Pokémon!")
         atkbuff*=0.75
     if other.ability=="Sword of Ruin":
-        print(f" ♐ {other.name}'s {other.ability} weakened the Defense of all surrounding Pokémon!")
         defbuff*=0.75
     if other.ability=="Beads of Ruin":
-        print(f" ♋ {other.name}'s {other.ability} weakened the Sp.Def of all surrounding Pokémon!")
         spdefbuff*=0.75
     if self.protect is True:
         self.protect=False    
@@ -1103,6 +1128,8 @@ def prebuff(self,other,tr1,turn,field):
         defbuff*=1.5
     if field.weather in ["Sandstorm"] and (self.type1=="Rock" or self.type2=="Rock"):
         spdefbuff*=1.5
+    if other.ability=="Fur Coat":
+        atkbuff*=0.5
     if self.ability=="Ice Scales":
         spdefbuff*=2
     if self.ability=="Gorilla Tactics":
@@ -1259,6 +1286,10 @@ def statchange(self,tr1,turn):
     self.speed=self.maxspeed*self.speedb*speedbuff
 
 def atkchange(self,amount):
+    if self.atkb==0.99:
+        self.atkb=1
+    if self.atkb==1.49:
+        self.atkb=1.5
     if self.ability=="Defiant":
         if amount<0:
             print(f" {self.name}'s {self.ability}!")

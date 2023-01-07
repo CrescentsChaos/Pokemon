@@ -137,6 +137,31 @@ def entryeff(self,other,trainer,trainer2,field,turn):
     abilitylist=[]
     for i in trainer.pokemons:
         abilitylist.append(i.ability)
+    if self.ability=="Vessel of Ruin":
+        print(f" ♉ {self.name}'s {self.ability} weakened the Sp.Atk of all surrounding Pokémon!")
+    if self.ability=="Tablets of Ruin":
+        print(f" ♈ {self.name}'s {self.ability} weakened the Atk of all surrounding Pokémon!")
+    if self.ability=="Sword of Ruin":
+        print(f" ♐ {self.name}'s {self.ability} weakened the Defense of all surrounding Pokémon!")
+    if self.ability=="Beads of Ruin":
+        print(f" ♋ {self.name}'s {self.ability} weakened the Sp.Def of all surrounding Pokémon!")
+    if self.ability=="Download":
+        print(f" {self.name}'s Download!")
+        m=[a,b,c,d,e]=[other.atk,other.defense,other.spatk,other.spdef,other.speed]
+        if trainer2.reflect==True:
+            m=[other.atk,other.defense/2,other.spatk,other.spdef,other.speed]
+        if trainer2.lightscreen==True:
+            m=[other.atk,other.defense,other.spatk,other.spdef/2,other.speed]
+        x=min(m)
+        y=max(m)
+        if y==a:
+        	defchange(self,0.5)
+        elif x==b:
+        	atkchange(self,0.5)
+        elif y==c:
+        	spdefchange(self,0.5)
+        elif x==d:
+        	spatkchange(self,0.5)
     if "Commander" in abilitylist and "Dondozo" in self.name:
         print(f" 🪖 Tatsugiri's Commander!")
         print(f" {self.name}'s stats raised sharply!")
@@ -281,6 +306,8 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         field.weather="Desolate Land"
     if self.ability in  ["Drought","Orichalcum Pulse"] and field.weather not in ["Sunny","Primordial Sea","Desolate Land"]:
         print(f" ☀️{self.name}'s {self.ability} intensified the sun's rays!")
+        if self.ability=="Orichalcum Pulse":
+            print(f" ♊ {self.name} turned the sunlight harsh, sending its ancient pulse into a frenzy!")
         field.weather="Sunny"
         field.sunturn=turn
         field.sunend(self,other)
@@ -293,13 +320,7 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         print(f" 🌨️{self.name}'s {self.ability} whipped up a snowstorm!")
         field.weather="Snowstorm"      
         field.snowstormturn=turn
-        field.snowstormend(self,other) 
-    if self.ability=="Download":
-        print(f" {self.name}'s {self.ability}.")
-        if other.spdef<other.defense:
-            spatkchange(self,0.5)
-        if other.defense<=other.spdef:
-            atkchange(self,0.5)
+        field.snowstormend(self,other)
     if self.ability=="Intrepid Sword":
         print(f" {self.name}'s {self.ability}")
         atkchange(self,0.5)
@@ -311,6 +332,8 @@ def entryeff(self,other,trainer,trainer2,field,turn):
     if self.ability in ["Electric Surge","Hadron Engine"]:
         print(f" {self.name}'s {self.ability}!")
         print(" ⚡ An electric self ran across the battlefield!")
+        if self.ability=="Hadron Engine":
+            print (f" ♐ {self.name} used the Electric Terrain to energize its futuristic engine!")
         field.terrain="Electric"
         field.eleturn=turn
         field.eleend(self,other)
@@ -357,7 +380,7 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         self.hp-=(1+(self.maxhp*0.0625*buff))
         print(f" 🪨 Pointed stones dug into {self.name}!")
 #INTIMIDATE        
-    if self.ability=="Intimidate" and other.ability not in ["Inner Focus","Oblivious","Clear Body"]:
+    if self.ability=="Intimidate" and other.ability not in ["Inner Focus","Oblivious","Clear Body","Good as Gold"] and self.item not in ["Clear Amulet"]:
         if other.ability!="Guard Dog":
             atkchange(other,-0.5)
             print(f" {self.name}'s {self.ability}!")
@@ -408,10 +431,7 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
         if self.ability not in ["Levitate"] and self.type1!="Flying" and self.type2!="Flying":
             self.status="Alive"
     
-    if self.ability=="Speed Boost":
-            print(f" {self.name}'s {self.ability}!")
-            print(f" {self.name}'s speed rose.")
-            speedchange(self,0.5)
+    
             
     if self.ability=="Limber" and self.status=="Paralyzed":
         print(f" {self.ability} cured {self.name}'s paralysis!")
@@ -430,6 +450,8 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
 #ATTACK
 def attack(self,other,tr,optr,use,opuse,field,turn):
     print(f"\n {tr.name}:")
+    if self.status=="Comatose":
+        self.status="Drowsy"
     if self.status=="Sleep" and self.ability in ["Insomnia","Vital Spirit"]:
         self.status="Alive"
     if self.ability=="Prankster" and "Dark" in (other.type1,other.type2,other.teratype) and use in typemoves.statusmove:
@@ -572,7 +594,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             self.truant=False
         else:
             self.truant=True
-    if self.ability=="Hustle" and self.dmax is False:
+    if self.ability=="Hustle" and self.dmax is False and used not in typemoves.noaccuracy:
         ch=random.randint(1,self.accuracy)
         if ch<20:
             print(f" {self.name}'s {self.ability}.")
@@ -580,7 +602,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {other.name} avoided the attack({used}).")
             used=None
 #SNOW CLOAK
-    if other.ability=="Snow Cloak" and field.weather in ["Hail","Snow Cloak"]:
+    if other.ability=="Snow Cloak" and field.weather in ["Hail","Snowstorm"] and used not in typemoves.noaccuracy:
         ch=random.randint(1,self.accuracy)
         if ch<25:
             print(f" {other.name}'s {other.ability}.")
@@ -588,7 +610,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" {other.name} avoided the attack({used}).")
             used=None
 #SAND VEIL            
-    if other.ability=="Sand Veil" and field.weather=="Sandstorm":
+    if other.ability=="Sand Veil" and field.weather=="Sandstorm" and used not in typemoves.noaccuracy:
         ch=random.randint(1,self.accuracy)
         if ch<25:
             print(f" {other.name}'s {other.ability}.")
@@ -643,7 +665,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             self.recharge=False
             used=None
         if self.flinched==True and self.dmax is False:
-            print(f" {self.name} flinched.")
+            print(f" 😧 {self.name} flinched and couldn't move.")
             self.flinched=False
             used=None
         elif self.protect=="Pending" and used in ["Protect","Spiky Shield","King's Shield","Baneful Bunker","Obstruct"]:
@@ -787,16 +809,30 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             saltcure(self,other)
         elif used=="Nuzzle":
             nuzzle(self,other)
+        elif used=="Searing Shot":
+            searingshot (self,other)
+        elif used=="V-create":
+            vcreate(self,other)
+        elif used=="Octolock":
+            octolock(self,other)
+        elif used=="Octazooka":
+            octazooka(self,other)
+        elif used=="Dynamax Cannon":
+            dynamaxcannon(self,other)
         elif used=="Fillet Away":
             filletaway(self)
         elif used=="Cosmic Power":
             cosmicpower (self)
         elif used=="Amnesia":
             amnesia(self)
+        elif used=="No Retreat":
+            noretreat(self)
         elif used=="Aqua Ring":
             aquaring(self)
         elif used=="Charm":
-            charm(other)
+            charm(self,other)
+        elif used=="Quick Attack":
+            quickattack(self,other)
         elif used=="Ice Hammer":
             icehammer(self,other)
         elif used=="Strange Steam":
@@ -1147,7 +1183,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 fierydance(other)
         elif used=="Leech Life":
             leechlife(self,other)
-        elif used=="Freezing Glare)":
+        elif used=="Freezing Glare":
             freezingglare(self,other)
         elif used=="Skull Bash":
             skullbash(self,other)
@@ -1199,7 +1235,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             else:
                 overheat(self,other)
         elif used=="Roar":
-            print(f" {self.name} usedd Roar.")
+            print(f" {self.name} used Roar.")
             other=random.choice(optr.pokemons)                
         elif used=="Whirlwind":
             print(f" {self.name} usedd Whirlwind.")
@@ -1657,8 +1693,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                 self.recharge=True
         elif used=="Meteor Assault":
             meteorassault (self,other)
-            if other.hp>0:
-                self.recharge=True
+            self.recharge=True
         elif used=="Cross Chop":
             miss=random.randint(1,self.accuracy)
             if miss<20 and "No Guard" not in (self.ability,other.ability):
@@ -1975,13 +2010,26 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             if miss>85:
                 print(f" {other.name} avoided the attack({used}).")
             else:
-                blueflare(self,other)                
+                blueflare(self,other)     
+        elif used=="Eternabeam":
+            miss=random.randint(1,100)
+            if miss>90:
+                print(f" {other.name} avoided the attack({used}).")
+            else:
+                eternabeam (self,other)   
+                self.recharge=True                
         elif used=="Bolt Strike":
             miss=random.randint(1,100)
             if miss>85:
                 print(f" {other.name} avoided the attack({used}).")
             else:
-                boltstrike(self,other)       
+                boltstrike(self,other)   
+        elif used=="Thunder Cage":
+            miss=random.randint(1,100)
+            if miss>90:
+                print(f" {other.name} avoided the attack({used}).")
+            else:
+                thundercage(self,other)     
         elif used=="Mountain Gale":
             miss=random.randint(1,100)
             if miss>85:
@@ -2309,7 +2357,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             other.item=None
     if self.item=="Throat Spray" and used in typemoves.soundmoves:
         spatkchange(self,0.5)
-        print(" The Throat Spray raised {self.name}'s Special Attack!")
+        print(f" The Throat Spray raised {self.name}'s Special Attack!")
         self.item=None            
     
     if other.hp>0:
@@ -2413,7 +2461,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             print(f" 🔥 {other.name}'s {other.ability}!")
             me.status="Burned"  
             print(f" 🔥 {me.name} was burned.") 
-    if other.ability=="Seed Sower" and "Toxic Spikes" not in tr.hazard and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"]:
+    if other.ability=="Seed Sower" and "Toxic Spikes" not in tr.hazard and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove"] and field.terrain!="Grassy":
         print(f" {self.name}'s {self.ability}!")
         print(" 🌿 Grass grew to cover the battlefield!")
         field.terrain="Grassy"
@@ -2483,6 +2531,13 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
 def effects(self,other,turn):
     print("  ")
     self.flinched=False
+    if self.olock is True:
+        defchange(self,-0.5)
+        spdefchange (self,-0.5)
+    if self.ability=="Speed Boost":
+        print(f" {self.name}'s {self.ability}!")
+        print(f" {self.name}'s speed rose.")
+        speedchange(self,0.5)
     if 0 in self.pplist:
         if self.dmax is False:
             self.moves.remove(self.moves[self.pplist.index(0)])
