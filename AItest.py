@@ -386,7 +386,10 @@ def moveAI(self,other,mtr,otr,field):
     if self.hp==self.maxhp:
         mymove=list(set(mymove)-set(typemoves.healingmoves))
     if self.canfakeout is False:
-        mymove.remove("Fake Out")
+        if "First Impression" in mymove:
+            mymove.remove("First Impression")
+        if "Fake Out" in mymove:
+            mymove.remove("Fake Out")
     if mtr.hazard!=[]:
         if "Defog" in mymove:
             mymove.remove("Defog")       

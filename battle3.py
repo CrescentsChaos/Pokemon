@@ -17,11 +17,11 @@ def  score(x,y,p1,p2,turn):
     if p1.tailwind==True:
         print(f" 🍃 Tailwind({p1.twendturn-turn+1} turns left)")                   
     if p1.reflect==True:
-        print(f" 🪞 Reflect({p1.rfendturn-turn+1} turns left)")   
+        print(f" 🟪 Reflect({p1.rfendturn-turn+1} turns left)")   
     if p1.auroraveil==True:
-        print(f" ❄️ Aurora Veil({p1.avendturn-turn+1} turns left)")
+        print(f" ⬜ Aurora Veil({p1.avendturn-turn+1} turns left)")
     if p1.lightscreen==True:              
-        print(f" 🔲 Light Screen({p1.screenend-turn+1} turns left)")        
+        print(f" 🟨 Light Screen({p1.screenend-turn+1} turns left)")        
     print(f" Lv.{x.level} {x.name}: {round(x.hp)}/{x.maxhp}({round((x.hp/x.maxhp)*100,2)}%)[{x.status}]")
     if x.teratype is not None and x.type2 is None:
         print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item}")
@@ -40,11 +40,11 @@ def  score(x,y,p1,p2,turn):
     if p2.tailwind==True:
         print(f" 🍃 Tailwind({p2.twendturn-turn+1} turns left)")                
     if p2.reflect==True:
-        print(f" 🪞 Reflect({p2.rfendturn-turn+1} turns left)")     
+        print(f" 🟪 Reflect({p2.rfendturn-turn+1} turns left)")     
     if p2.auroraveil==True:
-        print(f" ❄️ Aurora Veil({p2.avendturn-turn+1} turns left)")
+        print(f" ⬜ Aurora Veil({p2.avendturn-turn+1} turns left)")
     if p2.lightscreen==True:        
-        print(f" 🔲 Light Screen({p2.screenend-turn+1} turns left)")               
+        print(f" 🟨 Light Screen({p2.screenend-turn+1} turns left)")               
     print(f" Lv.{y.level} {y.name}: {round(y.hp)}/{y.maxhp}({round((y.hp/y.maxhp)*100,2)}%)[{y.status}]")
     if y.teratype is not None and y.type2 is None:
         print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item}")
@@ -84,7 +84,7 @@ def faint(mon,mon2,trainer,trainer2,field,turn):
             trainer.faintedmon.append(mon)
         print(f" \n 🏁 Refree: {mon.name} is unable to battle!")
         print(f" \n 😵😵‍💫 {trainer.name}'s {mon.name} fainted!\n")
-        if mon2.ability=="Battle Bond":
+        if mon2.ability=="Battle Bond" and "Ash" not in mon2.name:
             print(f" {mon2.name}'s {mon2.ability}.")
             if "Ash" not in mon2.name and "Greninja" in mon2.name:
                 mon2.name="Ash Greninja"
@@ -117,6 +117,9 @@ def faint(mon,mon2,trainer,trainer2,field,turn):
                 spatkchange(mon2,0.5)
             if "Nihilego" in mon2.name:
                 spdefchange(mon2,0.5)
+        if mon2.ability=="Soul-Heart":
+            print(f" {mon2.name}'s {mon2.ability}.")
+            spatkchange(mon2,0.5)
         if mon2.ability=="Moxie":
             print(f" {mon2.name}'s {mon2.ability}.")
             atkchange(mon2,0.5)

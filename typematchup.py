@@ -1286,6 +1286,8 @@ def statchange(self,tr1,turn):
     self.speed=self.maxspeed*self.speedb*speedbuff
 
 def atkchange(self,amount):
+    if self.ability=="Simple":
+        amount*=2
     if self.atkb==0.99:
         self.atkb=1
     if self.atkb==1.49:
@@ -1354,7 +1356,9 @@ def atkchange(self,amount):
 
 
 def defchange(self,amount):
-    if self.ability=="Big Pecks":
+    if self.ability=="Simple":
+        amount*=2
+    if self.ability=="Big Pecks" and amount<0:
         amount=0
     if self.ability=="Defiant":
         if amount<0:
@@ -1415,6 +1419,8 @@ def defchange(self,amount):
         pass
 
 def spatkchange(self,amount):
+    if self.ability=="Simple":
+        amount*=2
     if self.ability=="Defiant":
         if amount<0:
             print(f" {self.name}'s {self.ability}!")
@@ -1478,6 +1484,8 @@ def spatkchange(self,amount):
             self.spatkb=round(1/((1/self.spatkb)-amount),2)
 
 def spdefchange(self,amount):
+    if self.ability=="Simple":
+        amount*=2
     if self.ability=="Defiant":
         if amount<0:
             print(f" {self.name}'s {self.ability}!")
@@ -1536,6 +1544,8 @@ def spdefchange(self,amount):
         pass
 
 def speedchange(self,amount):
+    if self.ability=="Simple":
+        amount*=2
     if self.ability=="Defiant":
         if amount<0:
             print(f" {self.name}'s {self.ability}!")

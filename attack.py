@@ -111,6 +111,7 @@ def withdaweff(self,trainer,other):
     if self.ability=="Zero to Hero" and "Hero" not in self.name:
         print(f" {self.name} underwent a heroic transformation!")
         self.name="Hero Palafin"
+        per=self.maxhp/self.hp
         self.hp=100
         self.atk=160
         self.defense=97
@@ -118,6 +119,7 @@ def withdaweff(self,trainer,other):
         self.spdef=87
         self.speed=100
         self.calcst()
+        self.hp*=per
     if self.ability=="Illusion":
         self.name=trainer.pokemons[len(trainer.pokemons)-1].name.split(" ")[-1]        
     if self.ability=="Natural Cure" and (self.status!="Alive" and self.status!="Fainted"):
@@ -202,8 +204,10 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         prevname=self.name.split(" ")[-1]
         trname=trainer.name.split(" ")[-1]
         print(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {self.name}!\n")
-    if self.megaintro is False and "💎" in self.name and self.teratype!=None:
+    if self.megaintro is False and "💎" in self.name:
         typ=None
+        if self.teratype is None:
+            self.teratype=random.choice(["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"])
         self.name=self.name.split("💎")[0]+"-"+self.teratype
         if self.teratype=="Dragon":
             typ="🐲"
@@ -831,12 +835,40 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             aquaring(self)
         elif used=="Charm":
             charm(self,other)
+        elif used=="Triple Axel":
+            tripleaxel(self,other)
         elif used=="Quick Attack":
             quickattack(self,other)
+        elif used=="Blazing Torque":
+            blazingtorque(self,other)
+        elif used=="Combat Torque":
+            combattorque(self,other)
+        elif used=="Magical Torque":
+            magicaltorque(self,other)
+        elif used=="Noxious Torque":
+            noxioustorque(self,other)
+        elif used=="Wicked Torque":
+            wickedtorque(self,other)
         elif used=="Ice Hammer":
             icehammer(self,other)
+        elif used=="Needle Arm":
+            needlearm(self,other)
+        elif used=="Rising Voltage":
+            risingvoltage(self,other)
+        elif used=="Smelling Salts":
+            smellingsalts(self,other)
+        elif used=="Sonic Slash":
+            sonicslash(self,other)
+        elif used=="Zing Zap":
+            zingzap(self,other)
+        elif used=="Photon Geyser":
+            photongeyser(self,other)
+        elif used=="Dark Hole":
+            darkhole(self,other)
         elif used=="Strange Steam":
             strangesteam(self,other)
+        elif used=="G-Max Gold Rush":
+            gmaxgoldrush(self,other)
         elif used=="G-Max Malodor":
             gmaxmalodor(self,other)
         elif used=="G-Max Meltdown":
@@ -948,7 +980,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         elif used=="Lumina Crash":
             luminacrash(self,other)
         elif used=="Mortal Spin":
-            mortalspin(self,other)
+            mortalspin(self,other,tr)
         elif used=="Accelerock":
             accelerock(self,other)
         elif used=="Geomancy":
@@ -1048,7 +1080,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             xscissor(self,other)
         elif used=="Drill Peck":
             drillpeck(self,other)
-        elif used=="Triple Arrows)":
+        elif used=="Triple Arrows":
             for i in range(3):
                 triplearrows(self,other)
         elif used=="Boomburst":
@@ -1371,6 +1403,11 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             speedchange(self,0.5)
             defchange(self,-0.5)
             print(f" It hit {hit} time(s).") 
+        elif used=="Triple Dive":
+            hit=3
+            for i in range(hit):
+                tripledive(self,other)
+            print(f" It hit {hit} time(s).")
         elif used=="Bullet Seed":
             hit=random.randint(3,5)
             if self.ability=="Skill Link":
@@ -1384,7 +1421,7 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         elif used=="Signal Beam":
             signalbeam(self,other)
         elif used=="Anchor Shot":
-            anxhorshot(self,other)
+            anchorshot(self,other)
         elif used=="Grass Knot":
             grassknot(self,other)
         elif used=="Extrasensory":
@@ -1794,6 +1831,12 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
             eggbomb(self,other)
         elif used=="Hex":
             hex (self,other)
+        elif used=="First Impression":
+            if self.canfakeout==False:
+                print("  It failed!")
+            if self.canfakeout==True:
+                firstimpression(self,other)
+                self.canfakeout=False
         elif used=="Fake Out":
             if self.canfakeout==False:
                 print("  It failed!")
@@ -2337,6 +2380,10 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
                print(" It failed.")
         else:
             pass
+    if self.ability=="Parental Bond":
+        self.atk/=2
+        self.ability="Parental Bond[Used]"
+        self,other=attack(self,other,tr,optr,use,opuse,field,turn)
     if "Destiny Bond" in self.moves and used!="Destiny Bond":
         other.dbond=False
     if other.hp<0:
@@ -2448,7 +2495,6 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
         print(f" {other.name} took away {self.name} with it!")
 #ILLUSION        
     if other.ability=="Illusion" and "Zoroark" not in other.name:
-        print("Oopsie")
         if other.type1=="Dark":
             other.name="Zoroark"
             print(f" {other.name}'s Illusion wore off!")
@@ -2531,6 +2577,8 @@ def attack(self,other,tr,optr,use,opuse,field,turn):
 def effects(self,other,turn):
     print("  ")
     self.flinched=False
+    if self.name=="Mega Kangaskhan":
+        self.ability="Parental Bond"
     if self.olock is True:
         defchange(self,-0.5)
         spdefchange (self,-0.5)
@@ -2633,7 +2681,7 @@ def effects(self,other,turn):
     if self.hp>0 and self.item=="Leftovers" and self.hp<self.maxhp:
         print(f" 🍎 {self.name} restored a little HP using its Leftovers.")
         self.hp+=round(self.maxhp/16)
-    if self.aring==True and self.hp<self.maxhp:
+    if self.hp>0 and self.aring==True and self.hp<self.maxhp:
         print(f" 💦 {self.name} restored a little HP using its Aqua Ring.")
         self.hp+=round(self.maxhp/16)
         

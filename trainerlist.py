@@ -2661,7 +2661,7 @@ def genplayer2(f):
         pl=koga 
         koga.name="Gym Leader Koga"
     if "Celadon City" in f.location:
-        pl=random.choice([erika,genTrainer(trclass=random.choice(["Rocket Grunt","Businessman","Zoologist"]))])
+        pl=random.choice([erika,genTrainer(trclass=random.choice(["Rocket Grunt","Businessman"]))])
     if "Vermilion City" in f.location:
         pl=random.choice([surge,genTrainer(trclass=random.choice(["Rocker","Businessman","Guitarist","Sailor","Electrician"]))])
     if "Saffron City" in f.location:
@@ -5226,7 +5226,7 @@ giacomo2=Honchkrow(maxiv="Yes")
 giacomo3=Mabosstiff(maxiv="Yes")
 giacomo4=Krookodile(maxiv="Yes")
 giacomo5=Kingambit(maxiv="Yes")
-giacomo6=Revavroom(name="Segin Starmobile",type1="Dark",type2=None,maxiv="Yes")
+giacomo6=Revavroom(name="Segin Starmobile",type1="Dark",type2=None,maxiv="Yes",move=["Wicked Torque","Spin Out","Poison Jab","Gunk Shot"])
 giacomo=Trainer("Team Star Giacomo",[giacomo1,giacomo2,giacomo3,giacomo4,giacomo5,giacomo6],"Paldea")
 #mela
 mela1=Torkoal(maxiv="Yes")
@@ -5234,7 +5234,7 @@ mela2=Coalossal(maxiv="Yes")
 mela3=Arcanine(maxiv="Yes")
 mela4=Armarouge(maxiv="Yes")
 mela5=MHoundoom(maxiv="Yes")
-mela6=Revavroom(name="Schedar Starmobile",type1="Fire",type2=None,maxiv="Yes")
+mela6=Revavroom(name="Schedar Starmobile",type1="Fire",type2=None,maxiv="Yes",move=["Blazing Torque","Spin Out","Poison Jab","Gunk Shot"])
 mela=Trainer("Team Star Mela",[mela1,mela2,mela3,mela4,mela5,mela6],"Paldea")
 #atticus
 atticus1=Skuntank(maxiv="Yes")
@@ -5242,7 +5242,7 @@ atticus2=Muk(maxiv="Yes")
 atticus3=Dragalge(maxiv="Yes")
 atticus4=Toxapex(maxiv="Yes")
 atticus5=Grafaiai(maxiv="Yes")
-atticus6=Revavroom(name="Navi Starmobile",type1="Poison",type2=None,maxiv="Yes")
+atticus6=Revavroom(name="Navi Starmobile",type1="Poison",type2=None,maxiv="Yes",move=["Noxious Torque","Spin Out","Poison Jab","Gunk Shot"])
 atticus=Trainer("Team Star Atticus",[atticus1,atticus2,atticus3,atticus4,atticus5,atticus6],"Hoenn")
 #ortega
 ortega1=Azumarill(maxiv="Yes")
@@ -5250,7 +5250,7 @@ ortega2=Wigglytuff(maxiv="Yes")
 ortega3=Dachsbun(maxiv="Yes")
 ortega4=Klefki(maxiv="Yes")
 ortega5=Hatterene(maxiv="Yes")
-ortega6=Revavroom(name="Ruchbah Starmobile",type1="Fairy",type2=None,maxiv="Yes")
+ortega6=Revavroom(name="Ruchbah Starmobile",type1="Fairy",type2=None,maxiv="Yes",move=["Magical Torque","Spin Out","Poison Jab","Gunk Shot"])
 ortega=Trainer("Team Star Ortega",[ortega1,ortega2,ortega3,ortega4,ortega5,ortega6],"Paldea")
 #eri
 eri1=Toxicroak(maxiv="Yes")
@@ -5258,7 +5258,7 @@ eri2=Passimian(maxiv="Yes")
 eri3=Primeape(maxiv="Yes")
 eri4=Anihilape(maxiv="Yes")
 eri5=MLucario(maxiv="Yes")
-eri6=Revavroom(name="Caph Starmobile",type1="Fighting",type2=None,maxiv="Yes")
+eri6=Revavroom(name="Caph Starmobile",type1="Fighting",type2=None,maxiv="Yes",move=["Combat Torque","Spin Out","Poison Jab","Gunk Shot"])
 eri=Trainer("Team Star Eri",[eri1,eri2,eri3,eri4,eri5,eri6],"Paldea")
 #penny
 penny1=Umbreon(maxiv="Yes")
@@ -5349,6 +5349,18 @@ arven5=Garganacl(maxiv="Yes")
 arven6=Mabosstiff(name="Mabosstiff💎",maxiv="Dark")
 arventeam=teamset([arven2,arven3,arven4,arven5,arven1],5)+[arven6]
 arven=Trainer ("Pokémon Trainer Arven",arventeam,"Paldea")
+#jessie
+jessie1=Wobbuffet(maxiv="Yes")
+jessie2=Seviper(maxiv="Yes")
+jessie3=Yanmega(maxiv="Yes")
+jessie4=Dustox(maxiv="Yes")
+jessie5=Arbok(maxiv="Yes")
+jessie6=Mimikyu(maxiv="Yes")
+jessie7=Gourgeist(maxiv="Yes")
+jessie8=Blissey(maxiv="Yes")
+jessie9=Meowth(maxiv="gmax")
+jessieteam=teamset([jessie2,jessie3,jessie4,jessie5,jessie1,jessie6,jessie7,jessie8],5)+[jessie9]
+jessie=Trainer ("Team Rocket Jessie",jessieteam,"Kanto")
 #clavell
 clavell1=Oranguru(maxiv="Yes")
 clavell2=Abomasnow(maxiv="Yes")
@@ -5361,6 +5373,20 @@ clavell8=Meowscarada(name="Meowscarad💎",maxiv=random.choice(["Grass","Dark"])
 clavell9=Skeledirge(name="Skeledirge💎",maxiv=random.choice(["Fire","Ghost"]))
 clavellteam=teamset([clavell2,clavell3,clavell4,clavell5,clavell1,clavell7],5)+teamset([clavell6, clavell9, clavell8],1)
 clavell=Trainer ("Director Clavell Mesagoza",clavellteam,"Paldea")
+#james
+james1=Weezing(maxiv="Yes")
+james2=Victreebel(maxiv="Yes")
+james3=Chimecho(maxiv="Yes")
+james4=Arcanine(maxiv="Yes")
+james5=Toxapex(maxiv="Yes")
+james6=Malamar(maxiv="Yes")
+james7=Gyarados(maxiv="Yes")
+james8=Amoongus(maxiv="Yes")
+james9=Meowth(maxiv="gmax")
+jamesteam=teamset([james2,james3,james4,james5,james1,james6,james7,james8],5)+[james9]
+james=Trainer ("Team Rocket James",jamesteam,"Kanto")
+jessiejamesteam=teamset([james2,james3,james4,james5,james1,james6,james7,james8,jessie2,jessie3,jessie4,jessie5,jessie1,jessie6,jessie7,jessie8],5)+[james9]
+jessiejames=Trainer ("Team Rocket Jessie & James",jessiejamesteam,"Kanto")
 #TEST2
 t3=Palafin(maxiv="Yes")
 t4=Tinglu(maxiv="Yes")
@@ -5381,7 +5407,7 @@ gymlist=[avery,klara,tulip,grusha,ryme,kofu,Iono,brassius,katy,raihan,marnie,pie
 
 talentlist=[arven,clavell,sordward,shielbert,morimoto,ethan,palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,paul,sawyer,ingo,gary,silver,buck,n,alain,tobias,ash,quillon,danika,horace,barry,wally,nemona,evelyn,adaman]
 
-evilist=[rose,Guzma,volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,mars,jupiter,giovanni,butler]
+evilist=[jessiejames,jessie,james,rose,Guzma,volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,courtney,shelly,matt,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,tabitha,ariana,archer,cyrus,archie,maxie,saturn,mars,jupiter,giovanni,butler]
 
 gym=random.choice(gymlist)
 elite4=random.choice(e4list)
@@ -5418,17 +5444,17 @@ def genplayer2(f):
     if "Scorched Slab" in f.location:
         pl=random.choice([cheatran,buck,genTrainer(trclass=random.choice(["Volcano Explorer","Hiker"]))])
     if "Kanto" in f.location:
-        pl=random.choice([ash,gary,red,giovanni,genTrainer(trclass=random.choice(["Kanto Trainer"]))])
+        pl=random.choice([ash,gary,red,giovanni,jessiejames,genTrainer(trclass=random.choice(["Kanto Trainer"]))])
     if "Hoenn" in f.location:
         pl=random.choice([ethan,silver,genTrainer(trclass=random.choice(["Hoenn Trainer"]))])
     if "Paldea" in f.location:
-        pl=random.choice([penny,eri,ortega,atticus,mela,giacomo,hassel,larry,poppy,rika,geeta,genTrainer(trclass=random.choice(["Johto Trainer"]))])
+        pl=random.choice([tulip,grusha,ryme,kofu,Iono,brassius,katy,penny,eri,ortega,atticus,mela,giacomo,hassel,larry,poppy,rika,geeta,genTrainer(trclass=random.choice(["Johto Trainer"]))])
     if "Johto" in f.location:
         pl=random.choice([ethan,silver,genTrainer(trclass=random.choice(["Johto Trainer"]))])
     if "Sinnoh" in f.location:
         pl=random.choice([cynthia,genTrainer(trclass=random.choice(["Sinnoh Trainer"]))])
     if "Kalos" in f.location:
-        pl=random.choice([diantha,genTrainer(trclass=random.choice(["Kalos Trainer"]))])
+        pl=random.choice([wulfric,olympia,valerie,clemont,ramos,korrina,viola,grant,diantha,genTrainer(trclass=random.choice(["Kalos Trainer"]))])
     if "Alola" in f.location:
         pl=random.choice([kahili,acerola,olivia,molayne,hala,kukui,genTrainer(trclass=random.choice(["Alola Trainer"]))])
     if " Galar" in f.location:
@@ -5495,7 +5521,7 @@ def genplayer2(f):
     if "Rustboro City" in f.location:
         pl=random.choice([roxanne,genTrainer(trclass=random.choice(["Hoenn Trainer","Paleontologist","Aqua Grunt","Ruin Explorer"]))])
     if "Petalburg City" in f.location:
-        pl=random.choice([norman,wally,genTrainer(trclass=random.choice(["Hoenn Trainer","Zoologist","Bug Catcher","Bug Researcher"]))])
+        pl=random.choice([norman,wally,genTrainer(trclass=random.choice(["Hoenn Trainer","Bug Catcher","Bug Researcher"]))])
     if "Twinleaf Town" in f.location:
         pl=random.choice([barry,genTrainer(trclass=random.choice(["Sinnoh Trainer"]))])
     if "Littleroot Town" in f.location:
@@ -5513,7 +5539,7 @@ def genplayer2(f):
     if "Lavender Town" in f.location:
         pl=random.choice([morty,blue,genTrainer(trclass="Exorcist")])
     if "Safari Zone" in f.location:
-        pl=genTrainer(trclass=random.choice(["Fisherman","Bug Researcher","Bug Catcher","Zoologist","Rocket Grunt"]))
+        pl=genTrainer(trclass=random.choice(["Fisherman","Bug Researcher","Bug Catcher","Rocket Grunt"]))
     if "Cycling Road" in f.location:
         pl=genTrainer(trclass=random.choice(["Biker","Cueball","Thief","Smuggler","Goon","Driver","Street Punk"]))
     if "Seafoam Island" in f.location:
@@ -5536,7 +5562,7 @@ def genplayer2(f):
         if ch==2:
             lance.name="Kanto Champion Lance"
     if "Goldenrod City" in f.location:
-        pl=random.choice([whitney,genTrainer(trclass=random.choice(["Rocket Grunt","Paleontologist","Zoologist"]))])
+        pl=random.choice([whitney,genTrainer(trclass=random.choice(["Rocket Grunt","Paleontologist"]))])
     if "New Bark Town" in f.location:
         pl=random.choice([ethan,silver])
     if "Mount Silver" in f.location:
@@ -5547,7 +5573,7 @@ def genplayer2(f):
         pl=koga 
         koga.name="Gym Leader Koga"
     if "Celadon City" in f.location:
-        pl=random.choice([erika,genTrainer(trclass=random.choice(["Rocket Grunt","Businessman","Zoologist"]))])
+        pl=random.choice([erika,genTrainer(trclass=random.choice(["Rocket Grunt","Businessman"]))])
     if "Vermilion City" in f.location:
         pl=random.choice([surge,genTrainer(trclass=random.choice(["Rocker","Businessman","Guitarist","Sailor","Electrician"]))])
     if "Saffron City" in f.location:
