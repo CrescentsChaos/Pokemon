@@ -33,9 +33,9 @@ def characters(text,nm=2):
             print(" "+str(num)+".",i.name)
     if team is None:
         if nm==1:
-            chosen=genTrainer("Pokémon Trainer")
+            chosen=random.choice([random.choice([gym,elite4,champ, frontier,evil,talent]),genTrainer("Pokémon Trainer")])
         else:
-            chosen=random.choice([genTrainer("Pokémon Trainer"),matchx[0],genplayer2(field)])
+            chosen=random.choice([genTrainer("Pokémon Trainer"),matchx[0],genplayer2(field),random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)])
     else:
         ch=int(input(" Enter what you wanna play with: "))
         chosen=team[ch-1]
@@ -45,15 +45,20 @@ aa=input(" Choose a catagory(e4,ev,ch,gm,fr,tl): ")
 p1=characters(aa,1)
 bb=input(" Choose a catagory(e4,ev,ch,gm,fr,tl): ")
 p2=characters(bb,2)
-showparty(p1)
-print("\n")
-showparty (p2)
 sm1=showsmogon(p1)
 sm2=showsmogon (p2)
 mon1=None
 mon2=None
-p1.ai=True
+p1.ai=False
 p2.ai=True
+showparty(p1)
+showparty (p2)
+if p1.ai is False or (p1.ai,p2.ai)==(True,True):
+    showteam(p1)
+    print("\n")
+if p2.ai is False or (p1.ai,p2.ai)==(True,True):    
+    showteam(p2)
+    print("\n")
 if p1.ai is False:
     showmon(p1)
     mon=input(" Choose your leading mon: ")

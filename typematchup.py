@@ -19,6 +19,9 @@ field=Field()
 def weakness(self,other,field):
     eff=1
     stab=1     
+    if "Absolute Zero" in (self.ability,other.ability) and self.atktype=="Water":
+        print(" 🥶 Absolute Zero turned the Water-type move into Ice-type move!")
+        self.atktype="Ice"
     if self.ability=="Unaware":
         other.defense=round(other.defense/other.defb)
         other.spdef=round(other.spdef/other.spdefb)
@@ -125,19 +128,20 @@ def weakness(self,other,field):
     #MATCHUP)
     #ghost
     if self.atktype=="Ghost":
-        if other.ability=="Purifying Salt":
+        if other.ability=="Rattled":
+            speedchange (other,0.5)
+        if other.ability=="Purifying Salt" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0.5
-        if self.item == "Spell Tag":
-            eff*=1.2
         if other.item=="Kasib Berry":
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.item == "Ghost Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
-        if self.item in ["Griseous Orb"]:
-            eff+=(eff*0.2)
+        if self.item in ["Griseous Orb","Spooky Plate","Spell Tag"]:
+            eff*=1.2
         if other.type1 in ghosteff and other.teratype is None:
             eff*=2
         if other.type2 in ghosteff and other.teratype is None:
@@ -160,10 +164,10 @@ def weakness(self,other,field):
         if self.atktime>0 and self.ability=="Electromorphosis" and self.speed<other.speed:
             print(f" {self.name}'s {self.ability}!")
             eff*=1.34
-        if other.ability=="Motor Drive":
+        if other.ability=="Motor Drive" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             speedchange (other,0.5)
             eff*=0
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Transistor":
@@ -174,23 +178,27 @@ def weakness(self,other,field):
         if other.item=="Wacan Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if field.terrain=="Electric" and (self.ability not in ["Levitate"] and self.ability!="Mold Breaker") and self.type1!="Flying" and self.type2!="Flying":
             eff*=1.3
-        if other.ability=="Delta Stream":
+        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0.5
+        if self.item in ["Zap Plate","Battery"]:
+            eff*=1.2
         if self.item == "Electric Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
-        if other.ability=="Lightning Rod":
+        if other.ability=="Lightning Rod" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" ⚡ {other.name}'s {other.ability}.")
             spatkchange(other,0.5)
             print(f" {other.name}: Attack x{other.atkb}")
             eff*=0
-        if other.ability=="Volt Absorb":
+        if other.ability=="Volt Absorb" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" ⚡ {other.name}'s {other.ability}.")
-            print(f" {other.name} gained some health.")
+            if other.hp<other.maxhp:
+                print(f" {other.name} gained some health.")
             if other.hp<=other.maxhp-(other.maxhp/4):
                 other.hp+=other.maxhp/4
             if other.hp>other.maxhp-(other.maxhp/4):
@@ -216,10 +224,10 @@ def weakness(self,other,field):
     
     #psychic
     if self.atktype=="Psychic":
-        if other.ability=="Dark Mind":
+        if other.ability=="Dark Mind" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" {other.name}'s {other.ability}!")
             eff*=0
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Twisted Spoon":
@@ -227,9 +235,12 @@ def weakness(self,other,field):
         if other.item=="Payapa Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if field.terrain=="Psychic" and self.ability not in ["Levitate"] and self.type1!="Flying" and self.type2!="Flying":
             eff*=1.3
+        if self.item in ["Mind Plate","Twisted Spoon"]:
+            eff*=1.2
         if self.item == "Psychic Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
@@ -252,19 +263,20 @@ def weakness(self,other,field):
             eff*=1 
     #ice
     if self.atktype=="Ice":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item == "Never Melt Ice":
+        if self.item in ["Never Melt Ice","Icicle Plate"]:
             eff*=1.2
         if other.item=="Yache Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if other.ability=="Thick Fat" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🔥❌❄️ {other.name}'s {other.ability}!")
             eff*=0.5
-        if other.ability=="Delta Stream":
+        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0.5
         if self.item == "Ice Gem":
             eff*=1.5
@@ -286,7 +298,7 @@ def weakness(self,other,field):
             eff*=1 
     #fairy
     if self.atktype=="Fairy":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Pixie Plate":
@@ -294,7 +306,8 @@ def weakness(self,other,field):
         if other.item=="Roseli Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.ability=="Fairy Aura":
             if other.ability!="Aura Break":
                 print(f" 🧚🏻‍♀️ {self.name}'s {self.ability}.")
@@ -322,12 +335,15 @@ def weakness(self,other,field):
             eff*=1 
     #dark
     if self.atktype=="Dark":
-        if self.item == "Black Glasses":
+        if other.ability=="Rattled":
+            speedchange (other,0.5)
+        if self.item in ["Black Glasses","Dread Plate"]:
             eff*=1.2
         if other.item=="Colbur Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.ability=="Dark Aura":
             if other.ability!="Aura Break":
                 print(f" 🌑 {self.name}'s {self.ability}.")
@@ -339,7 +355,7 @@ def weakness(self,other,field):
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
-        if other.ability=="Justified":
+        if other.ability=="Justified" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             atkchange(other,0.5)
             print(f" {other.name}: Attack x{other.atkb}")
         if other.type1 in darkeff and other.teratype is None:
@@ -358,17 +374,20 @@ def weakness(self,other,field):
             eff*=1 
     #steel
     if self.atktype=="Steel":
-        if other.ability=="Wonder Guard":
+        if self.ability=="Steely Spirit":
+            eff*=1.5
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
-        if self.item == "Metal Coat":
+        if self.item in ["Metal Coat","Iron Plate"]:
             eff*=1.2
         if other.item=="Babiri Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.ability=="Steelworker":
             print(f" 🔩 {self.name}'s {self.ability}.")
             eff*=1.5
@@ -395,18 +414,19 @@ def weakness(self,other,field):
             eff*=1 
     #dragon
     if self.atktype=="Dragon":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Dragon's Maw":
             print(f" 🐲 {self.name}'s {self.ability}.")
             eff*=1.5
-        if self.item == "Dragon Fang":
+        if self.item in ["Dragon Fang","Draco Plate"]:
             eff*=1.2
         if other.item=="Haban Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if field.terrain=="Misty" and self.ability not in ["Levitate"] and self.type1!="Flying" and self.type2!="Flying":
             eff*=0.5
         if self.item == "Dragon Gem":
@@ -433,15 +453,18 @@ def weakness(self,other,field):
             eff*=1 
     #bug
     if self.atktype=="Bug":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Rattled":
+            speedchange (other,0.5)
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item == "Silver Powder":
+        if self.item in ["Silver Powder","Insect Plate"]:
             eff*=1.2
         if other.item=="Tanga Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.item == "Bug Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
@@ -471,30 +494,32 @@ def weakness(self,other,field):
             print(f" Absorb Bulb absorbed {self.name}'s Water-type moves energy and raised {other.name}'s Special Attack!")
             other.item=None
         
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if other.ability=="Steam Engine":
+        if other.ability=="Steam Engine" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🚂 {other.name}'s {other.ability}!")
             speedchange (other,0.5)
             print(f" {other.name} Speed x{other.speedb}")
-        if self.item == "Mystic Water":
+        if self.item in  ["Mystic Water","Splash Plate"]:
             eff*=1.2
         if other.item=="Passho Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
-        if field.weather=="Desolate Land":
+            if other.ability!="Harvest":
+                other.item=None
+        if field.weather=="Desolate Land" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0
         if self.item == "Water Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
         if self.item in ["Lustrous Orb"]:
-            eff+=(eff*0.2)
-        if other.ability in ["Storm Drain","Water Absorb","Dry Skin","Water Compaction"]:
+            eff*=1.2
+        if other.ability in ["Storm Drain","Water Absorb","Dry Skin","Water Compaction"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             if other.ability=="Water Compaction":
                 print(f" {other.name}'s {other.ability}.")
+                defchange(other,1)
                 eff*=0.5
             if other.ability=="Dry Skin":
                 print(f" {other.name}'s {other.ability}.")
@@ -507,7 +532,8 @@ def weakness(self,other,field):
                 print(f" {other.name}: Special Attack x{other.spatkb}")
             if other.ability=="Water Absorb":
                 print(f" 💧 {other.name}'s {other.ability}.")
-                print(f" {other.name} gained some health.")
+                if other.hp<other.maxhp:
+                    print(f" {other.name} gained some health.")
                 if other.hp<=other.maxhp-(other.maxhp/4):
                     other.hp+=other.maxhp/4
                 if other.hp>other.maxhp-(other.maxhp/4):
@@ -534,7 +560,7 @@ def weakness(self,other,field):
             eff*=1 
     #Ground
     if self.atktype=="Ground":
-        if other.ability=="Earth Eater":
+        if other.ability=="Earth Eater" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🌍 {other.name}'s {other.ability}.")
             print(f" {other.name} gained some health.")
             if other.hp<=other.maxhp-(other.maxhp/4):
@@ -543,19 +569,20 @@ def weakness(self,other,field):
                 other.hp=other.maxhp
             
             eff*=0
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if other.item=="Air Balloon":
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
-        if self.item == "Soft Sand":
+        if self.item in ["Soft Sand","Earth Plate"]:
             eff*=1.2
         if other.item=="Shuca Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.item == "Ground Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
@@ -581,15 +608,16 @@ def weakness(self,other,field):
             eff*=1 
     #GRASS
     if self.atktype=="Grass":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item == "Miracle Seed":
+        if self.item in ["Miracle Seed","Meadow Plate"]:
             eff*=1.2
         if other.item=="Rindo Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if field.terrain=="Grassy" and self.ability not in ["Levitate"] and self.type1!="Flying" and self.type2!="Flying":
             eff*=1.3
         if self.item == "Grass Gem":
@@ -621,12 +649,13 @@ def weakness(self,other,field):
             eff*=1
     #FLYING            
     if self.atktype=="Flying":
-        if self.item == "Sharp Beak":
+        if self.item in ["Sharp Beak","Sky Plate"]:
             eff*=1.2
         if other.item=="Koba Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.item == "Flying Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
@@ -647,23 +676,35 @@ def weakness(self,other,field):
             eff*=1            
     #FIRE            
     if self.atktype=="Fire":
-        if other.ability=="Fluffy":
+        if other.ability=="Volcanic Body":
+            print(f" 🌋 {other.name}'s {other.ability}.")
+            print(f" {other.name} gained some health.")
+            if other.hp<=other.maxhp-(other.maxhp/4):
+                other.hp+=other.maxhp/4
+            if other.hp>other.maxhp-(other.maxhp/4):
+                other.hp=other.maxhp
+            
+            eff*=0
+        if other.tarshot is True:
             eff*=2
-        if other.ability=="Steam Engine":
+        if other.ability=="Fluffy" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+            eff*=2
+        if other.ability=="Steam Engine" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🚂 {other.name}'s {other.ability}!")
             speedchange (other,0.5)
             print(f" {other.name} Speed x{other.speedb}")
-        if self.item == "Charcoal":
+        if self.item in ["Charcoal","Flame Plate"]:
             eff*=1.2
         if other.item=="Occa Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if other.ability=="Dry Skin":
             print(f" {other.name}'s {other.ability}!")
             eff*=1.25
         if other.ability in ["Thick Fat","Heatproof"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
-            print(f" 🔥❌❄️ {other.name}'s {other.ability}!")
+            print(f" 🌡️ {other.name}'s {other.ability}!")
             eff*=0.5
         if field.weather=="Primordial Sea":
             eff*=0
@@ -675,10 +716,10 @@ def weakness(self,other,field):
             if self.hp<=(self.maxhp/3):
                 print(f" 🔥 {self.name}'s {self.ability}.")
                 eff*=2.25
-        if other.ability=="Thermal Exchange":
+        if other.ability=="Thermal Exchange" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🌡️ {other.name}'s {other.ability}.")
             atkchange(other,0.5)
-        if other.ability=="Flash Fire":
+        if other.ability=="Flash Fire" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🔥 {other.name}'s {other.ability}.")
             other.atk=other.maxatk*1.5*other.atkb
             other.spatk=other.maxspatk*1.5*other.spatkb
@@ -699,15 +740,16 @@ def weakness(self,other,field):
             eff*=1        
     #Poison            
     if self.atktype=="Poison":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item == "Poison Barb":
+        if self.item in ["Poison Barb","Toxic Plate"]:
             eff*=1.2
         if other.item=="Kebia Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.item == "Poison Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
@@ -734,18 +776,28 @@ def weakness(self,other,field):
             eff*=1   
     #Rock
     if self.atktype=="Rock":
-        if other.ability=="Mountaineer":
+        if other.ability=="Lithogen" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+            print(f" 🪨 {other.name}'s {other.ability}.")
+            print(f" {other.name} gained some health.")
+            if other.hp<=other.maxhp-(other.maxhp/4):
+                other.hp+=other.maxhp/4
+            if other.hp>other.maxhp-(other.maxhp/4):
+                other.hp=other.maxhp
+            
+            eff*=0
+        if other.ability=="Mountaineer" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🧗🏻‍♂️{other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
-        if self.item == "Hard Stone":
+        if self.item in ["Hard Stone","Stone Plate"]:
             eff*=1.2
         if other.item=="Charti Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
-        if other.ability=="Delta Stream":
+            if other.ability!="Harvest":
+                other.item=None
+        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0.5
         if self.item == "Rock Gem":
             eff*=1.5
@@ -767,7 +819,7 @@ def weakness(self,other,field):
             eff*=1                          
     #Normal
     if self.atktype=="Normal":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Silk Scarf":
@@ -775,7 +827,8 @@ def weakness(self,other,field):
         if other.item=="Chilan Berry":
             eff*=0.5
             print(f" 🫐 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.item == "Normal Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
@@ -801,15 +854,16 @@ def weakness(self,other,field):
             eff*=1       
     #Fighting
     if self.atktype=="Fighting":
-        if other.ability=="Wonder Guard":
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item == "Black Belt":
+        if self.item in["Black Belt","Fist Plate"]:
             eff*=1.2
         if other.item=="Chople Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if self.item == "Fighting Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
@@ -837,7 +891,8 @@ def weakness(self,other,field):
             eff*=1.2
         if other.item=="Enigma Berry":
             other.hp+=round(other.maxhp/4)
-            other.item=None
+            if other.ability!="Harvest":
+                other.item=None
         if other.item=="Weakness Policy":
             print(f" 📄 {other.name}'s {other.item}.")
             other.item=None
@@ -847,7 +902,7 @@ def weakness(self,other,field):
             print(f" {other.name}: Special Attack x{other.spatkb}")
         if self.item=="Expert Belt":
             eff*=1.2
-        if other.ability in ["Solid Rock","Filter"]:
+        if other.ability in ["Solid Rock","Filter","Prism Armor"]:
             print(f" {other.name}'s {other.ability}.")
             eff*=0.75
                 
@@ -944,6 +999,19 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    if len(self.moves)==0:
+        self.moves=["Struggle"]
+        self.pplist=[100]
+    if field.weather=="Strong Winds" and "Delta Stream" not in (self.ability,other.ability):
+        print(" 🍃 The strong wind faded away.")
+        field.weather="Clear"
+    if "Air Lock" in self.ability:
+        field.weather="Clear"
+    if "Delta Stream" in self.ability:
+        field.weather="Strong Winds"
+    if self.item=="Soul Dew":
+        spatkbuff*=1.5
+        spdefbuff*=1.5
     if other.ability=="Screen Cleaner":
         tr1.lightscreen=False
         tr1.reflect=False
@@ -969,13 +1037,12 @@ def prebuff(self,other,tr1,turn,field):
     if "Poison" in self.status and self.ability=="Toxic Boost":
         atkbuff*=1.5
     if self.ability=="Supreme Overlord":
-        print(f" {self.name} gained strength from the fallen!")
         atkbuff*=1+0.1*(6-len(tr1.pokemons))
         spatkbuff*=1+0.1*(6-len(tr1.pokemons))
     if field.weather in ["Sunny","Desolate Land"] and self.ability=="Orichalcum Pulse":
-        atkbuff*=1.3
+        atkbuff*=1.34
     if field.terrain=="Electric" and self.ability=="Hadron Engine":
-        spatkbuff*=1.3
+        spatkbuff*=1.34
     if "Protosynthesis" in self.ability and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
         m=[a,b,c,d,e]=[self.atk,self.defense,self.spatk,self.spdef,self.speed]
         if tr1.reflect==True:
@@ -1161,7 +1228,7 @@ def prebuff(self,other,tr1,turn,field):
     self.spdef=self.maxspdef*self.spdefb*spdefbuff
     self.speed=self.maxspeed*self.speedb*speedbuff
 #
-def statchange(self,tr1,turn):
+def statchange(self,other,tr1,turn):
     atkbuff=1
     defbuff=1
     spatkbuff=1
@@ -1196,18 +1263,26 @@ def statchange(self,tr1,turn):
             speedchange(self,-0.5)
     if self.item=="Cheri Berry" and self.status=="Paralyzed":
         print(f" {self.item} cured {self.name}'s paralysis!")
-        self.item=None
+        self.status="Alive"
+        if other.ability!="Harvest":
+                self.item=None
     if self.item=="Chesto Berry" and self.status=="Sleep":
         print(f" {self.item} cured {self.name} from sleep state!")
         print(f" {self.item} woke up!")
-        self.item=None
+        self.status="Alive"
+        if other.ability!="Harvest":
+                self.item=None
     if self.item=="Aspear Berry" and self.status=="Frozen":
         print(f" {self.item} cured {self.name} from frozen state!")
         print(f" {self.item} thawed out!")
-        self.item=None
+        self.status="Alive"
+        if other.ability!="Harvest":
+                self.item=None
     if self.item=="Lum Berry" and self.status!="Alive":
         print(f" {self.item} cured {self.name}'s status condition!")
-        self.item=None
+        self.status="Alive"
+        if other.ability!="Harvest":
+                self.item=None
     if tr1.auroraveil is True:
         defbuff*=2
         spdefbuff*=2
@@ -1265,7 +1340,7 @@ def statchange(self,tr1,turn):
         print(f" ❤️‍🔥 {self.name} was burned by its Flame Orb.")
     if self.item=="Toxic Orb" and self.status=="Alive":
         self.status="Badly Poisoned"
-        print(f" 🧪 {self.name} was badly poisoned by its Toxic Orb.")
+        print(f" 🟣 {self.name} was badly poisoned by its Toxic Orb.")
     if self.ability in ["Huge Power","Pure Power","Multitype","RKS System"]:
         if self.ability in ["Huge Power","Pure Power"]:
             atkbuff*=2
@@ -1288,10 +1363,6 @@ def statchange(self,tr1,turn):
 def atkchange(self,amount):
     if self.ability=="Simple":
         amount*=2
-    if self.atkb==0.99:
-        self.atkb=1
-    if self.atkb==1.49:
-        self.atkb=1.5
     if self.ability=="Defiant":
         if amount<0:
             print(f" {self.name}'s {self.ability}!")
@@ -1302,57 +1373,122 @@ def atkchange(self,amount):
             spatkchange(self,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount==0.5:
-        if 1<=self.atkb<4:
-            self.atkb+=amount
-        if 0.25<=self.atkb<1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
-        
-    elif amount==1:
-        if 1<=self.atkb<=3:
-            self.atkb+=amount
-        if self.atkb==0.67:
-            self.atkb=round(1/self.atkb,2)
-        if 0.25<=self.atkb<0.67:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
-        
-    elif amount==1.5:
-        if 1<=self.atkb<3:
-            self.atkb+=amount
-        if 0.25<=self.atkb<1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)        
-    elif amount==4:
-        if self.atkb>=1:
-            self.atkb=amount
-        if 0.25<=self.atkb<1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
-       
+    if amount==0.5:#+1
+        if self.atkb==0.667:
+            self.atkb=1
+        if self.atkb==0.249:
+            self.atkb=0.285
+        elif self.atkb==0.285:
+            self.atkb==0.333
+        elif self.atkb==0.333:
+            self.atkb==0.4
+        elif self.atkb==0.4:
+            self.atkb==0.5
+        elif self.atkb==0.5:
+            self.atkb==0.667
+        elif self.atkb>=1:
+            self.atkb+=amount      
+        elif self.atkb>4:
+            self.atkb=4  
+    if amount==1:#+2
+        if self.atkb==0.249:
+            self.atkb=0.333
+        elif self.atkb==0.285:
+            self.atkb=0.4
+        elif self.atkb==0.336:
+            self.atkb=0.5
+        elif self.atkb==0.4:
+            self.atkb=0.667
+        elif self.atkb==0.5:
+            self.atkb=1
+        elif self.atkb==0.667:
+            self.atkb=1.5
+        elif self.atkb>=1:
+            self.atkb+=(amount*1)     
+        elif self.atkb>3:
+            self.atkb=4        
+    if amount==1.5:#+3
+        if self.atkb==0.249:
+            self.atkb=0.4
+        elif self.atkb==0.285:
+            self.atkb=0.5
+        elif self.atkb==0.333:
+            self.atkb=0.667
+        elif self.atkb==0.4:
+            self.atkb=1
+        elif self.atkb==0.5:
+            self.atkb=1.5
+        elif self.atkb==0.667:
+            self.atkb=2
+        elif self.atkb==1:
+            self.atkb=2.5
+        elif self.atkb==1.5:
+            self.atkb=3
+        elif self.atkb==2:
+            self.atkb=3.5
+        elif self.atkb==2.5:
+            self.atkb=4
+        elif self.atkb>2.5:
+            self.atkb=4
+    if amount==2:#+4    
+        if self.atkb==0.249:
+            self.atkb=0.5   
+        elif self.atkb==0.285:
+            self.atkb=0.667
+        elif self.atkb==0.333:
+            self.atkb=1
+        elif self.atkb==0.4:
+            self.atkb=1.5
+        elif self.atkb==0.5:
+            self.atkb=2
+        elif self.atkb==0.667:
+            self.atkb=2.5
+        elif self.atkb==1:
+            self.atkb=3
+        elif self.atkb==1.5:
+            self.atkb=3.5
+        elif self.atkb==2:
+            self.atkb=4
+    if amount==4:#+6
+        if self.atkb==0.249:
+            self.atkb=1  
+        elif self.atkb==0.285:
+            self.atkb=1.5
+        elif self.atkb==0.333:
+            self.atkb=2
+        elif self.atkb==0.4:
+            self.atkb=2.5
+        elif self.atkb==0.5:
+            self.atkb=3
+        elif self.atkb==0.667:
+            self.atkb=3.5
+        elif self.atkb==1:
+            self.atkb=4
+        elif self.atkb>1:
+            self.atkb=4
     if amount==-0.5:
-        if 0.25<self.atkb<=1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
-        if 1<self.atkb<=4:
-            self.atkb=self.atkb+amount
-      
-    if amount==-1:
-        if (2/7)<self.atkb<=1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
+        if 0.249<self.atkb<=1:
+            self.atkb=round(1/((1/self.atkb)-amount),3)
         if 1<self.atkb<=4:
             self.atkb=self.atkb+amount
         
-    if amount==-1.5:
-        if (2/6)<self.atkb<=1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
-        if 1<self.atkb<=4:
-            self.atkb=self.atkb+amount
-   
-    if amount not in [0.5,1,1.5,4,-0.5,-1,-1.5]:
-        if 1<=self.atkb<4:
+    if amount==-1:
+        if self.atkb>1:
             self.atkb+=amount
-            if self.atkb>4:
-                self.atkb=4
-        if 0.25<=self.atkb<1:
-            self.atkb=round(1/((1/self.atkb)-amount),2)
-
+        elif self.atkb==1:
+            self.atkb=0.5
+        elif self.atkb==0.667:
+            self.atkb=0.4
+        elif self.atkb==0.5:
+            self.atkb=0.333
+        elif self.atkb==0.4:
+            self.atkb=0.285
+        elif self.atkb==0.333:
+            self.atkb=0.249
+        elif self.atkb<=0.285:
+            self.atkb=0.249
+    if self.atkb>4:
+        self.atkb=4
 
 
 def defchange(self,amount):
@@ -1370,54 +1506,122 @@ def defchange(self,amount):
             spatkchange(self,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount==0.5:
-        if 1<=self.defb<4:
-            self.defb+=amount
-        if 0.25<=self.defb<1:
-            self.defb=round(1/((1/self.defb)-amount),2)
-        
-    elif amount==1:
-        
-        if 1<=self.defb<=3.1:
-            self.defb+=amount
-        if self.defb==0.67:
-            self.defb=round(1/self.defb,2)
-        if 0.25<=self.defb<0.67:
-            self.defb=round(1/((1/self.defb)-amount),2)
-        
-    elif amount==1.5:
-        if 1<=self.defb<3:
-            self.defb+=amount
-        if 0.25<=self.defb<1:
-            self.defb=round(1/((1/self.defb)-amount),2)
-        
-    elif amount==4:
-        if 1<=self.defb:
-            self.defb=amount
-        if 0.25<=self.defb<1:
-            self.defb=round(1/((1/self.defb)-amount),2)
-       
-    if amount==-0.5:
-        if 0.25<self.defb<=1:
-            self.defb=round(1/((1/self.defb)-amount),2)
+    if amount==0.5:#+1
+        if self.defb==0.249:
+            self.defb=0.285
+        elif self.defb==0.285:
+            self.defb==0.333
+        elif self.defb==0.333:
+            self.defb==0.4
+        elif self.defb==0.4:
+            self.defb==0.5
+        elif self.defb==0.5:
+            self.defb==0.667
+        elif self.defb==0.667:
+            self.defb==1
+        elif self.defb>=1:
+            self.defb+=amount      
+        elif self.defb>4:
+            self.defb=4  
+    elif amount==1:#+2
+        if self.defb==0.249:
+            self.defb=0.333
+        elif self.defb==0.285:
+            self.defb=0.4
+        elif self.defb==0.336:
+            self.defb=0.5
+        elif self.defb==0.4:
+            self.defb=0.667
+        elif self.defb==0.5:
+            self.defb=1
+        elif self.defb==0.667:
+            self.defb=1.5
+        elif self.defb>=1:
+            self.defb+=(amount*1)     
+        elif self.defb>3:
+            self.defb=4        
+    elif amount==1.5:#+3
+        if self.defb==0.249:
+            self.defb=0.4
+        elif self.defb==0.285:
+            self.defb=0.5
+        elif self.defb==0.333:
+            self.defb=0.667
+        elif self.defb==0.4:
+            self.defb=1
+        elif self.defb==0.5:
+            self.defb=1.5
+        elif self.defb==0.667:
+            self.defb=2
+        elif self.defb==1:
+            self.defb=2.5
+        elif self.defb==1.5:
+            self.defb=3
+        elif self.defb==2:
+            self.defb=3.5
+        elif self.defb==2.5:
+            self.defb=4
+        elif self.defb>2.5:
+            self.defb=4
+    elif amount==2:#+4    
+        if self.defb==0.249:
+            self.defb=0.5   
+        elif self.defb==0.285:
+            self.defb=0.667
+        elif self.defb==0.333:
+            self.defb=1
+        elif self.defb==0.4:
+            self.defb=1.5
+        elif self.defb==0.5:
+            self.defb=2
+        elif self.defb==0.667:
+            self.defb=2.5
+        elif self.defb==1:
+            self.defb=3
+        elif self.defb==1.5:
+            self.defb=3.5
+        elif self.defb==2:
+            self.defb=4
+    elif amount==4:#+6
+        if self.defb==0.249:
+            self.defb=1  
+        elif self.defb==0.285:
+            self.defb=1.5
+        elif self.defb==0.333:
+            self.defb=2
+        elif self.defb==0.4:
+            self.defb=2.5
+        elif self.defb==0.5:
+            self.defb=3
+        elif self.defb==0.667:
+            self.defb=3.5
+        elif self.defb==1:
+            self.defb=4
+        elif self.defb>1:
+            self.defb=4
+    elif amount==-0.5:
+        if 0.249<self.defb<=1:
+            self.defb=round(1/((1/self.defb)-amount),3)
         if 1<self.defb<=4:
             self.defb=self.defb+amount
-      
-    if amount==-1:
-        if (2/7)<self.defb<=1:
-            self.defb=round(1/((1/self.defb)-amount),2)
-        if 1<self.defb<=4:
-            self.defb=self.defb+amount
         
-    if amount==-1.5:
-        if (2/6)<self.defb<=1:
-            self.defb=round(1/((1/self.defb)-amount),2)
-        if 1<self.defb<=4:
-            self.defb=self.defb+amount
-   
-    else:
-        pass
-
+    elif amount==-1:
+        if self.defb>1:
+            self.defb+=amount
+        elif self.defb==1:
+            self.defb=0.5
+        elif self.defb==0.667:
+            self.defb=0.4
+        elif self.defb==0.5:
+            self.defb=0.333
+        elif self.defb==0.4:
+            self.defb=0.285
+        elif self.defb==0.333:
+            self.defb=0.249
+        elif self.defb<=0.285:
+            self.defb=0.249
+    if self.defb>4:
+        self.defb=4
 def spatkchange(self,amount):
     if self.ability=="Simple":
         amount*=2
@@ -1431,58 +1635,122 @@ def spatkchange(self,amount):
             spatkchange(self,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount==0.5:
-        if 1<=self.spatkb<4:
-            self.spatkb+=amount
-        if 0.25<=self.spatkb<1:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
-        
-    elif amount==1:
-        if 1<=self.spatkb<=3:
-            self.spatkb+=amount
-        if self.spatkb==0.67:
-            self.spatkb=1/self.spatkb
-        if 0.25<=self.spatkb<0.67:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
-        
-    elif amount==1.5:
-        if 1<=self.spatkb<3:
-            self.spatkb+=amount
-        if 0.25<=self.spatkb<1:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
-        
-    elif amount==4:
-        if self.spatkb>=1:
-            self.spatkb=amount
-        if 0.25<=self.spatkb<1:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
-       
+    if amount==0.5:#+1
+        if self.spatkb==0.249:
+            self.spatkb=0.285
+        elif self.spatkb==0.285:
+            self.spatkb==0.333
+        elif self.spatkb==0.333:
+            self.spatkb==0.4
+        elif self.spatkb==0.4:
+            self.spatkb==0.5
+        elif self.spatkb==0.5:
+            self.spatkb==0.667
+        elif self.spatkb==0.667:
+            self.spatkb==1
+        elif self.spatkb>=1:
+            self.spatkb+=amount      
+        elif self.spatkb>4:
+            self.spatkb=4  
+    elif amount==1:#+2
+        if self.spatkb==0.249:
+            self.spatkb=0.333
+        elif self.spatkb==0.285:
+            self.spatkb=0.4
+        elif self.spatkb==0.336:
+            self.spatkb=0.5
+        elif self.spatkb==0.4:
+            self.spatkb=0.667
+        elif self.spatkb==0.5:
+            self.spatkb=1
+        elif self.spatkb==0.667:
+            self.spatkb=1.5
+        elif self.spatkb>=1:
+            self.spatkb+=(amount*1)     
+        elif self.spatkb>3:
+            self.spatkb=4        
+    elif amount==1.5:#+3
+        if self.spatkb==0.249:
+            self.spatkb=0.4
+        elif self.spatkb==0.285:
+            self.spatkb=0.5
+        elif self.spatkb==0.333:
+            self.spatkb=0.667
+        elif self.spatkb==0.4:
+            self.spatkb=1
+        elif self.spatkb==0.5:
+            self.spatkb=1.5
+        elif self.spatkb==0.667:
+            self.spatkb=2
+        elif self.spatkb==1:
+            self.spatkb=2.5
+        elif self.spatkb==1.5:
+            self.spatkb=3
+        elif self.spatkb==2:
+            self.spatkb=3.5
+        elif self.spatkb==2.5:
+            self.spatkb=4
+        elif self.spatkb>2.5:
+            self.spatkb=4
+    elif amount==2:#+4    
+        if self.spatkb==0.249:
+            self.spatkb=0.5   
+        elif self.spatkb==0.285:
+            self.spatkb=0.667
+        elif self.spatkb==0.333:
+            self.spatkb=1
+        elif self.spatkb==0.4:
+            self.spatkb=1.5
+        elif self.spatkb==0.5:
+            self.spatkb=2
+        elif self.spatkb==0.667:
+            self.spatkb=2.5
+        elif self.spatkb==1:
+            self.spatkb=3
+        elif self.spatkb==1.5:
+            self.spatkb=3.5
+        elif self.spatkb==2:
+            self.spatkb=4
+    elif amount==4:#+6
+        if self.spatkb==0.249:
+            self.spatkb=1  
+        elif self.spatkb==0.285:
+            self.spatkb=1.5
+        elif self.spatkb==0.333:
+            self.spatkb=2
+        elif self.spatkb==0.4:
+            self.spatkb=2.5
+        elif self.spatkb==0.5:
+            self.spatkb=3
+        elif self.spatkb==0.667:
+            self.spatkb=3.5
+        elif self.spatkb==1:
+            self.spatkb=4
+        elif self.spatkb>1:
+            self.spatkb=4
     if amount==-0.5:
-        if 0.25<self.spatkb<=1:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
-        if 1<self.spatkb<=4:
-            self.spatkb=self.spatkb+amount
-      
-    if amount==-1:
-        if (2/7)<self.spatkb<=1:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
+        if 0.249<self.spatkb<=1:
+            self.spatkb=round(1/((1/self.spatkb)-amount),3)
         if 1<self.spatkb<=4:
             self.spatkb=self.spatkb+amount
         
-    if amount==-1.5:
-        if (2/6)<self.spatkb<=1:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
-        if 1<self.spatkb<=4:
-            self.spatkb=self.spatkb+amount
-   
-    if amount not in [0.5,1,1.5,4,-0.5,-1,-1.5]:
-        if 1<=self.spatkb<4:
+    if amount==-1:
+        if self.spatkb>1:
             self.spatkb+=amount
-            if self.spatkb>4:
-                self.spatkb=4
-        if 0.25<=self.spatkb<1:
-            self.spatkb=round(1/((1/self.spatkb)-amount),2)
-
+        elif self.spatkb==1:
+            self.spatkb=0.5
+        elif self.spatkb==0.667:
+            self.spatkb=0.4
+        elif self.spatkb==0.5:
+            self.spatkb=0.333
+        elif self.spatkb==0.4:
+            self.spatkb=0.285
+        elif self.spatkb==0.333:
+            self.spatkb=0.249
+        elif self.spatkb<=0.285:
+            self.spatkb=0.249
+    if self.spatkb>4:
+        self.spatkb=4
 def spdefchange(self,amount):
     if self.ability=="Simple":
         amount*=2
@@ -1496,53 +1764,122 @@ def spdefchange(self,amount):
             spatkchange(self,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount==0.5:
-        if 1<=self.spdefb<4:
-            self.spdefb+=amount
-        if 0.25<=self.spdefb<1:
-            self.spdefb=round(1/((1/self.spdefb)-amount),2)
-        
-    elif amount==1:
-        if 1<=self.spdefb<=3:
-            self.spdefb+=amount
-        if self.spdefb==0.67:
-            self.spdefb=1/self.spdefb
-        if 0.25<=self.spdefb<0.67:
-            self.spdefb=round(1/((1/self.spdefb)-amount),2)
-        
-    elif amount==1.5:
-        if 1<=self.spdefb<3:
-            self.spdefb+=amount
-        if 0.25<=self.spdefb<1:
-            self.spdefb=round(1/((1/self.spdefb)-amount),2)
-        
-    elif amount==4:
-        if 1<=self.spdefb:
-            self.spdefb=amount
-        if 0.25<=self.spdefb<1:
-            self.spdefb=round(1/((1/self.spdefb)-amount),2)
-       
+    if amount==0.5:#+1
+        if self.spdefb==0.249:
+            self.spdefb=0.285
+        elif self.spdefb==0.285:
+            self.spdefb==0.333
+        elif self.spdefb==0.333:
+            self.spdefb==0.4
+        elif self.spdefb==0.4:
+            self.spdefb==0.5
+        elif self.spdefb==0.5:
+            self.spdefb==0.667
+        elif self.spdefb==0.667:
+            self.spdefb==1
+        elif self.spdefb>=1:
+            self.spdefb+=amount      
+        elif self.spdefb>4:
+            self.spdefb=4  
+    elif amount==1:#+2
+        if self.spdefb==0.249:
+            self.spdefb=0.333
+        elif self.spdefb==0.285:
+            self.spdefb=0.4
+        elif self.spdefb==0.336:
+            self.spdefb=0.5
+        elif self.spdefb==0.4:
+            self.spdefb=0.667
+        elif self.spdefb==0.5:
+            self.spdefb=1
+        elif self.spdefb==0.667:
+            self.spdefb=1.5
+        elif self.spdefb>=1:
+            self.spdefb+=(amount*1)     
+        elif self.spdefb>3:
+            self.spdefb=4        
+    elif amount==1.5:#+3
+        if self.spdefb==0.249:
+            self.spdefb=0.4
+        elif self.spdefb==0.285:
+            self.spdefb=0.5
+        elif self.spdefb==0.333:
+            self.spdefb=0.667
+        elif self.spdefb==0.4:
+            self.spdefb=1
+        elif self.spdefb==0.5:
+            self.spdefb=1.5
+        elif self.spdefb==0.667:
+            self.spdefb=2
+        elif self.spdefb==1:
+            self.spdefb=2.5
+        elif self.spdefb==1.5:
+            self.spdefb=3
+        elif self.spdefb==2:
+            self.spdefb=3.5
+        elif self.spdefb==2.5:
+            self.spdefb=4
+        elif self.spdefb>2.5:
+            self.spdefb=4
+    elif amount==2:#+4    
+        if self.spdefb==0.249:
+            self.spdefb=0.5   
+        elif self.spdefb==0.285:
+            self.spdefb=0.667
+        elif self.spdefb==0.333:
+            self.spdefb=1
+        elif self.spdefb==0.4:
+            self.spdefb=1.5
+        elif self.spdefb==0.5:
+            self.spdefb=2
+        elif self.spdefb==0.667:
+            self.spdefb=2.5
+        elif self.spdefb==1:
+            self.spdefb=3
+        elif self.spdefb==1.5:
+            self.spdefb=3.5
+        elif self.spdefb==2:
+            self.spdefb=4
+    elif amount==4:#+6
+        if self.spdefb==0.249:
+            self.spdefb=1  
+        elif self.spdefb==0.285:
+            self.spdefb=1.5
+        elif self.spdefb==0.333:
+            self.spdefb=2
+        elif self.spdefb==0.4:
+            self.spdefb=2.5
+        elif self.spdefb==0.5:
+            self.spdefb=3
+        elif self.spdefb==0.667:
+            self.spdefb=3.5
+        elif self.spdefb==1:
+            self.spdefb=4
+        elif self.spdefb>1:
+            self.spdefb=4
     if amount==-0.5:
-        if 0.25<self.spdefb<=1:
-            self.spdefb=round(1/((1/self.spdefb)-amount),2)
-        if 1<self.spdefb<=4:
-            self.spdefb=self.spdefb+amount
-      
-    if amount==-1:
-        if (2/7)<self.spdefb<=1:
-            self.spdefb=round(1/((1/self.spdefb)-amount),2)
+        if 0.249<self.spdefb<=1:
+            self.spdefb=round(1/((1/self.spdefb)-amount),3)
         if 1<self.spdefb<=4:
             self.spdefb=self.spdefb+amount
         
-    if amount==-1.5:
-        if (2/6)<self.spdefb<=1:
-            self.spdefb=round(1/((1/self.spdefb)-amount),2)
-        if 1<self.spdefb<=4:
-            self.spdefb=self.spdefb+amount
-   
-    else:
-        pass
-
+    if amount==-1:
+        if self.spdefb>1:
+            self.spdefb+=amount
+        elif self.spdefb==1:
+            self.spdefb=0.5
+        elif self.spdefb==0.667:
+            self.spdefb=0.4
+        elif self.spdefb==0.5:
+            self.spdefb=0.333
+        elif self.spdefb==0.4:
+            self.spdefb=0.285
+        elif self.spdefb==0.333:
+            self.spdefb=0.249
+        elif self.spdefb<=0.285:
+            self.spdefb=0.249
+    if self.spdefb>4:
+        self.spdefb=4
 def speedchange(self,amount):
     if self.ability=="Simple":
         amount*=2
@@ -1556,48 +1893,119 @@ def speedchange(self,amount):
             spatkchange(self,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount==0.5:
-        if 1<=self.speedb<4:
-            self.speedb+=amount
-        if 0.25<=self.speedb<1:
-            self.speedb=round(1/((1/self.speedb)-amount),2)
-        
-    elif amount==1:
-        if 1<=self.speedb<=3:
-            self.speedb+=amount
-        if 0.25<=self.speedb<1:
-            self.speedb=round(1/((1/self.speedb)-amount),2)
-        
-    elif amount==1.5:
-        if 1<=self.speedb<3:
-            self.speedb+=amount
-        if 0.25<=self.speedb<1:
-            self.speedb=round(1/((1/self.speedb)-amount),2)
-        
-    elif amount==4:
-        if 1<=self.speedb:
-            self.speedb=amount
-        if 0.25<=self.speedb<1:
-            self.speedb=round(1/((1/self.speedb)-amount),2)
-       
+    if amount==0.5:#+1
+        if self.speedb==0.249:
+            self.speedb=0.285
+        elif self.speedb==0.285:
+            self.speedb==0.333
+        elif self.speedb==0.333:
+            self.speedb==0.4
+        elif self.speedb==0.4:
+            self.speedb==0.5
+        elif self.speedb==0.5:
+            self.speedb==0.667
+        elif self.speedb==0.667:
+            self.speedb==1
+        elif self.speedb>=1:
+            self.speedb+=amount      
+        elif self.speedb>4:
+            self.speedb=4  
+    elif amount==1:#+2
+        if self.speedb==0.249:
+            self.speedb=0.333
+        elif self.speedb==0.285:
+            self.speedb=0.4
+        elif self.speedb==0.336:
+            self.speedb=0.5
+        elif self.speedb==0.4:
+            self.speedb=0.667
+        elif self.speedb==0.5:
+            self.speedb=1
+        elif self.speedb==0.667:
+            self.speedb=1.5
+        elif self.speedb>=1:
+            self.speedb+=(amount*1)     
+        elif self.speedb>3:
+            self.speedb=4        
+    elif amount==1.5:#+3
+        if self.speedb==0.249:
+            self.speedb=0.4
+        elif self.speedb==0.285:
+            self.speedb=0.5
+        elif self.speedb==0.333:
+            self.speedb=0.667
+        elif self.speedb==0.4:
+            self.speedb=1
+        elif self.speedb==0.5:
+            self.speedb=1.5
+        elif self.speedb==0.667:
+            self.speedb=2
+        elif self.speedb==1:
+            self.speedb=2.5
+        elif self.speedb==1.5:
+            self.speedb=3
+        elif self.speedb==2:
+            self.speedb=3.5
+        elif self.speedb==2.5:
+            self.speedb=4
+        elif self.speedb>2.5:
+            self.speedb=4
+    elif amount==2:#+4    
+        if self.speedb==0.249:
+            self.speedb=0.5   
+        elif self.speedb==0.285:
+            self.speedb=0.667
+        elif self.speedb==0.333:
+            self.speedb=1
+        elif self.speedb==0.4:
+            self.speedb=1.5
+        elif self.speedb==0.5:
+            self.speedb=2
+        elif self.speedb==0.667:
+            self.speedb=2.5
+        elif self.speedb==1:
+            self.speedb=3
+        elif self.speedb==1.5:
+            self.speedb=3.5
+        elif self.speedb==2:
+            self.speedb=4
+    elif amount==4:#+6
+        if self.speedb==0.249:
+            self.speedb=1  
+        elif self.speedb==0.285:
+            self.speedb=1.5
+        elif self.speedb==0.333:
+            self.speedb=2
+        elif self.speedb==0.4:
+            self.speedb=2.5
+        elif self.speedb==0.5:
+            self.speedb=3
+        elif self.speedb==0.667:
+            self.speedb=3.5
+        elif self.speedb==1:
+            self.speedb=4
+        elif self.speedb>1:
+            self.speedb=4
     if amount==-0.5:
-        if 0.25<self.speedb<=1:
-            self.speedb=round(1/((1/self.speedb)-amount),2)
-        if 1<self.speedb<=4:
-            self.speedb=self.speedb+amount
-      
-    if amount==-1:
-        if (2/7)<self.speedb<=1:
-            self.speedb=round(1/((1/self.speedb)-amount),2)
+        if 0.249<self.speedb<=1:
+            self.speedb=round(1/((1/self.speedb)-amount),3)
         if 1<self.speedb<=4:
             self.speedb=self.speedb+amount
         
-    if amount==-1.5:
-        if (2/6)<self.speedb<=1:
-            self.speedb=round(1/((1/self.speedb)-amount),2)
-        if 1<self.speedb<=4:
-            self.speedb=self.speedb+amount
-   
-    else:
-        pass
-
+    if amount==-1:
+        if self.speedb>1:
+            self.speedb+=amount
+        elif self.speedb==1:
+            self.speedb=0.5
+        elif self.speedb==0.667:
+            self.speedb=0.4
+        elif self.speedb==0.5:
+            self.speedb=0.333
+        elif self.speedb==0.4:
+            self.speedb=0.285
+        elif self.speedb==0.333:
+            self.speedb=0.249
+        elif self.speedb<=0.285:
+            self.speedb=0.249
+    if self.speedb>4:
+        self.speedb=4

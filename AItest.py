@@ -371,11 +371,7 @@ def moveAI(self,other,mtr,otr,field):
         resmove+=list(set(mymove). intersection(typemoves.ghostmoves))        
     if "Dark" in resistlist:
         resmove+=list(set(mymove). intersection(typemoves.darkmoves))                
-    #use=None 
-    resmove=list(set(resmove)-set(emove)-set(myimmunemove))
-    mymove=list(set(mymove)-set(myimmunemove))
-    emove=list(set(emove)-set(myimmunemove))
-    mystablist=list(set(mystablist)-set(myimmunemove))
+    #use=None
     eheal=list(set(mymove).intersection(typemoves.healingmoves))
     eprior=list(set(mymove).intersection(typemoves.priorityatkmoves))
     superduper=list(set(emove).intersection(mystablist))

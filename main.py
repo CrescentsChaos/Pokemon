@@ -2,7 +2,7 @@ from battle3 import *
 #Unhash the (*) less comments to customize team*
 #Normal Pokemon*
 #a=Charizard()
-#Mega *
+#Mega *)
 #b=MBlastoise()
 #b=MCharizardY()
 #c=MCharizardX()

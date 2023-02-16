@@ -20,6 +20,22 @@ def intro (tr,sr,field):
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
+    if " Turo" in tr.name:
+        print(f" {tr.name}: Many other Pokémon also came to this place from across the boundaries of time. But I was never able to bring over more than two specimens of Miraidon.\n")
+    if " Sada" in tr.name:
+        print(f" {tr.name}: ∧t |ɑst ⅿy drəaⅿ ıs withın reaɔh...ɑnd you’re no7 gətting ın the way!\n")
+    if " Rika" in tr.name:
+        print(f" {tr.name}: Next, I'd like to ask you a few questions, if you wouldn't mind, {srname}.\n")
+    if "Clemont" in tr.name:
+        print(f" {tr.name}: Oh! I'm glad that we got to meet yet again like this!\n")
+    if "Marlon" in tr.name:
+        print(f" {tr.name}: Oh ho, so I'm facing you! That's off the wall. How 'bout you and I make some waves and sweep the audience away? Let's leave 'em with even bigger smiles!\n")
+    if "Gladion" in tr.name:
+        print(f" {tr.name}: What does a Pokémon Trainer really need to be successful? I guess everyone might have their own answer. But for me... I want the strongest rival for myself.\n")
+    if "Burgh" in tr.name:
+        print(f" {tr.name}: If the battle brings out the beauty in Bug-type Pokémon, it will be a scene that makes my heart flutter, win or lose. My bug Pokémon are abuzz with anticipation. Let's get straight to it!\n")
+    if tr.name=="Erika(Hardcore Mode)":
+        field.terrain="Grassy"
     if "Roark" in tr.name:
         if "Canalave City" in field.location:
             print(f" {tr.name}: You came to challenge dad? But guess what! you gotta challenge me first!")
@@ -36,7 +52,7 @@ def intro (tr,sr,field):
     if "Trevor" in tr.name:
         print(f" {tr.name}: I think I will follow the crowd and be your opponent as well. But this time it won't be about the Pokédex. It will be a Pokémon battle!\n")
     if "Ingo" in tr.name:
-        print(f" {tr.name}: What a selfish outlook.These frenzies cause the Pokémon themselves such suffering! But what is it you want to do, {srname}? ")
+        print(f" {tr.name}: What a selfish outlook.These frenzies cause the Pokémon themselves such suffering! But what is it you want to do, {srname}?\n")
     if "Anabel" in tr.name:
         print(f" {tr.name}: Greetings... My name is Anabel. I am the Salon Maiden, and I am in charge of running the Battle Tower... I have heard several rumors about you... In all honesty, what I have heard does not seem attractive in any way... The reason I've come to see you... Well, there is but one reason... Let me see your talent in its entirety...\n")
     if "Ghetsis" in tr.name:

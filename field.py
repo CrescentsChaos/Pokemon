@@ -50,7 +50,7 @@ class Field:
         self.snowstormendturn=snowstormendturn
         self.location=location
         if self.location is None:
-            self.location=random.choice(place)
+            self.location=random.choices([random.choice(place),"🏟️Pokémon Tournament,Unova"],weights=[7,3],k=1)[0]
             if self.location in paldea:
                 self.location+=", Paldea"
             if self.location in galar:
