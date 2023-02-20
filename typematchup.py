@@ -19,50 +19,57 @@ field=Field()
 def weakness(self,other,field):
     eff=1
     stab=1     
+    #ABSOLUTE ZERO
     if "Absolute Zero" in (self.ability,other.ability) and self.atktype=="Water":
         print(" 🥶 Absolute Zero turned the Water-type move into Ice-type move!")
         self.atktype="Ice"
+    #UNAWARE(OTHER EFFECT)
     if self.ability=="Unaware":
         other.defense=round(other.defense/other.defb)
         other.spdef=round(other.spdef/other.spdefb)
+    #UNAWARE(SELF EFFECT)
     if other.ability=="Unaware":
         self.atk=round(self.atk/self.atkb)
         self.spatk=round(self.spatk/self.spatkb)
-    #Type change
+    #PROTEAN/LIBERO
     if self.ability in ["Protean","Libero"] and self.type1!=self.atktype:
         self.type2=None
         self.type1=self.atktype
         print(f" {self.name} changed it's type to {self.type1} using {self.ability}!")
+    #SHADOW SHIELD/MULTISCALE/BLUBBER DEFENSE        
     if other.hp==other.maxhp and other.ability in ["Multiscale","Blubber Defense","Shadow Shield"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
-        print(f" {other.name}'s {other.ability}.")
+        print(f" 🔰 {other.name}'s {other.ability}.")
         eff*=0.5
+    #SOLAR POWER
     if self.ability=="Solar Power" and field.weather in ["Sunny","Desolate Land"]:
-        print(f" {self.name}'s {self.ability}.")
+        print(f" ☀️ {self.name}'s {self.ability}!")
         eff*=1.5
+    #ILLUSION BOOST
     if "Zoroark" not in self.name and self.ability=="Illusion":
         eff*=1.3
+    #ANALYTIC
     if self.ability=="Analytic":
         if self.speed<other.speed:
             print(f" {self.name}'s {self.ability}.")
             eff*=1.3
+    #NORMALIZE 
     if self.ability=="Normalize":
         self.atktype="Normal"
+    #CHANGING NORMAL TYPE MOVES
     if self.atktype=="Normal":
+        if self.ability in ["Pixilate","Aerilate","Galvanize","Refrigerate","Liquid Voice"]:
+            eff*=1.33
         if self.ability=="Pixilate":
             self.atktype="Fairy"
-            eff*=1.33
         if self.ability=="Aerilate":
             self.atktype="Flying"
-            eff*=1.33
         if self.ability=="Galvanize":
             self.atktype="Electric"
-            eff*=1.33
         if self.ability=="Refrigerate":
             self.atktype="Ice"
-            eff*=1.33    
         if self.ability=="Liquid Voice":
-            self.atktype="Water"
-            eff*=1.33            
+            self.atktype="Water"   
+            
     #BUG
     bugeff=['Grass', 'Psychic', 'Dark']
     bugwk=['Fighting', 'Flying', 'Poison', 'Ghost', 'Steel', 'Fire', 'Fairy']
@@ -128,8 +135,10 @@ def weakness(self,other,field):
     #MATCHUP)
     #ghost
     if self.atktype=="Ghost":
+        #RATTLED
         if other.ability=="Rattled":
             speedchange (other,0.5)
+        #PURIFYING SALT
         if other.ability=="Purifying Salt" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0.5
         if other.item=="Kasib Berry":
@@ -162,10 +171,12 @@ def weakness(self,other,field):
     #electric
     if self.atktype=="Electric":
         if self.atktime>0 and self.ability=="Electromorphosis" and self.speed<other.speed:
-            print(f" {self.name}'s {self.ability}!")
+            print(f" 🐸 {self.name}'s {self.ability}!")
             eff*=1.34
         if other.ability=="Motor Drive" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+            print(f" ⚙️ {self.name}'s {self.ability}!")
             speedchange (other,0.5)
+            print(f" {self.name}'s speed rose!")
             eff*=0
         if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
@@ -184,7 +195,7 @@ def weakness(self,other,field):
             eff*=1.3
         if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0.5
-        if self.item in ["Zap Plate","Battery"]:
+        if self.item in ["Zap Plate","Battery","Magnet"]:
             eff*=1.2
         if self.item == "Electric Gem":
             eff*=1.5
@@ -193,7 +204,7 @@ def weakness(self,other,field):
         if other.ability=="Lightning Rod" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" ⚡ {other.name}'s {other.ability}.")
             spatkchange(other,0.5)
-            print(f" {other.name}: Attack x{other.atkb}")
+            print(f" {other.name}'s special attack rose!")
             eff*=0
         if other.ability=="Volt Absorb" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" ⚡ {other.name}'s {other.ability}.")
@@ -203,7 +214,6 @@ def weakness(self,other,field):
                 other.hp+=other.maxhp/4
             if other.hp>other.maxhp-(other.maxhp/4):
                 other.hp=other.maxhp
-            
             eff*=0
         if other.type1 in electriceff and other.teratype is None:
             eff*=2
@@ -225,13 +235,11 @@ def weakness(self,other,field):
     #psychic
     if self.atktype=="Psychic":
         if other.ability=="Dark Mind" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
-            print(f" {other.name}'s {other.ability}!")
+            print(f" 😈 {other.name}'s {other.ability}!")
             eff*=0
         if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item == "Twisted Spoon":
-            eff*=1.2
         if other.item=="Payapa Berry":
             eff*=0.5
             print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
@@ -239,7 +247,7 @@ def weakness(self,other,field):
                 other.item=None
         if field.terrain=="Psychic" and self.ability not in ["Levitate"] and self.type1!="Flying" and self.type2!="Flying":
             eff*=1.3
-        if self.item in ["Mind Plate","Twisted Spoon"]:
+        if self.item in ["Mind Plate","Twisted Spoon","Soul Dew","Odd Incense"]:
             eff*=1.2
         if self.item == "Psychic Gem":
             eff*=1.5
@@ -274,7 +282,7 @@ def weakness(self,other,field):
             if other.ability!="Harvest":
                 other.item=None
         if other.ability=="Thick Fat" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
-            print(f" 🔥❌❄️ {other.name}'s {other.ability}!")
+            print(f" 🌡️ {other.name}'s {other.ability}!")
             eff*=0.5
         if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             eff*=0.5
@@ -433,8 +441,8 @@ def weakness(self,other,field):
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
-        if self.item in ["Adamant Orb","Lustrous Orb","Griseous Orb"]:
-            eff+=(eff*0.2)
+        if self.item in ["Adamant Orb","Lustrous Orb","Griseous Orb","Soul Dew"]:
+            eff*=1.2
         if other.type1 in dragoneff and other.teratype is None:
             eff*=2
         if other.type2 in dragoneff and other.teratype is None:
@@ -501,7 +509,7 @@ def weakness(self,other,field):
             print(f" 🚂 {other.name}'s {other.ability}!")
             speedchange (other,0.5)
             print(f" {other.name} Speed x{other.speedb}")
-        if self.item in  ["Mystic Water","Splash Plate"]:
+        if self.item in  ["Mystic Water","Splash Plate","Lustrous Orb","Wave Incense","Sea Incense"]:
             eff*=1.2
         if other.item=="Passho Berry":
             eff*=0.5
@@ -514,8 +522,6 @@ def weakness(self,other,field):
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item=None
-        if self.item in ["Lustrous Orb"]:
-            eff*=1.2
         if other.ability in ["Storm Drain","Water Absorb","Dry Skin","Water Compaction"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             if other.ability=="Water Compaction":
                 print(f" {other.name}'s {other.ability}.")
@@ -611,7 +617,7 @@ def weakness(self,other,field):
         if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item in ["Miracle Seed","Meadow Plate"]:
+        if self.item in ["Miracle Seed","Meadow Plate","Rose Incense"]:
             eff*=1.2
         if other.item=="Rindo Berry":
             eff*=0.5
@@ -790,7 +796,7 @@ def weakness(self,other,field):
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
-        if self.item in ["Hard Stone","Stone Plate"]:
+        if self.item in ["Hard Stone","Stone Plate","Rock Incense"]:
             eff*=1.2
         if other.item=="Charti Berry":
             eff*=0.5
@@ -822,7 +828,7 @@ def weakness(self,other,field):
         if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item == "Silk Scarf":
+        if self.item in ["Silk Scarf","Blank Plate","Legend Plate"]:
             eff*=1.2
         if other.item=="Chilan Berry":
             eff*=0.5
@@ -887,6 +893,8 @@ def weakness(self,other,field):
             eff*=1 
     if eff>=2:
         print(" 🟢 It's super effective!") 
+        if self.ability=="Primal Armor":
+            eff*=0.5
         if self.ability=="Fatal Precision":
             eff*=1.2
         if other.item=="Enigma Berry":
@@ -999,12 +1007,36 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    #if "Erika(Hard Mode)" in (self.owner.name,other.owner.name) or "Erika(Hardcore Mode)" in (self.owner.name,other.owner.name):
+#        field.terrain="Grassy"
     if len(self.moves)==0:
         self.moves=["Struggle"]
         self.pplist=[100]
-    if field.weather=="Strong Winds" and "Delta Stream" not in (self.ability,other.ability):
-        print(" 🍃 The strong wind faded away.")
-        field.weather="Clear"
+    if self.item=="Muscle Band":
+        atkbuff*=1.1
+    if self.ability=="Zen Mode":
+        if "Zen" not in self.name:
+            print(f" 🎎 {self.name}'s {self.ability}!")
+            self.name+="-Zen"
+        if "Galarian" in self.name:
+            self.type1,self.type2="Ice","Fire"
+        if "Galarian" not in self.name:
+            self.type1,self.type2="Fire","Psychic"
+    if self.ability=="Flower Gift" and field.weather in ["Sunny","Desolate Land"]:
+        print(f" 🌸 {self.name}'s {self.ability}!")
+        speedbuff*=1.5
+        atkbuff*=1.5
+    if self.ability=="Illusion" and "Zoroark" not in self.name:
+        atkbuff*=1.3
+        spatkbuff*=1.3
+        if self.ability=="Quick Feet" and self.status!="Alive":
+            speedbuff*=2
+        if self.ability in ["Bull Rush","Quill Rush"] and self.bullrush==True:
+            speedbuff*=1.5
+            atkbuff*=1.2
+        if field.weather=="Strong Winds" and "Delta Stream" not in (self.ability,other.ability):
+            print(" 🍃 The mysterious strong winds have dissipated!")
+            field.weather="Clear"
     if "Air Lock" in self.ability:
         field.weather="Clear"
     if "Delta Stream" in self.ability:
@@ -1031,7 +1063,7 @@ def prebuff(self,other,tr1,turn,field):
             self.type1="Water"
         if field.weather=="Sunny":
             self.type1="Fire"
-    if self.ability=="Defeatist" and self.hp<=(self.maxhp/2):
+    if self.ability=="Defeatist" and self.hp<=(self.maxhp/3):
         atkbuff*=0.5
         spatkbuff*=0.5
     if "Poison" in self.status and self.ability=="Toxic Boost":
@@ -1199,6 +1231,8 @@ def prebuff(self,other,tr1,turn,field):
         atkbuff*=0.5
     if self.ability=="Ice Scales":
         spdefbuff*=2
+    if self.ability=="Sage Power":
+        spatkbuff*=1.5
     if self.ability=="Gorilla Tactics":
         atkbuff*=1.5
     if self.item=="Choice Band" and self.dmax is False:
@@ -1293,7 +1327,7 @@ def statchange(self,other,tr1,turn):
         speedbuff*=2
         if turn==tr1.twendturn:
             tr1.tailwind=False
-            print(" ⚠️The Tailwind wore off!")              
+            print(" ⚠️The Tailwind petered out!!")              
     if tr1.reflect is True:
         defbuff*=2
         if turn==tr1.rfendturn:
@@ -1335,10 +1369,10 @@ def statchange(self,other,tr1,turn):
         spdefbuff*=1.5
     if self.ability=="Typeless":
         self.type1=self.atktype
-    if self.item=="Flame Orb" and self.status=="Alive":
+    if self.item=="Flame Orb" and self.status=="Alive" and self.hp>0:
         self.status="Burned"
         print(f" ❤️‍🔥 {self.name} was burned by its Flame Orb.")
-    if self.item=="Toxic Orb" and self.status=="Alive":
+    if self.item=="Toxic Orb" and self.status=="Alive" and self.hp>0:
         self.status="Badly Poisoned"
         print(f" 🟣 {self.name} was badly poisoned by its Toxic Orb.")
     if self.ability in ["Huge Power","Pure Power","Multitype","RKS System"]:

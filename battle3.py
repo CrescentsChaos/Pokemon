@@ -354,8 +354,8 @@ def battle(x,y,tr1,tr2):
                 elif y.hp>0:
                      
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                    effects (x,y,turn)
-                    effects(y,x,turn)
+                    effects (x,y,tr1,turn)
+                    effects(y,x,tr2,turn)
                     statchange(x,y,tr1,turn)
                     statchange(y,x,tr2,turn)
                     if x.hp<=0:
@@ -370,7 +370,7 @@ def battle(x,y,tr1,tr2):
                             break
                 if y.hp<=0:
                     y=faint(y,x,tr2,tr1,field,turn)
-                    effects(x,y,turn)
+                    effects(x,y,tr1,turn)
                     if x.hp<=0:
                         x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
@@ -396,8 +396,8 @@ def battle(x,y,tr1,tr2):
                 elif x.hp>0:
                      
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                    effects(y,x,turn)
-                    effects (x,y,turn)
+                    effects(y,x,tr2,turn)
+                    effects (x,y,tr1,turn)
                     statchange(x,y,tr1,turn)
                     statchange(y,x,tr2,turn)
                     if y.hp<=0:
@@ -412,7 +412,7 @@ def battle(x,y,tr1,tr2):
                             break
                 if x.hp<=0:
                     x=faint(x,y,tr1,tr2,field,turn)
-                    effects(y,x,turn)
+                    effects(y,x,tr2,turn)
                     if y.hp<=0:
                         y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
@@ -439,8 +439,8 @@ def battle(x,y,tr1,tr2):
                      
                     
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                    effects (x,y,turn)
-                    effects(y,x,turn)
+                    effects (x,y,tr1,turn)
+                    effects(y,x,tr2,turn)
                     statchange(x,y,tr1,turn)
                     statchange(y,x,tr2,turn)
                     if x.hp<=0:
@@ -455,7 +455,7 @@ def battle(x,y,tr1,tr2):
                             break
                 if y.hp<=0:
                     y=faint(y,x,tr2,tr1,field,turn)
-                    effects(x,y,turn)
+                    effects(x,y,tr1,turn)
                     if x.hp<=0:
                         x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
@@ -480,8 +480,8 @@ def battle(x,y,tr1,tr2):
                 elif y.hp>0:
                      
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                    effects (x,y,turn)
-                    effects(y,x,turn)
+                    effects (x,y,tr1,turn)
+                    effects(y,x,tr2,turn)
                     statchange(x,y,tr1,turn)
                     statchange(y,x,tr2,turn)
                     if x.hp<=0:
@@ -496,7 +496,7 @@ def battle(x,y,tr1,tr2):
                             break
                 if y.hp<=0:
                     y=faint(y,x,tr2,tr1,field,turn)
-                    effects(x,y,turn)
+                    effects(x,y,tr1,turn)
                     if x.hp<=0:
                         x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
@@ -521,8 +521,8 @@ def battle(x,y,tr1,tr2):
                 elif x.hp>0:
                      
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                    effects(y,x,turn)
-                    effects (x,y,turn)
+                    effects(y,x,tr2,turn)
+                    effects (x,y,tr1,turn)
                     statchange(x,y,tr1,turn)
                     statchange(y,x,tr2,turn)
                     if y.hp<=0:
@@ -537,7 +537,7 @@ def battle(x,y,tr1,tr2):
                             break
                 if x.hp<=0:
                     x=faint(x,y,tr1,tr2,field,turn)
-                    effects(y,x,turn)
+                    effects(y,x,tr2,turn)
                     if y.hp<=0:
                         y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
@@ -562,8 +562,8 @@ def battle(x,y,tr1,tr2):
                 elif x.hp>0:
                      
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                    effects(y,x,turn)
-                    effects (x,y,turn)
+                    effects(y,x,tr2,turn)
+                    effects (x,y,tr1,turn)
                     statchange(x,y,tr1,turn)
                     statchange(y,x,tr2,turn)
                     if y.hp<=0:
@@ -578,7 +578,7 @@ def battle(x,y,tr1,tr2):
                             break
                 if x.hp<=0:
                     x=faint(x,y,tr1,tr2,field,turn)
-                    effects(y,x,turn)
+                    effects(y,x,tr2,turn)
                     if y.hp<=0:
                         y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
@@ -603,8 +603,8 @@ def battle(x,y,tr1,tr2):
             weather(y,x)
             x=switch(x,y,tr1,tr2,field,turn)
             y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-            effects(x,y,turn)
-            effects(y,x,turn)
+            effects(x,y,tr1,turn)
+            effects(y,x,tr2,turn)
             statchange(x,y,tr1,turn)
             statchange(y,x,tr2,turn)
             if y.hp<=0:
@@ -639,8 +639,8 @@ def battle(x,y,tr1,tr2):
                 if len(tr1.pokemons)==0:
                     print(" "+tr2.name,"wins.")
                     break
-            effects(y,x,turn)
-            effects(x,y,turn)
+            effects(y,x,tr2,turn)
+            effects(x,y,tr1,turn)
             statchange(x,y,tr1,turn)
             statchange(y,x,tr2,turn)
             if x.hp<=0:
@@ -659,13 +659,13 @@ def battle(x,y,tr1,tr2):
         elif action1==2 and action2==2:
             y=switch(y,x,tr2,tr1,field,turn)
             x=switch(x,y,tr1,tr2,field,turn)       
-            effects(y,x,turn)
+            effects(y,x,tr2,turn)
             if y.hp<=0:
                 y=faint(y,x,tr2,tr1,field,turn)
                 if len(tr2.pokemons)==0:
                     print(" "+tr1.name,"wins.")
                     break
-            effects(x,y,turn)              
+            effects(x,y,tr1,turn)              
             if x.hp<=0:
                 x=faint(x,y,tr1,tr2,field,turn)
                 if len(tr1.pokemons)==0:

@@ -20,6 +20,14 @@ def intro (tr,sr,field):
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
+    if "Noland" in tr.name:
+        print(random.choice([f" {tr.name}: Hey, my name's Noland! I'm basically in charge of this place, which is why I'm the Factory Head! I had a look at your Battle Swap data. You seem to have the right idea, but you're still square in your head! Listen up, okay? Knowledge isn't only about reading books or doing desk work. Just doing that sort of thing... It may as well be useless! You have to experience things with your heart and your body, understand? I'll take you on under the same conditions as you. I'll be using rental Pokémon too! Shake out every last bit of your knowledge and bring it on!\n",f" {tr.name}: The name's Noland. I'm the Frontier Brain in charge of the Battle Factory over in Hoenn. Pleasure to meet you!\n"]))
+    if "Pyramid" in tr.name:
+        print(random.choice([f" {tr.name}: Young adventurer... Wouldn't you agree that explorations are the grandest of adventures? Your own wits! Your own strength! Your own Pokémon! And, above all, only your courage to lead you through unknown worlds...\n",
+f" {tr.name}: Aah, yes, indeed this life is grand! Grand, it is! Eh? I'm Brandon. I'm the Pyramid King, which means I'm in charge here. Most people call me the chief! You coming here means you have that much confidence in yourself, am I right? Hahahah! This should be exciting! Now, then! Bring your courage to our battle!\n",f" {tr.name}: ...You've finally returned, young explorer... Your love for adventure seems to come deep from within your heart... Yes... You are exactly as I was in my own youth... ... ... ...Ah... The passionate! The dangerous! The desperate! Those days of death-defying, life-affirming adventures are back..."
+"Now, then! I sense my courage is off the meter! Everything you have! I'm braced for it all!\n"]))
+    if " Spenser" in tr.name:
+        print(f" {tr.name}: My physical being is with Pokémon always! My heart beats as one with Pokémon always! Young one of a Trainer! Do you believe in your Pokémon? Can you believe them through and through? If your bonds of trust are frail, you will never beat my brethren! The bond you share with your Pokémon! Prove it to me here!\n")
     if " Turo" in tr.name:
         print(f" {tr.name}: Many other Pokémon also came to this place from across the boundaries of time. But I was never able to bring over more than two specimens of Miraidon.\n")
     if " Sada" in tr.name:

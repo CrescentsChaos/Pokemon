@@ -405,8 +405,11 @@ def moveAI(self,other,mtr,otr,field):
             mymove.remove("Thunder Wave")         
     if self.spatkb==4:
         if "Tail Glow" in mymove:
-            mymove.remove("Tail Glow")             
-    
+            mymove.remove("Tail Glow")      
+    if other.atkcat=="Physical" and self.speed<other.speed and "Counter" in self.moves:
+        use="Counter"                   
+    if other.atkcat=="Special" and self.speed<other.speed and "Mirror Coat" in self.moves:
+        use="Mirror Coat"
     if other.seeded is True:
         if "Leech Seed" in mymove:
             mymove.remove("Leech Seed")      
@@ -504,6 +507,8 @@ def moveAI(self,other,mtr,otr,field):
         use="Misty Explosion"
     if self.hp<=(self.maxhp*0.25) and "Explosion" in mymove:
         use="Explosion"
+    if len(self.moves)>4:
+        use=self.moves[4]
     if use is None or use==[]:
         if len(mymove)==0:
             use=random.choice(self.moves)
@@ -514,7 +519,8 @@ def moveAI(self,other,mtr,otr,field):
 #    print("=====================")     
 #    print("USABLE MOVES:",mymove)
 #    print("EFFECTIVE MOVES:",emove)
-#    print("IMMUNE MOVES: ",myimmunemove)
+#    if myimmunemove!=[]:
+#        print("IMMUNE MOVES: ",myimmunemove)
 #    print("RESISTED MOVES: ",resmove)
 #    print("NON RES STAB MOVES:",mystablist)
 #    print("STAB AND EFFECTIVE:",superduper)
@@ -618,13 +624,16 @@ def decision (self,other,tr1,tr2,field):
         action=2      
     mons=switchAI(self,other,tr1,tr2,field)[1]
     movech=moveAI(self,other,tr1,tr2,field)
+    movech2=moveAI(other,self,tr2,tr1,field)
     use=movech[0]
-    immune=movech[3]
+    immune=movech2[3]
     best=mons[0]
     bestank=mons[1]
     bestoff=mons[2]
     phytank=mons[3]
     spetank=mons[4]
+    if use==immune and len(tr1.pokemons)>1:
+        action=2
 #SUFFECIENT AMOUNT OF MONS    
     if len(tr1.pokemons)>1:
 #P1 SLOWER THAN P2        

@@ -37,8 +37,12 @@ def characters(text,nm=2):
         else:
             chosen=random.choice([genTrainer("Pokémon Trainer"),matchx[0],genplayer2(field),random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)])
     else:
-        ch=int(input(" Enter what you wanna play with: "))
-        chosen=team[ch-1]
+        ch=input(" Enter what you wanna play with: ")
+        if ch in ("rn",""):
+            chosen=random.choice(team)
+        else:
+            ch=int(ch)
+            chosen=team[ch-1]
     print(f" ✅ You have chosen {chosen.name}!\n")
     return chosen
 aa=input(" Choose a catagory(e4,ev,ch,gm,fr,tl): ")
