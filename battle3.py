@@ -23,9 +23,9 @@ def  score(x,y,p1,p2,turn):
     if p1.lightscreen==True:              
         print(f" 🟪 Light Screen({p1.screenend-turn+1} turns left)")        
     print(f" Lv.{x.level} {x.name}: {round(x.hp)}/{x.maxhp}({round((x.hp/x.maxhp)*100,3)}%)[{x.status}]")
-    if x.teratype is not None and x.type2 is None:
+    if x.teratype is not None and x.type2 is None and p2.ai is True:
         print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item} Nature: {x.nature}")
-    if x.teratype is not None and x.type2 is not None:
+    if x.teratype is not None and x.type2 is not None and p2.ai is True:
         print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item} Nature: {x.nature}")
     if x.teratype is None and x.type2 is None and p2.ai is True:
         print(f" Type:{x.type1} Ability: {x.ability} Item: {x.item} Nature: {x.nature}")
@@ -46,9 +46,9 @@ def  score(x,y,p1,p2,turn):
     if p2.lightscreen==True:        
         print(f" 🟪 Light Screen({p2.screenend-turn+1} turns left)")               
     print(f" Lv.{y.level} {y.name}: {round(y.hp)}/{y.maxhp}({round((y.hp/y.maxhp)*100,3)}%)[{y.status}]")
-    if y.teratype is not None and y.type2 is None:
+    if y.teratype is not None and y.type2 is None and p1.ai is True:
         print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
-    if y.teratype is not None and y.type2 is not None:
+    if y.teratype is not None and y.type2 is not None and p1.ai is True:
         print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
     if y.teratype is None and y.type2 is None and p1.ai is True:
         print(f" Type:{y.type1} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
@@ -59,7 +59,7 @@ def  score(x,y,p1,p2,turn):
     if field.weather=="Primordial Sea" and "Primordial Sea" not in (x.ability,y.ability) and "Marine" not in field.location:
         field.weather="Clear"
         print (" 🌤️ The heavy rainfall stopped.\n")
-    if field.weather=="Desolate Land" and "Desolate Land" not in (x.ability,y.ability) and "Terra" not in field.location:
+    if field.weather=="Desolate Land" and "Desolate Land" not in (x.ability,y.ability) and "Terra" not in field.location and "Blaine(Hardcore Mode)" not in (x.owner.name,y.owner.name):
         field.weather="Clear"
         print (" 🌤️ The extreme sunlight fade away.\n")     
 #FAINTED        
@@ -216,17 +216,36 @@ def movecat(sss):
 #        trn="Electric"
 #    return ch,trn
 #SKIP
-def skip(x,y):
+def skip(x,y,tr1,tr2):
     skip=False
-    while skip==False:
+    while skip!=True:
         kk=input("\n Do you want to skip this turn? (Enter anything)\n >>> ")
-        if kk=="info":
-            x.info()
+        if kk=="p2":
+            skip=False
+            if tr2.ai==False:
+                tr2.ai=True
+                print(f" ✅ {tr2.name} is being controlled by AI.")
+            elif tr2.ai==True:
+                tr2.ai=False
+                print(f" ✅ You are controlling {tr2.name}.")  
+        if kk=="p1":
+            skip=False
+            if tr1.ai==False:
+                tr1.ai=True
+                print(f" ✅ {tr1.name} is being controlled by AI.")
+            elif tr1.ai==True:
+                tr1.ai=False    
+                print(f" ✅ You are controlling {tr1.name}.")        
+        if kk=="info2":
             y.info()
-            movelist(x)
             movelist(y)
             skip=False
-        if kk!=None:
+        if kk=="info1":
+            x.info()
+            movelist(x)
+            skip=False
+        if kk=="":
+            print(f" ✅ Turn skipped successfully!")
             skip=True
 #BATTLE
 def battle(x,y,tr1,tr2):
@@ -339,9 +358,14 @@ def battle(x,y,tr1,tr2):
                     choice2=y.moves[choice2-1]     
                 if y.dmax is True:
                     choice2=y.maxmove[choice2-1]
-            
+            xpr=0
+            ypr=0
+            if x.item=="Quick Claw":
+                xpr=random.randint(1,100)
+            if y.item=="Quick Claw":
+                ypr=random.randint(1,100)
 #P1 PRIORITY            
-            if (choice1 in prioritymove and choice2 not in prioritymove) or x.priority is True or (x.ability=="Prankster" and choice1 in typemoves.statusmove and "Dark" not in (y.type1,y.type2)) or (choice1 in typemoves.firemoves and x.ability=="Blazing Soul" and x.hp==x.maxhp) or (choice1 in typemoves.flyingmoves and x.ability=="Gale Wings" and x.hp==x.maxhp) or (field.terrain=="Grassy" and choice1=="Grassy Glide") or (x.ability=="Triage" and choice1 in typemoves.healingmoves):
+            if (choice1 in prioritymove and choice2 not in prioritymove) or x.priority is True or (x.ability=="Prankster" and choice1 in typemoves.statusmove and "Dark" not in (y.type1,y.type2)) or (choice1 in typemoves.firemoves and x.ability=="Blazing Soul" and x.hp==x.maxhp) or (choice1 in typemoves.flyingmoves and x.ability=="Gale Wings" and x.hp==x.maxhp) or (field.terrain=="Grassy" and choice1=="Grassy Glide") or (x.ability=="Triage" and choice1 in typemoves.healingmoves) or (choice2 in ["Whirlwind"]) or (xpr>72) or (choice2 in typemoves.statusmove and y.ability=="Mycelium Might"):
                 weather(x,y)
                 x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                 statchange(x,y,tr1,turn)
@@ -380,9 +404,9 @@ def battle(x,y,tr1,tr2):
                         print(" "+tr1.name,"wins.")
                         break
                 x.priority=False
-                skip(x,y)
+                skip(x,y,tr1,tr2)
 #P2 PRIORITY 
-            elif (choice2 in prioritymove and choice1 not in prioritymove) or y.priority is True or (y.ability=="Prankster" and choice2 in typemoves.statusmove and "Dark" not in (x.type1,x.type2)) or (choice2 in typemoves.firemoves and y.ability=="Blazing Soul" and y.hp==y.maxhp) or (choice2 in typemoves.flyingmoves and y.ability=="Gale Wings" and y.hp==y.maxhp) or (field.terrain=="Grassy" and choice2=="Grassy Glide") or (y.ability=="Triage" and choice2 in typemoves.healingmoves):
+            elif (choice2 in prioritymove and choice1 not in prioritymove) or y.priority is True or (y.ability=="Prankster" and choice2 in typemoves.statusmove and "Dark" not in (x.type1,x.type2)) or (choice2 in typemoves.firemoves and y.ability=="Blazing Soul" and y.hp==y.maxhp) or (choice2 in typemoves.flyingmoves and y.ability=="Gale Wings" and y.hp==y.maxhp) or (field.terrain=="Grassy" and choice2=="Grassy Glide") or (y.ability=="Triage" and choice2 in typemoves.healingmoves) or (choice1 in ["Whirlwind"]) or (xpr>72) or (choice1 in typemoves.statusmove and x.ability=="Mycelium Might"):
                 weather(y,x)
                  
                 y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
@@ -422,7 +446,7 @@ def battle(x,y,tr1,tr2):
                         print(" "+tr2.name,"wins.")
                         break
                 y.priority=False
-                skip(x,y)
+                skip(x,y,tr1,tr2)
 #P1 FAST
             elif x.speed>=y.speed and field.trickroom==False:
                 weather(x,y)
@@ -464,7 +488,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr2.pokemons)==0:
                         print(" "+tr1.name,"wins.")
                         break
-                skip(x,y)
+                skip(x,y,tr1,tr2)
 #P2 FAST (TRICK ROOM)
             elif x.speed<y.speed and field.trickroom==True:
                 weather(x,y)
@@ -505,7 +529,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr2.pokemons)==0:
                         print(" "+tr1.name,"wins.")
                         break
-                skip(x,y)
+                skip(x,y,tr1,tr2)
 #P2 FAST
             elif y.speed>x.speed and field.trickroom==False:
                 weather(y,x)
@@ -546,7 +570,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr1.pokemons)==0:
                         print(" "+tr2.name,"wins.")
                         break
-                skip(x,y)
+                skip(x,y,tr1,tr2)
 #P2 FAST (TRICK ROOM)
             elif y.speed<=x.speed and field.trickroom==True:
                 weather(y,x)
@@ -587,7 +611,7 @@ def battle(x,y,tr1,tr2):
                     if len(tr1.pokemons)==0:
                         print(" "+tr2.name,"wins.")
                         break
-                skip(x,y)
+                skip(x,y,tr1,tr2)
 #P1 SWITCH AND P2 ATTACK                
         elif action1==2 and action2==1:
             choice1=None
@@ -618,7 +642,7 @@ def battle(x,y,tr1,tr2):
                     print(" "+tr2.name,"wins.")
                     break
             y.protect=False
-            skip(x,y)
+            skip(x,y,tr1,tr2)
 #P1 ATTACKS AND P2 SWITCHES                
         elif action1==1 and action2==2:
             choice2=None
@@ -654,7 +678,7 @@ def battle(x,y,tr1,tr2):
                     print(" "+tr1.name,"wins.")
                     break
             x.protect=False
-            skip(x,y)
+            skip(x,y,tr1,tr2)
 #IF BOTH SWITCHES                
         elif action1==2 and action2==2:
             y=switch(y,x,tr2,tr1,field,turn)
@@ -671,4 +695,4 @@ def battle(x,y,tr1,tr2):
                 if len(tr1.pokemons)==0:
                     print(" "+tr2.name,"wins.")
                     break   
-                skip(x,y)                    
+                skip(x,y,tr1,tr2)                    

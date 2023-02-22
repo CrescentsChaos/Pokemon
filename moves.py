@@ -250,23 +250,32 @@ def blueflare(self,other):
         print(f" 🔥 {other.name} was burned.")
 #ICE BURN        
 def iceburn(self,other):
-    self.atktype="Ice"
-    w=weathereff(self)
-    al=1
-    r=randroll()
-    if self.ability=="Sheer Force":
-        al=1.5
-        print(f" {self.name}'s {self.ability}.")
-    print(f" ❄️🔥 {self.name} used "+colored(" Ice Burn","cyan")+"!")
-    c=critch(self,other)
-    ab=weakness(self,other,field)
-    a=ab[0]
-    b=ab[1]   
-    other.hp-=special(self,self.level,self.spatk,other.spdef,140,a,b,c,r,al,w)
-    ch=random.randint(1,100)
-    if ch>70 and other.status is None and self.ability!="Sheer Force" and other.ability not in ["Shield Dust"] and other.item!="Covert Cloak": 
-        other.status="Burned"
-        print(f" 🔥 {other.name} was burned.")    
+    if self.item=="Power Herb" or self.precharge==True:
+        if self.item=="Power Herb":
+            self.item=None
+            print(f" {self.name} became fully charged due to its Power Herb.")
+        self.atktype="Ice"
+        w=weathereff(self)
+        al=1
+        r=randroll()
+        if self.ability=="Sheer Force":
+            al=1.5
+            print(f" {self.name}'s {self.ability}.")
+        print(f" ❄️🔥 {self.name} used "+colored(" Ice Burn","cyan")+"!")
+        c=critch(self,other)
+        ab=weakness(self,other,field)
+        a=ab[0]
+        b=ab[1]   
+        other.hp-=special(self,self.level,self.spatk,other.spdef,140,a,b,c,r,al,w)
+        ch=random.randint(1,100)
+        if ch>70 and other.status is None and self.ability!="Sheer Force" and other.ability not in ["Shield Dust"] and other.item!="Covert Cloak": 
+            other.status="Burned"
+            print(f" 🔥 {other.name} was burned.") 
+        self.precharge=False  
+    elif self.precharge==False:
+        print(f" ❄️ {self.name} became cloaked in a freezing air!")
+        self.precharge=True
+       
 #FIRE BLAST
 def fireBlast(self,other):
     self.atktype="Fire"
@@ -515,10 +524,10 @@ def superfang(self,other):
     other.hp-=a*(round(other.hp/2))
 def charm(self,other):
     print(f" 🥰 {self.name} used "+colored(" Charm","magenta")+"!")
-    atkchange(self,-1)
+    atkchange(other,-1)
     print(f" {other.name}: Attack x{other.atkb}")    #SWORDS DANCE
 def swordsdance(self):
-    print(f" ⚔️ {self.name} used Swords Dance.")
+    print(f" ⚔️ {self.name} used "+colored(" Swords Dance","white")+"!")
     atkchange(self,1)
     print(f" {self.name} sharply raised its attack!")
 #FILLET AWAY    
@@ -542,6 +551,12 @@ def tailglow(self):
     print(f" {self.name} used Tail Glow.")
     spatkchange(self,1.5)
     print(f" {self.name} drastically raised its attack!")   
+#Growth
+def growth(self):
+    print(f" 🪴 {self.name} used "+colored(" Growth","white")+"!")
+    spatkchange(self,0.5)
+    atkchange(self,0.5)
+    print(f" {self.name} raised its attack and special attack!")       
 #NASTY PLOT       
 def nastyplot(self):
     print(f" ❔ {self.name} used "+colored(" Nasty Plot","red")+"!")
@@ -665,8 +680,7 @@ def skullbash(self,other):
             atkchange(self,0.5)
             defchange(self,0.5)
             print(f" {self.name} became fully charged due to its Power Herb.")
-            print(f" Attack x{self.atkb}")
-            print(f" Defense x{self.defb}")
+            print(f" {self.name}'s attack and defense rose!")
         al=1
         r=randroll()
         self.atktype="Normal"
@@ -680,8 +694,7 @@ def skullbash(self,other):
         print(f" {self.name} lowered it's head.")
         atkchange(self,0.5)
         defchange(self,0.5)
-        print(f" Attack x{self.atkb}")
-        print(f" Defense x{self.defb}")
+        print(f" {self.name}'s attack and defense rose!")
         self.precharge=True    
         
 def meteorbeam(self,other):       
@@ -691,7 +704,7 @@ def meteorbeam(self,other):
             self.item=None  
             spatkchange(self,0.5)
             print(f" {self.name} became fully charged due to its Power Herb.")
-            print(f" Special Attack x{self.spatkb}")
+            print(f" {self.name}'s special attack rose!")
         al=1
         r=randroll()
         self.atktype="Rock"
@@ -704,7 +717,7 @@ def meteorbeam(self,other):
     else:
         print(f" {self.name} is overflowing with space power!")
         spatkchange(self,0.5)
-        print(f" Special Attack x{self.spatkb}")
+        print(f" {self.name}'s special attack rose!")
         self.precharge=True
         
 def geomancy(self):
@@ -714,9 +727,7 @@ def geomancy(self):
         spatkchange(self,1)     
         spdefchange(self,1)   
         speedchange(self,1)
-        print(f" Special Attack x{self.spatkb}")   
-        print(f" Special Defense x{self.spdefb}")   
-        print(f" Speed x{self.speedb}")      
+        print(f" {self.name} sharply raised its special attack, special defense and speed!")
         self.precharge=False
         self.item=None
     else:
@@ -726,13 +737,12 @@ def coil(self):
     print(f" 🐍 {self.name} used "+colored(" Coil","green")+"!")
     atkchange(self,0.5)     
     defchange(self,0.5)   
-    print(f" Attack x{self.atkb}")   
-    print(f" Defense x{self.defb}")  
+    print(f" {self.name} raised its attack and defense!")
     
 def autotomize(self):
     print(f" 🔩 {self.name} used "+colored(" Autotomize","white")+"!")
     speedchange(self,1)
-    print(f" Speed x{self.speedb}")
+    print(f" {self.name} sharply raised its speed!")
 def mortalspin(self,other,tr1):
     print(f" 🥏 {self.name} used "+colored(" Mortal Spin","magenta")+"!")
     self.atktype="Poison"
@@ -742,13 +752,14 @@ def mortalspin(self,other,tr1):
     if self.seeded is True:
         self.seeded=False
     if len(tr1.hazard)>0:
-        tr1.hazard=None
+        tr1.hazard=[]
         print(f" {self.name} removed hazards from its side!")   
 def tidyup(self,other,tr1):
     print(f" 🧹 {self.name} used "+colored(" Tidu Up","white")+"!")
     tr1.hazard=[]       
     atkchange(self,0.5)
     speedchange(self,0.5)
+    print(f" {self.name} raised its attack and speed!")
 def rapidspin(self,other,tr1):
     print(f" 🥏 {self.name} used "+colored(" Rapid Spin","white")+"!")
     self.atktype="Normal"
@@ -764,7 +775,7 @@ def rapidspin(self,other,tr1):
         base*=1.5
     other.hp-=physical(self,self.level,self.atk,other.defense,base,a,b,c,r,al)      
     speedchange(self,0.5)
-    print(f" Speed x{self.speedb}")    
+    print(f" {self.name} raised its speed!")
     if len(tr1.hazard)>0:
         tr1.hazard=[]
         print(f" {self.name} removed hazards from its side!")
@@ -773,17 +784,14 @@ def dragondance(self):
     print(f" 🐉 {self.name} used "+colored(" Dragon Dance","red")+"!")   
     atkchange(self,0.5)
     speedchange(self,0.5)
-    print(f" Attack x{self.atkb}")   
-    print(f" Speed x{self.speedb}")
+    print(f" {self.name} raised its attack and speed!")
     
 def quiverdance(self):
     print(f" 🦋 {self.name} used "+colored(" Quiver Dance","green")+"!")
     spatkchange(self,0.5)
     speedchange(self,0.5)
     spdefchange(self,0.5)
-    print(f" Special Attack x{self.spatkb}")   
-    print(f" Special Defense x{self.spdefb}")  
-    print(f" Speed x{self.speedb}") 
+    print(f" {self.name} raised its special attack,special defense and speed!")
               
 def shellsmash(self):
     print(f" 🐚 {self.name} used "+colored(" Shell Smash","blue")+"!")
@@ -792,11 +800,8 @@ def shellsmash(self):
     speedchange(self,1)
     defchange(self,-0.5)
     spdefchange(self,-0.5)
-    print(f" Attack x{self.atkb}")   
-    print(f" Special Attack x{self.spatkb}")   
-    print(f" Speed x{self.speedb}")       
-    print(f" Defense x{self.defb}")    
-    print(f" Special Defense x{self.spdefb}")     
+    print(f" {self.name} sharply raised its attack, special attack and speed!")     
+    print(f" {self.name}'s defense and special defense fell!")
        
 def infernooverdrive(self,other):
     self.atktype="Fire"
@@ -1200,7 +1205,25 @@ def maxquake(self,other):
     else:
         other.hp-=physical(self,self.level,self.atk,other.defense,150,a,b,c,r,al)            
     spdefchange(self,0.5)       
-    print(f" {self.name}'s special defense rose!")          
+    print(f" {self.name}'s special defense rose!") 
+def gmaxsandblast(self,other,tr1,turn):
+    al=1
+    r=randroll()
+    print(f" 🔺🏜️ {self.name} used "+colored(" G-Max Sandblast","yellow")+"!")
+    self.atktype="Ground"
+    c=critch(self,other)
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    if self.spatk>self.atk:
+        other.hp-=special(self,self.level,self.spatk,other.spdef,150,a,b,c,r,al)    
+    else:
+        other.hp-=physical(self,self.level,self.atk,other.defense,150,a,b,c,r,al)            
+    if field.weather not in ["Desolate Land","Primordial Sea","Strong Wind","Sandstorm"]:
+        print(f" 🏜️ {self.name} started a sandstorm.")
+        field.weather="Sandstorm" 
+        tr1.sandturn=turn
+        tr1.sandend(self,other)                
 def corkscrewcrash(self,other):
     al=1
     r=randroll()
@@ -2332,7 +2355,7 @@ def makeitrain(self,other):
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,120,a,b,c,r,al)           
     spatkchange(self,-0.5)
-    print(f" Special Attack x{self.spatkb}")     
+    print(f" {self.name}'s special attack fell!")     
 def leafstorm(self,other):
     al=1
     r=randroll()
@@ -2343,8 +2366,9 @@ def leafstorm(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,130,a,b,c,r,al)           
-    spatkchange(self,-1)
-    print(f" Special Attack x{self.spatkb}")   
+    if a!=0:
+        spatkchange(self,-1)
+        print(f" {self.name}'s special attack fell harshly!")   
 def blizzard(self,other):
     self.atktype="Ice"
     w=weathereff(self)
@@ -2794,13 +2818,14 @@ def thunder(self,other):
         other.status="Paralyzed"
         print(f" {other.name} is paralyzed.")
 def finalgambit(self,other):
-    print(f" {self.name} used "+colored(" Final Gambit","red")+"!")       
-    other.hp-=self.hp
-    self.hp-=self.hp
+    print(f" 💀 {self.name} used "+colored(" Final Gambit","red")+"!")       
+    if "Ghost" not in (other.type1, other.type2,other.teratype):
+        other.hp-=self.hp
+        self.hp-=self.hp
 def venoshock(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used "+colored(" Venoshock","magenta")+"!")
+    print(f" ☣️ {self.name} used "+colored(" Venoshock","magenta")+"!")
     c=critch(self,other)
     self.atktype="Poison"
     ab=weakness(self,other,field)
@@ -2813,7 +2838,7 @@ def venoshock(self,other):
 def fishiousrend(self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used "+colored(" Fishious Rend","blue")+"!")
+    print(f" 🦈 {self.name} used "+colored(" Fishious Rend","blue")+"!")
     c=critch(self,other)
     self.atktype="Water"
     w=weathereff(self)
@@ -2831,7 +2856,7 @@ def blazingtorque(self,other):
     al=1
     r=randroll()
     w=weathereff(self)
-    print(f" {self.name} used "+colored(" Blazing Torque","red")+"!")
+    print(f" 🏎️ {self.name} used "+colored(" Blazing Torque","red")+"!")
     c=critch(self,other)
     self.atktype="Fire"
     ab=weakness(self,other,field)
@@ -2842,7 +2867,7 @@ def combattorque(self,other):
     al=1
     r=randroll()
     w=weathereff(self)
-    print(f" {self.name} used "+colored(" Combat Torque","red")+"!")
+    print(f" 🏎️ {self.name} used "+colored(" Combat Torque","red")+"!")
     c=critch(self,other)
     self.atktype="Fighting"
     ab=weakness(self,other,field)
@@ -2853,7 +2878,7 @@ def magicaltorque(self,other):
     al=1
     r=randroll()
     w=weathereff(self)
-    print(f" {self.name} used "+colored(" Magical Torque","magenta")+"!")
+    print(f" 🏎️ {self.name} used "+colored(" Magical Torque","magenta")+"!")
     c=critch(self,other)
     self.atktype="Fairy"
     ab=weakness(self,other,field)
@@ -2864,7 +2889,7 @@ def noxioustorque(self,other):
     al=1
     r=randroll()
     w=weathereff(self)
-    print(f" {self.name} used "+colored(" Noxious Torque","magenta")+"!")
+    print(f" 🏎️ {self.name} used "+colored(" Noxious Torque","magenta")+"!")
     c=critch(self,other)
     self.atktype="Poison"
     ab=weakness(self,other,field)
@@ -2875,7 +2900,7 @@ def wickedtorque(self,other):
     al=1
     r=randroll()
     w=weathereff(self)
-    print(f" {self.name} used "+colored(" Wicked Torque","red")+"!")
+    print(f" 🏎️ {self.name} used "+colored(" Wicked Torque","red")+"!")
     c=critch(self,other)
     self.atktype="Dark"
     ab=weakness(self,other,field)
@@ -2921,7 +2946,7 @@ def electroweb(self,other):
     other.hp-=special(self,self.level,self.spatk,other.spdef,base,a,b,c,r,al)        
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil","Shield Dust"] and a!=0:
         speedchange(other,-0.5)
-        print(f" {other.name}: Speed x{other.speedb}")
+        print(f" {other.name}'s speed fell!")
 def powergem(self,other):
     al=1
     r=randroll()
@@ -3064,7 +3089,7 @@ def triplearrows(self,other):
     ch=random.randint(1,100)
     if 95>ch>90 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange(other,-0.5)
-        print(f" {other.name}: Defense x{other.defb}")
+        print(f" {other.name}'s defense fell!")
     if ch>95  and other.ability not in ["Inner Focus"]:
         other.flinched=True   
 def razorleaf(self,other):
@@ -3118,7 +3143,7 @@ def discharge(self,other):
     ch=random.randint(1,100)
     if ch>70 and other.status=="Alive" and a!=0:
         other.status="Paralyzed"
-        print(f" {other.name} is paralyzed.")
+        print(f" ⚡ {other.name} is paralyzed.")
 def doubleshock(self,other):
     al=1
     r=randroll()
@@ -3730,28 +3755,45 @@ def skyuppercut(self,other):
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,70,a,b,c,r,al)         
 def shadowforce(self,other):
-    al=1
-    r=randroll()
-    print(f" {self.name} used "+colored(" Shadow Force","magenta")+"!")
-    c=critch(self,other)
-    self.atktype="Ghost"
-    ab=weakness(self,other,field)
-    a=ab[0]
-    b=ab[1]   
-    other.hp-=physical(self,self.level,self.atk,other.defense,120,a,b,c,r,al)              
-    ch=random.randint(1,100)
-    if ch>70 and self.ability!="Sheer Force" and other.ability not in ["Inner Focus","Shield Dust"]:
-        other.flinched=True  
+    if self.item=="Power Herb" or self.precharge==True:
+        if self.item=="Power Herb":
+            self.item=None
+            print(f" 👥 {self.name} became fully charged due to its Power Herb.")
+        al=1
+        r=randroll()
+        print(f" {self.name} used "+colored(" Shadow Force","magenta")+"!")
+        c=critch(self,other)
+        self.atktype="Ghost"
+        ab=weakness(self,other,field)
+        a=ab[0]
+        b=ab[1]   
+        other.hp-=physical(self,self.level,self.atk,other.defense,120,a,b,c,r,al)   
+        self.precharge=False
+        ch=random.randint(1,100)
+        if ch>70 and self.ability!="Sheer Force" and other.ability not in ["Inner Focus","Shield Dust"]:
+            other.flinched=True   
+    elif self.precharge==False:
+        print(f" 😶‍🌫️  {self.name} vanished instantly!")
+        self.precharge=True         
+    
 def phantomforce(self,other):
-    al=1
-    r=randroll()
-    print(f" {self.name} used "+colored(" Phantom Force","magenta")+"!")
-    c=critch(self,other)
-    self.atktype="Ghost"
-    ab=weakness(self,other,field)
-    a=ab[0]
-    b=ab[1]   
-    other.hp-=physical(self,self.level,self.atk,other.defense,90,a,b,c,r,al)                      
+    if self.item=="Power Herb" or self.precharge==True:
+        if self.item=="Power Herb":
+            self.item=None
+            print(f" {self.name} became fully charged due to its Power Herb.")
+        al=1
+        r=randroll()
+        print(f" 👤 {self.name} used "+colored(" Phantom Force","magenta")+"!")
+        c=critch(self,other)
+        self.atktype="Ghost"
+        ab=weakness(self,other,field)
+        a=ab[0]
+        b=ab[1]   
+        other.hp-=physical(self,self.level,self.atk,other.defense,90,a,b,c,r,al)      
+        self.precharge=False  
+    elif self.precharge==False:
+        print(f" 😶‍🌫️ {self.name} vanished instantly!")
+        self.precharge=True
 def blazekick(self,other):
     al=1
     r=randroll()
@@ -4390,8 +4432,7 @@ def lavaplume(self,other):
     al=1
     r=randroll()
     print(f" {self.name} used "+colored(" Lava Plume","red")+"!")
-    c=critch(self,other)
-    
+    c=critch(self,other)    
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
@@ -4578,8 +4619,8 @@ def sludgewave(self,other):
     al=1
     r=randroll()
     if self.ability=="Sheer Force":
-        al=1.5
         print(f" {self.name}'s {self.ability}.")
+        al=1.5
     print(f" 〰️ {self.name} used "+colored(" Sludge Wave","magenta")+"!")
     c=critch(self,other)
     self.atktype="Poison"
@@ -4588,7 +4629,7 @@ def sludgewave(self,other):
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,95,a,b,c,r,al)                
     ch=random.randint(1,100)
-    if ch>90 and other.status=="Alive" and other.type1!="Steel" and other.type2!="Steel" and other.type1!="Poison" and other.type2!="Poison" and other.ability!="Immunity" and other.ability not in ["Shield Dust"] and other.item!="Covert Cloak":
+    if ch>90 and other.status=="Alive" and other.type1!="Steel" and other.type2!="Steel" and other.type1!="Poison" and other.type2!="Poison" and other.ability!="Immunity" and other.ability not in ["Shield Dust"] and other.item!="Covert Cloak" and self.ability!="Sheer Force":
         other.status="Badly Poisoned"        
 def hydropump(self,other):
     self.atktype="Water"
@@ -4780,9 +4821,8 @@ def headlongrush (self,other):
     other.hp-=physical(self,self.level,self.atk,other.defense,120,a,b,c,r,al)
     if a!=0:
         defchange (self,-0.5)
-        print(f" Defense x{self.defb}")
         spdefchange (self,-0.5)
-        print(f" Special Defense x{self.spdefb}")
+        print(f" {self.name}'s defense and special defense fell!")
 def firelash(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -4796,7 +4836,7 @@ def firelash(self,other):
     other.hp-=physical(self,self.level,self.atk,other.defense,80,a,b,c,r,al,w)    
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange (other,-0.5)
-        print(f" {other.name}: Defense x{other.defb}")
+        print(f" {other.name}'s defense fell!")
 def mysticalfire(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -4810,7 +4850,7 @@ def mysticalfire(self,other):
     other.hp-=physical(self,self.level,self.atk,other.defense,75,a,b,c,r,al,w)    
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         spatkchange (other,-0.5)
-        print(f" {other.name}: Special Attack x{other.spatkb}")    
+        print(f" {other.name}'s special attack fell!")   
 def lunge(self,other):
     self.atktype="Bug"
     w=weathereff(self)
@@ -4826,7 +4866,7 @@ def lunge(self,other):
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,80,a,b,c,r,al,w)         
     atkchange (other,-0.5)   
-    print(f" {other.name}: Attack x{other.atkb}")
+    print(f" {other.name}'s attack fell!")
 def shelltrap(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -4936,8 +4976,9 @@ def mysticalpower(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,70,a,b,c,r,al)
-    spatkchange(self,0.5)
-    print(f" Special Attack x{self.spatkb}")        
+    if a!=0:
+        spatkchange(self,0.5)
+        print(f" Special Attack x{self.spatkb}")        
 def torchsong(self,other):
     self.atktype="Fire"
     w=weathereff(self)
@@ -4949,8 +4990,9 @@ def torchsong(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,80,a,b,c,r,al,w)
-    spatkchange(self,0.5)
-    print(f" Special Attack x{self.spatkb}")         
+    if a!=0:
+        spatkchange(self,0.5)
+        print(f" Special Attack x{self.spatkb}")         
 def aquastep(self,other):
     self.atktype="Water"
     w=weathereff(self)
@@ -4965,8 +5007,9 @@ def aquastep(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,80,a,b,c,r,al,w)
-    speedchange(self,0.5)
-    print(f" Speed x{self.speedb}") 
+    if a!=0:
+        speedchange(self,0.5)
+        print(f" Speed x{self.speedb}") 
 def tropkick(self,other):
     self.atktype="Grass"
     w=weathereff(self)
@@ -5076,8 +5119,7 @@ def armorcannon(self,other):
     if a!=0:
         defchange(self,-0.5)
         spdefchange(self,-0.5)
-        print(f" Defense x{self.defb}")
-        print(f" Special Defense x{self.spdefb}") 
+        print(f" {self.name}'s attack and defense fell!")
 def electrodrift(self,other):
     al=1
     r=randroll()
@@ -5131,8 +5173,7 @@ def closecombat(self,other):
     if a!=0:
         defchange(self,-0.5)
         spdefchange(self,-0.5)
-        print(f" Defense x{self.defb}")
-        print(f" Special Defense x{self.spdefb}")
+        print(f" {self.name}'s defense and special defense fell!")
 def bulletpunch(self,other):
     al=1
     r=randroll()
@@ -5227,8 +5268,7 @@ def superpower(self,other):
     if a!=0:
         atkchange(self,-0.5)
         defchange(self,-0.5)
-        print(f" Attack x{self.atkb}")
-        print(f" Defense x{self.defb}")
+        print(f" {self.name}'s attack and defense fell!")
     
 def dragonhammer(self,other):
     al=1
@@ -5488,12 +5528,11 @@ def flareblitz(self,other):
         other.hp-=dmg
     if self.ability!="Rock Head":
         self.hp-=round(dmg/3)
-        print(f" {self.name} was hurt by recoil.")         
+        print(f" {self.name} was hurt by recoil.")  
     ch=random.randint(1,100)
     if ch>90 and other.status=="Alive" and other.ability!="Flash Fire" and "Fire" not in (other.type1,other.type2,other.teratype) and other.ability not in ["Shield Dust"] and other.item!="Covert Cloak":
         other.status="Burned"
         print(f" 🔥 {other.name} was burned.")
-        other.atk*=0.5 
 def boltstrike(self,other):
     al=1
     r=randroll()
@@ -5510,20 +5549,29 @@ def boltstrike(self,other):
         print(f" {other.name} is paralyzed.")
         
 def freezeshock(self,other):
-    al=1
-    r=randroll()
-    print(f" ❄️⚡ {self.name} used "+colored(" Freeze Shock","cyan")+"!")
-    c=critch(self,other)
-    self.atktype="Ice"
-    w=weathereff(self)
-    ab=weakness(self,other,field)
-    a=ab[0]
-    b=ab[1]   
-    other.hp-=physical(self,self.level,self.atk,other.defense,140,a,b,c,r,al,w)  
-    ch=random.randint(1,100)
-    if ch>70 and other.status=="Alive" and other.ability not in ["Shield Dust"] and a!=0:
-        other.status="Paralyzed"
-        print(f" {other.name} is paralyzed.")
+    if self.item=="Power Herb" or self.precharge==True:
+        if self.item=="Power Herb":
+            self.item=None
+            print(f" {self.name} became fully charged due to its Power Herb.")
+        al=1
+        r=randroll()
+        print(f" ❄️⚡ {self.name} used "+colored(" Freeze Shock","cyan")+"!")
+        c=critch(self,other)
+        self.atktype="Ice"
+        w=weathereff(self)
+        ab=weakness(self,other,field)
+        a=ab[0]
+        b=ab[1]   
+        other.hp-=physical(self,self.level,self.atk,other.defense,140,a,b,c,r,al,w)  
+        ch=random.randint(1,100)
+        if ch>70 and other.status=="Alive" and other.ability not in ["Shield Dust"] and a!=0:
+            other.status="Paralyzed"
+            print(f" ⚡ {other.name} is paralyzed.")
+        self.precharge=False  
+    elif self.precharge==False:
+        print(f" ❄️ {self.name} became cloaked in a freezing light!")
+        self.precharge=True
+    
       
 def fusionbolt(self,other):
     al=1
@@ -5702,7 +5750,10 @@ def hornleech(self,other):
         other.hp-=dmg
     heal=dmg/2
     if self.hp<=(self.maxhp-heal):
-        self.hp+=heal
+        if self.item=="Big Root":
+            self.hp+=heal*1.3
+        else:
+            self.hp+=heal
     else:
         self.hp=self.maxhp    
 def bitterblade(self,other):
@@ -5730,7 +5781,10 @@ def bitterblade(self,other):
         other.hp-=dmg
     heal=dmg/2
     if self.hp<=(self.maxhp-heal):
-        self.hp+=heal
+        if self.item=="Big Root":
+            self.hp+=heal*1.3
+        else:
+            self.hp+=heal
     else:
         self.hp=self.maxhp 
 def drainingkiss(self,other):
@@ -5752,7 +5806,10 @@ def drainingkiss(self,other):
         other.hp-=dmg
     heal=dmg*0.75
     if self.hp<=(self.maxhp-heal):
-        self.hp+=heal
+        if self.item=="Big Root":
+            self.hp+=heal*1.3
+        else:
+            self.hp+=heal
     else:
         self.hp=self.maxhp               
 def drainpunch(self,other):
@@ -5782,7 +5839,10 @@ def drainpunch(self,other):
         other.hp-=dmg
     heal=dmg/2
     if self.hp<=(self.maxhp-heal):
-        self.hp+=heal
+        if self.item=="Big Root":
+            self.hp+=heal*1.3
+        else:
+            self.hp+=heal
     else:
         self.hp=self.maxhp
 def parabolic(self,other):
@@ -5804,7 +5864,10 @@ def parabolic(self,other):
         other.hp-=dmg
     heal=dmg/2
     if self.hp<=(self.maxhp-heal):
-        self.hp+=heal
+        if self.item=="Big Root":
+            self.hp+=heal*1.3
+        else:
+            self.hp+=heal
     else:
         self.hp=self.maxhp        
         
@@ -6195,18 +6258,27 @@ def woodhammer(self,other):
         self.hp-=round(dmg/3)
         print(f" {self.name} was hurt by recoil.")        
 def skyattack(self,other):
-    al=1
-    r=randroll()
-    print(f" 🕊️ {self.name} used "+colored(" Sky Attack","cyan")+"!")
-    c=critch(self,other,2)
-    self.atktype="Flying"
-    ab=weakness(self,other,field)
-    a=ab[0]
-    b=ab[1]   
-    other.hp-=physical(self,self.level,self.atk,other.defense,150,a,b,c,r,al)     
-    ch=random.randint(1,100)
-    if ch>70 and other.ability not in ["Inner Focus"]:
-        other.flinched=True             
+    if self.item=="Power Herb" or self.precharge==True:
+        if self.item=="Power Herb":
+            self.item=None
+            print(f" {self.name} became fully charged due to its Power Herb.")
+        al=1
+        r=randroll()
+        print(f" 🕊️ {self.name} used "+colored(" Sky Attack","cyan")+"!")
+        c=critch(self,other,2)
+        self.atktype="Flying"
+        ab=weakness(self,other,field)
+        a=ab[0]
+        b=ab[1]   
+        other.hp-=physical(self,self.level,self.atk,other.defense,150,a,b,c,r,al)     
+        ch=random.randint(1,100)
+        if ch>70 and other.ability not in ["Inner Focus"]:
+            other.flinched=True        
+        self.precharge=False  
+    elif self.precharge==False:
+        print(f" 🌌 {self.name} became cloaked in a harsh light!")
+        self.precharge=True
+               
 def crunch(self,other):
     al=1
     r=randroll()
@@ -6264,7 +6336,7 @@ def playrough(self,other):
     ch=random.randint(1,10)
     if ch==7 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         atkchange(other,-0.5)
-        print(f" {other.name}: Attack x{other.atkb}")
+        print(f" {other.name}'s attack fell!")
 def powerwhip(self,other):
     al=1
     r=randroll()
@@ -6326,8 +6398,9 @@ def breakingswipe(self,other):
         print(f" {self.name}'s {self.ability}.")
         base*=1.5
     other.hp-=physical(self,self.level,self.atk,other.defense,base,a,b,c,r,al)            
-    atkchange(other,-0.5)
-    print(f" {other.name} Attack x{other.atkb}")  
+    if a!=0:
+        atkchange(other,-0.5)
+        print(f" {other.name}'s attack fell!")  
 def falsesurrender(self,other):
     al=1
     r=randroll()
@@ -6728,7 +6801,7 @@ def hammerarm(self,other):
     dmg=physical(self,self.level,self.atk,other.defense,100,a,b,c,r,al)     
     other.hp-=dmg  
     speedchange(self,-0.5)
-    print(f" Speed x{self.speedb}")        
+    print(f" {self.name}'s speed fell!")  
 def poweruppunch(self,other):
     al=1
     r=randroll()
@@ -6752,7 +6825,7 @@ def poweruppunch(self,other):
     other.hp-=dmg  
     if a>0:
         atkchange(self,0.5)
-        print(f" Attack x{self.atkb}")
+        print(f" {self.name}'s attack rose!")
 def doubleedge(self,other):
     al=1
     r=randroll()
@@ -6818,6 +6891,23 @@ def glaiverush(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,120,a,b,c,r,al)    
+def dragonrush(self,other):
+    al=1
+    r=randroll()
+    print(f" 🐲 {self.name} used "+colored(" Dragon Rush","red")+"!")
+    c=critch(self,other,2)
+    self.atktype="Dragon"
+    ab=weakness(self,other,field)
+    a=ab[0]
+    b=ab[1]   
+    other.hp-=physical(self,self.level,self.atk,other.defense,100,a,b,c,r,al)    
+    chance=20
+    if self.ability=="Serene Grace":
+        chance*=2
+    if self.speed>other.speed:
+        ch=random.randint(1,100)            
+        if ch>(100-chance) and other.ability not in ["Inner Focus"]:
+            other.flinched=True  
 def slash(self,other):
     al=1
     r=randroll()
@@ -6902,14 +6992,7 @@ def nightslash(self,other):
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,70,a,b,c,r,al)  
 def ruination(self,other):
-    al=1
-    r=randroll()
     print(f" 🌆 {self.name} used "+colored(" Ruination","red")+"!")
-    c=critch(self,other,2)
-    self.atktype="Dark"
-    ab=weakness(self,other,field)
-    a=ab[0]
-    b=ab[1]   
     other.hp-=(other.hp/2)
 def kowtowcleave(self,other):
     al=1
@@ -6993,8 +7076,9 @@ def esperwing(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,80,a,b,c,r,al)       
-    speedchange (self,0.5)
-    print(f" Speed x{self.speedb}")
+    if a!=0:
+        speedchange (self,0.5)
+        print(f" Speed x{self.speedb}")
 def wickedblow(self,other):
     al=1
     r=randroll()
@@ -7044,7 +7128,7 @@ def dragonascent(self,other):
 def weatherball(self,other):
     self.atktype="Normal"
     base=50
-    typ=None
+    typ="⚪"
     color="white"
     if self.ability=="Technician":
         print(f" {self.name}'s {self.ability}.")
@@ -7059,7 +7143,7 @@ def weatherball(self,other):
         typ="🔥"
         color="red"
         base*=2     
-    if field.weather in ["Hail"]:
+    if field.weather in ["Hail","Snowstorm"]:
         self.atktype="Ice"  
         typ="❄️"
         color="cyan"
@@ -7079,9 +7163,9 @@ def weatherball(self,other):
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,base,a,b,c,r,al,w)
 def maxgeyser(self,other,tr1,turn):
+    self.atktype="Water"
     w=weathereff(self)
     print(f" 🔺🌊 {self.name} used "+colored(" Max Geyser","blue")+"!")
-    self.atktype="Water"
     al=1
     r=randroll()
     c=critch(self,other)
@@ -7294,7 +7378,10 @@ def oblivionwing(self,other):
         other.hp-=dmg
     heal=dmg*0.75
     if self.hp<=(self.maxhp-heal):
-        self.hp+=heal
+        if self.item=="Big Root":
+            self.hp+=heal*1.3
+        else:
+            self.hp+=heal
     else:
         self.hp=self.maxhp 
 def gigadrain(self,other):
@@ -7316,7 +7403,10 @@ def gigadrain(self,other):
         other.hp-=dmg
     heal=dmg/2
     if self.hp<=(self.maxhp-heal):
-        self.hp+=heal
+        if self.item=="Big Root":
+            self.hp+=heal*1.3
+        else:
+            self.hp+=heal
     else:
         self.hp=self.maxhp           
 def dreameater(self,other):
@@ -7436,8 +7526,9 @@ def dracometeor(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,130,a,b,c,r,al)  
-    spatkchange(self,-1)
-    print(f" Special Attack x{self.spatkb}")
+    if a!=0:
+        spatkchange(self,-1)
+        print(f" {self.name}'s special attack fell harshly!")
 def originpulse(self,other):
     al=1
     self.atktype="Water"
@@ -7473,11 +7564,8 @@ def apower(self,other):
             spatkchange(self,0.5)
             spdefchange(self,0.5)
             speedchange(self,0.5)
-            print(f" Attack x{self.atkb}")
-            print(f" Defense x{self.defb}")
-            print(f" Special Attack x{self.spatkb}")
-            print(f" Special Defense x{self.spdefb}")
-            print(f" Speed x{self.speedb}")
+            print(f" {self.name} got an omniboost!")
+            
 def noretreat(self):
     print(f" ⚔️ {self.name} used "+colored(" No Retreat","red")+"!")
     atkchange(self,0.5)

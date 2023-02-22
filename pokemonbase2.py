@@ -626,9 +626,10 @@ def zmove(mon):
         return ["Twinkle Tackle"]
     elif tp=="Flying":
         mon.item="Flyinium Z"   
-        return ["Supersonic Skystrike"]                    
-
-        
+        return ["Supersonic Skystrike"]   
+    
+    
+         
 #Venusaur
 class Venusaur(Pokemon2):
     "Venusaur"
@@ -760,8 +761,8 @@ class Primeape(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
-#Anihilape
-class Anihilape(Pokemon2):
+#Annihilape
+class Annihilape(Pokemon2):
     def __init__(self,name="Annihilape",type1="Fighting",type2="Ghost",nature=None,level=100,happiness=255,hp=110,atk=115,defense=80,spatk=50,spdef=90,speed=90,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Defiant","Inner Focus","Vital Spirit"]),item=random.choice(["Choice Scarf","Life Orb","Leftovers"])):
         if move is None:
             avmoves=["Drain Punch","Close Combat","Superpower","Fire Punch","U-Turn","Cross Chop","Shadow Claw","Shadow Sneak","Final Gambit","Bulk Up","Rest","Taunt"]
@@ -922,9 +923,9 @@ class Tentacruel(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)         
 #Toedscruel
 class Toedscruel(Pokemon2):
-    def __init__(self,name="Toedscruel",type1="Grass",type2="Ground",nature=None,level=100,happiness=255,hp=80,atk=60,defense=80,spatk=90,spdef=120,speed=100,hpev=0,atkev=0,defev=0,spatkev=0,spdefev=252,speedev=252,maxiv="No",move=None, ability="Effect Spore",item="Black Sludge"):
+    def __init__(self,name="Toedscruel",type1="Grass",type2="Ground",nature=None,level=100,happiness=255,hp=80,atk=60,defense=80,spatk=90,spdef=120,speed=100,hpev=0,atkev=0,defev=0,spatkev=0,spdefev=252,speedev=252,maxiv="No",move=None, ability=random.choice(["Effect Spore","Mycelium Might"]),item="Leftovers"):
         if move is None:
-            avmoves=["Hidden Power","Earth Power","Giga Drain","Bulldoze","Sludge Bomb","Poison Jab","Sunny Day","Stealth Rock"]
+            avmoves=["Hidden Power","Earth Power","Giga Drain","Bulldoze","Sludge Bomb","Poison Jab","Sunny Day","Stealth Rock","Spore"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -1617,7 +1618,7 @@ class Umbreon(Pokemon2):
     "Umbreon"
     def __init__(self,name="Umbreon",type1="Dark",type2=None,nature=None,level=100,happiness=255,hp=95,atk=65,defense=110,spatk=60,spdef=130,speed=65,hpev=252,atkev=0,defev=0,spatkev=0,spdefev=252,speedev=0,maxiv="No",move=None, ability="Inner Focus",item="Leftovers"):
         if move is None:
-            avmoves=["Protect","Hidden Power","Foul Play","Shadow Ball","Dark Pulse","Moonlight","Toxic","Calm Mind","Thunder Wave"]
+            avmoves=["Protect","Hidden Power","Foul Play","Shadow Ball","Dark Pulse","Moonlight","Toxic","Calm Mind","Thunder Wave","Wish"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -2996,7 +2997,7 @@ class Drapion(Pokemon2):
 #Toxicroak
 class Toxicroak(Pokemon2):
     "Toxicroak"
-    def __init__(self,name="Toxicroak",type1="Poison",type2="Fighting",nature=None,level=100,happiness=255,hp=83,atk=106,defense=65,spatk=86,spdef=65,speed=85,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Sniper",item=random.choice(["Choice Band","Life Orb"])):
+    def __init__(self,name="Toxicroak",type1="Poison",type2="Fighting",nature=None,level=100,happiness=255,hp=83,atk=106,defense=65,spatk=86,spdef=65,speed=85,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Dry Skin","Poison Touch"]),item=random.choice(["Choice Band","Life Orb"])):
         if move is None:
             avmoves=["Protect","Close Combat","Cross Poison","Swords Dance","Knock Off","Venoshock","Poison Jab","Sucker Punch","Drain Punch"]
             moves=moveset(avmoves)
@@ -3210,7 +3211,7 @@ class Froslass(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item) 
 #Cryogonal
 class Cryogonal(Pokemon2):
-    def __init__(self,name="Cryogonal",type1="Ice",type2=None,nature=None,level=100,happiness=255,hp=70,atk=50,defense=30,spatk=110,spdef=135,speed=105,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Levitate"]),item="Focus Sash"):
+    def __init__(self,name="Cryogonal",type1="Ice",type2=None,nature=None,level=100,happiness=255,hp=70,atk=50,defense=30,spatk=110,spdef=135,speed=105,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Levitate"]),item=random.choice(["Focus Sash","Heavy-Duty Boots"])):
         if move is None:
             avmoves=["Protect","Blizzard","Ice Beam","Aurora Veil","Ice Shard","Light Screen","Reflect","Ancient Power","Explosion"]
             moves=moveset(avmoves)
@@ -5501,9 +5502,9 @@ class Regidrago(Pokemon2):
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Glastrier
 class Glastrier(Pokemon2):
     "Glastrier"
-    def __init__(self,name="Glastrier",type1="Ice",type2=None,nature=None,level=100,happiness=255,hp=100,atk=145,defense=130,spatk=65,spdef=110,speed=30,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Chilling Neigh",item="Leftovers"):
+    def __init__(self,name="Glastrier",type1="Ice",type2=None,nature=None,level=100,happiness=255,hp=100,atk=145,defense=130,spatk=65,spdef=110,speed=30,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Chilling Neigh",item=random.choice(["Leftovers","Iapapa Berry"])):
         if move is None:
-            avmoves=["Swords Dance","Icicle Crash","High Horsepower","Close Combat"]
+            avmoves=["Swords Dance","Icicle Crash","High Horsepower","Close Combat","Ice Hammer"]
             moves=moveset(avmoves)
         else:
             moves=move
@@ -6727,7 +6728,7 @@ class Tinglu(Pokemon2):
 class Chiyu(Pokemon2):
     def __init__(self,name="Chi-Yu",type1="Dark",type2="Fire",nature=None,level=100,happiness=255,hp=55,atk=80,defense=80,spatk=135,spdef=120,speed=100,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Beads of Ruin"]),item=random.choice(["Choice Specs","Choice Scarf","Life Orb"])):
         if move is None:
-            avmoves=["Overheat","Dark Pulse","Nasty Plot","Sunny Day","Knock Off","Fire Blast","Flamethrower","Psychic","Snarl",",Heat Wave","Protect"]
+            avmoves=["Overheat","Dark Pulse","Nasty Plot","Sunny Day","Knock Off","Fire Blast","Flamethrower","Psychic","Snarl","Heat Wave","Protect"]
             moves=moveset(avmoves,3)+["Ruination"]
         else:
             moves=move
@@ -7059,7 +7060,7 @@ class Crustle(Pokemon2):
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)  
 #Cinccino
-class Cincinno(Pokemon2):
+class Cinccino(Pokemon2):
     def __init__(self,name="Cinccino",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=75,atk=95,defense=60,spatk=65,spdef=60,speed=115,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Skill Link",item=random.choice(["Focus Sash"])):
         if move is None:
             avmoves=["Tail Slap","Bullet Seed","Rock Blast","Thunderbolt"]

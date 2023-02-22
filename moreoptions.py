@@ -5,7 +5,7 @@
 #pylint:disable=C0103
 #pylint:disable=W0401
 #pylint:disable=C0304
-from trainerlist import *
+from trainerlistx import *
 print(f" 🌁 {field.location}")
 p1=None
 p2=None
@@ -53,8 +53,19 @@ sm1=showsmogon(p1)
 sm2=showsmogon (p2)
 mon1=None
 mon2=None
-p1.ai=False
-p2.ai=True
+play=input(f" ⚠️ Do you want to play as {p1.name} or Simulate? ('yes'/Press Enter)\n >>>").lower()
+if play=="yes":
+    play=False
+else:
+    play=True
+play2=input(f" ⚠️ Do you want to play as {p2.name} or Simulate? ('yes'/Press Enter)\n >>>").lower()
+print("")
+if play2=="yes":
+    play2=False
+else:
+    play2=True
+p1.ai=play
+p2.ai=play2
 showparty(p1)
 showparty (p2)
 if p1.ai is False or (p1.ai,p2.ai)==(True,True):

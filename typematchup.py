@@ -163,7 +163,7 @@ def weakness(self,other,field):
             eff/=2
         if other.teratype in ghostwk:
             eff/=2
-        if (other.type1 in ghostimmune or other.type2 in ghostimmune and other.teratype is None) or other.teratype in ghostimmune:
+        if (other.type1 in ghostimmune or other.type2 in ghostimmune and other.teratype is None) or other.teratype in ghostimmune and other.item!="Ring Target":
             eff*=0
             
         else:
@@ -227,7 +227,7 @@ def weakness(self,other,field):
             eff/=2
         if other.teratype in electricwk:
             eff/=2
-        if (other.type1 in electricimmune or other.type2 in electricimmune and other.teratype is None) or other.teratype in electricimmune:
+        if (other.type1 in electricimmune or other.type2 in electricimmune and other.teratype is None) or other.teratype in electricimmune and other.item!="Ring Target":
             eff*=0
         else:
             eff*=1 
@@ -265,7 +265,7 @@ def weakness(self,other,field):
             eff*=2
         if other.teratype in psychicwk:
             eff/=2
-        if (other.type1 in psychicimmune or other.type2 in psychicimmune and other.teratype is None) or other.teratype in psychicimmune:
+        if (other.type1 in psychicimmune or other.type2 in psychicimmune and other.teratype is None) or other.teratype in psychicimmune and other.item!="Ring Target":
             eff*=0
         else:
             eff*=1 
@@ -455,7 +455,7 @@ def weakness(self,other,field):
             eff*=2
         if other.teratype in dragonwk:
             eff/=2
-        if (other.type1 in dragonimmune or other.type2 in dragonimmune and other.teratype is None) or other.teratype in dragonimmune:
+        if (other.type1 in dragonimmune or other.type2 in dragonimmune and other.teratype is None) or other.teratype in dragonimmune and other.item!="Ring Target":
             eff*=0
         else:
             eff*=1 
@@ -479,7 +479,7 @@ def weakness(self,other,field):
             self.item=None
         if self.ability=="Swarm":
             if self.hp<=(self.maxhp/3):
-                print(f" 🪲 {self.name}'s {self.ability}.")
+                print(f" 🪲 {self.name}'s {self.ability}!")
                 eff*=2.25
         if other.type1 in bugeff and other.teratype is None:
             eff*=2
@@ -548,7 +548,7 @@ def weakness(self,other,field):
             
         if self.ability=="Torrent":
             if self.hp<=(self.maxhp/3):
-                print(f" {self.name}'s {self.ability}.")
+                print(f" 🌊 {self.name}'s {self.ability}!")
                 eff*=2.25
         if other.type1 in watereff and other.teratype is None:
             eff*=2
@@ -608,8 +608,9 @@ def weakness(self,other,field):
             eff*=2
         if other.teratype in groundwk:
             eff/=2
-        if (other.type1 in groundimmune or other.type2 in groundimmune and other.teratype is None) or other.teratype in groundimmune:
-            eff*=0
+        if (other.type1 in groundimmune or other.type2 in groundimmune and other.teratype is None) or other.teratype in groundimmune and other.item!="Ring Target":
+            if other.item!="Iron Ball":
+                eff*=0
         else:
             eff*=1 
     #GRASS
@@ -720,7 +721,7 @@ def weakness(self,other,field):
             self.item=None
         if self.ability=="Blaze":
             if self.hp<=(self.maxhp/3):
-                print(f" 🔥 {self.name}'s {self.ability}.")
+                print(f" 🔥 {self.name}'s {self.ability}!")
                 eff*=2.25
         if other.ability=="Thermal Exchange" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
             print(f" 🌡️ {other.name}'s {other.ability}.")
@@ -772,12 +773,11 @@ def weakness(self,other,field):
             eff*=2
         if other.teratype in poisonwk:
             eff/=2
-        if (other.type1 in poisonimmune or other.type2 in poisonimmune and other.teratype is None) or other.teratype in poisonimmune:
+        if (other.type1 in poisonimmune or other.type2 in poisonimmune and other.teratype is None) or other.teratype in poisonimmune and other.item!="Ring Target":
             if self.ability!="Corrosion":
                 eff*=0
             else:
                 print(f" ☠️ {self.name}'s {self.ability}.")
-                eff*=1
         else:
             eff*=1   
     #Rock
@@ -851,11 +851,11 @@ def weakness(self,other,field):
             eff*=2
         if other.teratype in normalwk:
             eff/=2
-        if (other.type1 in normalimmune or other.type2 in normalimmune and other.teratype is None) or other.teratype in normalimmune:
-            eff*=0
-            if self.ability=="Scrappy":
+        if (other.type1 in normalimmune or other.type2 in normalimmune and other.teratype is None) or other.teratype in normalimmune and other.item!="Ring Target":
+            if self.ability!="Scrappy":
+                eff*=0
+            else:
                 print(f" {self.name}'s {self.ability}.")
-                eff=1
         else:
             eff*=1       
     #Fighting
@@ -886,7 +886,7 @@ def weakness(self,other,field):
             eff*=2
         if other.teratype in fightingwk and other.teratype is None:
             eff/=2
-        if (other.type1 in fightingimmune or other.type2 in fightingimmune and other.teratype is None) or other.teratype in fightingimmune:
+        if (other.type1 in fightingimmune or other.type2 in fightingimmune and other.teratype is None) or other.teratype in fightingimmune and other.item!="Ring Target":
             eff*=0
      
         else:
@@ -942,13 +942,19 @@ def weakness(self,other,field):
     
 #CRITICAL    
 def critch(self,other,num=None):
-    if self.item=="Scope Lens":
-        self.critrate*=2
-    if self.ability=="Super Luck":
-        self.critrate*=2
     if num is None:
-        num=self.critrate
+        num=1
+    if "Sirfetch" in self.name and self.item=="Leek":
+        num*=4
+    if "Chansey" in self.name and self.item=="Lucky Punch":
+        num*=4
+    if self.item in ["Scope Lens","Razor Claw"]:
+        num*=2
+    if self.ability=="Super Luck":
+        num*=2
     crit=round(16/(self.critrate*num))
+    if crit<1:
+        crit=1
     if crit>1:
         crit=random.randint(1,crit)
     if self.ability=="Merciless" and other.status=="Badly Poisoned":
@@ -1007,11 +1013,33 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1
+    
     #if "Erika(Hard Mode)" in (self.owner.name,other.owner.name) or "Erika(Hardcore Mode)" in (self.owner.name,other.owner.name):
 #        field.terrain="Grassy"
+    if self.item=="White Herb":
+        if self.atkb<1 or self.defb<1 or self.spatkb<1 or self.spdefb<1 or self.speedb<1:
+            print(" White Herb cured {self.name}'s negative stats!")
+            self.item=None
+            if self.atkb<1:
+                self.atkb=1
+            if self.defb<1:
+                self.defb=1
+            if self.spatkb<1:
+                self.spatkb=1
+            if self.spdefb<1:
+                self.spdefb=1
+            if self.speedb<1:
+                self.speedb=1
+    if self.item=="Float Stone":
+        defbuff*=0.5
+        spdefbuff*=0.5
+    if self.item=="Iron Ball":
+        speedbuff*=0.5
     if len(self.moves)==0:
         self.moves=["Struggle"]
         self.pplist=[100]
+    if self.item=="Wise Glasses":
+        spatkbuff*=1.1
     if self.item=="Muscle Band":
         atkbuff*=1.1
     if self.ability=="Zen Mode":
@@ -1041,9 +1069,6 @@ def prebuff(self,other,tr1,turn,field):
         field.weather="Clear"
     if "Delta Stream" in self.ability:
         field.weather="Strong Winds"
-    if self.item=="Soul Dew":
-        spatkbuff*=1.5
-        spdefbuff*=1.5
     if other.ability=="Screen Cleaner":
         tr1.lightscreen=False
         tr1.reflect=False
@@ -1119,6 +1144,8 @@ def prebuff(self,other,tr1,turn,field):
         elif x==e:
         	speedbuff*=1.5
         	self.ability="Quark Drive [Speed]"
+    if field.trickroom==True and self.item=="Room Service":
+        speedchange(self,-0.5)       	
     if field.terrain=="Misty":
         if self.item=="Misty Seed":
             print(f" 🍇 {self.name} consumed {self.item} and raised its Sp.Def!")
@@ -1206,7 +1233,7 @@ def prebuff(self,other,tr1,turn,field):
         spatkbuff*=0.5
     if self.status=="Burned" and self.ability!="Guts":
         atkbuff*=0.5
-    if "Pikachu" in self.name and (self.item=="Light Ball" or "Ash" in self.owner.name):
+    if ("Pikachu" or "Sparky") in self.name and (self.item=="Light Ball" or "Ash" in self.owner.name):
         atkbuff*=2
         spatkbuff*=2
     if self.ability=="Marvel Scale" and self.status!="Alive":
@@ -1295,28 +1322,7 @@ def statchange(self,other,tr1,turn):
             spdefchange(self,-0.5)
         if ch==5:
             speedchange(self,-0.5)
-    if self.item=="Cheri Berry" and self.status=="Paralyzed":
-        print(f" {self.item} cured {self.name}'s paralysis!")
-        self.status="Alive"
-        if other.ability!="Harvest":
-                self.item=None
-    if self.item=="Chesto Berry" and self.status=="Sleep":
-        print(f" {self.item} cured {self.name} from sleep state!")
-        print(f" {self.item} woke up!")
-        self.status="Alive"
-        if other.ability!="Harvest":
-                self.item=None
-    if self.item=="Aspear Berry" and self.status=="Frozen":
-        print(f" {self.item} cured {self.name} from frozen state!")
-        print(f" {self.item} thawed out!")
-        self.status="Alive"
-        if other.ability!="Harvest":
-                self.item=None
-    if self.item=="Lum Berry" and self.status!="Alive":
-        print(f" {self.item} cured {self.name}'s status condition!")
-        self.status="Alive"
-        if other.ability!="Harvest":
-                self.item=None
+    
     if tr1.auroraveil is True:
         defbuff*=2
         spdefbuff*=2
@@ -1408,8 +1414,6 @@ def atkchange(self,amount):
     if self.ability=="Contrary":
         amount=-amount
     if amount==0.5:#+1
-        if self.atkb==0.667:
-            self.atkb=1
         if self.atkb==0.249:
             self.atkb=0.285
         elif self.atkb==0.285:
@@ -1420,8 +1424,10 @@ def atkchange(self,amount):
             self.atkb==0.5
         elif self.atkb==0.5:
             self.atkb==0.667
+        elif self.atkb==0.667:
+            self.atkb=1
         elif self.atkb>=1:
-            self.atkb+=amount      
+            self.atkb+=amount
         elif self.atkb>4:
             self.atkb=4  
     if amount==1:#+2
