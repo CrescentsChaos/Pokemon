@@ -20,6 +20,8 @@ def intro (tr,sr,field):
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
+    if "Iris" in tr.name:
+        print(random.choice([f" {tr.name}: Know what? I really look forward to having serious battles with strong Trainers! I mean, come on! The Trainers who make it here are Trainers who desire victory with every fiber of their being! And they are battling alongside Pokémon that have been through countless difficult battles! If I battle with people like that, not only will I get stronger, my Pokémon will, too! And we'll get to know each other even better! OK! Brace yourself! I'm Iris, the Pokémon League Champion, and I'm going to defeat you!\n",f" {tr.name}: The Trainers who come here are Trainers who desire victory with every fiber of their being! And they are battling alongside Pokémon that have been through countless difficult battles! If I battle with people like that, not only will I get stronger, my Pokémon will, too! And we'll get to know each other even better! OK! Brace yourself! I'm Iris, the Pokémon League Champion, and I'm going to defeat you!\n"]))
     if "Noland" in tr.name:
         print(random.choice([f" {tr.name}: Hey, my name's Noland! I'm basically in charge of this place, which is why I'm the Factory Head! I had a look at your Battle Swap data. You seem to have the right idea, but you're still square in your head! Listen up, okay? Knowledge isn't only about reading books or doing desk work. Just doing that sort of thing... It may as well be useless! You have to experience things with your heart and your body, understand? I'll take you on under the same conditions as you. I'll be using rental Pokémon too! Shake out every last bit of your knowledge and bring it on!\n",f" {tr.name}: The name's Noland. I'm the Frontier Brain in charge of the Battle Factory over in Hoenn. Pleasure to meet you!\n"]))
     if "Pyramid" in tr.name:
@@ -43,8 +45,10 @@ f" {tr.name}: Aah, yes, indeed this life is grand! Grand, it is! Eh? I'm Brandon
     if "Burgh" in tr.name:
         print(f" {tr.name}: If the battle brings out the beauty in Bug-type Pokémon, it will be a scene that makes my heart flutter, win or lose. My bug Pokémon are abuzz with anticipation. Let's get straight to it!\n")
     if tr.name=="Blaine(Hardcore Mode)":
+        print(f" {tr.name}: Are you ready? Cause I'm not here to play a fair battle haahhahaha!\n")
         field.weather="Desolate Land"
     if tr.name=="Erika(Hardcore Mode)":
+        print(f" {tr.name}: Nature is beautiful don't you think? Yeah...even if you have different opinion I'll force you haha!\n")
         field.terrain="Grassy"
     if "Roark" in tr.name:
         if "Canalave City" in field.location:
@@ -162,7 +166,7 @@ f" {tr.name}: Aah, yes, indeed this life is grand! Grand, it is! Eh? I'm Brandon
         print(f" {tr.name}: You have overcome challenges and made it this far because you worked as one with your Pokémon. Show me that strength here and now!\n")
     if "Steven" in tr.name:
         print(f" {tr.name}: Welcome, {srname}. I was looking forward to seeing you here one day. You… What did you see on your journey with Pokémon? What did you feel, meeting so many other Trainers like you? What has awoken in you? I want you to hit me with it all! Now, bring it!\n")
-    if "Agatha" in tr.name:
+    if "Agatha" in tr.name and "Red" in srname:
         print(f" {tr.name}: I am Agatha of the Elite Four! Oak's taken a lot of interest in you, child! That old duff was once tough and handsome! That was decades ago! Now he just wants to fiddle with his Pokédex! He's wrong! Pokémon are for fighting! {srname}! I'll show you how a real trainer fights!\n")
     if "Lorelei" in tr.name:
         print(f" {tr.name}: Well then, allow me to reintroduce myself. I am Lorelei of the Elite Four. No one can best me when it comes to icy Pokémon. Freezing moves are powerful. Your Pokémon will be at my mercy when they are frozen solid. That's because frozen Pokémon can't do a thing in battle! Hahaha! Are you ready?\n")

@@ -9,7 +9,7 @@ from trainerlistx import *
 print(f" 🌁 {field.location}")
 p1=None
 p2=None
-def characters(text,nm=2):
+def characters(text,location,nm=2):
     team=None
     num=0
     chosen=None
@@ -25,6 +25,8 @@ def characters(text,nm=2):
         team=fronlist
     elif text in ["tl"]:
         team=talentlist
+    elif text in ["ts"]:
+        team=test
     elif text in ["",None,"rn"]:
         team=None
     if text!="" and team is not None:
@@ -33,9 +35,18 @@ def characters(text,nm=2):
             print(" "+str(num)+".",i.name)
     if team is None:
         if nm==1:
-            chosen=random.choice([random.choice([gym,elite4,champ, frontier,evil,talent]),genTrainer("Pokémon Trainer")])
+            if "Tournament" in location:
+                chosen=random.choice([genTrainer("Pokémon Trainer"),genplayer2(field)])
+            else:
+                chosen=random.choices([random.choice([gym,elite4,champ, frontier,evil,talent]),genTrainer("Pokémon Trainer")],weights=[1,10],k=1)[0]
         else:
-            chosen=random.choice([genTrainer("Pokémon Trainer"),matchx[0],genplayer2(field),random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)])
+            if "Battle Frontier" in location:
+                chosen=random.choice([genTrainer("Pokémon Trainer"),genplayer2(field)])
+            elif "Tournament" in location:
+                chosen=random.choice([genTrainer("Pokémon Trainer"),random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)])
+            else:
+                chosen=random.choice([genTrainer("Pokémon Trainer"),genplayer2(field)])
+            #random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)
     else:
         ch=input(" Enter what you wanna play with: ")
         if ch in ("rn",""):
@@ -46,9 +57,9 @@ def characters(text,nm=2):
     print(f" ✅ You have chosen {chosen.name}!\n")
     return chosen
 aa=input(" Choose a catagory(e4,ev,ch,gm,fr,tl): ")
-p1=characters(aa,1)
+p1=characters(aa,field.location,1)
 bb=input(" Choose a catagory(e4,ev,ch,gm,fr,tl): ")
-p2=characters(bb,2)
+p2=characters(bb,field.location,2)
 sm1=showsmogon(p1)
 sm2=showsmogon (p2)
 mon1=None

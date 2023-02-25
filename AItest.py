@@ -299,18 +299,18 @@ def moveAI(self,other,mtr,otr,field):
 #        myimmunemove+=list(set(mymove).intersection (typemoves.flyingmoves))        
 #    if "Ground" in myimmunelist:
 #        myimmunemove+=list(set(mymove).intersection (typemoves.groundmoves))             
-    if "Water" in weaklist:
+    if "Water" in weaklist and other.ability not in ["Water Absorb","Water Compaction"]:
         emove+=list(set(mymove). intersection(typemoves.watermoves))
-    if "Fire" in weaklist:
+    if "Fire" in weaklist and other.ability not in ["Well-baked Body","Flash Fire"]:
         emove+=list(set(mymove). intersection(typemoves.firemoves))
-    if "Grass" in weaklist:
+    if "Grass" in weaklist and other.ability not in ["Sap Sipper "]:
         emove+=list(set(mymove). intersection(typemoves.grassmoves))          
-    if "Rock" in weaklist:
+    if "Rock" in weaklist and other.ability not in ["Mountaineer"]:
         emove+=list(set(mymove). intersection(typemoves.rockmoves))     
-    if "Ground" in weaklist:
+    if "Ground" in weaklist and other.ability not in ["Levitate"] and other.item!="Air Balloon":
         emove+=list(set(mymove). intersection(typemoves.groundmoves)) 
-    if "Electric" in weaklist:
-        emove+=list(set(mymove). intersection(typemoves.electricmoves))              
+    if "Electric" in weaklist and other.ability not in ["Volt Absorb","Lightning Rod","Motor Drive"]:
+        emove+=list(set(mymove). intersection(typemoves.electricmoves))
     if "Ice" in weaklist:
         emove+=list(set(mymove). intersection(typemoves.icemoves))
     if "Dragon" in weaklist:
@@ -321,7 +321,7 @@ def moveAI(self,other,mtr,otr,field):
         emove+=list(set(mymove). intersection(typemoves.steelmoves))          
     if "Fairy" in weaklist:
         emove+=list(set(mymove). intersection(typemoves.fairymoves))            
-    if "Poison" in weaklist:
+    if "Poison" in weaklist and other.ability not in ["Immunity"]:
         emove+=list(set(mymove). intersection(typemoves.poisonmoves))        
     if "Fighting" in weaklist:
         emove+=list(set(mymove). intersection(typemoves.fightingmoves))        
@@ -329,9 +329,9 @@ def moveAI(self,other,mtr,otr,field):
         emove+=list(set(mymove). intersection(typemoves.flyingmoves))        
     if "Bug" in weaklist:
         emove+=list(set(mymove). intersection(typemoves.bugmoves))        
-    if "Psychic" in weaklist:
+    if "Psychic" in weaklist and other.ability not in ["Dark Mind"]:
         emove+=list(set(mymove). intersection(typemoves.psychicmoves))       
-    if "Ghost" in weaklist:
+    if "Ghost" in weaklist and other.ability not in ["Purifying Salt"]:
         emove+=list(set(mymove). intersection(typemoves.ghostmoves))        
     if "Dark" in weaklist:
         emove+=list(set(mymove). intersection(typemoves.darkmoves))        
@@ -406,16 +406,19 @@ def moveAI(self,other,mtr,otr,field):
     if self.spatkb==4:
         if "Tail Glow" in mymove:
             mymove.remove("Tail Glow")      
-    if other.atkcat=="Physical" and self.speed<other.speed and "Counter" in self.moves:
+    if other.atkcat=="Physical" and "Counter" in self.moves:
         use="Counter"                   
-    if other.atkcat=="Special" and self.speed<other.speed and "Mirror Coat" in self.moves:
+    if other.atkcat=="Special" and "Mirror Coat" in self.moves:
         use="Mirror Coat"
     if other.seeded is True:
         if "Leech Seed" in mymove:
             mymove.remove("Leech Seed")      
     if field.weather=="Sandstorm":
         if "Sandstorm" in mymove:
-            mymove.remove("Sandstorm")        
+            mymove.remove("Sandstorm")   
+    if field.weather=="Snowstorm":
+        if "Snowscape" in mymove:
+            mymove.remove("Snowscape")                    
     if field.weather=="Hail":
         if "Hail" in mymove:
             mymove.remove("Hail")        
@@ -433,21 +436,7 @@ def moveAI(self,other,mtr,otr,field):
             use="Thunder Wave"
              
     if self.protect!=False:       
-        mymove=list(set(mymove)-set(typemoves.protectmoves))  
-    if other.ability in ["Water Absorb","Storm Drain"]:
-        mymove=list(set(mymove)-(set(mymove).intersection(typemoves.watermoves)))
-        emove=list(set(emove)-set(typemoves.watermoves))  
-        mystablist=list(set(mystablist)-set(typemoves.watermoves))
-    if other.ability in ["Volt Absorb","Lightning Rod"]:
-        mymove=list(set(mymove)-(set(mymove).intersection(typemoves.electricmoves)))
-        emove=list(set(emove)-set(typemoves.electricmoves))       
-        mystablist=list(set(mystablist)-set(typemoves.electricmoves)) 
-    if other.ability=="Flash Fire":       
-        mymove=list(set(mymove)-(set(mymove).intersection(typemoves.firemoves)))
-    if other.ability=="Levitate":
-        mymove=list(set(mymove)-(set(mymove).intersection(typemoves.groundmoves)))
-        emove=list(set(emove)-set(typemoves.groundmoves)) 
-        mystablist=list(set(mystablist)-set(typemoves.groundmoves)) 
+        mymove=list(set(mymove)-set(typemoves.protectmoves))
     if other.status!="Alive":
         mymove=list(set(mymove)-set(typemoves.statuschangemoves))
     mystablist=list(set(mymove). intersection (mystablist))        
@@ -469,29 +458,29 @@ def moveAI(self,other,mtr,otr,field):
         tmove=list (set(mymove).intersection(typemoves.terrainmove))
         if len(tmove)!=0:
             use=tmove[0]
-    if self.choiced is False and self.atk>self.spatk and self.atkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2):
+    if self.choiced is False and self.atk>self.spatk and self.atkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2) and self.item not in ["Assault Vest"]:
         boost=list (set(mymove).intersection(typemoves.atkboost))
         if len(boost)!=0:
             use=boost[0]        
-    if self.choiced is False and self.spatk>self.atk and self.spatkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2):
-        boost=list (set(mymove).intersection(typemoves.atkboost))
+    if self.choiced is False and self.spatk>self.atk and self.spatkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2) and self.item not in ["Assault Vest"]:
+        boost=list (set(mymove).intersection(typemoves.spatkboost))
         if len(boost)!=0:
             use=boost[0]   
-    if self.choiced is False and other.speed>other.speed and "Tailwind" in mymove and mtr.tailwind is not True:
+    if self.choiced is False and other.speed>other.speed and "Tailwind" in mymove and mtr.tailwind is not True and self.item not in ["Assault Vest"]:
         use="Tailwind"                
-    if self.choiced is False and other.atk>other.spatk and "Reflect" in mymove and mtr.reflect is not True:
+    if self.choiced is False and other.atk>other.spatk and "Reflect" in mymove and mtr.reflect is not True and self.item not in ["Assault Vest"]:
         use="Reflect"              
-    if self.choiced is False and other.spatk>other.atk and "Light Screen" in mymove and mtr.lightscreen is not True:
+    if self.choiced is False and other.spatk>other.atk and "Light Screen" in mymove and mtr.lightscreen is not True and self.item not in ["Assault Vest"]:
         use="Light Screen"        
     if self.protect is False and "King's Shield" in mymove and other.hp>=(other.maxhp*0.2):
         use="King's Shield"       
-    if self.item is not None and "Sticky Web"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3):
+    if self.item is not None and "Sticky Web"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
         if "Sticky Web"  in mymove:
             use="Sticky Web"                    
-    if self.item is not None and "Stealth Rock"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3):
+    if self.item is not None and "Stealth Rock"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
         if "Stealth Rock"  in mymove:
             use="Stealth Rock"      
-    if self.item is not None and "Toxic Spikes"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3):
+    if self.item is not None and "Toxic Spikes"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
         if "Toxic Spikes"  in mymove:
             use="Toxic Spikes"  
     if (other.hp<=(other.maxhp*0.20) or other.defb<0.5) and self.speed<other.speed and len(eprior)!=0:
@@ -500,15 +489,20 @@ def moveAI(self,other,mtr,otr,field):
         self.choiced=True
         self.choicedmove=use
     if self.choiced is True and self.dmax is False:
-        use=self.choicedmove      
+        if self.choicedmove in self.moves:
+            use=self.choicedmove     
+        else:
+            use="Struggle" 
     if self.hp<=(self.maxhp*0.25) and "Destiny Bond" in mymove and self.speed>other.speed:
         use="Destiny Bond"
     if self.hp<=(self.maxhp*0.25) and "Misty Explosion" in mymove:
         use="Misty Explosion"
     if self.hp<=(self.maxhp*0.25) and "Explosion" in mymove:
         use="Explosion"
-    if len(self.moves)>4:
-        use=self.moves[4]
+    if "Hero" not in self.name and "Flip Turn" in self.moves:
+        use="Flip Turn"
+    if len(emove)==0 and len(myimmunemove)!=0 and len(resmove)!=0:
+        use=random.choice(resmove)
     if use is None or use==[]:
         if len(mymove)==0:
             use=random.choice(self.moves)
@@ -615,13 +609,8 @@ def switchAI(self,other,tr,tr2, field):
     return choice,possible  
     
 def decision (self,other,tr1,tr2,field):
-    action=1
-#NATURAL CURE    
-    if self.ability=="Natural Cure" and self.status!="Alive" and len(tr1.pokemons)>1:
-       action=2
-#REGENERATOR       
-    if self.ability=="Regenerator" and self.hp<=(self.maxhp/2) and len(tr1.pokemons)>1:
-        action=2      
+    action=1      
+    megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Amoharosite","Audinite","Banettite","Beedrillite","Blasnoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
     mons=switchAI(self,other,tr1,tr2,field)[1]
     movech=moveAI(self,other,tr1,tr2,field)
     movech2=moveAI(other,self,tr2,tr1,field)
@@ -636,19 +625,31 @@ def decision (self,other,tr1,tr2,field):
         action=2
 #SUFFECIENT AMOUNT OF MONS    
     if len(tr1.pokemons)>1:
+#NATURAL CURE            
+        if self.ability=="Natural Cure" and self.status!="Alive":
+           action=2
+#REGENERATOR       
+        if self.ability=="Regenerator" and self.hp<=(self.maxhp/2):
+            action=2    
 #P1 SLOWER THAN P2        
         if self.speed<other.speed:
 #BELOW 40% AND OPPO FAST PHYSICAL SWEEPER
-            if self.hp<(self.maxhp*0.4) and other.atk>300 and len(phytank)!=0 and self.defense<250:
+            if self.hp<(self.maxhp*0.4) and other.atk>300 and len(phytank)!=0:
                 action=2
 #BELOW 40% AND OPPO FAST SPECIAL SWEEPER                
-            if self.hp<(self.maxhp*0.4) and other.spatk>300 and len(spetank)!=0 and self.spdef<250:
+            if self.hp<(self.maxhp*0.4) and other.spatk>300 and len(spetank)!=0:
                 action=2  
-        if self.ability=="Zero to Hero" and "Hero" not in self.name:
-            action=2                
-        if other.ability=="Magnet Pull" and "Steel" in (self.type1,self.type2):
+            if self.ability=="Zero to Hero" and "Hero" not in self.name and "Flip Turn" not in self.moves:
+                action=2       
+        if (self.maxiv=="gmax" or self.atk>270 or self.spatk>270) and self.owner.canmax is True and self.teratype==None:
+            action=8
+        if self.item in megastones and "Mega" not in self.name and tr1.canmega==True:
+            action=random.choices([1,9], weights=[3,7],k=1)[0]
+        if other.ability=="Arena Trap" and "Flying" in (self.type1,self.type2,self.teratype):
+            action=1        
+        if other.ability=="Magnet Pull" and "Steel" in (self.type1,self.type2,self.teratype):
             action=1                   
-        if other.ability=="Shadow Tag" and "Ghost" not in (self.type1,self.type2):
+        if other.ability=="Shadow Tag" and "Ghost" not in (self.type1,self.type2,self.teratype):
             action=1    
         if self.olock is True:
             action=1

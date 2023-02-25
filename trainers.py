@@ -11,13 +11,15 @@
 #pylint:disable=W0102
 from typematchup import *
 class Trainer:
-	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[],tailwind=False,wishhp=False,vcdmg=False,vcturn=False,vcendturn=False):
+	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[],tailwind=False,wishhp=False,vcdmg=False,vcturn=False,vcendturn=False,canmega=True,canmax=True):
 		self.name=name
 		self.ai=ai
 		self.pokemons=pokemons
+		self.canmax=canmax
 		self.faintedmon=faintedmon
 		self.lightscreen=lightscreen
 		self.reflect=reflect		
+		self.canmega=canmega
 		self.tailwind=tailwind
 		self.auroraveil=auroraveil
 		self.region=region
