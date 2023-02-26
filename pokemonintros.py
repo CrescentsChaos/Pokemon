@@ -121,6 +121,9 @@ def rename(self):
             self.name="Dynamax "+self.name
 def pokeintro(self,other,trainer,trainer2,field,turn):
     trname=trainer.name.split(" ")[-1]
+    if "Alpha " in self.name:
+        prevname=self.name.split("Alpha ")[-1]
+        print(f" 👹 {prevname}'s alpha aura spreading in the air!")
     if self.megaintro is False and "Primal Kyogre" in self.name:
         prevname=self.name.split(" ")[-1]
         print(f" ⛎ {prevname}'s Primal Reversion! It reverted to its primal form!")
@@ -217,6 +220,13 @@ def statchange(self,other,tr1,turn):
         atkbuff*=2
     if self.ability=="Feline Prowess":
         spatkbuff*=2
+    if self.item=="Life Orb":
+        atkbuff*=1.3
+        spatkbuff*=1.3
+    if self.status=="Paralyzed" and self.ability!="Quick Feet":
+        speedbuff*=0.5
+    if self.status!="Alive" and self.ability=="Quick Feet":
+        speedbuff*=1.5
     if self.status=="Burned" and self.ability!="Guts":
         atkbuff*=0.5
     self.atk=self.maxatk*self.atkb*atkbuff
@@ -230,7 +240,8 @@ def transformation(self,other,turn):
     trname=self.owner.name.split(" ")[-1]
     if self.dmax==True:
         self.maxend=turn+2
-        self.maxhp=self.hp=self.hp*2
+        self.maxhp*=2
+        self.hp*=2
         rename(self)
         self.maxmove=mxmove(self,typemoves)
         prevname=self.name.split(" ")[-1]
@@ -255,6 +266,8 @@ def transformation(self,other,turn):
         self.name="Ultra Necrozma"
         print(f" ✴️{prevname} regained its true power through Ultra Burst!")
         per=self.hp/self.maxhp
+        self.ability="Neuroforce"
+        self.type2="Dragon"
         self.hp=97
         self.atk=167
         self.defense=97
@@ -263,7 +276,7 @@ def transformation(self,other,turn):
         self.speed=129
         self.calcst()
         self.hp=self.maxhp*per
-    if ((("Mega" not in self.name and (self.item in megastones)) or "Dragon Ascent" in self.moves) and self.owner.canmega==True):
+    if (("Mega" not in self.name) and (self.item in megastones or "Dragon Ascent" in self.moves) and self.owner.canmega==True) and self.dmax==False:
         prevname=self.name.split(" ")[-1]
         trname=self.owner.name.split(" ")[-1]
         self.name="Mega "+self.name
@@ -273,9 +286,9 @@ def transformation(self,other,turn):
             if self.item=="Charizardite Y":
                 self.name="Mega Charizard Y"
             if self.item=="Mewtwonite X":
-                self.name=" Mega Mewtwo X"
+                self.name="Mega Mewtwo X"
             if self.item=="Mewtwonite Y":
-                self.name=" Mega Mewtwo Y"
+                self.name="Mega Mewtwo Y"
             print(f" 🧬 {prevname}'s {self.item} is reacting to {trname}'s Keystone!\n {prevname} has Mega Evolved into {self.name}!")
         if "Rayquaza" in self.name:
             print(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {self.name}!")

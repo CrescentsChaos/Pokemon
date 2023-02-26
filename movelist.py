@@ -4,6 +4,7 @@
 
 class Moves:
     def __init__(self):
+        self.abilityigmoves=["G-Max Fireball","G-Max Hydrosnipe","G-Max Drum Solo","Light That Burns The Sky","Photon Geyser","Moongeist Beam","Sunsteel Strike","Menacing Moonraze Maelstrom","Searing Sunraze Smash"]
         self.windmoves=["Bleakwind Storm","Whirlwind","Blizzard","Heat Wave","Hurricane","Petal Blizzard","Sandsear Storm","Sandstorm","Springtide Storm","Wildbolt Storm","Tailwind","Icy Wind"]
         self.zmoves=["Breakneck Blitz","Inferno Overdrive","Gigavolt Havoc","Bloom Doom","Hydro Vortex","Shattered Psyche","Never-ending Nightmare","Tectonic Rage","Continental Crush","Twinkle Tackle","Acid Downpour","Black Hole Eclipse","Supersonic Skystrike","Savage Spin-Out","Corkscrew Crash","All-Out Pummeling","Subzero Slammer","Devastating Drake","10,000,000 Volt Thunderbolt","Catastropika","Pulverizing Pancake","Genesis Supernova"]
         self.maxmovelist=["Max Strike","Max Flare","G-Max Wildfire","G-Max Centiferno","Max Geyser","G-Max Cannonade","G-Max Hydrosnipe","G-Max Foam Burst","Max Lightning","G-Max Volt Crash","G-Max Stun Shock","Max Quake","Max Knuckle","G-Max Chi Strike","Max Mindstorm","Max Phantasm","G-Max Terror","Max Starfall","Max Overgrowth","G-Max Drum Solo","G-Max Sweetness","G-Max Tartness","Max Rockfall","Max Darkness","Max Wyrmwind","G-Max Depletion","Max Flutterby","G-Max Befuddle","Max Ooze","Max Steelspike","Max Airstream","G-Max Resonance","G-Max Hailstorm","G-Max Finale","G-Max Volcalith","G-Max Stonesurge","Max Hailstorm"]

@@ -377,20 +377,24 @@ def battle(x,y,tr1,tr2):
             print(f" {tr2.name} forfeited.")
             break
         if action1 in [8,9,10]:
-            if action1==8 and x.item!=None  and x.teratype==None and tr1.canmax==True:
+            if action1==8 and x.item!=None  and x.teratype==None and tr1.canmax==True and ("Zacian" not in x.name and "Zamazenta" not in x.name and "Eternatus" not in x.name and "Z-Crystal" not in x.name and "Rayquaza" not in x.name):
                 x.dmax=True
                 tr1.canmax=False
                 transformation(x,y,turn)
-            if action1 in [9,10]:
+            if action1==9 and tr1.canmega is True and (((x.item!=None and x.item in megastones) or ("Dragon Ascent" in x.moves)) and x.dmax==False):
+                transformation(x,y,turn)
+            if action1==10:
                 transformation(x,y,turn)
             action1=1
         if action2 in [8,9,10]:
-            if action2==8 and y.item!=None and y.teratype==None and tr2.canmax==True and y.item not in megastones:
+            if action2==8 and y.item!=None and y.teratype==None and tr2.canmax==True  and ("Zacian" not in y.name and "Zamazenta" not in y.name and "Eternatus" not in y.name and "Z-Crystal" not in y.name and "Rayquaza" not in y.name):
                 y.dmax=True
                 tr2.canmax=False
                 transformation(y,x,turn)
-            if action1 in [9,10]:
-                transformation(x,y,turn)
+            if action2==9 and tr2.canmega is True and ((y.item!=None and y.item in megastones) or ("Dragon Ascent" in y.moves)):
+                transformation(y,x,turn)
+            if action2==10:
+                transformation(y,x,turn)
             action2=1
         if action1==2 and len(tr1.pokemons)==1:
             action1=1

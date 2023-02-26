@@ -5,8 +5,9 @@ def flinch(self,other,ch=100):
     if self.ability=="Serene Grace":
         miss/=2
     chance=random.randint(1,100)
-    if (chance>=miss and other.ability not in ["Inner Focus"] and self.ability!="Sheer Force") and (miss!=0 and (other.item!="Covert Cloak" or other.ability not in ["Shield Dust"]) and other.hp>0):
-        other.flinched=True  
+    if (chance>=miss and other.ability not in ["Inner Focus"] and self.ability!="Sheer Force") and other.hp>0:
+        if miss==0  and (other.item!="Covert Cloak" or other.ability not in ["Shield Dust"]):
+            other.flinched=True  
 #POISON
 def poison(self,other,ch=100):
     miss=100-ch

@@ -15,6 +15,8 @@ def characters(text,location,nm=2):
     chosen=None
     if text in ["e4","elite four"]:
         team=e4list
+    elif text in ["hc"]:
+        team=hardlist
     elif text in ["evil","villain","ev"]:
         team=evilist
     elif text in ["champ","champion","ch"]:
@@ -56,9 +58,9 @@ def characters(text,location,nm=2):
             chosen=team[ch-1]
     print(f" ✅ You have chosen {chosen.name}!\n")
     return chosen
-aa=input(" Choose a catagory(e4,ev,ch,gm,fr,tl): ")
+aa=input(" Choose a catagory(e4,ev,ch,gm,fr,tl,hc): ")
 p1=characters(aa,field.location,1)
-bb=input(" Choose a catagory(e4,ev,ch,gm,fr,tl): ")
+bb=input(" Choose a catagory(e4,ev,ch,gm,fr,tl,hc): ")
 p2=characters(bb,field.location,2)
 sm1=showsmogon(p1)
 sm2=showsmogon (p2)

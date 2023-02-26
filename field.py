@@ -72,62 +72,62 @@ class Field:
                 self.location+=", Sinnoh"
         self.misendturn=misendturn
     def troomend(self,mon,mon2):
-	       if"Room Service" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Room Service" not in (mon.item,mon2.item):
 	           self.troomendturn=self.troomturn+6
-	       if"Room Service" in (mon.item,mon2.item):
+	       if mon.item!=None and "Room Service" in (mon.item,mon2.item):
 	           self.troomendturn=self.troomturn+9
 	       return self.troomendturn
     def psyend(self,mon,mon2):
-	       if"Terrain Extender" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" not in (mon.item,mon2.item):
 	           self.psyendturn=self.psyturn+6
-	       if"Terrain Extender" in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" in (mon.item,mon2.item):
 	           self.psyendturn=self.psyturn+9
 	       return self.psyendturn	       
     def eleend(self,mon,mon2):
-	       if"Terrain Extender" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" not in (mon.item,mon2.item):
 	           self.eleendturn=self.eleturn+6
-	       if"Terrain Extender" in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" in (mon.item,mon2.item):
 	           self.eleendturn=self.eleturn+9
 	       return self.eleendturn
     def hailend(self,mon,mon2):
-	       if"Icy Rock" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Icy Rock" not in (mon.item,mon2.item):
 	           self.hailendturn=self.hailturn+6
-	       if"Icy Rock" in (mon.item,mon2.item):
+	       if mon.item!=None and "Icy Rock" in (mon.item,mon2.item):
 	           self.hailendturn=self.hailturn+9
 	       return self.hailendturn
     def rainend(self,mon,mon2):
-	       if"Damp Rock" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Damp Rock" not in (mon.item,mon2.item):
 	           self.rainendturn=self.rainturn+6
-	       if"Damp Rock" in (mon.item,mon2.item):
+	       if mon.item!=None and "Damp Rock" in (mon.item,mon2.item):
 	           self.rainendturn=self.rainturn+9
 	       return self.rainendturn
     def snowstormend(self,mon,mon2):
-	       if"Icy Rock" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Icy Rock" not in (mon.item,mon2.item):
 	           self.snowstormendturn=self.snowstormturn+6
-	       if"Icy Rock" in (mon.item,mon2.item):
+	       if mon.item!=None and "Icy Rock" in (mon.item,mon2.item):
 	           self.snowstormendturn=self.snowstormturn+9	       
 	       return self.snowstormendturn
     def sunend(self,mon,mon2):
-	       if"Heat Rock" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Heat Rock" not in (mon.item,mon2.item):
 	           self.sunendturn=self.sunturn+6
-	       if"Heat Rock" in (mon.item,mon2.item):
+	       if mon.item!=None and "Heat Rock" in (mon.item,mon2.item):
 	           self.sunendturn=self.sunturn+9
 	       return self.sunendturn	     
     def sandend(self,mon,mon2):
-	       if"Smooth Rock" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Smooth Rock" not in (mon.item,mon2.item):
 	           self.sandendturn=self.sandturn+6
-	       if"Smooth Rock" in (mon.item,mon2.item):
+	       if mon.item!=None and "Smooth Rock" in (mon.item,mon2.item):
 	           self.sandendturn=self.sandturn+9
 	       return self.sandendturn	 
     def grassend(self,mon,mon2):
-	       if"Terrain Extender" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" not in (mon.item,mon2.item):
 	           self.grassendturn=self.grassturn+6
-	       if"Terrain Extender" in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" in (mon.item,mon2.item):
 	           self.grassendturn=self.grassturn+9
 	       return self.grassendturn	               
     def misend(self,mon,mon2):
-	       if"Terrain Extender" not in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" not in (mon.item,mon2.item):
 	           self.misendturn=self.misturn+6
-	       if"Terrain Extender" in (mon.item,mon2.item):
+	       if mon.item!=None and "Terrain Extender" in (mon.item,mon2.item):
 	           self.misendturn=self.misturn+9
 	       return self.misendturn

@@ -3,7 +3,7 @@ import random
 naturelist=["Hardy","Lonely","Adamant","Naughty","Brave", "Bold",'Docile','Impish','Lax','Relaxed' ,'Modest','Mild','Bashful','Rash','Quiet' ,'Calm','Gentle','Careful','Quirky','Sassy', 'Timid','Hasty','Jolly','Naive','Serious']
 class Pokemon2:
     "Pokemon2"
-    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,fsprite="graphics/fsprites/unknown.png", bsprite="graphics/bsprites/Gengar.png", priority=False,dbond=False, abilityused=False,healcount=0,confused=False,dmgtaken=0,yawn=False,m1pp=10,m2pp=10,m3pp=10,m4pp=10,mx1pp=10,mx2pp=10,mx3pp=10,mx4pp=10,pplist=None,aring=False,olock=False,tarshot=False,bullrush=False,atkcat=None,magmadmg=False,magmaendturn=False,wfdmg=False,wfendturn=False,cndmg=False,cnendturn=False,vldmg=False,vlendturn=False,miss=False,use=None,cntdmg=False,cntendturn=False,grav=False,gravendturn=False,weight=100,sleependturn=False,confuseendturn=False,encore=False,enendturn=False):
+    def __init__(self,name="Unidentified",type1="Normal",type2=None,nature=None,level=100,happiness=0,hp=0,atk=0,defense=0,spatk=0,spdef=0,speed=0,hpiv=0,atkiv=0,defiv=0,spatkiv=0,spdefiv=0,speediv=0,maxiv="No",atktype="Normal",hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0,status="Alive",atkb=1,defb=1,spatkb=1,spdefb=1,speedb=1,ability=None,moves=None,movez=None,badpoison=1,flinched=False,recharge=False,seeded=False, canfakeout=True,item="Leftovers",precharge=False, protect=False,shelltrap=False,choiced=False,choicedmove=None,owner=None,teratype=None,taunted=False,critrate=1, accuracy=100,dmax=False,maxmove=None,maxend=0,megaintro=False,fsprite="graphics/fsprites/unknown.png", bsprite="graphics/bsprites/Gengar.png", priority=False,dbond=False, abilityused=False,healcount=0,confused=False,dmgtaken=0,yawn=False,m1pp=10,m2pp=10,m3pp=10,m4pp=10,mx1pp=10,mx2pp=10,mx3pp=10,mx4pp=10,pplist=None,aring=False,olock=False,tarshot=False,bullrush=False,atkcat=None,magmadmg=False,magmaendturn=False,wfdmg=False,wfendturn=False,cndmg=False,cnendturn=False,vldmg=False,vlendturn=False,miss=False,use=None,cntdmg=False,cntendturn=False,grav=False,gravendturn=False,weight=100,sleependturn=False,confuseendturn=False,encore=False,enendturn=False,taunturn=0,encturn=False):
         #Name
         self.name=name
         if moves is None:
@@ -15,6 +15,8 @@ class Pokemon2:
             self.name=self.name+"✨"
         #Type
         self.type1=type1
+        self.taunturn=taunturn
+        self.encturn=encturn
         self.encore=encore
         self.enendturn=enendturn
         self.use=use
@@ -123,10 +125,10 @@ class Pokemon2:
         self.spatkev=spatkev
         self.spdefev=spdefev
         self.speedev=speedev
-        self.alpha=random.randint(1,20)
+        self.alpha=random.randint(1,30)
         if "Mega " not in self.name and self.alpha==7 and maxiv not in ["Yes","gmax"]:
             self.name="Alpha "+name
-        self.totem=random.randint(1,20)
+        self.totem=random.randint(1,50)
         if "Mega " not in self.name and "Alpha " not in name and self.totem == 7 and maxiv not in ["Yes","gmax"]:
             self.name="Totem "+name
         self.teratype=random.randint(1,50)
@@ -670,21 +672,7 @@ class Blastoise(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item,weight=weight)
-#mBeedrill
-class MBeedrill(Pokemon2):
-    "Mega Beedrill"
-    def __init__(self,name="Mega Beedrill",type1="Bug",type2="Poison",nature=None,level=100,happiness=255,hp=65,atk=150,defense=40,spatk=15,spdef=80,speed=145,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Adaptability",item="Beedrillite",weight=89.29):
-        if move is None:
-            ch=random.randint(1,2)
-            if ch==1:
-                moves=["Poison Jab","Knock Off","Sludge Bomb","Drill Run","Toxic Spikes","U-Turn"]
-                moves=moveset(moves)
-            if ch==2:
-                moves=["U-Turn","Poison Jab","Drill Run","Knock Off"]
-                nature="Jolly"
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item,weight=weight)
+
 #Nidoqueen
 class Nidoqueen(Pokemon2):
     "Nidoqueen"
@@ -802,21 +790,7 @@ class Poliwrath(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item,weight=weight)
-#Mega Pidgeot 
-class MPidgeot(Pokemon2):
-    "Mega Pidgeot"
-    def __init__(self,name="Mega Pidgeot",type1="Normal",type2="Flying",nature=None,level=100,happiness=255,hp=83,atk=80,defense=80,spatk=135,spdef=80,speed=121,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="No Guard",item="Pidgeotite",weight=111.33):
-        if move is None:
-            ch=random.randint(1,2)
-            if ch==1:
-                moves=["Hidden Power","Hurricane","Dual Wingbeat","Brave Bird","U-Turn","Roost","Double-Edge","Heat Wave"]
-                moves=moveset(moves)
-            if ch==2:
-                moves=["U-Turn","Hurricane","Heat Wave","Roost"]
-                nature="Timid"
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item,weight=weight)   
+
 #Pidgeot        
 class Pidgeot(Pokemon2):
     "Pidgeot"
@@ -855,21 +829,7 @@ class Ajjimajji(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                      
-#Mega  Alakazam
-class MAlakazam(Pokemon2):
-    "Mega Alakazam"
-    def __init__(self,name="Mega Alakazam",type1="Psychic",type2=None,nature=None,level=100,happiness=255,hp=55,atk=50,defense=65,spatk=175,spdef=105,speed=150,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Trace",item="Alakazite",weight=105.82):
-        if move is None:
-            ch=random.randint(1,2)
-            if ch==1:
-                moves=["Hidden Power","Recover","Dazzling Gleam","Shadow Ball","Nasty Plot","Dark Pulse","Focus Blast","Expanding Force","Psychic"]
-                moves=moveset(moves)
-            if ch==2:
-                moves=["Psychic","Focus Blast","Recover","Shadow Ball"]
-                nature="Timid"
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item,weight=weight)
+
 #Machamp
 class Machamp(Pokemon2):
     "Machamp"
@@ -978,26 +938,7 @@ class Rapidash(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                
-#Slowbro
-class Slowbro(Pokemon2):
-    "Slowbro"
-    def __init__(self,name="Slowbro",type1="Water",type2="Psychic",nature=None,level=100,happiness=255,hp=95,atk=75,defense=110,spatk=100,spdef=80,speed=30,hpev=0,atkev=0,defev=252,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability="Regenerator",item=random.choice(["Colbur Berry","Heavy-Duty Boots","Slowbronite"])):
-        if move is None:
-            avmoves=["Hidden Power","Ice Beam","Slack Off","Psychic","Flamethrower","Hydro Pump","Thunderbolt","Iron Defense","Rain Dance","Rest","Expanding Force","Yawn"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)            
-#Mega Slowbro
-class MSlowbro(Pokemon2):
-    "Mega Slowbro"
-    def __init__(self,name="Mega Slowbro",type1="Water",type2="Psychic",nature=None,level=100,happiness=255,hp=95,atk=75,defense=180,spatk=130,spdef=80,speed=30,hpev=0,atkev=0,defev=252,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Regenerator","Shell Armor"]),item="Slowbronite"):
-        if move is None:
-            avmoves=["Hidden Power","Ice Beam","Slack Off","Psychic","Flamethrower","Hydro Pump","Thunderbolt","Iron Defense","Body Press","Rest","Expanding Force","Yawn"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                   
+
 #Dodrio
 class Dodrio(Pokemon2):
     "Dodrio"
@@ -1057,16 +998,7 @@ class Dangal(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                        
-        #Mega Gengar
-class MGengar(Pokemon2):
-    "Mega Gengar"
-    def __init__(self,name="Mega Gengar",type1="Ghost",type2="Poison",nature=None,level=100,happiness=255,hp=60,atk=65,defense=80,spatk=170,spdef=95,speed=130,hpev=0,atkev=0,defev=0,spatkev=253,spdefev=0,speedev=252,maxiv="No",move=None, ability="Shadow Tag",item="Gengarite"):
-        if move is None:
-            avmoves=["Hidden Power","Ice Beam","Dazzling Gleam","Psychic","Shadow Ball","Dark Pulse","Thunderbolt","Nasty Plot","Destiny Bond","Sludge Bomb"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Exeggutor
+  #Exeggutor
 class Exeggutor(Pokemon2):
     "Exeggutor"
     def __init__(self,name="Exeggutor",type1="Grass",type2="Psychic",nature=None,level=100,happiness=255,hp=95,atk=95,defense=85,spatk=125,spdef=75,speed=55,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Chlorophyll",item=random.choice(["Lum Berry","Leftovers"])):
@@ -1162,16 +1094,7 @@ class Eevee(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                         
-#Mega Kangaskhan
-class MKangaskhan(Pokemon2):
-    "Mega Kangaskhan"
-    def __init__(self,name="Mega Kangaskhan",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=105,atk=125,defense=100,spatk=60,spdef=100,speed=100,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Parental Bond",item="Kangaskhanite"):
-        if move is None:
-            avmoves=["Crunch","Body Slam","Fake Out","Power-up Punch","Earthquake","Rock Tomb"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)     
+   
 #Starmie
 class Starmie(Pokemon2):
     "Starmie"
@@ -1192,16 +1115,7 @@ class Pinsir(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
-#Mega Pinsir
-class MPinsir(Pokemon2):
-    "Mega Pinsir"
-    def __init__(self,name="Mega Pinsir",type1="Bug",type2="Flying",nature=None,level=100,happiness=255,hp=65,atk=155,defense=120,spatk=65,spdef=90,speed=105,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Aerilate",item="Pinsirite"):
-        if move is None:
-            avmoves=["Double-Edge","Megahorn","Return","Brick Break","Close Combat"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+
 #Dubwool
 class Dubwool(Pokemon2):
     def __init__(self,name="Dubwool",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=82,atk=80,defense=100,spatk=60,spdef=90,speed=88,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Fluffy","Bulletproof","Steadfast"]),item="Leftovers"):
@@ -1247,16 +1161,7 @@ class Gyarados(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
-#Mega Gyarados
-class MGyarados(Pokemon2):
-    "Mega Gyarados"
-    def __init__(self,name="Mega Gyarados",type1="Water",type2="Dark",nature=None,level=100,happiness=255,hp=95,atk=155,defense=109,spatk=70,spdef=130,speed=81,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Mold Breaker",item="Gyaradosite"):
-        if move is None:
-            avmoves=["Crunch","Waterfall","Dragon Dance","Earthquake","Aqua Tail","Ice Fang","Scale Shot"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+
 #Lapras
 class Lapras(Pokemon2):
     "Lapras"
@@ -1300,16 +1205,7 @@ class Aerodactyl (Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)              
-#Mega  Aerodactyl
-class MAerodactyl (Pokemon2):
-    "Mega Aerodactyl"
-    def __init__(self,name="Mega Aerodactyl",type1="Rock",type2="Flying",nature=None,level=100,happiness=255,hp=80,atk=135,defense=85,spatk=70,spdef=95,speed=150,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Tough Claws",item="Aerodactylite"):
-        if move is None:
-            avmoves=["Protect","Ancient Power","Stone Edge","Rock Slide","Brave Bird","Stealth Rock"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)    
+ 
 #Snorlax
 class Snorlax(Pokemon2):
     "Snorlax"
@@ -1386,16 +1282,7 @@ class Mewtwo(Pokemon2):
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
         
-#Mewtwo
-class MMewtwoX(Pokemon2):
-    "Mewtwo"
-    def __init__(self,name="Mega Mewtwo X",type1="Psychic",type2=None,nature=None,level=100,happiness=255,hp=106,atk=190,defense=100,spatk=154,spdef=100,speed=130,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Steadfast",item=random.choice(["Mewtwonite X"])):
-        if move is None:
-            avmoves=["Protect","Zen Headbutt","Psystrike","Shadow Claw","Night Slash","Ice Punch","Fire Punch","Poison Jab","Rock Slide","Thunder Punch","Iron Tail","Brick Break"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
+
 #Mew
 class Mew(Pokemon2):
     "Mew"
@@ -1407,36 +1294,7 @@ class Mew(Pokemon2):
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
 
-#Mega Blastoise
-class MBlastoise(Pokemon2):
-    "Mega Blastoise"
-    def __init__(self,name="Mega Blastoise",type1="Water",type2=None,nature=None,level=100,happiness=255,hp=79,atk=103,defense=120,spatk=135,spdef=115,speed=78,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Mega Launcher",item="Blastoisinite"):
-        if move is None:
-            avmoves=["Protect","Hidden Power","Ice Beam","Hydro Pump","Dark Pulse","Dragon Pulse","Aura Sphere","Focus Blast","Water Spout"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
-#Mega Charizard X
-class MCharizardX(Pokemon2):
-    "Mega Charizard X"
-    def __init__(self,name="Mega Charizard X",type1="Fire",type2="Dragon",nature=None,level=100,happiness=255,hp=78,atk=130,defense=111,spatk=130,spdef=85,speed=100,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Tough Claws",item="Charizardite X"):
-        if move is None:
-            avmoves=["Protect","Dragon Fance","Dragon Claw","Flare Blitz","Roost","Earthquake","Scale Shot"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)      
-#Mega Charizard Y
-class MCharizardY(Pokemon2):
-    "Mega Charizard Y"
-    def __init__(self,name="Mega Charizard Y",type1="Fire",type2="Flying",nature=None,level=100,happiness=255,hp=78,atk=104,defense=78,spatk=169,spdef=115,speed=100,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Drought",item="Charizardite Y"):
-        if move is None:
-            avmoves=["Protect","Hidden Power","Fire Blast","Solar Beam","Flamethrower","Earth Power","Focus Blast","Ancient Power"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+
 #Meganium
 class Meganium(Pokemon2):
     "Meganium"
@@ -1540,16 +1398,7 @@ class Ampharos(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)               
-#Mega Ampharos
-class MAmpharos(Pokemon2):
-    "Mega Amoharos"
-    def __init__(self,name="Mega Ampharos",type1="Electric",type2="Dragon",nature=None,level=100,happiness=255,hp=90,atk=95,defense=105,spatk=165,spdef=110,speed=45,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=252,speedev=0,maxiv="No",move=None, ability=random.choice(["Mold Breaker","Thick Fat"]),item="Ampharosite"):
-        if move is None:
-            avmoves=["Protect","Hidden Power","Signal Beam","Power Gem","Thunderbolt","Draco Meteor","Dragon Pulse","Thunder Wave","Focus Blast"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)         
+      
 #Azumarill
 class Azumarill(Pokemon2):
     "Azumarill"
@@ -1620,16 +1469,7 @@ class Steelix(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)            
-#Mega Steelix
-class MSteelix(Pokemon2):
-    "Mega Steelix"
-    def __init__(self,name="Mega Steelix",type1="Steel",type2="Ground",nature=None,level=100,happiness=255,hp=75,atk=125,defense=230,spatk=55,spdef=95,speed=30,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Inner Focus","Heatproof"]),item="Steelixite"):
-        if move is None:
-            avmoves=["Protect","Iron Tail","Gyro Ball","Earthquake","Stone Edge","Rock Slide","Toxic","Body Press","Stealth Rock","Autotomize","Head Smash"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)       
+     
 #Scizor
 class Scizor(Pokemon2):
     "Scizor"
@@ -1640,16 +1480,7 @@ class Scizor(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)            
-#Mega Scizor
-class MScizor(Pokemon2):
-    "Mega Scizor"
-    def __init__(self,name="Mega Scizor",type1="Bug",type2="Steel",nature=None,level=100,happiness=255,hp=70,atk=150,defense=140,spatk=65,spdef=100,speed=75,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Technician",item="Scizorite"):
-        if move is None:
-            avmoves=["Protect","Iron Head","Bullet Punch","X-Scissor","U-Turn","Roost","Superpower","Swords Dance"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                   
+                               
 #Heracross
 class Heracross(Pokemon2):
     "Heracross"
@@ -1661,16 +1492,7 @@ class Heracross(Pokemon2):
             moves=move
         if ability=="Guts":
             item="Flame Orb"
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Mega Heracross
-class MHeracross(Pokemon2):
-    "Mega Heracross"
-    def __init__(self,name="Mega Heracross",type1="Bug",type2="Fighting",nature=None,level=100,happiness=255,hp=80,atk=185,defense=115,spatk=40,spdef=105,speed=75,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Skill Link",item="Heracronite"):
-        if move is None:
-            avmoves=["Protect","Megahorn","Brick Break","X-Scissor","U-Turn","Close Combat","Superpower","Pin Missile"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)           
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                   
 #Skarmory
 class Skarmory(Pokemon2):
     "Skarmory"
@@ -1689,16 +1511,7 @@ class Houndoom(Pokemon2):
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Mega Houndoom
-class MHoundoom(Pokemon2):
-    "Mega Houndoom"
-    def __init__(self,name="Mega Houndoom",type1="Dark",type2="Fire",nature=None,level=100,happiness=255,hp=75,atk=90,defense=90,spatk=140,spdef=90,speed=115,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Solar Power","Dark Aura"]),item="Houndoominite"):
-        if move is None:
-            avmoves=["Protect","Fire Blast","Dark Pulse","Flamethrower","Inferno","Crunch","Fiery Wrath"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)             
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                  
 #Kingdra
 class Kingdra(Pokemon2):
     "Kingdra"
@@ -1737,16 +1550,7 @@ class UTyranitar(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
-#Mega Tyranitar
-class MTyranitar(Pokemon2):
-    "Mega Tyranitar"
-    def __init__(self,name="Mega Tyranitar",type1="Rock",type2="Dark",nature=None,level=100,happiness=255,hp=100,atk=164,defense=150,spatk=95,spdef=120,speed=71,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Sand Stream",item="Tyranitarite"):
-        if move is None:
-            avmoves=["Protect","Crunch","Earthquake","Stone Edge","Rock Slide","Hyper Beam","Dragon Dance"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)             
+     
 #Raikou
 class Raikou(Pokemon2):
     "Raikou"
@@ -1876,16 +1680,7 @@ class Rayquaza(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)   
-#Mega Rayquaza     
-class MRayquaza(Pokemon2):
-    "Mega Rayquaza"
-    def __init__(self,name="Mega Rayquaza",type1="Dragon",type2="Flying",nature=None,level=100,happiness=255,hp=105,atk=180,defense=100,spatk=180,spdef=100,speed=115,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Delta Stream",item="Life Orb"):
-        if move is None:
-            avmoves=["Protect","Crunch","Hyper Beam","Dragon Dance","Extreme Speed","Draco Meteor","V-create","Stone Edge"]
-            moves=moveset(avmoves,3)+["Dragon Ascent"]
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)          
+          
 #Arboliva
 class Arboliva(Pokemon2):
     def __init__(self,name="Arboliva",type1="Grass",type2="Normal",nature=None,level=100,happiness=255,hp=78,atk=69,defense=90,spatk=125,spdef=109,speed=39,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Seed Sower","Harvest"]),item=random.choice(["Life Orb","Occa Berry","Sitrus Berry"])):
@@ -1905,16 +1700,7 @@ class Sceptile(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)     
-#Mega Sceptile
-class MSceptile(Pokemon2):
-    "Mega Sceptile"
-    def __init__(self,name="Mega Sceptile",type1="Grass",type2="Dragon",nature=None,level=100,happiness=255,hp=70,atk=135,defense=75,spatk=110,spdef=85,speed=145,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Lightning Rod","Technician"]),item="Sceptilite"):
-        if move is None:
-            avmoves=["Protect","Leaf Blade","Dragon Dance","Dragon Pulse","Draco Meteor","Focus Blast", "Energy Ball","X-Scissor","Scale Shot"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)           
+      
 #Blaziken
 class Blaziken(Pokemon2):
     "Blaziken"
@@ -1934,16 +1720,7 @@ class Quaquaval(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                    
-#Mega Blaziken
-class MBlaziken(Pokemon2):
-    "Mega Blaziken"
-    def __init__(self,name="Mega Blaziken",type1="Fire",type2="Fighting",nature=None,level=100,happiness=255,hp=80,atk=160,defense=80,spatk=130,spdef=80,speed=100,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Speed Boost",item="Blazikenite"):
-        if move is None:
-            avmoves=["Protect","Overheat","High Jump Kick","Sky Uppercut","Blaze Kick","Brave Bird","Flare Blitz","Focus Blast","Triple Arrows"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                     
+                                   
 #Swampert
 class Swampert(Pokemon2):
     "Swampert"
@@ -1953,16 +1730,7 @@ class Swampert(Pokemon2):
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Mega Swampert
-class MSwampert(Pokemon2):
-    "Mega Swampert"
-    def __init__(self,name="Mega Swampert",type1="Water",type2="Ground",nature=None,level=100,happiness=255,hp=100,atk=150,defense=110,spatk=95,spdef=110,speed=70,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Swift Swim",item="Swampertite"):
-        if move is None:
-            avmoves=["Protect","Liquidation","Earthquake","Stone Edge","Power-up Punch","Waterfall","Ice Punch","Stealth Rock"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                               
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                                     
 #Ludicolo
 class Ludicolo(Pokemon2):
     "Ludicolo"
@@ -2015,16 +1783,7 @@ class Gardevoir(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)     
-#Mega Gardevoir
-class MGardevoir(Pokemon2):
-    "Mega Gardevoir"
-    def __init__(self,name="Mega Gardevoir",type1="Psychic",type2="Fairy",nature=None,level=100,happiness=255,hp=68,atk=85,defense=65,spatk=165,spdef=135,speed=100,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Pixilate",item="Gardevoirite"):
-        if move is None:
-            avmoves=["Protect","Recover","Dazzling Gleam","Moonblast","Shadow Ball","Focus Blast","Trick Room","Misty Terrain","Aura Sphere","Thunderbolt","Calm Mind","Will-O-Wisp","Destiny Bond","Heal Bell","Pain Split","Protect","Sigmal Beam","Psyshock","Trick","Hyper Voice","Mystical Fire","Light Screen"]
-            moves=moveset(avmoves,3)+["Psychic"]
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)               
+          
 #Breloom
 class Breloom(Pokemon2):
     "Breloom"
@@ -2066,26 +1825,7 @@ class Hariyama(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)   
-#Mega Sableye
-class MSableye(Pokemon2):
-    "Mega Sableye"
-    def __init__(self,name="Mega Sableye",type1="Dark",type2="Ghost",nature=None,level=100,happiness=255,hp=50,atk=85,defense=125,spatk=85,spdef=115,speed=20,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=252,speedev=0,maxiv="No",move=None, ability="Magic Bounce",item="Sablenite"):
-        if move is None:
-            avmoves=["Protect","Night Shade","Shadow Sneak","Power Gem","Zen Headbutt","Knock Off","Foul Play","Moonlight","Destiny Bond"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)            
-#Mega Mawile
-class MMawile(Pokemon2):
-    "Mega Mawile"
-    def __init__(self,name="Mega Mawile",type1="Steel",type2="Fairy",nature=None,level=100,happiness=255,hp=50,atk=105,defense=125,spatk=55,spdef=95,speed=50,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Huge Power",item="Mawilite"):
-        if move is None:
-            avmoves=["Protect","Iron Head","Play Rough","Crunch","Sucker Punch","Iron Defense","Stealth Rock","Double Iron Bash"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)  
+  
 #Tinkaton
 class Tinkaton(Pokemon2):
     def __init__(self,name="Tinkaton",type1="Fairy",type2="Steel",nature=None,level=100,happiness=255,hp=85,atk=75,defense=77,spatk=70,spdef=105,speed=95,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Mold Breaker",item="Leftovers"):
@@ -2105,25 +1845,7 @@ class Aggron(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)    
-#Mega Aggron
-class MAggron(Pokemon2):
-    "Mega Aggron"
-    def __init__(self,name="Mega Aggron",type1="Steel",type2=None,nature=None,level=100,happiness=255,hp=70,atk=140,defense=230,spatk=60,spdef=80,speed=50,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Filter",item="Aggronite"):
-        if move is None:
-            avmoves=["Protect","Iron Head","Stone Edge","Crunch","Earthquake","Iron Defense","Hyper Beam","Flash Cannon","Heavy Slam","Body Press","Autotomize"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Mega Medicham
-class MMedicham (Pokemon2):
-    "Mega Medicham"
-    def __init__(self,name="Mega Medicham",type1="Fighting",type2="Psychic",nature=None,level=100,happiness=255,hp=60,atk=100,defense=85,spatk=80,spdef=85,speed=100,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Pure Power",item="Medichamite"):
-        if move is None:
-            avmoves=["Protect","Dynamic Punch","Thunder Punch","Psycho Cut","Fire Punch","Zen Headbutt","Ice Punch","High Jump Kick","Close Combat","Axe Kick"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item) 
+
 #Medicham        
 class Medicham (Pokemon2):
     "Medicham"
@@ -2144,16 +1866,7 @@ class Torkoal (Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                       
-#Mega Manectric
-class MManectric(Pokemon2):
-    "Mega Manectric"
-    def __init__(self,name="Mega Manectric",type1="Electric",type2=None,nature=None,level=100,happiness=255,hp=70,atk=75,defense=80,spatk=135,spdef=80,speed=135,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Intimidate",item="Manectite"):
-        if move is None:
-            avmoves=["Protect","Volt Switch","Thunder","Crunch","Thunderbolt","Wild Charge","Hyper Beam","Thunder Wave","Flamethrower","Electric Terrain"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)         
+       
 #Sharpedo
 class Sharpedo(Pokemon2):
     "Sharpedo"
@@ -2174,16 +1887,7 @@ class Overqwil(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
-#Mega Sharpedo
-class MSharpedo(Pokemon2):
-    "Mega Sharpedo"
-    def __init__(self,name="Mega Sharpedo",type1="Water",type2="Dark",nature=None,level=100,happiness=255,hp=70,atk=140,defense=70,spatk=110,spdef=65,speed=105,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Strong Jaw",item="Sharpedonite"):
-        if move is None:
-            avmoves=["Protect","Flip Turn","Thunder Fang","Crunch","Liquidation","Surf","Ice Fang","Poison Fang"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)           
+         
 #Wailord
 class Wailord(Pokemon2):
     "Wailord"
@@ -2194,16 +1898,7 @@ class Wailord(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                
-#Mega Camerupt
-class MCamerupt(Pokemon2):
-    "Mega Camerupt"
-    def __init__(self,name="Mega Camerupt",type1="Fire",type2="Ground",nature=None,level=100,happiness=255,hp=90,atk=100,defense=110,spatk=145,spdef=115,speed=20,hpev=252,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability="Sheer Force",item="Cameruptite"):
-        if move is None:
-            avmoves=["Protect","Eruption","Earth Power","Lava Plume","Earthquake","Stone Edge","Fire Blast","Stealth Rock","Magnitude","Bulldoze","Yawn","Magma Storm","Steam Eruption"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item) 
+
 #Camerupt
 class Camerupt(Pokemon2):
     "Camerupt"
@@ -2321,16 +2016,7 @@ class Altaria(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)           
-#Mega Altaria
-class MAltaria(Pokemon2):
-    "Mega Altaria"
-    def __init__(self,name="Mega Altaria",type1="Dragon",type2="Fairy",nature=None,level=100,happiness=255,hp=85,atk=110,defense=110,spatk=110,spdef=105,speed=80,hpev=0,atkev=252,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Pixilate",item="Altarianite"):
-        if move is None:
-            avmoves=["Protect","Dragon Claw","Earthquake","Crunch","Brave Bird","Sky Attack","Moonblast","Flamethrower","Hyper Voice","Roost","Calm Mind"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        
+                  
 #Zangoose
 class Zangoose(Pokemon2):
     "Zangoose"
@@ -2491,16 +2177,7 @@ class Banette(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)          
-#Mega Banette
-class MBanette(Pokemon2):
-    "Mega Banette"
-    def __init__(self,name="Mega Banette",type1="Ghost",type2="Normal",nature=None,level=100,happiness=255,hp=64,atk=165,defense=75,spatk=93,spdef=83,speed=75,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Prankster",item="Banettite"):
-        if move is None:
-            avmoves=["Protect","Recover","Knock Off","Crunch","Phantom Force","Assurance","Hypnosis","Shadow Ball","Toxic","Thunder Wave","Will-O-Wisp","Destiny Bond","Double-Edge","Shadow Sneak"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)     
+  
 #Absol
 class Absol(Pokemon2):
     "Absol"
@@ -2511,26 +2188,7 @@ class Absol(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)         
-#Mega Absol
-class MAbsol(Pokemon2):
-    "Mega Absol"
-    def __init__(self,name="Mega Absol",type1="Dark",type2="Fairy",nature=None,level=100,happiness=255,hp=75,atk=150,defense=70,spatk=115,spdef=70,speed=125,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Magic Bounce","Sharpness"]),item="Absolite"):
-        if move is None:
-            avmoves=["Protect","Recover","Knock Off","Crunch","Psycho Cut","Assurance","Night Slash","Shadow Ball","Toxic","Sucker Punch","Close Combat","Swords Dance","Play Rough"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)             
-#Mega Glalie
-class MGlalie(Pokemon2):
-    "Mega Glalie"
-    def __init__(self,name="Mega Glalie",type1="Ice",type2=None,nature=None,level=100,happiness=255,hp=80,atk=135,defense=80,spatk=105,spdef=80,speed=120,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Refrigerate",item="Glalite"):
-        if move is None:
-            avmoves=["Protect","Recover","Earthquake","Crunch","Ice Beam","Blizzard","Freeze-Dry","Ice Fang","Toxic","Snowscape","Hyper Beam","Rain Dance","Icicle Crash"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
+
                                     
 #Glalie
 class Glalie(Pokemon2):
@@ -2591,16 +2249,7 @@ class Salamence(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)      
-#Mega Salamence
-class MSalamence(Pokemon2):
-    "Mega Salamence"
-    def __init__(self,name="Mega Salamence",type1="Dragon",type2="Flying",nature=None,level=100,happiness=255,hp=95,atk=145,defense=130,spatk=120,spdef=90,speed=120,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Aerilate",item="Salamencite"):
-        if move is None:
-            avmoves=["Protect","Stone Edge","Dragon Claw","Ice Beam","Flamethrower","Crunch","Zen Headbutt","Double-Edge","Hydro Pump","Earthquake","Dragon Dance","Roost"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Metagross
+                               #Metagross
 class Metagross(Pokemon2):
     "Metagross"
     def __init__(self,name="Metagross",type1="Steel",type2="Psychic",nature=None,level=100,happiness=255,hp=80,atk=135,defense=130,spatk=95,spdef=90,speed=70,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Clear Body",item=random.choice(["Leftovers","Choice Band","Metagrossite"])):
@@ -2610,16 +2259,7 @@ class Metagross(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                    
-#MegaMetagross
-class MMetagross(Pokemon2):
-    "Mega Metagross"
-    def __init__(self,name="Mega Metagross",type1="Steel",type2="Psychic",nature=None,level=100,happiness=255,hp=80,atk=145,defense=150,spatk=105,spdef=110,speed=110,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Tough Claws",item="Metagrossite"):
-        if move is None:
-            avmoves=["Protect","Stone Edge","Bullet Punch","Meteor Mash","Hyper Beam","Crunch","Zen Headbutt","Double-Edge","Iron Defense","Earthquake","Hammer Arm","Flash Cannon","Fire Punch","Psyshield Bash"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Latias
+                                         #Latias
 class Latias(Pokemon2):
     "Latias"
     def __init__(self,name="Latias",type1="Dragon",type2="Psychic",nature=None,level=100,happiness=255,hp=80,atk=80,defense=90,spatk=110,spdef=130,speed=110,hpev=252,atkev=0,defev=4,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Levitate",item=random.choice(["Soul Dew","Leftovers","Choice Specs","Choice Scarf","Latiasite"])):
@@ -2641,26 +2281,7 @@ class Latios(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
-#Mega Latias
-class MLatias(Pokemon2):
-    "Mega Latias"
-    def __init__(self,name="Mega Latias",type1="Dragon",type2="Psychic",nature=None,level=100,happiness=255,hp=80,atk=100,defense=120,spatk=140,spdef=150,speed=110,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Levitate",item="Latiasite"):
-        if move is None:
-            avmoves=["Protect","Hyper Beam","Mist Ball","Zen Headbutt","Dragon Pulse","Psychic","Calm Mind","Ice Beam","Thunderbolt","Shadow Ball","Psyshock","Roost","Thunder","Thunder Wave","Reflect","Light Screen","Draco Meteor"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
-#Mega Latios
-class MLatios(Pokemon2):
-    "Mega Latios"
-    def __init__(self,name="Mega Latios",type1="Dragon",type2="Psychic",nature=None,level=100,happiness=255,hp=80,atk=130,defense=100,spatk=160,spdef=120,speed=110,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Levitate",item="Latiosite"):
-        if move is None:
-            avmoves=["Protect","Hyper Beam","Luster Purge","Zen Headbutt","Dragon Pulse","Psychic","Calm Mind","Ice Beam","Thunderbolt","Shadow Ball"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                
+    
 #Kyogre
 class Kyogre(Pokemon2):
     "Kyogre"
@@ -2846,16 +2467,7 @@ class Drifblim(Pokemon2):
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Mega Lopunny
-class MLopunny(Pokemon2):
-    "Mega Lopunny"
-    def __init__(self,name="Mega Lopunny",type1="Normal",type2="Fighting",nature=None,level=100,happiness=255,hp=65,atk=136,defense=94,spatk=54,spdef=96,speed=135,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Scrappy",item="Lopunnite"):
-        if move is None:
-            avmoves=["Protect","High Jump Kick","Return","Fake Out","Power-up Punch","Triple Axel"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)            
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                
 #Mismagius
 class Mismagius(Pokemon2):
     "Mismagius"
@@ -2934,16 +2546,7 @@ class Garchomp(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        
-        #Mega Garchomp
-class MGarchomp(Pokemon2):
-    "Mega Garchomp"
-    def __init__(self,name="Mega Garchomp",type1="Dragon",type2="Ground",nature=None,level=100,happiness=255,hp=108,atk=170,defense=105,spatk=120,spdef=95,speed=102,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Sand Force",item="Garchompite"):
-        if move is None:
-            avmoves=["Protect","Swords Dance","Earthquake","Dragon Claw","Stone Edge","Draco Meteor","Flamethrower","Stealth Rock","Dual Chop","Scale Shot"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Lucario
+                                          #Lucario
 class Lucario(Pokemon2):
     "Lucario"
     def __init__(self,name="Lucario",type1="Fighting",type2="Steel",nature=None,level=100,happiness=255,hp=70,atk=110,defense=70,spatk=115,spdef=70,speed=90,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Inner Focus",item=random.choice(["Choice Band","Life Orb","Lucarionite"])):
@@ -2952,16 +2555,7 @@ class Lucario(Pokemon2):
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Mega Lucario
-class MLucario(Pokemon2):
-    "Mega Lucario"
-    def __init__(self,name="Mega Lucario",type1="Fighting",type2="Steel",nature=None,level=100,happiness=255,hp=70,atk=145,defense=88,spatk=140,spdef=70,speed=112,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Adaptability",item="Lucarionite"):
-        if move is None:
-            avmoves=["Protect","Meteor Mash","Aura Sphere","Dragon Pulse","Close Combat","Bullet Punch","Bone Rush","Extreme Speed"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                            #Hippowdon
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                                                             #Hippowdon
 class Hippowdon(Pokemon2):
     "Hippowdon"
     def __init__(self,name="Hippowdon",type1="Ground",type2=None,nature=None,level=100,happiness=255,hp=108,atk=112,defense=118,spatk=68,spdef=72,speed=47,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability="Sand Stream",item=random.choice(["Leftovers","Rocky Helmet"])):
@@ -3002,22 +2596,12 @@ class Abomasnow(Pokemon2):
                 moves=moveset(avmoves)
             if a==2:
                 nature="Modest"
-                item=random.choice(["Babiri Berry","Focus Sash"])
                 ability="Snow Warning"
                 moves=["Blizzard","Protect","Aurora Veil",random.choice(["Earth Power","Giga Drain"])]
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)       
-#Mega Abomasnow
-class MAbomasnow(Pokemon2):
-    "Abomasnow"
-    def __init__(self,name="Mega Abomasnow",type1="Grass",type2="Ice",nature=None,level=100,happiness=255,hp=90,atk=132,defense=105,spatk=132,spdef=105,speed=60,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Snow Warning",item="Abomasite"):
-        if move is None:
-            avmoves=["Protect","Wood Hammer","Icicle Crash","Blizzard","Ice Shard","Energy Ball","Earth Power","Aurora Veil","Ice Hammer"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Weavile
+                   #Weavile
 class Weavile(Pokemon2):
     "Weavile"
     def __init__(self,name="Weavile",type1="Dark",type2="Ice",nature=None,level=100,happiness=255,hp=70,atk=120,defense=65,spatk=45,spdef=85,speed=125,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Pressure","Infiltrator"]),item=random.choice(["Heavy-Duty Boots","Choice Band"])):
@@ -3136,16 +2720,7 @@ class Gallade(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)        
-#Mega Gallade
-class MGallade(Pokemon2):
-    "Mega Gallade"
-    def __init__(self,name="Mega Gallade",type1="Psychic",type2="Fighting",nature=None,level=100,happiness=255,hp=68,atk=165,defense=95,spatk=65,spdef=115,speed=110,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=4,speedev=252,maxiv="No",move=None, ability=random.choice(["Inner Focus","Sharpness"]),item="Galladite"):
-        if move is None:
-            avmoves=["Protect","Swords Dance","Psycho Cut","Night Slash","Close Combat","Aqua Cutter","Leaf Blade","Sacred Sword","Triple Axel"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                           
+                     
 #Hisuian Arcanine
 class HArcanine(Pokemon2):
     "Hisuian Arcanine"
@@ -4501,16 +4076,7 @@ class Diancie(Pokemon2):
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)  
 
-#Mega Diancie
-class MDiancie(Pokemon2):
-    "Mega Diancie"
-    def __init__(self,name="Mega Diancie",type1="Rock",type2="Fairy",nature=None,level=100,happiness=255,hp=50,atk=160,defense=110,spatk=160,spdef=110,speed=110,hpev=252,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=0,maxiv="No",move=None, ability="Clear Body",item="Diancite"):
-        if move is None:
-            avmoves=["Protect","Diamond Storm","Play Rough","Moonblast","Stealth Rock"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        
+                   
         #Hoopa Unbound 
 class UHoopa(Pokemon2):
     "Hoopa Unbound"
@@ -5034,7 +4600,18 @@ class GRapidash(Pokemon2):
             moves=moveset(avmoves)
         else:
             moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                        #Slowbro
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)     
+#Slowbro
+class Slowbro(Pokemon2):
+    "Slowbro"
+    def __init__(self,name="Slowbro",type1="Water",type2="Psychic",nature=None,level=100,happiness=255,hp=95,atk=75,defense=110,spatk=100,spdef=80,speed=30,hpev=0,atkev=0,defev=252,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability="Regenerator",item=random.choice(["Colbur Berry","Heavy-Duty Boots","Slowbronite"])):
+        if move is None:
+            avmoves=["Hidden Power","Ice Beam","Slack Off","Psychic","Flamethrower","Hydro Pump","Thunderbolt","Iron Defense","Rain Dance","Rest","Expanding Force","Yawn"]
+            moves=moveset(avmoves)
+        else:
+            moves=move
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)            
+#Slowbro
 class GSlowbro(Pokemon2):
     "Slowbro"
     def __init__(self,name="Galarian Slowbro",type1="Poison",type2="Psychic",nature=None,level=100,happiness=255,hp=95,atk=75,defense=105,spatk=115,spdef=70,speed=30,hpev=0,atkev=0,defev=252,spatkev=252,spdefev=0,speedev=0,maxiv="No",move=None, ability=random.choice(["Regenerator","Quick Draw","Own Tempo"]),item="Leftovers"):
@@ -6172,16 +5749,7 @@ class Miltank(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                        
-        #Mewtwo
-class MMewtwoY(Pokemon2):
-    "Mewtwo"
-    def __init__(self,name="Mega Mewtwo Y",type1="Psychic",type2=None,nature=None,level=100,happiness=255,hp=106,atk=150,defense=70,spatk=194,spdef=120,speed=140,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move=None, ability="Insomnia",item=random.choice(["Mewtwonite Y"])):
-        if move is None:
-            avmoves=["Protect","Hidden Power","Shadow Ball","Dark Pulse","Ice Beam","Focus Blast","Expanding Force","Aura Sphere","Power Gem","Earth Power"]
-            moves=moveset(avmoves,3)+["Psystrike"]
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)                                        
+                                 
         #Ceruledge
 class Ceruledge(Pokemon2):
     def __init__(self,name="Ceruledge",type1="Fire",type2="Ghost",nature=None,level=100,happiness=255,hp=65,atk=115,defense=80,spatk=60,spdef=70,speed=100,hpev=0,atkev=252,defev=0,spatkev=0,spdefev=0,speedev=252,maxiv="No",move=None, ability=random.choice(["Flash Fire","Weak Armor"]),item=random.choice(["Leftovers","Heavy-Duty Boots","Life Orb"])):
@@ -6658,15 +6226,7 @@ class Audino(Pokemon2):
         else:
             moves=move
         super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)  
-#Audino
-class MAudino(Pokemon2):
-    def __init__(self,name="Mega Audino",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=103,atk=60,defense=126,spatk=80,spdef=126,speed=50,hpev=252,atkev=0,defev=0,spatkev=0,spdefev=252,speedev=0,maxiv="No",move=None, ability="Regenerator",item=random.choice(["Audite"])):
-        if move is None:
-            avmoves=["Misty Terrain","Double-Edge","Moonblast","Zen Headbutt"]
-            moves=moveset(avmoves)
-        else:
-            moves=move
-        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)
+
 #Delcatty
 class Delcatty(Pokemon2):
     def __init__(self,name="Delcatty",type1="Normal",type2=None,nature=None,level=100,happiness=255,hp=70,atk=65,defense=65,spatk=65,spdef=55,speed=90,hpev=252,atkev=0,defev=0,spatkev=0,spdefev=252,speedev=0,maxiv="No",move=None, ability=random.choice(["Magic Guard","Feline Prowess","Wonder Skin"]),item=random.choice(["Leftovers"])):

@@ -641,7 +641,7 @@ def decision (self,other,tr1,tr2,field):
                 action=2  
             if self.ability=="Zero to Hero" and "Hero" not in self.name and "Flip Turn" not in self.moves:
                 action=2       
-        if (self.maxiv=="gmax" or self.atk>270 or self.spatk>270) and self.owner.canmax is True and self.teratype==None:
+        if (self.maxiv=="gmax" or self.atk>300 or self.spatk>300) and self.owner.canmax is True and (self.item!=None and self.item not in megastones):
             action=8
         if self.item in megastones and "Mega" not in self.name and tr1.canmega==True:
             action=random.choices([1,9], weights=[3,7],k=1)[0]

@@ -8,9 +8,10 @@ from pokemonintros import *
 #ENCORE
 def encore(self,other,opuse,turn):
     print(f" 👏 {self.name} used "+colored(" Encore","white")+"!")
-    if other.used!=None and other.encore==False:
+    if other.use!=None and other.encore==False:
         print(f" 🎉👏 {other.name} fell for the encore!")
         other.encore=opuse
+        other.encturn=random.randint(3,5)
     else:
         print(f" It failed!")
 #HAZE
@@ -425,7 +426,7 @@ def fierydance(self,other):
         spatkchange(self,self,0.5)
         print(f" {self.name}'s special attack rose!")
 #REST        
-def rest(self,turn):
+def rest(self,other,turn):
     print(f" 😪 {self.name} used "+colored(" Rest","magenta")+"!")
     if self.status!="Sleep" and self.hp!=self.maxhp:
         self.status="Sleep"
@@ -894,9 +895,6 @@ def gmaxdrumsolo(self,other):
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
-    if a==0:
-        print(f" G-Max Drum Solo negates {other.name}'s ability!")
-        a=1
     if self.spatk>self.atk:
         other.hp-=special(self,self.level,self.spatk,other.spdef,150,a,b,c,r,al,w)    
     else:
@@ -929,10 +927,7 @@ def gmaxhydrosnipe(self,other):
     c=critch(self,other)
     ab=weakness(self,other,field)
     a=ab[0]
-    b=ab[1]   
-    if a==0:
-        print(f" G-Max Hydrosnipe negates {other.name}'s ability!")
-        a=1
+    b=ab[1]
     if self.spatk>self.atk:
         other.hp-=special(self,self.level,self.spatk,other.spdef,150,a,b,c,r,al,w)    
     else:
@@ -1253,10 +1248,7 @@ def searingsunrazesmash(self,other):
     c=critch(self,other)
     ab=weakness(self,other,field)
     a=ab[0]
-    b=ab[1]   
-    if a==0:
-        print(f" Searing Sunraze Smash negates {other.name}'s ability!")
-        a=1
+    b=ab[1] 
     if self.spatk>self.atk:
         other.hp-=special(self,self.level,self.spatk,other.spdef,200,a,b,c,r,al)    
     else:
@@ -1269,10 +1261,7 @@ def menacingmoonrazemaelstrom(self,other):
     c=critch(self,other)
     ab=weakness(self,other,field)
     a=ab[0]
-    b=ab[1]   
-    if a==0:
-        print(f" Menacing Moonraze Maelstrom  negates {other.name}'s ability!")
-        a=1
+    b=ab[1]
     if self.spatk>self.atk:
         other.hp-=special(self,self.level,self.spatk,other.spdef,200,a,b,c,r,al)    
     else:
@@ -2099,7 +2088,7 @@ def shadowball (self,other):
         ch=random.randint(1,100)            
         if ch>(100-chance) and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"] and a!=0:
             spdefchange(other,self,-0.5)
-            print(f" {other.name}'s special defense fell")
+            print(f" 🔽 {other.name}'s special defense fell")
 def judgement(self,other):
     al=1
     r=randroll()
@@ -3295,8 +3284,7 @@ def partingshot(self,other):
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         atkchange(other,self,-0.5)
         spatkchange(other,self,-0.5)
-        print(f" {other.name}: Attack x{other.atkb}")
-        print(f" {other.name}: Special Attack x{other.spatkb}")
+        print(f" 🔽 {other.name}'s attack and special attack fell!")
     else:
         print(f" Can't lower {other.name}'s stats!")
 def shadowbone(self,other):
@@ -3317,7 +3305,7 @@ def shadowbone(self,other):
     ch=random.randint(1,100)
     if ch>80 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange(other,self,-0.5)
-        print(f" {other.name}: Defense x{other.defb}") 
+        print(f" 🔽 {other.name}'s defense fell!") 
 def bonerush(self,other):
     al=1
     r=randroll()
@@ -3374,7 +3362,7 @@ def snarl(self,other):
     other.hp-=special(self,self.level,self.spatk,other.spdef,55,a,b,c,r,al)           
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         spatkchange(other,self,-0.5) 
-        print(f" {other.name}: Special Attack x{other.spatkb}")
+        print(f" {other.name}'s special attack fell!")
     else:
         print(" Nothing happened!")
 def steelbeam(self,other):
@@ -4055,7 +4043,7 @@ def glaciate(self,other):
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,65,a,b,c,r,al,w)
     speedchange(other,self,-0.5)
-    print(f" {other.name}: Speed x{other.speedb}")
+    print(f" 🔽 {other.name}'s speed fell!")
 def flowertrick(self,other):
     al=1
     r=randroll()
@@ -4238,7 +4226,7 @@ def bittermalice(self,other):
     other.hp-=special(self,self.level,self.spatk,other.spdef,base,a,b,c,r,al) 
     if a!=0:
         atkchange(other,self,-0.5)
-        print(f" {other.name}: Attack x{other.atkb}")
+        print(f" 🔽 {other.name}'s attack fell!")
     ch=random.randint(1,100)
     if ch>70 and other.status=="Alive" and a!=0:
         other.status="Frostbite"
@@ -4470,7 +4458,7 @@ def overheat(self,other):
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,130,a,b,c,r,al,w)                
     spatkchange(self,self,-1)
-    print(f" Special Attack x{self.spatkb}")
+    print(f" ⏬ {self.name}'s special attack fell harshly!")
 def blastburn(self,other):
     self.atktype="Fire"
     w=weathereff(self,other)
@@ -4587,7 +4575,7 @@ def moonblast(self,other):
         ch=random.randint(1,100)            
         if ch>(100-chance) and self.ability!="Sheer Force" and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil","Shield Dust"]:
             spatkchange(other,self,-0.5)
-            print(f" {other.name}: Special Attack x{other.spatkb}")
+            print(f" 🔽 {other.name}'s special attack fell!")
 def sludgebomb(self,other):
     al=1
     r=randroll()
@@ -4833,7 +4821,7 @@ def mysticalfire(self,other):
     a=ab[0]
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,75,a,b,c,r,al,w)    
-    if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
+    if a!=0:
         spatkchange(other,self,-0.5)
         print(f" 🔽 {other.name}'s special attack fell!")   
 def lunge(self,other):
@@ -4884,7 +4872,7 @@ def thunderouskick(self,other):
     ch=random.randint(1,100)
     if ch>80 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange(other,self,-0.5)
-        print(f" {other.name}: Defense x{other.defb}")    
+        print(f" 🔽 {other.name}'s defense fell!")    
 def chillingwater(self,other):
     self.atktype="Water"
     w=weathereff(self,other)
@@ -4898,7 +4886,7 @@ def chillingwater(self,other):
     other.hp-=special(self,self.level,self.spatk,other.spdef,50,a,b,c,r,al,w)
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         atkchange(other,self,-0.5)
-        print(f" {other.name}: Attack x{other.atkb}")        
+        print(f" 🔽 {other.name}'s attack fell!")        
 def pounce(self,other):
     self.atktype="Bug"
     w=weathereff(self,other)
@@ -4915,7 +4903,7 @@ def pounce(self,other):
     other.hp-=physical(self,self.level,self.atk,other.defense,50,a,b,c,r,al,w)
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         speedchange(other,self,-0.5)
-        print(f" {other.name}: Speed x{other.speedb}")        
+        print(f" 🔽 {other.name}'s speed fell!")        
 def skittersmack(self,other):
     self.atktype="Bug"
     w=weathereff(self,other)
@@ -4932,7 +4920,7 @@ def skittersmack(self,other):
     other.hp-=physical(self,self.level,self.atk,other.defense,70,a,b,c,r,al,w)
     if other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         spatkchange(other,self,-0.5)
-        print(f" {other.name}: Special Attack x{other.spatknb}")                
+        print(f" 🔽 {other.name}'s special attack fell!")                
 def liquidation (self,other):
     self.atktype="Water"
     w=weathereff(self,other)
@@ -4950,7 +4938,7 @@ def liquidation (self,other):
     ch=random.randint(1,100)
     if ch>80 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange(other,self,-0.5)
-        print(f" {other.name}: Defense x{other.defb}")
+        print(f" 🔽 {other.name}: defense fell!")
 def mysticalpower(self,other):
     self.atktype="Psychic"
     al=1
@@ -4963,7 +4951,7 @@ def mysticalpower(self,other):
     other.hp-=special(self,self.level,self.spatk,other.spdef,70,a,b,c,r,al)
     if a!=0:
         spatkchange(self,other,0.5)
-        print(f" Special Attack x{self.spatkb}")        
+        print(f" {self.name}'s special attack rose!")        
 def torchsong(self,other):
     self.atktype="Fire"
     w=weathereff(self,other)
@@ -5029,7 +5017,7 @@ def razorshell(self,other):
     ch=random.randint(1,100)
     if ch>50 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange(other,self,-0.5)
-        print(f" {other.name}: Defense x{other.defb}") 
+        print(f" 🔽 {other.name}'s defense fell!") 
 def diamondstorm(self,other):
     self.atktype="Rock"
     w=weathereff(self,other)
@@ -5043,8 +5031,8 @@ def diamondstorm(self,other):
     other.hp-=special(self,self.level,self.spatk,other.spdef,100,a,b,c,r,al,w)    
     ch=random.randint(1,100)
     if ch>50 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
-        defchange(other,self,-0.5)
-        print(f" {other.name}: Defense x{other.defb}")                
+        spdefchange(other,self,-0.5)
+        print(f" 🔽 {other.name}'s special defense fell!")                
 def wavecrash(self,other):
     self.atktype="Water"
     w=weathereff(self,other)
@@ -6121,7 +6109,7 @@ def headcharge(self,other):
     ch=random.randint(1,10)    
     if ch>8 and self.ability!="Sheer Force" and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange(other,self,-0.5)
-        print (f" {other.name}: Defense x{other.defb}")
+        print (f" 🔽 {other.name}'s defense fell!")
     if self.ability=="Reckless":
         dmg*=1.2
     if dmg>other.hp:
@@ -6382,7 +6370,7 @@ def spiritbreak(self,other):
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,75,a,b,c,r,al)            
     spatkchange(other,self,-0.5)
-    print(f" {other.name} Special Attack x{other.spatkb}")       
+    print(f" 🔽 {other.name}'s special attack fell!")       
 def orderup(self,other):
     al=1
     r=randroll()
@@ -6532,7 +6520,7 @@ def crushclaw(self,other):
     ch=random.randint(1,2)
     if ch==2 and other.ability not in ["Clear Body","Big Pecks","White Smoke","Full Metal Body","Flower Veil"]:
         defchange(other,self,-0.5)
-        print(f" {other.name} Defense x{other.defb}")
+        print(f" 🔽 {other.name}'s defense fell!")
 def seedbomb(self,other):
     al=1
     r=randroll()
@@ -6557,7 +6545,7 @@ def spinout(self,other):
     b=ab[1]   
     other.hp-=physical(self,self.level,self.atk,other.defense,100,a,b,c,r,al)         
     speedchange(self,self,-1)
-    print(" ⏬ Its speed fell harshly!") 
+    print(" ⏬ {self.name}'s speed fell harshly!") 
 def irontail(self,other):
     al=1
     r=randroll()
@@ -7060,8 +7048,7 @@ def dragonascent(self,other):
     other.hp-=physical(self,self.level,self.atk,other.defense,120,a,b,c,r,al)     
     defchange(self,self,-0.5)
     spdefchange(self,self,-0.5)
-    print(f" Defense x{self.defb}")
-    print(f" Special Defense x{self.spdefb}")
+    print(f" 🔽 {self.name}'s defense and special defense fell")
 def weatherball(self,other):
     self.atktype="Normal"
     base=50
@@ -7472,7 +7459,7 @@ def dracometeor(self,other):
     other.hp-=special(self,self.level,self.spatk,other.spdef,130,a,b,c,r,al)  
     if a!=0:
         spatkchange(self,self,-1)
-        print(f" {self.name}'s special attack fell harshly!")
+        print(f" ⏬ {self.name}'s special attack fell harshly!")
 def originpulse(self,other):
     al=1
     self.atktype="Water"
@@ -7517,11 +7504,7 @@ def noretreat(self,other):
     spatkchange(self,other,0.5)
     spdefchange(self,other,0.5)
     speedchange(self,other,0.5)
-    print(f" Attack x{self.atkb}")
-    print(f" Defense x{self.defb}")
-    print(f" Special Attack x{self.spatkb}")
-    print(f" Special Defense x{self.spdefb}")
-    print(f" Speed x{self.speedb}")     
+    print(f" {self.name}'s gained an omniboost but it cannot escape!")
 def octolock(self,other):
     print(f" 🐙 {self.name} used "+colored(" Octolock","red")+"!")     
     if other.olock is False:
@@ -7595,7 +7578,7 @@ def fleurcannon(self,other):
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,130,a,b,c,r,al)        
     spdefchange(self,self,-1)
-    print(f" Special Defense x{self.spdefb}")    
+    print(f" {self.name}'s defense fell harshly!")    
 def flashcannon(self,other):
     al=1
     r=randroll()
@@ -7692,7 +7675,7 @@ def nightshade(self,other):
         print(f" 👤 {self.name} used "+colored(" Night Shade","magenta")+"!")
         other.hp-=self.level
     else:
-        print(f" Doesn't effect on {other.name}")        
+        print(f" 🔴 Doesn't effect on {other.name}!")        
 def flamethrower (self,other):
     self.atktype="Fire"
     w=weathereff(self,other)
