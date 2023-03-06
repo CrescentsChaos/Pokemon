@@ -1,21 +1,27 @@
 <head><h1>
 Pokémon Python</bold></h1>
 ✴️ Run the main.py to play the game!<br>
-1.Pokémon from all the regions.<br>
-2.Unevolved pokémons aren't available.<br>
-3.Abilities<br>
-4.Held Items<br>
-5.Weathers<br>
-6.Terrains<br>
-7.Statuses<br>
-8.New Moves for old mons<br>
-9.New Abilities for old mons<br>
-10.Terastallization<br>
-11.Mega Evolution<br>
-12.Dynamax/Gigantamax<br>
-13.Z-Moves<br>
-14.New Weather effects<br>
-15.Gen I - IX<br>
+1.🆕 Pokémon from all the regions.<br>
+2.❌ Unevolved pokémons aren't available.<br>
+3.🆕 Abilities<br>
+4.🆕 Held Items<br>
+5.🆕 Weathers<br>
+6.✅ Terrains<br>
+7.🆕 Statuses<br>
+8.🆕 New Moves for old mons<br>
+9.🆕 New Abilities for old mons<br>
+10.💎 Terastallization<br>
+11.🧬 Mega Evolution<br>
+12.⭕ Dynamax/Gigantamax<br>
+13.🇿 Z-Moves<br>
+14.🆕 New Weather effects<br>
+15.🆕 Gen I - IX<br>
+16.🆕 Gym Leaders<br>
+17.🆕 Elite Fours<br>
+18.🆕 Talented Trainers<br>
+19.✅ Battle Frontiers<br>
+20.🆕 Champions<br>
+21.🆕 Evil Teams<br>
 <a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047032986173976576/image_search_1669702475343.png"/>
 </a>
 <a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047033006008827934/image_search_1669702388317.png"/>
