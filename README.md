@@ -10,7 +10,7 @@ Pokémon Python</bold></h1>
 7.Statuses<br>
 8.New Moves for old mons<br>
 9.New Abilities for old mons<br>
-10.Terastalization<br>
+10.Terastallization<br>
 11.Mega Evolution<br>
 12.Dynamax/Gigantamax<br>
 13.Z-Moves<br>
