@@ -11,10 +11,11 @@
 #pylint:disable=W0102
 from typematchup import *
 class Trainer:
-	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[],tailwind=False,wishhp=False,vcdmg=False,vcturn=False,vcendturn=False,canmega=True,canmax=True):
+	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[],tailwind=False,wishhp=False,vcdmg=False,vcturn=False,vcendturn=False,canmega=True,canmax=True,cantera=True):
 		self.name=name
 		self.ai=ai
 		self.pokemons=pokemons
+		self.cantera=cantera
 		self.canmax=canmax
 		self.faintedmon=faintedmon
 		self.lightscreen=lightscreen
@@ -31,33 +32,33 @@ class Trainer:
 		self.vcdmg=vcdmg
 		self.vcturn=vcturn
 		self.vcendturn=vcendturn
-		self.screenend=self.lsturn+5
+		self.screenend=self.lsturn+6
 		self.twendturn=self.tailturn+4
-		self.rfendturn=self.reflecturn+5
-		self.avendturn=self.auroraturn+5
+		self.rfendturn=self.reflecturn+6
+		self.avendturn=self.auroraturn+6
 		if hazard is None:
 		    self.hazard=[]
 		else:
 		    self.hazard=hazard   
 	def lightscreenend(self,mon,mon2):
 	       if "Light Clay" not in (mon.item,mon2.item):
-	           self.screenend=self.lsturn+5
+	           self.screenend=self.lsturn+6
 	       if "Light Clay" in (mon.item,mon2.item):
-	           self.screenend=self.lsturn+8
+	           self.screenend=self.lsturn+9
 	       return self.screenend
 	       
 	def reflectend(self,mon,mon2):
 	       if "Light Clay" not in (mon.item,mon2.item):
-	           self.rfendturn=self.reflecturn+5
+	           self.rfendturn=self.reflecturn+6
 	       if "Light Clay" in (mon.item,mon2.item):
-	           self.rfendturn=self.reflecturn+8
+	           self.rfendturn=self.reflecturn+9
 	       return self.rfendturn
 	       
 	def auroraend(self,mon,mon2):
 	       if "Light Clay" not in (mon.item,mon2.item):
-	           self.avendturn=self.auroraturn+5
+	           self.avendturn=self.auroraturn+6
 	       if "Light Clay" in (mon.item,mon2.item):
-	           self.avendturn=self.auroraturn+8
+	           self.avendturn=self.auroraturn+9
 	       return self.avendturn
 	def twend(self,mon,mon2):
 	    self.twendturn=self.tailturn+4

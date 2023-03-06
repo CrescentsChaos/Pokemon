@@ -20,6 +20,23 @@ def intro (tr,sr,field):
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
+    if "Wake" in tr.name:
+        print(f" {tr.name}: Welcome! I don't get challenged very often! The glory you are now beholding is the Pastoria Gym Leader! That's right, I'm Crasher Wake! My Pokémon were toughened up by stormy white waters! They'll take everything you can throw at them and then pull you under! Victory will be ours! Come on, let's get it done!\n")
+    if "Bugsy" in tr.name:
+        print(f" {tr.name}: I never lose when it comes to Bug-type Pokémon. Let me demonstrate what I've learned from my studies.\n")
+    if "Blaine" in tr.name:
+        print(f" {tr.name}: Hah! I'm Blaine! I am the Leader of Cinnabar Gym! My fiery Pokémon will incinerate all challengers! Hah! You better have Burn Heal!\n")
+    if "Koga" in tr.name:
+        print(f" {tr.name}: Fwahahahaha! I am Koga of the Elite Four. I live in shadows--a ninja! My intricate style will confound and destroy you! Confusion, sleep, poison... Prepare to be the victim of my sinister techniques! Fwahahahaha! Pokémon are not merely about brute force--you shall see soon enough!\n")
+    if "Sabrina" in tr.name:
+        print(f" {tr.name}: Three years ago I had a vision of battling you. Since you wish it, I will show you my psychic powers!\n")
+    if "Brock" in tr.name:
+        if sr.region=="Kanto":
+            print(random.choice([f" {tr.name}: I'm Brock! I'm Pewter's Gym Leader! I believe in rock hard defense and determination! That's why my Pokémon are all the Rock-type! Do you still want to challenge me? Fine then! Show me your best!\n"]))
+        else:
+            print(random.choice([f" {tr.name}: Wow, it's not often that we get a challenger from {sr.region}. I'm Brock, the Pewter Gym Leader. I'm an expert on Rock-type Pokémon. My Pokémon are impervious to most physical attacks. You'll have a hard time inflicting any damage. Come on!\n",f" {tr.name}: I'm Brock! I'm an expert of Rock-type Pokémon. My defense is rock hard!\n",f" {tr.name}: I'm Brock! I'm an expert of Rock-type Pokémon. My Pokémon are impervious to most physical attacks. You'll have a hard time inflicting any damage.\n"]))
+    if "Lucy" in tr.name:
+        print(random.choice([f" {tr.name}: I am Lucy... I am the law here... For I am the Pike Queen... You already know it, but to advance, you must defeat me... ...I'm not one for idle chatter. Hurry. Come on... Your luck... I hope you didn't use it all up here...\n",f" {tr.name}: You again... ... ... ... ... ... ... ...I've trampled flowers and braved storms to get to where I am... I don't feel any compulsion to keep losing to the same opponent... ... ... ... ... ... ... Fine... I'll do it... Now! Come on!\n"]))
     if "Iris" in tr.name:
         print(random.choice([f" {tr.name}: Know what? I really look forward to having serious battles with strong Trainers! I mean, come on! The Trainers who make it here are Trainers who desire victory with every fiber of their being! And they are battling alongside Pokémon that have been through countless difficult battles! If I battle with people like that, not only will I get stronger, my Pokémon will, too! And we'll get to know each other even better! OK! Brace yourself! I'm Iris, the Pokémon League Champion, and I'm going to defeat you!\n",f" {tr.name}: The Trainers who come here are Trainers who desire victory with every fiber of their being! And they are battling alongside Pokémon that have been through countless difficult battles! If I battle with people like that, not only will I get stronger, my Pokémon will, too! And we'll get to know each other even better! OK! Brace yourself! I'm Iris, the Pokémon League Champion, and I'm going to defeat you!\n"]))
     if "Noland" in tr.name:
@@ -81,7 +98,7 @@ f" {tr.name}: Aah, yes, indeed this life is grand! Grand, it is! Eh? I'm Brandon
     if "Surge" in tr.name:
         print(f" {tr.name}: The name's Lt. Surge! When it comes to Electric-type Pokémon, I'm number one! You've got guts to challenge me! I'm gonna zap you!\n")
     if "Misty" in tr.name:
-        print(f" {tr.name}: I'm Misty! I'm a user of Water-type Pokémon, and my Water-type Pokémon are tough!\n")
+        print(random.choice([f" {tr.name}: I'm Misty! I'm a user of Water-type Pokémon, and my Water-type Pokémon are tough!\n",f" {tr.name}: Hi, you're a new face! What's your policy on Pokémon? What is your approach? My policy is an all-out offensive with Water-type Pokémon! Misty, the world-famous beauty, is your host! Are you ready, sweetie?\n"]))
     if "Silver" in tr.name:
         print(f" {tr.name}: Hold it. You're going to take the Pokémon League challenge now? That's not going to happen. My super-well trained Pokémon are going to pound you. {srname}! I challenge you!\n")
     if "Leon" in tr.name:

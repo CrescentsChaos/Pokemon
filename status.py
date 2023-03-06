@@ -14,7 +14,7 @@ def poison(self,other,ch=100):
     if self.ability=="Serene Grace":
         miss/=2
     chance=random.randint(1,100)
-    if (chance>=miss and ("Steel" not in (other.type2,other.type1,other.teratype) or "Poison"  not in (other.type2,other.type1,other.teratype) or self.ability=="Corrosion") and other.ability not in ["Immunity","Magic Bounce","Leaf Guard","Comatose"] and other.status=="Alive" and self.ability!="Sheer Force") and other.hp>0:
+    if (chance>=miss and ("Steel" not in (other.type2,other.type1,other.teratype) and "Poison"  not in (other.type2,other.type1,other.teratype) or self.ability=="Corrosion") and other.ability not in ["Immunity","Magic Bounce","Leaf Guard","Comatose"] and other.status=="Alive" and self.ability!="Sheer Force") and other.hp>0:
         if miss==0  and (other.item!="Covert Cloak" or other.ability not in ["Shield Dust"]):
             other.status="Badly Poisoned"
             print(f" ☠️ {other.name} was badly poisoned.")
@@ -28,7 +28,7 @@ def paralyzed(self,other,ch=100):
     if self.ability=="Serene Grace":
         miss/=2
     chance=random.randint(1,100)
-    if chance>=miss and (((("Electric" not in (other.type2,other.type1,other.teratype) or "Ground" not in (other.type2,other.type1,other.teratype) or other.used in ["Body Slam","Force Plam","Glare","Lightning Rod","Volt Absorb"] and other.ability not in ["Limber","Leaf Guard","Comatose","Magic Bounce"])) and other.status=="Alive" and self.ability!="Sheer Force") and other.hp>0):
+    if chance>=miss and (((("Electric" not in (other.type2,other.type1,other.teratype) and "Ground" not in (other.type2,other.type1,other.teratype) or other.use in ["Body Slam","Force Plam","Glare","Lightning Rod","Volt Absorb"] and other.ability not in ["Limber","Leaf Guard","Comatose","Magic Bounce"])) and other.status=="Alive" and self.ability!="Sheer Force") and other.hp>0):
         if miss==0  and (other.item!="Covert Cloak" or other.ability not in ["Shield Dust"]):
             other.status="Paralyzed"
             print(f" ⚡ {other.name} was paralyzed!")

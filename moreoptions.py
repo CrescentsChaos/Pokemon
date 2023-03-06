@@ -13,7 +13,9 @@ def characters(text,location,nm=2):
     team=None
     num=0
     chosen=None
-    if text in ["e4","elite four"]:
+    if text in ["dv"]:
+        team=[tonoy]
+    elif text in ["e4","elite four"]:
         team=e4list
     elif text in ["hc"]:
         team=hardlist
@@ -38,16 +40,11 @@ def characters(text,location,nm=2):
     if team is None:
         if nm==1:
             if "Tournament" in location:
-                chosen=random.choice([genTrainer("Pokémon Trainer"),genplayer2(field)])
+                chosen=genplayer2(field)
             else:
-                chosen=random.choices([random.choice([gym,elite4,champ, frontier,evil,talent]),genTrainer("Pokémon Trainer")],weights=[1,10],k=1)[0]
-        else:
-            if "Battle Frontier" in location:
-                chosen=random.choice([genTrainer("Pokémon Trainer"),genplayer2(field)])
-            elif "Tournament" in location:
-                chosen=random.choice([genTrainer("Pokémon Trainer"),random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)])
-            else:
-                chosen=random.choice([genTrainer("Pokémon Trainer"),genplayer2(field)])
+                chosen=random.choices([genplayer2(field),genTrainer(trclass="Pokémon Trainer")],weights=[1,15],k=1)[0]
+        if nm==2:
+            chosen=random.choices([genplayer2(field),genTrainer(trclass="Pokémon Trainer")],weights=[15,5],k=1)[0]
             #random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)
     else:
         ch=input(" Enter what you wanna play with: ")
@@ -97,7 +94,10 @@ if p1.ai is False:
         mon=int(mon)
         mon1=p1.pokemons[mon-1]
 if p1.ai is True:
-    mon1=p1.pokemons[random.randint(1,(len(p1.pokemons))-1)]
+    if len(p1.pokemons)==1:
+        mon1=p1.pokemons[0]
+    else:
+        mon1=p1.pokemons[random.randint(1,(len(p1.pokemons))-1)]
 if p2.ai is False:
     showmon(p2)
     mon=input(" Choose your leading mon: ")
@@ -109,7 +109,7 @@ if p2.ai is False:
         mon2=p2.pokemons[mon-1]         
 if p2.ai is True:
     if len(p2.pokemons)==6:
-        mon2=p2.pokemons[random.randint(1,len(p2.pokemons)-1)]
+      mon2=p2.pokemons[random.randint(1,len(p2.pokemons)-1)]
     if len(p2.pokemons)==1:
         mon2=p2.pokemons[0]
 print()

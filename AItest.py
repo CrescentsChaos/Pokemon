@@ -15,8 +15,8 @@ def moveAI(self,other,mtr,otr,field):
         mymove+=self.maxmove
     if self.dmax is False and "Ditto" not in self.name:
         mymove+=self.moves
-    types=[]
-    mytypes=[]
+    types=[other.type1,other.type2,other.teratype]
+    mytypes=[self.type1,self.type2,self.teratype]
     if self.ability=="Galvanize":
         typemoves.electricmoves+=typemoves.normalmoves
     if self.ability=="Aerilate":
@@ -25,16 +25,6 @@ def moveAI(self,other,mtr,otr,field):
         typemoves.fairymoves+=typemoves.normalmoves
     if self.ability=="Liquid Voice":
         typemoves.watermoves+=typemoves.normalmoves
-    if self.type2 is None:
-        mytypes.append(self.type1)
-    if self.type2 is not None:
-        mytypes.append(self.type1)
-        mytypes.append(self.type2)
-    if other.type2 is None:
-        types.append(other.type1)
-    if other.type2 is not None:
-        types.append(other.type1)
-        types.append(other.type2)
     weaklist= []
     resistlist= []
     immunelist=[]
@@ -92,7 +82,7 @@ def moveAI(self,other,mtr,otr,field):
     poisonwk=["Psychic", "Ground"]
     #FLYING✓
     flyingres=["Fighting", "Bug", "Grass"]
-    flyingwk=['Rock', 'Ice', 'Electric']    
+    flyingwk=['Rock', 'Ice', 'Electric']
     flyingimmune=["Ground"]
     #Rock✓
     rockres=["Flying", "Normal", "Fire", "Poison"]
@@ -107,9 +97,10 @@ def moveAI(self,other,mtr,otr,field):
     #ground
     groundres=['Poison', 'Rock']
     groundwk=['Water', 'Grass',"Ice"]
-    groundimmune=["Electric"] 
+    groundimmune=["Flying"]
     if len(mymove)==0 and len(self.moves)==0:  
         use="Struggle"     
+    
     if "Water" in types:
         stablist+=typemoves.watermoves
         weaklist=weaklist+waterwk
@@ -134,22 +125,24 @@ def moveAI(self,other,mtr,otr,field):
         stablist+=typemoves.groundmoves
         weaklist=weaklist+groundwk
         resistlist=resistlist+groundres
-        immunelist+=groundimmune
+        #myimmunemove+=set(mymove).intersection(typemoves.groundmoves)
+        myimmunemove+=list(set(mymove). intersection (typemoves.electricmoves))
     if "Ghost" in types:
         stablist+=typemoves.ghostmoves
         weaklist=weaklist+ghostwk
         resistlist=resistlist+ghostres
-        immunelist+=ghostimmune
+        myimmunemove+=list(set(mymove). intersection (typemoves.fightingmoves))
+        myimmunemove+=list(set(mymove). intersection (typemoves.normalmoves))
     if "Normal" in types:
         stablist+=typemoves.normalmoves
         weaklist=weaklist+normalwk
         resistlist=resistlist+normalres
-        immunelist+=normalimmune
+        myimmunemove+=list(set(mymove). intersection (typemoves.ghostmoves))
     if "Dark" in types:
         stablist+=typemoves.darkmoves
         weaklist=weaklist+darkwk
         resistlist=resistlist+darkres
-        immunelist+=darkimmune
+        myimmunemove+=list(set(mymove). intersection (typemoves.psychicmoves))
     if "Psychic" in types:
         stablist+=typemoves.psychicmoves
         weaklist=weaklist+psychicwk
@@ -162,7 +155,7 @@ def moveAI(self,other,mtr,otr,field):
         stablist+=typemoves.flyingmoves
         weaklist=weaklist+flyingwk
         resistlist=resistlist+flyingres
-        immunelist+=flyingimmune
+        myimmunemove+=list(set(mymove). intersection (typemoves.groundmoves))
     if "Fighting" in types:
         stablist+=typemoves.fightingmoves
         weaklist=weaklist+fightingwk
@@ -171,12 +164,12 @@ def moveAI(self,other,mtr,otr,field):
         stablist+=typemoves.fairymoves
         weaklist=weaklist+fairywk
         resistlist=resistlist+fairyres
-        immunelist+=fairyimmune
+        myimmunemove+=list(set(mymove). intersection (typemoves.dragonmoves))
     if "Steel" in types:
         stablist+=typemoves.steelmoves
         weaklist=weaklist+steelwk
         resistlist=resistlist+steelres
-        immunelist+=steelimmune
+        myimmunemove+=list(set(mymove). intersection (typemoves.poisonmoves))
     if "Poison" in types:
         stablist+=typemoves.poisonmoves
         weaklist=weaklist+poisonwk
@@ -189,125 +182,26 @@ def moveAI(self,other,mtr,otr,field):
         stablist+=typemoves.dragonmoves
         weaklist=weaklist+dragonwk
         resistlist=resistlist+dragonres
-    if "Water" in mytypes:
-        mystablist+=typemoves.watermoves
-        myweaklist=myweaklist+waterwk
-        myresistlist=myresistlist+waterres
-    if "Fire" in mytypes:
-        mystablist+=typemoves.firemoves
-        myweaklist=myweaklist+firewk
-        myresistlist=myresistlist+fireres
-    if "Grass" in mytypes:
-        mystablist+=typemoves.grassmoves
-        myweaklist=myweaklist+grasswk
-        myresistlist=myresistlist+grassres
-    if "Electric" in mytypes:
-        mystablist+=typemoves.electricmoves
-        myweaklist=myweaklist+electricwk
-        myresistlist=myresistlist+electricres
-    if "Rock" in mytypes:
-        mystablist+=typemoves.rockmoves
-        myweaklist=myweaklist+rockwk
-        myresistlist=myresistlist+rockres
-    if "Ground" in mytypes:
-        mystablist+=typemoves.groundmoves
-        myweaklist=myweaklist+groundwk
-        myresistlist=myresistlist+groundres
-        myimmunelist+=groundimmune
-    if "Ghost" in mytypes:
-        mystablist+=typemoves.ghostmoves
-        myweaklist=myweaklist+ghostwk
-        myresistlist=myresistlist+ghostres
-        myimmunelist+=ghostimmune
-    if "Normal" in mytypes:
-        mystablist+=typemoves.normalmoves
-        myweaklist=myweaklist+normalwk
-        myresistlist=myresistlist+normalres
-        myimmunelist+=normalimmune
-    if "Dark" in mytypes:
-        mystablist+=typemoves.darkmoves
-        myweaklist=myweaklist+darkwk
-        myresistlist=myresistlist+darkres
-        myimmunelist+=darkimmune
-    if "Psychic" in mytypes:
-        mystablist+=typemoves.psychicmoves
-        myweaklist=myweaklist+psychicwk
-        myresistlist=myresistlist+psychicres
-    if "Bug" in mytypes:
-        mystablist+=typemoves.bugmoves
-        myweaklist=myweaklist+bugwk
-        myresistlist=myresistlist+bugres
-    if "Flying" in mytypes:
-        mystablist+=typemoves.flyingmoves
-        myweaklist=myweaklist+flyingwk
-        myresistlist=myresistlist+flyingres
-        myimmunelist+=flyingimmune
-    if "Fighting" in mytypes:
-        mystablist+=typemoves.fightingmoves
-        myweaklist=myweaklist+fightingwk
-        myresistlist=myresistlist+fightingres
-    if "Fairy" in mytypes:
-        mystablist+=typemoves.fairymoves
-        myweaklist=myweaklist+fairywk
-        myresistlist=myresistlist+fairyres
-        myimmunelist+=fairyimmune
-    if "Steel" in mytypes:
-        mystablist+=typemoves.steelmoves
-        myweaklist=myweaklist+steelwk
-        myresistlist=myresistlist+steelres
-        myimmunelist+=steelimmune
-    if "Poison" in mytypes:
-        mystablist+=typemoves.poisonmoves
-        myweaklist=myweaklist+poisonwk
-        myresistlist=myresistlist+poisonres
-    if "Ice" in mytypes:
-        mystablist+=typemoves.icemoves
-        myweaklist=myweaklist+icewk
-        myresistlist=myresistlist+iceres
-    if "Dragon" in mytypes:
-        mystablist+=typemoves.dragonmoves
-        myweaklist=myweaklist+dragonwk
-        myresistlist=myresistlist+dragonres        
-    mystablist+=("Tera Blast","Judgement","Multi-Attack")
+    mystablist+=("Judgement","Multi-Attack")
     weaklist=list(set(weaklist)-set(resistlist)-set(immunelist))
-    #IMMUNEMOVES AGAINST OPPONENT
-    if "Steel" in immunelist:
-        myimmunemove+=list(set(mymove).intersection (typemoves.steelmoves))
-    if "Dark" in immunelist:
-        myimmunemove+=list(set(mymove).intersection (typemoves.darkmoves))        
-    if "Ghost" in immunelist:
-        myimmunemove+=list(set(mymove).intersection (typemoves.ghostmoves))        
-    if "Fairy" in immunelist:
-        myimmunemove+=list(set(mymove).intersection (typemoves.fairymoves))       
-    if "Normal" in immunelist:
-        myimmunemove+=list(set(mymove).intersection(typemoves.normalmoves))         
-    if "Flying" in immunelist:
-        myimmunemove+=list(set(mymove).intersection (typemoves.flyingmoves))        
-    if "Ground" in immunelist:
-        myimmunemove+=list(set(mymove).intersection (typemoves.groundmoves))   
-    #if "Steel" in myimmunelist:
-#        myimmunemove+=list(set(mymove).intersection (typemoves.steelmoves))
-#    if "Dark" in myimmunelist:
-#        myimmunemove+=list(set(mymove).intersection (typemoves.darkmoves))        
-#    if "Ghost" in myimmunelist:
-#        myimmunemove+=list(set(mymove).intersection (typemoves.ghostmoves))        
-#    if "Fairy" in myimmunelist:
-#        myimmunemove+=list(set(mymove).intersection (typemoves.fairymoves))       
-#    if "Normal" in myimmunelist:
-#        myimmunemove+=list(set(mymove).intersection(typemoves.normalmoves))         
-#    if "Flying" in myimmunelist:
-#        myimmunemove+=list(set(mymove).intersection (typemoves.flyingmoves))        
-#    if "Ground" in myimmunelist:
-#        myimmunemove+=list(set(mymove).intersection (typemoves.groundmoves))             
-    if "Water" in weaklist and other.ability not in ["Water Absorb","Water Compaction"]:
+    if other.ability in ["Water Absorb","Water Compaction","Storm Drain","Dry Skin"] or field.weather=="Desolate Land":
+        myimmunemove+=list(set(mymove). intersection (typemoves.watermoves))
+    if other.ability in ["Volt Absorb","Motor Drive","Lightning Rod"]:
+        myimmunemove+=list(set(mymove). intersection (typemoves.electricmoves))     
+    if other.ability in ["Flash Fire","Well-baked Body"] or field.weather=="Primordial Sea":
+        myimmunemove+=list(set(mymove). intersection (typemoves.firemoves))    
+    if other.ability in ["Levitate","Earth Eater"] or other.item=="Air Balloon":
+        myimmunemove+=list(set(mymove). intersection (typemoves.groundmoves))               
+        
+    if "Water" in weaklist and other.ability not in ["Water Absorb","Water Compaction","Storm Drain","Dry Skin"]:
         emove+=list(set(mymove). intersection(typemoves.watermoves))
     if "Fire" in weaklist and other.ability not in ["Well-baked Body","Flash Fire"]:
         emove+=list(set(mymove). intersection(typemoves.firemoves))
-    if "Grass" in weaklist and other.ability not in ["Sap Sipper "]:
+    if "Grass" in weaklist and other.ability not in ["Sap Sipper"]:
         emove+=list(set(mymove). intersection(typemoves.grassmoves))          
     if "Rock" in weaklist and other.ability not in ["Mountaineer"]:
         emove+=list(set(mymove). intersection(typemoves.rockmoves))     
-    if "Ground" in weaklist and other.ability not in ["Levitate"] and other.item!="Air Balloon":
+    if "Ground" in weaklist and other.ability not in ["Levitate","Earth Eater"] and other.item!="Air Balloon":
         emove+=list(set(mymove). intersection(typemoves.groundmoves)) 
     if "Electric" in weaklist and other.ability not in ["Volt Absorb","Lightning Rod","Motor Drive"]:
         emove+=list(set(mymove). intersection(typemoves.electricmoves))
@@ -388,15 +282,12 @@ def moveAI(self,other,mtr,otr,field):
             mymove.remove("Fake Out")
     if mtr.hazard!=[]:
         if "Defog" in mymove:
-            mymove.remove("Defog")       
+            use="Defog"  
     if self.choiced is True:
         mymove=list(set(mymove)-set(mymove). intersection(typemoves.statusmove))             
     if "Stealth Rock" in otr.hazard:
         if "Stealth Rock" in mymove:
             mymove.remove("Stealth Rock")
-    if "Toxic Spikes" in otr.hazard:
-        if "Toxic Spikes" in mymove:
-            mymove.remove("Toxic Spikes")
     if other.status=="Badly Poisoned" or (other.type1 in ["Steel","Poison"] or other.type2 in ["Steel","Poison"] and self.ability!="Corrosion"):
         if "Toxic" in mymove:
             mymove.remove("Toxic")
@@ -418,7 +309,7 @@ def moveAI(self,other,mtr,otr,field):
             mymove.remove("Sandstorm")   
     if field.weather=="Snowstorm":
         if "Snowscape" in mymove:
-            mymove.remove("Snowscape")                    
+            mymove.remove("Snowscape")
     if field.weather=="Hail":
         if "Hail" in mymove:
             mymove.remove("Hail")        
@@ -458,58 +349,56 @@ def moveAI(self,other,mtr,otr,field):
         tmove=list (set(mymove).intersection(typemoves.terrainmove))
         if len(tmove)!=0:
             use=tmove[0]
-    if self.choiced is False and self.atk>self.spatk and self.atkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2) and self.item not in ["Assault Vest"]:
+    if self.choiced is False and self.atk>self.spatk and self.atkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2) and self.item not in ["Assault Vest"] and self.dmax==False:
         boost=list (set(mymove).intersection(typemoves.atkboost))
         if len(boost)!=0:
             use=boost[0]        
-    if self.choiced is False and self.spatk>self.atk and self.spatkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2) and self.item not in ["Assault Vest"]:
+    if self.choiced is False and self.spatk>self.atk and self.spatkb<=1 and self.hp>(self.maxhp*0.5) and other.hp>(other.maxhp*0.2) and self.item not in ["Assault Vest"] and self.dmax==False:
         boost=list (set(mymove).intersection(typemoves.spatkboost))
         if len(boost)!=0:
             use=boost[0]   
-    if self.choiced is False and other.speed>other.speed and "Tailwind" in mymove and mtr.tailwind is not True and self.item not in ["Assault Vest"]:
+    if self.choiced is False and other.speed>other.speed and "Tailwind" in mymove and mtr.tailwind is not True and self.item not in ["Assault Vest"] and self.dmax==False:
         use="Tailwind"                
-    if self.choiced is False and other.atk>other.spatk and "Reflect" in mymove and mtr.reflect is not True and self.item not in ["Assault Vest"]:
+    if self.choiced is False and other.atk>other.spatk and "Reflect" in mymove and mtr.reflect is not True and self.item not in ["Assault Vest"] and self.dmax==False:
         use="Reflect"              
-    if self.choiced is False and other.spatk>other.atk and "Light Screen" in mymove and mtr.lightscreen is not True and self.item not in ["Assault Vest"]:
+    if self.choiced is False and other.spatk>other.atk and "Light Screen" in mymove and mtr.lightscreen is not True and self.item not in ["Assault Vest"] and self.dmax==False:
         use="Light Screen"        
-    if self.protect is False and "King's Shield" in mymove and other.hp>=(other.maxhp*0.2):
+    if self.protect is False and "King's Shield" in mymove and other.hp>=(other.maxhp*0.2) and self.dmax==False:
         use="King's Shield"       
-    if self.item is not None and "Sticky Web"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
+    if self.item is not None and "Sticky Web"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"] and self.dmax==False:
         if "Sticky Web"  in mymove:
             use="Sticky Web"                    
     if self.item is not None and "Stealth Rock"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
         if "Stealth Rock"  in mymove:
             use="Stealth Rock"      
-    if self.item is not None and "Toxic Spikes"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
+    if self.item is not None and "Toxic Spikes"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"] and self.dmax==False:
         if "Toxic Spikes"  in mymove:
             use="Toxic Spikes"  
     if (other.hp<=(other.maxhp*0.20) or other.defb<0.5) and self.speed<other.speed and len(eprior)!=0:
         use=random.choice([eprior[0],emove])             
-    if self.item is not None and "Choice" in self.item and self.choiced is False and use is not None and self.dmax is False:
+    if self.item is not None and "Choice" in self.item and self.choiced is False and use is not None and self.dmax is False and self.owner.ai==True and self.owner.ai==True:
         self.choiced=True
         self.choicedmove=use
     if self.choiced is True and self.dmax is False:
         if self.choicedmove in self.moves:
-            use=self.choicedmove     
+            use=self.choicedmove 
         else:
             use="Struggle" 
-    if self.hp<=(self.maxhp*0.25) and "Destiny Bond" in mymove and self.speed>other.speed:
+    if self.hp<=(self.maxhp*0.25) and "Destiny Bond" in mymove and self.speed>other.speed and self.dmax==False:
         use="Destiny Bond"
-    if self.hp<=(self.maxhp*0.25) and "Misty Explosion" in mymove:
+    if self.hp<=(self.maxhp*0.25) and "Misty Explosion" in mymove and self.dmax==False:
         use="Misty Explosion"
-    if self.hp<=(self.maxhp*0.25) and "Explosion" in mymove:
+    if self.hp<=(self.maxhp*0.25) and "Explosion" in mymove and self.dmax==False:
         use="Explosion"
-    if "Hero" not in self.name and "Flip Turn" in self.moves:
+    if "Hero" not in self.name and "Flip Turn" in self.moves and self.ability=="Zero to Hero":
         use="Flip Turn"
-    if len(emove)==0 and len(myimmunemove)!=0 and len(resmove)!=0:
-        use=random.choice(resmove)
     if use is None or use==[]:
         if len(mymove)==0:
             use=random.choice(self.moves)
         else:
             use=random.choice(mymove)
 #    print("=====================")     
-#    print(f"{self.name}'s AI says against {other.name}:"    )
+#        print(f"{self.name}'s AI says against {other.name}:"    )
 #    print("=====================")     
 #    print("USABLE MOVES:",mymove)
 #    print("EFFECTIVE MOVES:",emove)
@@ -539,49 +428,29 @@ def switchAI(self,other,tr,tr2, field):
     best=[]
     bestank=[]
     bestoff=[]
-    for i in tr.pokemons:
-        x=moveAI(i,other,tr,tr2,field)
-        y=moveAI(other,i,tr2,tr,field)
-        #print(i,x[1],other.name)
-        
-        if i.defense>250 and i.spdef>250 and i!=self:
-            tank.append(i)
-        if i.defense>250 and i!=self:
-            defmon.append(i)
-        if i.spdef>250 and i!=self:
-            spdefmon.append(i)
-#offense
-#200+ spdef          
-        if 200<other.spdef:
-#Has effective move and oppo doesn't and spatk 270+            
-            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.spatk>270:
-                bestoff.append(i)
-#Has effective move and oppo doesn't and atk 270+                 
-        elif 200<other.defense:
-            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.atk>270:
-                bestoff.append(i)
-#Def under 200                
-        if other.defense<200:
-#Has effective move and oppo doesn't and atk 200+               
-            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.atk>200:
-                bestoff.append(i)
-#spdef under 200                
-        elif other.spdef<200:
-#Has effective move and oppo doesn't and spatk 270+               
-            if len(x[1])!=0 and i!=self and len(y[1])==0 and i.spatk>200:
-                bestoff.append(i)
-        if len(x[1])!=0 and i!=self and len(y[1])==0 and (i.atk>200 or i.spatk>200):
-            effmon.append(i)
-        if other.spatk>250:
-            if i.spdef>200 and i in effmon and i!=self:
-                best.append(i)
-        if other.atk>250:
-            if i.defense>200 and i in effmon and i!=self:
-                best.append(i)
-        if other.spatk>other.atk and i in spdefmon and i!=self:
-            bestank.append(i)
-        if other.atk>other.spatk and i in defmon and i!=self:
-            bestank.append(i)        
+    killmon=[]
+    for i in sw:
+#    bestdeflist=["Steelix","Aggron","Tyranitar","Amoongus","Rillaboom","Blastoise","Metagross","Groudon","Eternatus","Shuckle","Stakataka","Regirock","Avalugg","Cloyster","Slowbro","Bastiodon","Defense","Toxapex","Ice Rider","Diancie","Shield","Registeel","Orthworm","Zamazenta","rigus","Probopass","Melmetal","Golisopod","Torkoal","Skarmory","Forretress","Buzzwole","Stonjourner","Turtonator","Dusknoir","Dusclops","Carracosta","Tusk","Kartana","Ferrothorn","Garganacl","Glastr","Wishiwashi","Gigalith","Uxie","Leafeon","Rhyperior","Relicanth","Lugia","Golem","Cobalion","Audino","Ting-Lu","Sandaconda","Kommo","Crustle","Gliscor","Tangrowth","Sableye","Chesnaught","Hippowdon"]
+#    bestspdeflist=["Eternatus","Shuckle","Regice","Kyogre","Defense","Florges","Ho-Oh","Lugia","Goodra","Latias","Probopass","Registeel","Shield","Diancie","Zamazenta","Toxapex","Mantine","Bastiodon","Blissey","Cryogonal","Gardevoir","Wo-Chien","Wishiwashi","Dusknoir","Araquanid","Nihilego","Cursola","Hoopa","Sylveon","Umbreon","Fini","Uxie","Dusclops","Cresselia","Celesteela"]
+        if i is not None:
+            x=moveAI(i,other,tr,tr2,field)
+            y=moveAI(other,i,tr2,tr,field)
+#        if len(y[0])!=0 and len(x[0])>0 and (other.maxspdef*other.spdefb)<200 and i.maxspatk>250 and i not in bestoff:
+#            bestoff.append(i)
+#        if len(y[0])!=0 and len(x[0])>0 and (other.maxdef*other.defb)<200 and i.maxatk>250 and i not in bestoff:
+#            bestoff.append(i)
+#        if len(y[0])!=0 and (other.maxatk*other.atkb)>(other.maxspatk*other.spatkb) and i.maxdef>350 and i not in defmon:
+#            defmon.append(i)
+#        if len(y[0])!=0 and (other.maxspatk*other.spatkb)>(other.maxatk*other.atkb) and i.maxspdef>350 and i not in spdefmon:
+#            spdefmon.append(i)
+#        if len(y[0])==0 and (other.maxspatk*other.spatkb)>(other.maxatk*other.atkb) and i.maxspdef>(other.maxspatk*other.spatkb) and i not in spdefmon:
+#            spdefmon.append(i)
+#        if len(y[0])==0 and (other.maxatk*other.atkb)>(other.maxspatk*other.spatkb) and i.maxdef>(other.maxatk*other.atkb) and i not in defmon:
+#            defmon.append(i)
+        if i in bestoff and len(x[3])==0 and i.maxspeed>(other.maxspeed*other.speedb):
+            best.append(i)
+        if "Poison" in (i.type1,i.type2,i.teratype) and "Toxic Spikes" in i.owner.hazard:
+            best.append(i)
 #    print("=====================")   
 #    print(f"Against {other.name}: ")
 #    print("=====================")   
@@ -613,16 +482,16 @@ def decision (self,other,tr1,tr2,field):
     megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Amoharosite","Audinite","Banettite","Beedrillite","Blasnoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
     mons=switchAI(self,other,tr1,tr2,field)[1]
     movech=moveAI(self,other,tr1,tr2,field)
-    movech2=moveAI(other,self,tr2,tr1,field)
+    #movech2=moveAI(other,self,tr2,tr1,field)
     use=movech[0]
-    immune=movech2[3]
+    immune=movech[3]
+    #print(immune)
     best=mons[0]
     bestank=mons[1]
     bestoff=mons[2]
     phytank=mons[3]
     spetank=mons[4]
-    if use==immune and len(tr1.pokemons)>1:
-        action=2
+    
 #SUFFECIENT AMOUNT OF MONS    
     if len(tr1.pokemons)>1:
 #NATURAL CURE            
@@ -634,23 +503,45 @@ def decision (self,other,tr1,tr2,field):
 #P1 SLOWER THAN P2        
         if self.speed<other.speed:
 #BELOW 40% AND OPPO FAST PHYSICAL SWEEPER
-            if self.hp<(self.maxhp*0.4) and other.atk>300 and len(phytank)!=0:
+            if self.hp<(self.maxhp*0.4) and other.maxatk>300 and len(phytank)!=0:
                 action=2
 #BELOW 40% AND OPPO FAST SPECIAL SWEEPER                
-            if self.hp<(self.maxhp*0.4) and other.spatk>300 and len(spetank)!=0:
+            if self.hp<(self.maxhp*0.4) and other.maxspatk>300 and len(spetank)!=0:
                 action=2  
-            if self.ability=="Zero to Hero" and "Hero" not in self.name and "Flip Turn" not in self.moves:
-                action=2       
-        if (self.maxiv=="gmax" or self.atk>300 or self.spatk>300) and self.owner.canmax is True and (self.item!=None and self.item not in megastones):
+            if self.defb<0.667 or self.spdefb<0.667:
+                action=2
+        if self.speed>other.speed and self.spatkb<0.667 or  self.atkb<0.667:
+            action=2      
+        if self.item!=None and "Choice" in self.item and self.choicedmove!=None and self.choicedmove!=self.moves:
+            action=2    
+        if use in immune:
+            action=2
+        if (self.maxatk*self.atkb)>300 and (other.maxdef*other.defb)<200 and (self.maxspeed*self.speedb)>(other.maxspeed*other.speedb):
+            action=1
+        if (self.maxspatk*self.spatkb)>300 and (other.maxspdef*other.spdefb)<200 and (self.maxspeed*self.speedb)>(other.maxspeed*other.speedb):
+            action=1
+        if "Koraidon" in self.name and "Ghost" in (other.type1,other.type2,other.teratype):
+            action=2
+        if "Miraidon" in self.name and "Ground" in (other.type1,other.type2,other.teratype):
+            action=2
+        if self.ability=="Zero to Hero" and "Hero" not in self.name and ("Flip Turn" not in self.moves or other.ability in ["Water Absorb","Storm Drain","Water Compaction","Desolate Land","Dry Skin"]):
+            action=2      
+        if self.owner.cantera is True and (self==self.owner.pokemons[-1] or self.atk>250 or self.spatk>250 or "Tera Blast" in self.moves):
+            action=random.choices([1,7], weights=[1,5],k=1)[0]
+        if (self.atk>350 or self.spatk>350) and self.owner.canmax is True and (self.item!=None and self.item not in megastones):
             action=8
         if self.item in megastones and "Mega" not in self.name and tr1.canmega==True:
-            action=random.choices([1,9], weights=[3,7],k=1)[0]
+            action=random.choices([1,9], weights=[2,8],k=1)[0]
+        if self.yawn is True and self.status=="Alive":
+            action=2
         if other.ability=="Arena Trap" and "Flying" in (self.type1,self.type2,self.teratype):
             action=1        
         if other.ability=="Magnet Pull" and "Steel" in (self.type1,self.type2,self.teratype):
             action=1                   
         if other.ability=="Shadow Tag" and "Ghost" not in (self.type1,self.type2,self.teratype):
             action=1    
+        if self.precharge is True:
+            action=1
         if self.olock is True:
             action=1
         if self.dmax is True:

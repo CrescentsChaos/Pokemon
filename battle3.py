@@ -17,13 +17,13 @@ def  score(x,y,p1,p2,turn):
     if len(p1.hazard)!=0:
         print(" Hazard:",p1.hazard)
     if p1.tailwind==True:
-        print(f" 🍃 Tailwind({p1.twendturn-turn+1} turns left)")                   
+        print(f" 🍃 Tailwind({p1.twendturn-turn} turns left)")                   
     if p1.reflect==True:
-        print(f" 🟦 Reflect({p1.rfendturn-turn+1} turns left)")   
+        print(f" 🟦 Reflect({p1.rfendturn-turn} turns left)")   
     if p1.auroraveil==True:
-        print(f" ⬜ Aurora Veil({p1.avendturn-turn+1} turns left)")
+        print(f" ⬜ Aurora Veil({p1.avendturn-turn} turns left)")
     if p1.lightscreen==True:              
-        print(f" 🟪 Light Screen({p1.screenend-turn+1} turns left)")        
+        print(f" 🟪 Light Screen({p1.screenend-turn} turns left)")        
     print(f" Lv.{x.level} {x.name}: {round(x.hp)}/{x.maxhp}({round((x.hp/x.maxhp)*100,3)}%)[{x.status}]")
     if x.teratype is not None and x.type2 is None and p2.ai is True:
         print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item} Nature: {x.nature}")
@@ -40,13 +40,13 @@ def  score(x,y,p1,p2,turn):
     if len(p2.hazard)!=0:
         print(" Hazard:",p2.hazard)
     if p2.tailwind==True:
-        print(f" 🍃 Tailwind({p2.twendturn-turn+1} turns left)")                
+        print(f" 🍃 Tailwind({p2.twendturn-turn} turns left)")                
     if p2.reflect==True:
-        print(f" 🟦 Reflect({p2.rfendturn-turn+1} turns left)")     
+        print(f" 🟦 Reflect({p2.rfendturn-turn} turns left)")     
     if p2.auroraveil==True:
-        print(f" ⬜ Aurora Veil({p2.avendturn-turn+1} turns left)")
+        print(f" ⬜ Aurora Veil({p2.avendturn-turn} turns left)")
     if p2.lightscreen==True:        
-        print(f" 🟪 Light Screen({p2.screenend-turn+1} turns left)")               
+        print(f" 🟪 Light Screen({p2.screenend-turn} turns left)")               
     print(f" Lv.{y.level} {y.name}: {round(y.hp)}/{y.maxhp}({round((y.hp/y.maxhp)*100,3)}%)[{y.status}]")
     if y.teratype is not None and y.type2 is None and p1.ai is True:
         print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
@@ -179,16 +179,21 @@ def faint(mon,mon2,trainer,trainer2,field,turn):
 def action(tr,self,other):
     if tr.ai is False:
         while True:
-            if tr.canmega is True and self.item!=None and (self.item in megastones or "Dragon Ascent" in self.moves):
-                print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 9. 🧬 Mega Evolve\n")
-            elif self.item!=None and "Ultranecrozium Z" in self.item:
-                print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 9. ✴️ Ultra Burst\n")
-            elif tr.canmax is True and (self.item!=None and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype==None:
+            if tr.canmax is True and (self.item!=None and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype==None and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "Z-Crystal" not in self.name and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name) and tr.cantera==False:
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 8. ⭕ Dynamax/Gigantamax\n")
+            elif tr.cantera is True and ((self.item!=None and self.item not in megastones) and "Z-Crystal" not in self.name):
+                if tr.canmax is True and (self.item!=None and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype==None and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "Z-Crystal" not in self.name and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name):
+                    print(f"\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 7. 💎 Terastallize({self.tera})\n 8. ⭕ Dynamax/Gigantamax\n")
+                else:
+                    print(f"\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 7. 💎 Terastallize({self.tera})\n")
+            elif tr.canmega is True and self.item!=None and (self.item in megastones or "Dragon Ascent" in self.moves):
+                print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 9. 🧬 Mega Evolve\n")
+            elif self.item!=None and "Ultranecrozium Z" in self.item and "Ultra" not in self.name:
+                print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 10. ✴️ Ultra Burst\n")
             else:
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n")
             actionx= input(f"{tr.name}: What you wanna do?\n>>")
-            if actionx in ["1","2","3","10","9","8"]:
+            if actionx in ["1","2","3","10","9","8","7"]:
                 actionx=int(actionx)
             if actionx=="5":
                 print(showsmogon(tr))
@@ -196,11 +201,11 @@ def action(tr,self,other):
             if actionx=="4":
                 showmon(tr)
                 n=(input("Which pokemon you wanna see?\n>>"))
-                if n in ["1","2","3","4","5","6","10","9","8"]:
+                if n in ["1","2","3","4","5","6","10","9","8","7"]:
                     n=int(n)
                     tr.pokemons[n-1].info()
                     movelist(tr.pokemons[n-1])
-            if actionx in [1,2,3,9,10,8]:
+            if actionx in [1,2,3,9,10,8,7]:
                 if actionx==2:
                     if other.ability=="Magnet Pull" and (self.ability!="Levitate" or "Steel" in (self.type1,self.type2,self.teratype)):
                         print(f" 🧲 {other.name}'s Magnet Pull!")
@@ -230,34 +235,6 @@ def action(tr,self,other):
     if tr.ai is True:
             return 1        
 
-#def randomweather(turn,x,y,field):
-#    trn="Normal"
-#    ch=random.choices(["Clear","Rainy","Cloudy","Sandstorm","Hail","Sunny","Thunderstorm"], weights=[90,1,10,1,1,1,1],k=1)[0]    
-#    if ch=="Clear":
-#        print("\n 🌥️The weather looks clear!\n")
-#    if ch=="Cloudy":
-#        print("\n ☁️The weather is very gloomy!\n")      
-#    if ch=="Sunny":
-#        print("\n ☀️The sunlight is harsh!\n")     
-#        field.sunturn=turn
-#        field.sunend(x,y)   
-#    if ch=="Hail":
-#        print("\n 🌨️It's hailing!\n")      
-#        field.hailturn=turn
-#        field.hailend(x,y)
-#    if ch=="Sandstorm":
-#        print("\n 🏜️The sandstorm is raging!\n")
-#        field.sandturn=turn
-#        field.sandend(x,y)
-#    if ch=="Rainy":
-#        print("\n 🌧️It's raining!\n")    
-#        field.rainturn=turn
-#        field.rainend(x,y)        
-#    if ch=="Thunderstorm":
-#        print("\n ⛈️The thunderstorm is getting furious!\n")
-#        ch="Rainy"
-#        trn="Electric"
-#    return ch,trn
 #SKIP
 def skip(x,y,tr1,tr2):
     skip=False
@@ -332,7 +309,7 @@ def battle(x,y,tr1,tr2):
                 print(f" Weather: ❄️ {field.weather} ({field.snowstormendturn-turn} turns left)")
             if field.weather=="Hail":
                 print(f" Weather: ❄️ {field.weather} ({field.hailendturn-turn} turns left)")
-        if field.weather=="Clear":
+        if field.weather in ["Clear"]:
             print(f" Weather: 🌥️ {field.weather}")
         if field.weather=="Cloudy":
             print(f" Weather: ☁️ {field.weather}")       
@@ -346,7 +323,7 @@ def battle(x,y,tr1,tr2):
             print(f" Terrain: 🌸 {field.terrain} ({field.misendturn-turn} turns left)")
         if field.terrain=="Psychic":      
             print(f" Terrain: 👁️ {field.terrain} ({field.psyendturn-turn} turns left)")
-        if field.terrain=="Normal":      
+        if field.terrain in ["Normal"]:      
             print(" Terrain: 🌐 "+field.terrain)
         if field.terrain=="Electric":      
             print(f" Terrain: ⚡ {field.terrain} ({field.eleendturn-turn} turns left)")
@@ -354,7 +331,7 @@ def battle(x,y,tr1,tr2):
             print(f" Terrain: 🌿 {field.terrain} ({field.grassendturn-turn} turns left)")
         if field.trickroom is True:
             print(f" Dimension: 🌀 Trick Room ({field.troomendturn-turn} turns left)")           
-        print(f" \n ⏩⏩ {tr1.name} 🆚 {tr2.name} ⏪⏪\n")
+        print(f" \n ⏩⏩ {tr1.name} ({len(tr1.pokemons)}) 🆚 ({len(tr2.pokemons)}) {tr2.name} ⏪⏪\n")
         print(f" \n ⏩⏩ Lv.{x.level} {x.name} 🆚 {y.name} Lv.{y.level} ⏪⏪\n")
         prebuff(x,y,tr1,turn,field)
         prebuff(y,x,tr2,turn,field)
@@ -376,8 +353,11 @@ def battle(x,y,tr1,tr2):
         if  action2==3 and action1!=3:
             print(f" {tr2.name} forfeited.")
             break
-        if action1 in [8,9,10]:
-            if action1==8 and x.item!=None  and x.teratype==None and tr1.canmax==True and ("Zacian" not in x.name and "Zamazenta" not in x.name and "Eternatus" not in x.name and "Z-Crystal" not in x.name and "Rayquaza" not in x.name):
+        if action1 in [8,9,10,7]:
+            if action1==7 and x.dmax==False and (x.item==None or x.item not in megastones) and "Z-Crystal" not in x.name and tr1.cantera==True:
+                x.name+="💎"
+                transformation(x,y,turn)
+            if action1==8 and x.item!=None  and x.teratype==None and tr1.canmax==True and ("Zacian" not in x.name and "Zamazenta" not in x.name and "Eternatus" not in x.name and "Z-Crystal" not in x.name and "Rayquaza" not in x.name and "Primal" not in x.name and "Mega" not in x.name) and x.teratype==None:
                 x.dmax=True
                 tr1.canmax=False
                 transformation(x,y,turn)
@@ -386,8 +366,11 @@ def battle(x,y,tr1,tr2):
             if action1==10:
                 transformation(x,y,turn)
             action1=1
-        if action2 in [8,9,10]:
-            if action2==8 and y.item!=None and y.teratype==None and tr2.canmax==True  and ("Zacian" not in y.name and "Zamazenta" not in y.name and "Eternatus" not in y.name and "Z-Crystal" not in y.name and "Rayquaza" not in y.name):
+        if action2 in [8,9,10,7]:
+            if action2==7 and y.dmax==False and (y.item==None or y.item not in megastones) and "Z-Crystal" not in y.name and tr2.cantera==True:
+                y.name+="💎"
+                transformation(y,x,turn)
+            if action2==8 and y.item!=None and y.teratype==None and tr2.canmax==True  and ("Zacian" not in y.name and "Zamazenta" not in y.name and "Eternatus" not in y.name and "Z-Crystal" not in y.name and "Rayquaza" not in y.name and "Primal" not in y.name and "Mega" not in y.name) and y.teratype==None:
                 y.dmax=True
                 tr2.canmax=False
                 transformation(y,x,turn)
@@ -429,8 +412,8 @@ def battle(x,y,tr1,tr2):
             if (choice1 in typemoves.prioritymove and choice2 not in typemoves.prioritymove) or x.priority is True or (x.ability=="Prankster" and choice1 in typemoves.statusmove and "Dark" not in (y.type1,y.type2)) or (choice1 in typemoves.firemoves and x.ability=="Blazing Soul" and x.hp==x.maxhp) or (choice1 in typemoves.flyingmoves and x.ability=="Gale Wings" and x.hp==x.maxhp) or (field.terrain=="Grassy" and choice1=="Grassy Glide") or (x.ability=="Triage" and choice1 in typemoves.healingmoves) or (choice2 in typemoves.negprioritymove) or (xpr>72) or (choice2 in typemoves.statusmove and y.ability=="Mycelium Might"):
                 weather(x,y)
                 x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                statchange(x,y,tr1,turn)
-                statchange(y,x,tr2,turn)
+                prebuff(x,y,tr1,turn,field)
+                prebuff(y,x,tr2,turn,field)
                 if x.hp<=0:
                     x=faint(x,y,tr1,tr2,field,turn)
                     if len(tr1.pokemons)==0:
@@ -442,8 +425,8 @@ def battle(x,y,tr1,tr2):
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,tr1,turn)
                     effects(y,x,tr2,turn)
-                    statchange(x,y,tr1,turn)
-                    statchange(y,x,tr2,turn)
+                    prebuff(x,y,tr1,turn,field)
+                    prebuff(y,x,tr2,turn,field)
                     if x.hp<=0:
                         x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
@@ -476,8 +459,8 @@ def battle(x,y,tr1,tr2):
                 weather(y,x)
                  
                 y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                statchange(x,y,tr1,turn)
-                statchange(y,x,tr2,turn)
+                prebuff(x,y,tr1,turn,field)
+                prebuff(y,x,tr2,turn,field)
                 if y.hp<=0:
                     y=faint(y,x,tr2,tr1,field,turn)
                     if len(tr2.pokemons)==0:
@@ -489,8 +472,8 @@ def battle(x,y,tr1,tr2):
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,tr2,turn)
                     effects (x,y,tr1,turn)
-                    statchange(x,y,tr1,turn)
-                    statchange(y,x,tr2,turn)
+                    prebuff(x,y,tr1,turn,field)
+                    prebuff(y,x,tr2,turn,field)
                     if y.hp<=0:
                         y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
@@ -523,8 +506,8 @@ def battle(x,y,tr1,tr2):
                 weather(x,y)
                  
                 x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                statchange(x,y,tr1,turn)
-                statchange(y,x,tr2,turn)
+                prebuff(x,y,tr1,turn,field)
+                prebuff(y,x,tr2,turn,field)
                 if x.hp<=0:
                     x=faint(x,y,tr1,tr2,field,turn)
                     if len(tr1.pokemons)==0:
@@ -537,8 +520,8 @@ def battle(x,y,tr1,tr2):
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,tr1,turn)
                     effects(y,x,tr2,turn)
-                    statchange(x,y,tr1,turn)
-                    statchange(y,x,tr2,turn)
+                    prebuff(x,y,tr1,turn,field)
+                    prebuff(y,x,tr2,turn,field)
                     if x.hp<=0:
                         x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
@@ -570,8 +553,8 @@ def battle(x,y,tr1,tr2):
                 weather(x,y)
                  
                 x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
-                statchange(x,y,tr1,turn)
-                statchange(y,x,tr2,turn)
+                prebuff(x,y,tr1,turn,field)
+                prebuff(y,x,tr2,turn,field)
                 if x.hp<=0:
                     x=faint(x,y,tr1,tr2,field,turn)
                     if len(tr1.pokemons)==0:
@@ -583,8 +566,8 @@ def battle(x,y,tr1,tr2):
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,tr1,turn)
                     effects(y,x,tr2,turn)
-                    statchange(x,y,tr1,turn)
-                    statchange(y,x,tr2,turn)
+                    prebuff(x,y,tr1,turn,field)
+                    prebuff(y,x,tr2,turn,field)
                     if x.hp<=0:
                         x=faint(x,y,tr1,tr2,field,turn)
                         if len(tr1.pokemons)==0:
@@ -616,8 +599,8 @@ def battle(x,y,tr1,tr2):
                 weather(y,x)
                  
                 y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                statchange(x,y,tr1,turn)
-                statchange(y,x,tr2,turn)
+                prebuff(x,y,tr1,turn,field)
+                prebuff(y,x,tr2,turn,field)
                 if y.hp<=0:
                     y=faint(y,x,tr2,tr1,field,turn)
                     if len(tr2.pokemons)==0:
@@ -629,8 +612,8 @@ def battle(x,y,tr1,tr2):
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,tr2,turn)
                     effects (x,y,tr1,turn)
-                    statchange(x,y,tr1,turn)
-                    statchange(y,x,tr2,turn)
+                    prebuff(x,y,tr1,turn,field)
+                    prebuff(y,x,tr2,turn,field)
                     if y.hp<=0:
                         y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
@@ -662,8 +645,8 @@ def battle(x,y,tr1,tr2):
                 weather(y,x)
                  
                 y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
-                statchange(x,y,tr1,turn)
-                statchange(y,x,tr2,turn)
+                prebuff(x,y,tr1,turn,field)
+                prebuff(y,x,tr2,turn,field)
                 if y.hp<=0:
                     y=faint(y,x,tr2,tr1,field,turn)
                     if len(tr2.pokemons)==0:
@@ -675,8 +658,8 @@ def battle(x,y,tr1,tr2):
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,tr2,turn)
                     effects (x,y,tr1,turn)
-                    statchange(x,y,tr1,turn)
-                    statchange(y,x,tr2,turn)
+                    prebuff(x,y,tr1,turn,field)
+                    prebuff(y,x,tr2,turn,field)
                     if y.hp<=0:
                         y=faint(y,x,tr2,tr1,field,turn)
                         if len(tr2.pokemons)==0:
@@ -720,8 +703,8 @@ def battle(x,y,tr1,tr2):
             y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
             effects(x,y,tr1,turn)
             effects(y,x,tr2,turn)
-            statchange(x,y,tr1,turn)
-            statchange(y,x,tr2,turn)
+            prebuff(x,y,tr1,turn,field)
+            prebuff(y,x,tr2,turn,field)
             if y.hp<=0:
                 y=faint(y,x,tr2,tr1,field,turn)
                 if len(tr2.pokemons)==0:
@@ -759,8 +742,8 @@ def battle(x,y,tr1,tr2):
                     break
             effects(y,x,tr2,turn)
             effects(x,y,tr1,turn)
-            statchange(x,y,tr1,turn)
-            statchange(y,x,tr2,turn)
+            prebuff(x,y,tr1,turn,field)
+            prebuff(y,x,tr2,turn,field)
             if x.hp<=0:
                 x=faint(x,y,tr1,tr2,field,turn)
                 if len(tr1.pokemons)==0:
@@ -793,4 +776,4 @@ def battle(x,y,tr1,tr2):
                     print(" 🏆 "+tr2.name,"wins.")
                     outro(tr2,tr1,y,field)
                     break   
-                skip(x,y,tr1,tr2)                    
+                skip(x,y,tr1,tr2)                              

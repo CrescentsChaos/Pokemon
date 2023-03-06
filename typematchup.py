@@ -21,7 +21,8 @@ def resetboost(mon,mon2):
 def weakness(self,other,field):
     eff=1
     stab=1     
-    #ABSOLUTE ZERO
+    if other.use=="Glaive Rush":
+        eff*=2
     if self.use in typemoves.windmoves and other.ability=="Wind Rider" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and other.use not in typemoves.abilityigmoves:
         eff*=0
         atkchange(other,self,0.5)
@@ -174,7 +175,7 @@ def weakness(self,other,field):
             eff/=2
         if other.teratype in ghostwk:
             eff/=2
-        if (other.type1 in ghostimmune or other.type2 in ghostimmune and other.teratype is None) or other.teratype in ghostimmune and other.item!="Ring Target":
+        if (other.type1 in ghostimmune or other.type2 in ghostimmune and other.teratype is None) or (other.teratype in ghostimmune and other.item!="Ring Target"):
             eff*=0
             
         else:
@@ -282,6 +283,8 @@ def weakness(self,other,field):
             eff*=1 
     #ice
     if self.atktype=="Ice":
+        if self.use=="Freeze-Dry" and "Water" in (other.type1,other.type2,other.teratype):
+            eff*=4
         if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and other.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
@@ -866,7 +869,7 @@ def weakness(self,other,field):
             eff*=2
         if other.teratype in normalwk:
             eff/=2
-        if (other.type1 in normalimmune or other.type2 in normalimmune and other.teratype is None) or other.teratype in normalimmune and other.item!="Ring Target":
+        if (other.type1 in normalimmune or other.type2 in normalimmune and other.teratype is None) or (other.teratype in normalimmune and other.item!="Ring Target"):
             if self.ability!="Scrappy":
                 eff*=0
             else:
@@ -1027,10 +1030,13 @@ def prebuff(self,other,tr1,turn,field):
     defbuff=1
     spatkbuff=1
     spdefbuff=1
-    speedbuff=1
-    
+    speedbuff=1   
     #if "Erika(Hard Mode)" in (self.owner.name,other.owner.name) or "Erika(Hardcore Mode)" in (self.owner.name,other.owner.name):
 #        field.terrain="Grassy"
+    if self.item!=None and "Choice" not in self.item:
+        self.choiced=False
+        self.choicedmove=None
+    
     if self.item=="White Herb":
         if self.atkb<1 or self.defb<1 or self.spatkb<1 or self.spdefb<1 or self.speedb<1:
             print(f" White Herb cured {self.name}'s negative stats!")
@@ -1045,6 +1051,31 @@ def prebuff(self,other,tr1,turn,field):
                 self.spdefb=1
             if self.speedb<1:
                 self.speedb=1
+    if tr1.auroraveil is True:
+        if turn==tr1.avendturn:
+            tr1.auroraveil=False
+            print(" ⚠️The Aurora Veil wore off!")  
+        else:
+            defbuff*=2
+            spdefbuff*=2        
+    if tr1.tailwind is True:        
+        if turn==tr1.twendturn:
+            tr1.tailwind=False
+            print(" ⚠️The Tailwind petered out!!") 
+        else:
+            speedbuff*=2     
+    if tr1.reflect is True:
+        if turn==tr1.rfendturn:
+            tr1.reflect=False
+            print(" ⚠️The Reflect wore off!")
+        else:
+            defbuff*=2
+    if tr1.lightscreen is True:
+        if turn==tr1.screenend:
+            tr1.lightscreen=False
+            print(" ⚠️The Light Screen wore off!") 
+        else:
+            spdefbuff*=2                
     if self.item=="Float Stone":
         defbuff*=0.5
         spdefbuff*=0.5
@@ -1084,7 +1115,6 @@ def prebuff(self,other,tr1,turn,field):
                 self.calcst()
                 self.hp=self.maxhp*per
     if self.ability=="Flower Gift" and field.weather in ["Sunny","Desolate Land"]:
-        print(f" 🌸 {self.name}'s {self.ability}!")
         speedbuff*=1.5
         atkbuff*=1.5
     if self.ability=="Illusion" and "Zoroark" not in self.name:
@@ -1133,48 +1163,54 @@ def prebuff(self,other,tr1,turn,field):
         atkbuff*=1.34
     if field.terrain=="Electric" and self.ability=="Hadron Engine":
         spatkbuff*=1.34
-    if "Protosynthesis" in self.ability and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
+    if ("Protosynthesis" in self.ability and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy")) or self.ability in ["Protosynthesis [Attack]","Protosynthesis [Sp. Attack]","Protosynthesis [Defense]","Protosynthesis [Sp. Defense]","Protosynthesis [Speed]"]:
+        if field.weather not in ["Sunny","Desolate Land"] and "[" not in self.ability:
+            print(f" 💊 {self.name} used its Booster Energy to raise its best stat!")
+            self.item=None
         m=[a,b,c,d,e]=[self.atk,self.defense,self.spatk,self.spdef,self.speed]
         if tr1.reflect==True:
             m=[self.atk,self.defense/2,self.spatk,self.spdef,self.speed]
         if tr1.lightscreen==True:
             m=[self.atk,self.defense,self.spatk,self.spdef/2,self.speed]
         x=max(m)
-        if x==a:
+        if x==a or "[Attack" in self.ability:
         	atkbuff*=1.3
         	self.ability="Protosynthesis [Attack]"
-        elif x==b:
+        elif x==b or "[Defense" in self.ability:
         	defbuff*=1.3
         	self.ability="Protosynthesis [Defense]"
-        elif x==c:
+        elif x==c or "[Sp. Attack" in self.ability:
         	spatkbuff*=1.3
         	self.ability="Protosynthesis [Sp. Attack]"
-        elif x==d:
+        elif x==d or "[Sp. Defense" in self.ability:
         	spdefbuff*=1.3
         	self.ability="Protosynthesis [Sp. Defense]"
-        elif x==e:
+        elif x==e or "Speed" in self.ability:
         	speedbuff*=1.5
         	self.ability="Protosynthesis [Speed]"
-    if "Quark Drive" in self.ability and (field.terrain=="Electric" or self.item=="Booster Energy"):
+    if ("Quark Drive" in self.ability and (field.terrain=="Electric" or self.item=="Booster Energy")) or self.ability in ["Quark Drive [Attack]","Quark Drive [Sp. Attack]","Quark Drive [Defense]","Quark Drive [Sp. Defense]","Quark Drive [Speed]"]:
+        if field.terrain not in ["Electric"] and "[" not in self.ability:
+            print(f" 💊 {self.name} used its Booster Energy to raise its best stat!")
+            self.item=None
         m=[a,b,c,d,e]=[self.atk,self.defense,self.spatk,self.spdef,self.speed]
         if tr1.reflect==True:
             m=[self.atk,self.defense/2,self.spatk,self.spdef,self.speed]
         if tr1.lightscreen==True:
             m=[self.atk,self.defense,self.spatk,self.spdef/2,self.speed]
         x=max(m)
-        if x==a:
+        if x==a or "[Attack" in self.ability:
         	atkbuff*=1.3
         	self.ability="Quark Drive [Attack]"
-        elif x==b:
+        elif x==b or "[Defense" in self.ability:
         	defbuff*=1.3
         	self.ability="Quark Drive [Defense]"
-        elif x==c:
+        elif x==c or "[Sp. Attack" in self.ability:
         	spatkbuff*=1.3
         	self.ability="Quark Drive [Sp. Attack]"
-        elif x==d:
+        elif x==d or "[Sp. Def" in self.ability:
         	spdefbuff*=1.3
         	self.ability="Quark Drive [Sp. Defense]"
-        elif x==e:
+        elif x==e or "Speed" in self.ability:
         	speedbuff*=1.5
         	self.ability="Quark Drive [Speed]"
     if field.trickroom==True and self.item=="Room Service":
@@ -1207,53 +1243,52 @@ def prebuff(self,other,tr1,turn,field):
         defbuff*=0.75
     if other.ability=="Beads of Ruin":
         spdefbuff*=0.75
-    if self.protect is True:
         self.protect=False    
     if field.terrain=="Misty":
-        if turn==field.misendturn:
+        if turn>=field.misendturn:
             print(" 🌐 The battlefield turned normal.")
             field.terrain="Normal"
     if field.terrain=="Psychic":
-        if turn==field.psyendturn:
+        if turn>=field.psyendturn:
             print(" 🌐 The battlefield turned normal.")
             field.terrain="Normal"
     if field.terrain=="Electric":
-        if turn==field.eleendturn:
+        if turn>=field.eleendturn:
             print(" 🌐 The battlefield turned normal.")
             field.terrain="Normal"
     if field.terrain=="Grassy":
-        if turn==field.grassendturn:
+        if turn>=field.grassendturn:
             print(" 🌐 The battlefield turned normal.")
             field.terrain="Normal"
     if field.weather=="Snowstorm":
-        if turn==field.snowstormendturn:
+        if turn>=field.snowstormendturn:
             print(" 🌥️The snowstorm stopped.")
             field.weather="Cloudy"            
     if field.weather=="Hail":
-        if turn==field.hailendturn:
+        if turn>=field.hailendturn:
             print(" 🌥️The hail stopped.")
             field.weather="Cloudy"
     if field.weather=="Sandstorm":
-        if turn==field.sandendturn:
+        if turn>=field.sandendturn:
             print(" 🌥️The sandstorm subsided.")
             field.weather="Clear"
     if field.weather=="Sunny":
-        if turn==field.sunendturn:
+        if turn>=field.sunendturn:
             print(" 🌤️The harsh sunlight faded.")
             field.weather="Clear"
     if field.weather=="Rainy":
-        if turn==field.rainendturn:
+        if turn>=field.rainendturn:
             print(" 🌦️The rain stopped.")
             field.weather="Cloudy"
-    if tr1.auroraveil is True:
-        defbuff*=2
-        spdefbuff*=2
-    if tr1.tailwind is True:
-        speedbuff*=2
-    if tr1.reflect is True:
-        defbuff*=2
-    if tr1.lightscreen is True:
-        spdefbuff*=2
+#    if tr1.auroraveil is True:
+#        defbuff*=2
+#        spdefbuff*=2
+#    if tr1.tailwind is True:
+#        speedbuff*=2
+#    if tr1.reflect is True:
+#        defbuff*=2
+#    if tr1.lightscreen is True:
+#        spdefbuff*=2
     if self.ability=="Guts" and self.status!="Alive":
         atkbuff*=1.5
     if self.ability=="Feline Prowess":
@@ -1323,12 +1358,12 @@ def prebuff(self,other,tr1,turn,field):
     self.spatk=self.maxspatk*self.spatkb*spatkbuff
     self.spdef=self.maxspdef*self.spdefb*spdefbuff
     self.speed=self.maxspeed*self.speedb*speedbuff
-    self.natureboost()
+#    self.natureboost()
 #
 
 
 def atkchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.abilty not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1462,7 +1497,7 @@ def atkchange(self,other,amount):
 
 
 def defchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.abilty not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1596,7 +1631,7 @@ def defchange(self,other,amount):
     if self.defb>4:
         self.defb=4
 def spatkchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.abilty not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1728,7 +1763,7 @@ def spatkchange(self,other,amount):
     if self.spatkb>4:
         self.spatkb=4
 def spdefchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.abilty not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1860,7 +1895,7 @@ def spdefchange(self,other,amount):
     if self.spdefb>4:
         self.spdefb=4
 def speedchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.abilty not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
