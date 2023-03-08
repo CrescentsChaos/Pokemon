@@ -1,5 +1,7 @@
-<head><h1>
-Pokémon Python</bold></h1>
+<head>
+<a><img height="200" src="https://media.discordapp.net/attachments/982880054583394375/1082982994131828756/20230308_170704.png"/></a>
+<h1>
+Pokémon Crescent</bold></h1>
 ✴️ Run the main.py to play the game!<br>
 1.🆕 Pokémon from all the regions (600+)<br>
 2.❌ Unevolved pokémons aren't available<br>
@@ -22,8 +24,4 @@ Pokémon Python</bold></h1>
 19.✅ Battle Frontiers (10+)<br>
 20.🆕 Champions (15+)<br>
 21.🆕 Evil Teams (45+) <br>
-<a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047032986173976576/image_search_1669702475343.png"/>
-</a><a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047033006008827934/image_search_1669702388317.png"/>
-</a><a><img height="50" src="https://media.discordapp.net/attachments/982880054583394375/1082193210304114758/1678085310688.png"/>
-</a><a><img height="50" src="https://media.discordapp.net/attachments/982880054583394375/1082193252737875968/IMG_20230306_124856.png"/>
-</a>
+
