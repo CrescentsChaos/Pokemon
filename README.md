@@ -16,12 +16,12 @@ Pokémon Python</bold></h1>
 13.🇿 Z-Moves<br>
 14.🆕 New Weather effects<br>
 15.🆕 Gen I - IX<br>
-16.🆕 Gym Leaders<br>
-17.🆕 Elite Fours<br>
-18.🆕 Talented Trainers<br>
-19.✅ Battle Frontiers<br>
-20.🆕 Champions<br>
-21.🆕 Evil Teams<br>
+16.🆕 Gym Leaders (75+)<br>
+17.🆕 Elite Fours (30+)<br>
+18.🆕 Talented Trainers (80+)<br>
+19.✅ Battle Frontiers (10+)<br>
+20.🆕 Champions (15+)<br>
+21.🆕 Evil Teams (45+) <br>
 <a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047032986173976576/image_search_1669702475343.png"/>
 </a>
 <a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047033006008827934/image_search_1669702388317.png"/>
