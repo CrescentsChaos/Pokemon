@@ -23,10 +23,7 @@ Pokémon Python</bold></h1>
 20.🆕 Champions (15+)<br>
 21.🆕 Evil Teams (45+) <br>
 <a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047032986173976576/image_search_1669702475343.png"/>
-</a>
-<a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047033006008827934/image_search_1669702388317.png"/>
-</a>
-<a><img height="50" src="https://media.discordapp.net/attachments/982880054583394375/1082193210304114758/1678085310688.png"/>
-</a>
-<a><img height="50" src="https://media.discordapp.net/attachments/982880054583394375/1082193252737875968/IMG_20230306_124856.png"/>
+</a><a><img height="50" src="https://media.discordapp.net/attachments/1001829969745420328/1047033006008827934/image_search_1669702388317.png"/>
+</a><a><img height="50" src="https://media.discordapp.net/attachments/982880054583394375/1082193210304114758/1678085310688.png"/>
+</a><a><img height="50" src="https://media.discordapp.net/attachments/982880054583394375/1082193252737875968/IMG_20230306_124856.png"/>
 </a>
