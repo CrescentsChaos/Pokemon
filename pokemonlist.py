@@ -7,8 +7,8 @@
 #pylint:disable=C0304
 from pokemonbase2 import *
 firemon=[Charizard,Arcanine, HArcanine, Rapidash,AMarowak,Flareon, Typhlosion,Moltres,HTyphlosion, Magcargo,Entei,Hooh,Blaziken,Camerupt, Infernape, Magmortar,Heatran,Emboar,Simisear, Darmanitan,Heatmor,Delphox,Talonflame,Pyroar,Volcanion, Incineroar, Turtonator, Cinderace, Blacephalon, Centiskorch, Skeledirge,Ironmoth, Armarouge, Ceruledge]
-watermon=[Alomomola,Blastoise,Golduck, Poliwrath,Tentacruel,Slowbro,Dewgong, Cloyster,Kingler,Kingdra,Seaking,Starmie,Gyarados,Lapras, Vaporeon, Feraligatr, Lanturn, Azumarill,Politoed, Quagsire, Slowking,Corsola,Octillery, Mantine,Suicune, Swampert,Ludicolo,Pelipper,Sharpedo,Wailord,Whiscash, Crawdaunt, Milotic,Huntail,Gorebyss,Relicanth,Kyogre, PKyogre,Empoleon,Floatzel, EGastrodon, WGastrodon, Lumineon,Palkia,OPalkia,Phione, Samurott,HSamurott,Simipour, Seismitoad, Basculegion,Carracosta,Swanna, Jellicent,Keldeo, Greninja, Clawitzer,Primarina,SWishiwashi, Araquanid,Tapufini,Inteleon,Drednaw,Barraskewda,Dracovish, Quaquaval,Wugtrio, Dondozo,Veluza,Palafin, Walkingwake,Terapagos]
-fairymon=[Clefable,Granbull,Togekiss,Florges,EFloette,Slurpuff,Sylveon,Xerneas, Alcremie,Dachsbun, Enamorus, Zacian, Screamtail, Ironvaliant, Tinkaton]
+watermon=[Alomomola,Blastoise,Golduck, Poliwrath,Tentacruel,Slowbro,Dewgong, Cloyster,Kingler,Kingdra,Seaking,Starmie,Gyarados,Lapras, Vaporeon, Feraligatr, Lanturn, Azumarill,Politoed, Quagsire, Slowking,Corsola,Octillery, Mantine,Suicune, Swampert,Ludicolo,Pelipper,Sharpedo,Wailord,Whiscash, Crawdaunt, Milotic,Huntail,Gorebyss,Relicanth,Kyogre,Empoleon,Floatzel, EGastrodon, WGastrodon, Lumineon,Palkia,OPalkia,Phione, Samurott,HSamurott,Simipour, Seismitoad, Basculegion,Carracosta,Swanna, Jellicent,Keldeo, Greninja, Clawitzer,Primarina,SWishiwashi, Araquanid,Tapufini,Inteleon,Drednaw,Barraskewda,Dracovish, Quaquaval,Wugtrio, Dondozo,Veluza,Palafin, Walkingwake,Terapagos, Pyukumuku,Luvdisc]
+fairymon=[Clefable,Granbull,Togekiss,Florges,EFloette,Slurpuff,Sylveon,Xerneas, Alcremie,Dachsbun, Enamorus, Zacian, Screamtail, Ironvaliant, Tinkaton,Comfey]
 darkmon=[APersian,GMoltres,Umbreon, Weavile, Honchkrow, Houndoom,Mightyena, Obstagoon, Sableye, Absol,Darkrai,Liepard,Scrafty,Zoroark, Bisharp, Kingambit, Mandibuzz, Hydreigon,Malamar,Yveltal,Guzzlord, Grimmsnarl,Zarude, Overqwil, Mabosstiff, Ironjugulis,Tinglu, Chienpao,Wochien,Chiyu]
 dragonmon=[Dragonite, Altaria, Salamence, Latios,Latias, Rayquaza, Garchomp, Haxorus, Druddigon,Reshiram,Zekrom,Kyurem,BKyurem,WKyurem,Goodra,HGoodra, CZygarde,Kommo,Dragapult,Regidrago, Baxcalibur, Tatsugiri,Cyclizar, Roaringmoon]
 grassmon=[Venusaur,Vileplume,Victreebel,Exeggutor, AExeggutor, Meganium, Bellossom, Jumpluff,Sunflora,Sceptile, Shiftry, Breloom,Tropius,Torterra, Roserade,Cherrim, Abomasnow, Tangrowth, Leafeon,Shaymin,SShaymin, Serperior,Simisage, Whimsicott, Lilligant,HLilligant, Amoongus, Ferrothorn, Virizion, Chesnaught,Gogoat, Decidueye, HDecidueye,Lurantis,Shiinotic,Tsareena,Dhelmise,Tapubulu,Kartana,Rillaboom,Eldegoss,Appletun,Flapple, Meowscarada, Arboliva, Scovillain,Brambleghast, Brutebonnet,Carnivine,Maractus,Ironleaves, Ogrepon]
@@ -16,7 +16,7 @@ electricmon=[Pikachu,Raichu,ARaichu, Electrode, HElectrode, Jolteon,Zapdos, Amph
 fightingmon=[Primeape, Poliwrath,Machamp,Hitmonlee, Hitmonchan,PTauros,GZapdos,Hitmontop,Hariyama,Medicham,Lucario, Conkeldurr,Throh,Sawk,Mienshao,Pangoro,Hawlucha,Crabominable,Passimian, Marshadow,Grapplot, Sirfetchd, Zamazenta, DUrshifu, WUrshifu, Ironhands, Annihilape,Koraidon]
 flyingmon=[Oricorio,Tornadus,TTornadus,Noivern, Corviknight,Bombirdier,Flamigo]
 poisonmon=[EEternatus,Arbok,Nidoking, Nidoqueen,GSlowbro,Muk,AMuk, Weezing, GWeezing,Crobat,GSlowking,Swalot,Seviper,Skuntank,Drapion,Toxicroak, Garbodor,Dragalge,Toxapex,Salazzle, Naganadel, Eternatus, Sneasler, Grafaiai,Clodsire]
-groundmon=[Sandslash, Dugtrio, ADugtrio, Marowak, Rhydon,Donphan,Flygon,Claydol,Groudon,PGroudon, Hippowdon, Rhyperior, Gliscor, Excadrill, Krookodile,Golurk,Landorus,TLandorus, Mudsdale, Sandaconda,Runerigus,Greattusk,Irontreads, Toedscruel,Stunfisk, GStunfisk]
+groundmon=[Sandslash, Dugtrio, ADugtrio, Marowak, Rhydon,Donphan,Flygon,Claydol,Groudon,Hippowdon, Rhyperior, Gliscor, Excadrill, Krookodile,Golurk,Landorus,TLandorus, Mudsdale, Sandaconda,Runerigus,Greattusk,Irontreads, Toedscruel,Stunfisk, GStunfisk]
 rockmon=[Golem,AGolem, Omastar, Kabutops, Aerodactyl, Sudowoodo, Tyranitar,Lunatone,Solrock,Cradily,Armaldo,Regirock, Rampardos, Bastiodon, Probopass,Archeops,Terrakion, Barbaracle, Tyrantrum,Aurorus,Diancie, DLycanroc, MDLycanroc, MNLycanroc,Nihilego, Stakataka,Coalossal,Stonjourner,Klawf, Garganacl, Glimmora,Ironthorns]
 bugmon=[Butterfree,Beedrill, Parasect, Venomoth, Scyther, Pinsir, Ledian,Ariados, Forretress, Scizor, Shuckle,Heracross,Beautifly,Dustox, Masquerain,Ninjask,Shedinja,Volbeat,Illumise, Kricketune,SWormadam, TWormadam,Wormadam,Mothim,Vespiquen,Yanmega, Leavanny, Scolipede,Crustle, Escavalier, Galvantula,Accelgor,Durant,Volcarona, Genesect, Vivillon, Vikavolt, Ribombee,Golisopod,Buzzwole,Pheromosa,Orbeetle,Kleavor,Spidops,Lokix,Rabsca, Slitherwing]
 steelmon=[Steelix,Skarmory,Mawile,Aggron,Metagross,Registeel, Bronzong,Dialga,ODialga, Klinklang,Cobalion, Aegislash,Klefki,Celesteela,Magearna,Melmetal, Perrserker, Copperajah, Duraludon, Revavroom,Orthworm, Gholdengo]
@@ -26,9 +26,26 @@ icemon=[ASandslash, ANinetales,Jynx, Articuno, Delibird, Glalie,Walrein,Regice,G
 normalmon=[Eevee,Komala,Vigoroth,Pidgeot, Raticate, ARaticate,Fearow, Wigglytuff, Persian,Dodrio,Chansey, Kangaskhan,Tauros,Ditto,Snorlax,Furret, Noctowl, Ursaring, Porygon2, Smeargle,Miltank,Blissey, Linoone, Swellow, Slaking,Exploud, Delcatty,Spinda, Zangoose,Kecleon,Staraptor,Bibarel, Lopunny, Purugly, Lickilicky, PorygonZ, Regigigas, Arceus,Watchog, Stoutland, Unfezant,Audino,HZoroark, Cinccino, Sawsbuck, Bouffalant, Braviary,Meloetta,Diggersby,Toucannon,Gumshoos,Bewear
 ,Oranguru, Silvally,Drampa,Greedent,Dubwool,Wyrdeer,Ursaluna,Oinkologne, Dudunsparce, Farigiraf, Maushold]
 allmon=firemon+watermon+fairymon+darkmon+dragonmon+grassmon+electricmon+fightingmon+flyingmon+poisonmon+groundmon+rockmon+bugmon+steelmon+ghostmon+psychicmon+icemon+normalmon
+def allmonname(allmon):
+    namelist=[]
+    for i in allmon:
+        x=i()
+        if "Alpha" in x.name or "Totem" in x.name:
+            x.name=x.name[6:]
+        if "Z-Crystal" in x.name:
+            x.name=x.name.split("(")[0]
+        namelist.append(x.name)
+    n=0
+    namelist.sort()
+    for i in namelist:
+        n+=1
+        print(str(n)+"."+i)
+#allmonname(allmon)        
 #SMOGON IMPORT
 def smogonimport(spawn):
     name=spawn.name
+    if "-" in name and "Porygon" not in name:
+        name=name.split("-")[0]
     if "Low Key " in name:
         name=name.split(" ")[-1]+"-Low-Key"
     if "Amped " in name:
@@ -79,8 +96,10 @@ def smogonimport(spawn):
         name=name.split(" ")[1]
     if "Totem " in name:
         name=name.split(" ")[1]
-    if "Z-Crystal" in name:
+    if "(" in name:
         name=name.split("(")[0]
+    if name in ["Wash Rotom","Frost Rotom","Fan Rotom","Mow Rotom","Heat Rotom"]:
+        name=name.split(" ")[-1]+name.split(" ")[0]
     if spawn.item is not None and "✨" not in name:
         return (f'''\n {name} @ {spawn.item}  
  Ability: {spawn.ability}  

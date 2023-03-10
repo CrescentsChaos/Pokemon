@@ -37,7 +37,7 @@ def moveAI(self,other,mtr,otr,field):
     emove=[]      
     resmove=[]
     immunemove=[]
-    use=None
+    use="None"
     bugres=['Grass', 'Fighting', 'Ground']
     bugwk=['Rock', 'Flying', 'Fire']
     #water✓
@@ -265,11 +265,11 @@ def moveAI(self,other,mtr,otr,field):
         resmove+=list(set(mymove). intersection(typemoves.ghostmoves))        
     if "Dark" in resistlist:
         resmove+=list(set(mymove). intersection(typemoves.darkmoves))                
-    #use=None
+    #use="None"
     eheal=list(set(mymove).intersection(typemoves.healingmoves))
     eprior=list(set(mymove).intersection(typemoves.priorityatkmoves))
     superduper=list(set(emove).intersection(mystablist))
-    if self.item is not None and "Choice" in self.item:
+    if self.item !="None" and "Choice" in self.item:
         mymove=list(set(mymove)-set(typemoves.statusmove))
         mymove=list(set(mymove)-set(typemoves.terrainmove))
         mymove=list(set(mymove)-set(typemoves.weathermoves))
@@ -301,6 +301,8 @@ def moveAI(self,other,mtr,otr,field):
         use="Counter"                   
     if other.atkcat=="Special" and "Mirror Coat" in self.moves:
         use="Mirror Coat"
+    if self.use=="Gigaton Hammer" and "Gigaton Hammer" in self.moves:
+        mymove.remove("Gigaton Hammer")  
     if other.seeded is True:
         if "Leech Seed" in mymove:
             mymove.remove("Leech Seed")      
@@ -365,25 +367,20 @@ def moveAI(self,other,mtr,otr,field):
         use="Light Screen"        
     if self.protect is False and "King's Shield" in mymove and other.hp>=(other.maxhp*0.2) and self.dmax==False:
         use="King's Shield"       
-    if self.item is not None and "Sticky Web"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"] and self.dmax==False:
+    if self.item !="None" and "Sticky Web"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"] and self.dmax==False:
         if "Sticky Web"  in mymove:
             use="Sticky Web"                    
-    if self.item is not None and "Stealth Rock"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
+    if self.item !="None" and "Stealth Rock"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"]:
         if "Stealth Rock"  in mymove:
             use="Stealth Rock"      
-    if self.item is not None and "Toxic Spikes"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"] and self.dmax==False:
+    if self.item !="None" and "Toxic Spikes"  not in otr.hazard and "Choice" not in self.item and other.hp>=(other.maxhp*0.3) and self.item not in ["Assault Vest"] and self.dmax==False:
         if "Toxic Spikes"  in mymove:
             use="Toxic Spikes"  
     if (other.hp<=(other.maxhp*0.20) or other.defb<0.5) and self.speed<other.speed and len(eprior)!=0:
         use=random.choice([eprior[0],emove])             
-    if self.item is not None and "Choice" in self.item and self.choiced is False and use is not None and self.dmax is False and self.owner.ai==True and self.owner.ai==True:
+    if self.item !="None" and "Choice" in self.item and self.choiced is False and use !="None" and self.dmax is False and self.owner.ai==True and self.owner.ai==True:
         self.choiced=True
         self.choicedmove=use
-    if self.choiced is True and self.dmax is False:
-        if self.choicedmove in self.moves:
-            use=self.choicedmove 
-        else:
-            use="Struggle" 
     if self.hp<=(self.maxhp*0.25) and "Destiny Bond" in mymove and self.speed>other.speed and self.dmax==False:
         use="Destiny Bond"
     if self.hp<=(self.maxhp*0.25) and "Misty Explosion" in mymove and self.dmax==False:
@@ -392,7 +389,22 @@ def moveAI(self,other,mtr,otr,field):
         use="Explosion"
     if "Hero" not in self.name and "Flip Turn" in self.moves and self.ability=="Zero to Hero":
         use="Flip Turn"
-    if use is None or use==[]:
+    if other.status in ["Poison","Badly Poisoned"] and len(list(set(self.moves). intersection(["Venoshock"])))>0 and "Steel" not in (other.type1,other.type2,other.teratype) and "Poison" not in (other.type1,other.type2,other.teratype):
+        use=list(set(self.moves). intersection (["Venoshock"]))[0]
+    if other.status!="Alive" and len(list(set(self.moves). intersection(["Hex","Infernal Parade","Bitter Malice","Barb Barrage"])))>0 and "Ghost" not in (other.type1,other.type2,other.teratype):
+        use=list(set(self.moves). intersection (["Hex","Infernal Parade","Bitter Malice","Barb Barrage"]))[0]
+    if self.status=="Sleep" and "Sleep Talk" in self.moves and self.choiced==False:
+        use="Sleep Talk"
+    if len(self.moves)==5 and (other.maxdef<250 or other.maxspdef<250):
+        use=self.moves[4]
+    if self.choiced is True and self.dmax is False:
+        if self.choicedmove in self.moves:
+            use=self.choicedmove 
+#        else:
+#            use="Struggle" 
+    if self.fmove==True:
+        use=list(set(self.moves).intersection(["Outrage","Thrash","Petal Dance","Raging Fury"]))[0]
+    if use =="None" or use==[]:
         if len(mymove)==0:
             use=random.choice(self.moves)
         else:
@@ -432,7 +444,7 @@ def switchAI(self,other,tr,tr2, field):
     for i in sw:
 #    bestdeflist=["Steelix","Aggron","Tyranitar","Amoongus","Rillaboom","Blastoise","Metagross","Groudon","Eternatus","Shuckle","Stakataka","Regirock","Avalugg","Cloyster","Slowbro","Bastiodon","Defense","Toxapex","Ice Rider","Diancie","Shield","Registeel","Orthworm","Zamazenta","rigus","Probopass","Melmetal","Golisopod","Torkoal","Skarmory","Forretress","Buzzwole","Stonjourner","Turtonator","Dusknoir","Dusclops","Carracosta","Tusk","Kartana","Ferrothorn","Garganacl","Glastr","Wishiwashi","Gigalith","Uxie","Leafeon","Rhyperior","Relicanth","Lugia","Golem","Cobalion","Audino","Ting-Lu","Sandaconda","Kommo","Crustle","Gliscor","Tangrowth","Sableye","Chesnaught","Hippowdon"]
 #    bestspdeflist=["Eternatus","Shuckle","Regice","Kyogre","Defense","Florges","Ho-Oh","Lugia","Goodra","Latias","Probopass","Registeel","Shield","Diancie","Zamazenta","Toxapex","Mantine","Bastiodon","Blissey","Cryogonal","Gardevoir","Wo-Chien","Wishiwashi","Dusknoir","Araquanid","Nihilego","Cursola","Hoopa","Sylveon","Umbreon","Fini","Uxie","Dusclops","Cresselia","Celesteela"]
-        if i is not None:
+        if i !="None":
             x=moveAI(i,other,tr,tr2,field)
             y=moveAI(other,i,tr2,tr,field)
 #        if len(y[0])!=0 and len(x[0])>0 and (other.maxspdef*other.spdefb)<200 and i.maxspatk>250 and i not in bestoff:
@@ -512,7 +524,7 @@ def decision (self,other,tr1,tr2,field):
                 action=2
         if self.speed>other.speed and self.spatkb<0.667 or  self.atkb<0.667:
             action=2      
-        if self.item!=None and "Choice" in self.item and self.choicedmove!=None and self.choicedmove!=self.moves:
+        if self.item!="None" and "Choice" in self.item and self.choicedmove!="None" and self.choicedmove!=self.moves:
             action=2    
         if use in immune:
             action=2
@@ -520,20 +532,26 @@ def decision (self,other,tr1,tr2,field):
             action=1
         if (self.maxspatk*self.spatkb)>300 and (other.maxspdef*other.spdefb)<200 and (self.maxspeed*self.speedb)>(other.maxspeed*other.speedb):
             action=1
+        if self.item!="None" and use in typemoves.statusmove and self.item=="Assault Vest":
+            action=2
         if "Koraidon" in self.name and "Ghost" in (other.type1,other.type2,other.teratype):
             action=2
         if "Miraidon" in self.name and "Ground" in (other.type1,other.type2,other.teratype):
             action=2
         if self.ability=="Zero to Hero" and "Hero" not in self.name and ("Flip Turn" not in self.moves or other.ability in ["Water Absorb","Storm Drain","Water Compaction","Desolate Land","Dry Skin"]):
             action=2      
-        if self.owner.cantera is True and (self==self.owner.pokemons[-1] or self.atk>250 or self.spatk>250 or "Tera Blast" in self.moves):
-            action=random.choices([1,7], weights=[1,5],k=1)[0]
-        if (self.atk>350 or self.spatk>350) and self.owner.canmax is True and (self.item!=None and self.item not in megastones):
+        if self.owner.cantera is True and (self==self.owner.pokemons[-1] or self.atk>250 or self.spatk>250 or "Tera Blast" in self.moves or self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]):
+            action=random.choices([1,7], weights=[2,5],k=1)[0]
+        if (self.atk>350 or self.spatk>350) and self.owner.canmax is True and (self.item!="None" and self.item not in megastones):
             action=8
         if self.item in megastones and "Mega" not in self.name and tr1.canmega==True:
             action=random.choices([1,9], weights=[2,8],k=1)[0]
         if self.yawn is True and self.status=="Alive":
             action=2
+        if self.perishturn==1:
+            action=2
+        if self.fmoveturn!=0:
+            action=1
         if other.ability=="Arena Trap" and "Flying" in (self.type1,self.type2,self.teratype):
             action=1        
         if other.ability=="Magnet Pull" and "Steel" in (self.type1,self.type2,self.teratype):

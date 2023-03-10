@@ -8,9 +8,9 @@ from movelist import *
 #SCOREBOARD
 def  score(x,y,p1,p2,turn):
     print("")
-    if x==None:
+    if x=="None":
         x=p1.pokemons[0]
-    if y==None:
+    if y=="None":
         y=p2.pokemons[0]
         pass
     print(f" {p1.name}:")
@@ -25,13 +25,13 @@ def  score(x,y,p1,p2,turn):
     if p1.lightscreen==True:              
         print(f" 🟪 Light Screen({p1.screenend-turn} turns left)")        
     print(f" Lv.{x.level} {x.name}: {round(x.hp)}/{x.maxhp}({round((x.hp/x.maxhp)*100,3)}%)[{x.status}]")
-    if x.teratype is not None and x.type2 is None and p2.ai is True:
+    if x.teratype !="None" and x.type2 =="None" and p2.ai is True:
         print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item} Nature: {x.nature}")
-    if x.teratype is not None and x.type2 is not None and p2.ai is True:
+    if x.teratype !="None" and x.type2 !="None" and p2.ai is True:
         print(f" Type:{x.teratype} Ability: {x.ability} Item: {x.item} Nature: {x.nature}")
-    if x.teratype is None and x.type2 is None and p2.ai is True:
+    if x.teratype =="None" and x.type2 =="None" and p2.ai is True:
         print(f" Type:{x.type1} Ability: {x.ability} Item: {x.item} Nature: {x.nature}")
-    if x.teratype is None and x.type2 is not None and p2.ai is True:
+    if x.teratype =="None" and x.type2 !="None" and p2.ai is True:
         print(f" Type:{x.type1}/{x.type2} Ability: {x.ability} Item: {x.item} Nature: {x.nature}" )
     if p2.ai is True:        
         print(f" Atk: {round(x.atk)}({round(x.atkb,3)}) Def: {round(x.defense)}({round(x.defb,3)}) SpA: {round(x.spatk)}({round(x.spatkb,3)}) SpD: {round(x.spdef)}({round(x.spdefb,3)}) Spe: {round(x.speed)}({round(x.speedb,3)})")
@@ -48,13 +48,13 @@ def  score(x,y,p1,p2,turn):
     if p2.lightscreen==True:        
         print(f" 🟪 Light Screen({p2.screenend-turn} turns left)")               
     print(f" Lv.{y.level} {y.name}: {round(y.hp)}/{y.maxhp}({round((y.hp/y.maxhp)*100,3)}%)[{y.status}]")
-    if y.teratype is not None and y.type2 is None and p1.ai is True:
+    if y.teratype !="None" and y.type2 =="None" and p1.ai is True:
         print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
-    if y.teratype is not None and y.type2 is not None and p1.ai is True:
+    if y.teratype !="None" and y.type2 !="None" and p1.ai is True:
         print(f" Type:{y.teratype} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
-    if y.teratype is None and y.type2 is None and p1.ai is True:
+    if y.teratype =="None" and y.type2 =="None" and p1.ai is True:
         print(f" Type:{y.type1} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
-    if y.teratype is None and y.type2 is not None and p1.ai is True:
+    if y.teratype =="None" and y.type2 !="None" and p1.ai is True:
         print(f" Type:{y.type1}/{y.type2} Ability: {y.ability} Item: {y.item} Nature: {y.nature}")
     if p1.ai is True:
         print(f" Atk: {round(y.atk)}({round(y.atkb,3)}) Def: {round(y.defense)}({round(y.defb,3)}) SpA: {round(y.spatk)}({round(y.spatkb,3)}) SpD: {round(y.spdef)}({round(y.spdefb,3)}) Spe: {round(y.speed)}({round(y.speedb,3)})\n")
@@ -65,130 +65,21 @@ def  score(x,y,p1,p2,turn):
         field.weather="Clear"
         print (" 🌤️ The extreme sunlight fade away.\n")     
 #FAINTED        
-def faint(mon,mon2,trainer,trainer2,field,turn):
-    if mon.hp<=0:
-        mon.hp=0
-        mon.status="Fainted"
-        name=mon.name
-        if mon.dmax is True:
-            mon.dmax=False
-            nn=-1
-            prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron"]
-            for i in prdx:
-                if i in mon.name:
-                    nn=-2
-            if nn==-1:
-                name=mon.name.split(" ")[-1]
-            if nn==-2:
-                name=name[8:]
-            print(f" 🔻 {name} returned to it's normal state!")
-            mon.name=name
-        if "Mega " in mon.name:
-            name=mon.name.split(" ")[-1]
-            if "Mewtwo" in mon.name:
-                name="Mewtwo"
-            if "Charizard" in mon.name:
-                name="Charizard"
-            print(f" 🧬 {name} returned to it's normal state!")
-            mon.name=name
-        if mon.owner==trainer.name:
-            trainer.faintedmon.append(mon)
-        print(f" \n 🏁 Refree: {mon.name} is unable to battle!")
-        print(f"  😵😵‍💫 {trainer.name}'s {mon.name} fainted!\n")
-        if mon2.ability=="Battle Bond" and "Ash" not in mon2.name and mon2.dmax==False:
-            print(f" {mon2.name}'s {mon2.ability}.")
-            if "Ash" not in mon2.name and "Greninja" in mon2.name:
-                mon2.name="Ash Greninja"
-                print(f" {mon2.name} synced with its trainer's bond and transformed!")
-                per=mon2.hp/mon2.maxhp
-                mon2.hp=72
-                mon2.atk=145
-                mon2.defense=67
-                mon2.spatk=153
-                mon2.spdef=71
-                mon2.speed=132
-                mon2.calcst()
-                mon2.hp=mon2.maxhp*per
-            if "Greninja" not in mon2.name:
-                atkchange(mon2,mon,0.5)
-                spatkchange(mon2,mon,0.5)
-                speedchange(mon2,mon,0.5)
-        if mon2.ability=="Beast Boost":
-            print(f" 👾 {mon2.name}'s {mon2.ability}!")
-            m=[a,b,c,d,e]=[mon2.atk,mon2.defense,mon2.spatk,mon2.spdef,mon2.speed]
-            if trainer2.reflect==True:
-                m=[mon2.atk,mon2.defense/2,mon2.spatk,mon2.spdef,mon2.speed]
-            if trainer2.lightscreen==True:
-                m=[mon2.atk,mon2.defense,mon2.spatk,mon2.spdef/2,mon2.speed]
-            x=max(m)
-            if x==a:
-            	atkchange(mon2,mon,0.5)
-            	print(f" {mon2.name}'s attack rose!")
-            elif x==b:
-            	defchange(mon2,mon,0.5)
-            	print(f" {mon2.name}'s defense rose!")
-            elif x==c:
-        	    spatkchange(mon2,mon,0.5)
-        	    print(f" {mon2.name}'s special attack rose!")
-            elif x==d:
-        	    spdefchange(mon2,mon,0.5)
-        	    print(f" {mon2.name}'s special defense rose!")
-            elif x==e:
-            	speedchange(mon2,mon,0.5)
-            	print(f" {mon2.name}'s speed rose!")
-        if mon2.ability=="Soul-Heart":
-            print(f" 💗 {mon2.name}'s {mon2.ability}!")
-            spatkchange(mon2,mon,0.5)
-            print(f" {mon2.name}'s special attack rose!")
-        if mon.ability =="Aftermath":
-            print(f" 🕜 {mon.name}'s {mon.ability}.")
-            mon2.hp-=mon2.maxhp/4
-        if mon2.ability=="Moxie":
-            print(f" ⏫ {mon2.name}'s {mon2.ability}!")
-            atkchange(mon2,mon,0.5)
-            print(f" {mon2.name}'s attack rose!")
-        if mon2.ability=="As One" and "Ice Rider" in mon2.name:
-            print(f" 🏇 {mon2.name}'s {mon2.ability}.")
-            print(f" {mon2.name}'s attack rose!")
-            atkchange(mon2,mon,0.5)       
-        if mon2.ability=="As One" and "Shadow Rider" in mon2.name:
-            print(f" 🏇 {mon2.name}'s {mon2.ability}.")
-            print(f" {mon2.name}'s special attack rose!")
-            spatkchange(mon2,mon,0.5)        
-        if mon2.ability=="Chilling Neigh" :
-            print(f" 🥶 {mon2.name}'s {mon2.ability}.")
-            print(f" {mon2.name}'s attack rose!")
-            atkchange(mon2,mon,0.5)    
-        if mon2.ability=="Grim Neigh" :
-            print(f" 😱 {mon2.name}'s {mon2.ability}.")
-            print(f" {mon2.name}'s special attack rose!")
-            spatkchange(mon2,mon,0.5)                
-        if mon in trainer.pokemons:
-            mon.status="Fainted"
-            mon.hp=0
-            trainer.pokemons.remove(mon)
-        if len(trainer.pokemons)!=0:
-            mon=switch(mon,mon2,trainer,trainer2,field,turn)
-            if mon.hp<=0:
-                faint(mon,mon2,trainer,trainer2,field,turn)
-        return mon
-    else:
-        pass
-      
+
 #ACTION             
 def action(tr,self,other):
     if tr.ai is False:
         while True:
-            if tr.canmax is True and (self.item!=None and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype==None and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "Z-Crystal" not in self.name and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name) and tr.cantera==False:
+            if tr.canmax is True and (self.item!="None" and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype=="None" and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "Z-Crystal" not in self.name and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name) and tr.cantera==False:
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 8. ⭕ Dynamax/Gigantamax\n")
-            elif tr.cantera is True and ((self.item!=None and self.item not in megastones) and "Z-Crystal" not in self.name):
-                if tr.canmax is True and (self.item!=None and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype==None and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "Z-Crystal" not in self.name and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name):
+            elif tr.cantera is True and ((self.item!="None" and self.item not in megastones) and "Z-Crystal" not in self.name):
+                if tr.canmax is True and (self.item!="None" and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype=="None" and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "m-Z" not in self.item and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name):
                     print(f"\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 7. 💎 Terastallize({self.tera})\n 8. ⭕ Dynamax/Gigantamax\n")
                 else:
                     print(f"\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 7. 💎 Terastallize({self.tera})\n")
-            elif tr.canmega is True and self.item!=None and (self.item in megastones or "Dragon Ascent" in self.moves):
+            elif tr.canmega is True and self.item!="None" and (self.item in megastones or "Dragon Ascent" in self.moves):
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 9. 🧬 Mega Evolve\n")
-            elif self.item!=None and "Ultranecrozium Z" in self.item and "Ultra" not in self.name:
+            elif self.item!="None" and "Ultranecrozium-Z" in self.item and "Ultra" not in self.name:
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 10. ✴️ Ultra Burst\n")
             else:
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n")
@@ -219,12 +110,12 @@ def action(tr,self,other):
                 return actionx    
                 break    
             if actionx=="":
-                if tr.ai is not None:
+                if tr.ai !="None":
                     rn=[1,2,3]
                     actionx=1#
 #                    if (self.item in megastones or "Dragon Ascent" in self.moves) and "Mega" not in self.name and tr.canmega==True:
 #                        actionx=9
-#                    if  self.item!=None and "Ultranecrozium Z" in self.item:
+#                    if  self.item!="None" and "Ultranecrozium Z" in self.item:
 #                        actionx=10
 #                    if  tr.canmax==True and self.item not in megastones and "Z-Crystal" not in self.name:
 #                        actionx=8
@@ -235,38 +126,7 @@ def action(tr,self,other):
     if tr.ai is True:
             return 1        
 
-#SKIP
-def skip(x,y,tr1,tr2):
-    skip=False
-    while skip!=True:
-        kk=input("\n Do you want to skip this turn? (Enter anything)\n >>> ")
-        if kk=="p2":
-            skip=False
-            if tr2.ai==False:
-                tr2.ai=True
-                print(f" ✅ {tr2.name} is being controlled by AI.")
-            elif tr2.ai==True:
-                tr2.ai=False
-                print(f" ✅ You are controlling {tr2.name}.")  
-        if kk=="p1":
-            skip=False
-            if tr1.ai==False:
-                tr1.ai=True
-                print(f" ✅ {tr1.name} is being controlled by AI.")
-            elif tr1.ai==True:
-                tr1.ai=False    
-                print(f" ✅ You are controlling {tr1.name}.")        
-        if kk=="info2":
-            y.info()
-            movelist(y)
-            skip=False
-        if kk=="info1":
-            x.info()
-            movelist(x)
-            skip=False
-        if kk=="":
-            print(f" ✅ Turn skipped successfully!")
-            skip=True
+
 #BATTLE
 def battle(x,y,tr1,tr2):
     turn=0
@@ -290,6 +150,10 @@ def battle(x,y,tr1,tr2):
         turn+=1
         print("===================================================================================")
         print(" TURN:",turn)
+        if x.protect==True:
+            x.protect=False
+        if y.protect==True:
+            y.protect=False
         print("===================================================================================")
         print(f" Location: {field.location}")
         if field.weather=="Strong Winds":
@@ -354,27 +218,27 @@ def battle(x,y,tr1,tr2):
             print(f" {tr2.name} forfeited.")
             break
         if action1 in [8,9,10,7]:
-            if action1==7 and x.dmax==False and (x.item==None or x.item not in megastones) and "Z-Crystal" not in x.name and tr1.cantera==True:
+            if action1==7 and x.dmax==False and (x.item=="None" or x.item not in megastones) and "m-Z" not in x.item and tr1.cantera==True:
                 x.name+="💎"
                 transformation(x,y,turn)
-            if action1==8 and x.item!=None  and x.teratype==None and tr1.canmax==True and ("Zacian" not in x.name and "Zamazenta" not in x.name and "Eternatus" not in x.name and "Z-Crystal" not in x.name and "Rayquaza" not in x.name and "Primal" not in x.name and "Mega" not in x.name) and x.teratype==None:
+            if action1==8 and x.item!="None"  and x.teratype=="None" and tr1.canmax==True and ("Zacian" not in x.name and "Zamazenta" not in x.name and "Eternatus" not in x.name and "Z-Crystal" not in x.name and "Rayquaza" not in x.name and "Primal" not in x.name and "Mega" not in x.name) and x.teratype=="None":
                 x.dmax=True
                 tr1.canmax=False
                 transformation(x,y,turn)
-            if action1==9 and tr1.canmega is True and (((x.item!=None and x.item in megastones) or ("Dragon Ascent" in x.moves)) and x.dmax==False):
+            if action1==9 and tr1.canmega is True and (((x.item!="None" and x.item in megastones) or ("Dragon Ascent" in x.moves)) and x.dmax==False):
                 transformation(x,y,turn)
             if action1==10:
                 transformation(x,y,turn)
             action1=1
         if action2 in [8,9,10,7]:
-            if action2==7 and y.dmax==False and (y.item==None or y.item not in megastones) and "Z-Crystal" not in y.name and tr2.cantera==True:
+            if action2==7 and y.dmax==False and (y.item=="None" or y.item not in megastones) and "m-Z" not in y.item and tr2.cantera==True:
                 y.name+="💎"
                 transformation(y,x,turn)
-            if action2==8 and y.item!=None and y.teratype==None and tr2.canmax==True  and ("Zacian" not in y.name and "Zamazenta" not in y.name and "Eternatus" not in y.name and "Z-Crystal" not in y.name and "Rayquaza" not in y.name and "Primal" not in y.name and "Mega" not in y.name) and y.teratype==None:
+            if action2==8 and y.item!="None" and y.teratype=="None" and tr2.canmax==True  and ("Zacian" not in y.name and "Zamazenta" not in y.name and "Eternatus" not in y.name and "Z-Crystal" not in y.name and "Rayquaza" not in y.name and "Primal" not in y.name and "Mega" not in y.name) and y.teratype=="None":
                 y.dmax=True
                 tr2.canmax=False
                 transformation(y,x,turn)
-            if action2==9 and tr2.canmega is True and ((y.item!=None and y.item in megastones) or ("Dragon Ascent" in y.moves)):
+            if action2==9 and tr2.canmega is True and ((y.item!="None" and y.item in megastones) or ("Dragon Ascent" in y.moves)):
                 transformation(y,x,turn)
             if action2==10:
                 transformation(y,x,turn)
@@ -420,8 +284,7 @@ def battle(x,y,tr1,tr2):
                         print(" 🏆 "+tr2.name,"wins.")
                         outro(tr2,tr1,y,field)
                         break
-                elif y.hp>0:
-                     
+                elif y.hp>0:                     
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,tr1,turn)
                     effects(y,x,tr2,turn)
@@ -457,7 +320,6 @@ def battle(x,y,tr1,tr2):
 #P2 PRIORITY 
             elif (choice2 in typemoves.prioritymove and choice1 not in typemoves.prioritymove) or y.priority is True or (y.ability=="Prankster" and choice2 in typemoves.statusmove and "Dark" not in (x.type1,x.type2)) or (choice2 in typemoves.firemoves and y.ability=="Blazing Soul" and y.hp==y.maxhp) or (choice2 in typemoves.flyingmoves and y.ability=="Gale Wings" and y.hp==y.maxhp) or (field.terrain=="Grassy" and choice2=="Grassy Glide") or (y.ability=="Triage" and choice2 in typemoves.healingmoves) or (choice1 in typemoves.negprioritymove) or (xpr>72) or (choice1 in typemoves.statusmove and x.ability=="Mycelium Might"):
                 weather(y,x)
-                 
                 y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                 prebuff(x,y,tr1,turn,field)
                 prebuff(y,x,tr2,turn,field)
@@ -503,20 +365,21 @@ def battle(x,y,tr1,tr2):
                 skip(x,y,tr1,tr2)
 #P1 FAST
             elif x.speed>=y.speed and field.trickroom==False:
-                weather(x,y)
-                 
+                weather(x,y)        
+                #X Attacks         
                 x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
+                #Stat Clac
                 prebuff(x,y,tr1,turn,field)
                 prebuff(y,x,tr2,turn,field)
+                #Checks X's HP
                 if x.hp<=0:
                     x=faint(x,y,tr1,tr2,field,turn)
                     if len(tr1.pokemons)==0:
                         print(" 🏆 "+tr2.name,"wins.")
                         outro(tr2,tr1,y,field)
                         break
-                elif y.hp>0:
-                     
-                    
+                #elif y.hp>0: (edited here)
+                if (y.hp>0 and x.hp>0) or (y.hp>0 and choice2 in typemoves.buffmove):                    
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,tr1,turn)
                     effects(y,x,tr2,turn)
@@ -561,8 +424,7 @@ def battle(x,y,tr1,tr2):
                         print(" 🏆 "+tr2.name,"wins.")
                         outro(tr2,tr1,y,field)
                         break
-                elif y.hp>0:
-                     
+                if (y.hp>0 and x.hp>0) or (y.hp>0 and choice2 in buffmove):                     
                     y,x=attack(y,x,tr2,tr1,choice2, choice1,field,turn)
                     effects (x,y,tr1,turn)
                     effects(y,x,tr2,turn)
@@ -607,8 +469,7 @@ def battle(x,y,tr1,tr2):
                         print(" 🏆 "+tr1.name,"wins.")
                         outro(tr1,tr2,x,field)
                         break
-                elif x.hp>0:
-                     
+                if (x.hp>0 and y.hp>0) or (x.hp>0 and choice1 in buffmove):                    
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,tr2,turn)
                     effects (x,y,tr1,turn)
@@ -653,8 +514,7 @@ def battle(x,y,tr1,tr2):
                         print(" 🏆 "+tr1.name,"wins.")
                         outro(tr1,tr2,x,field)
                         break
-                elif x.hp>0:
-                     
+                if (x.hp>0 and y.hp>0) or (x.hp>0 and choice1 in buffmove):                     
                     x,y=attack(x,y,tr1,tr2,choice1,choice2,field,turn)
                     effects(y,x,tr2,turn)
                     effects (x,y,tr1,turn)
@@ -688,7 +548,7 @@ def battle(x,y,tr1,tr2):
                 skip(x,y,tr1,tr2)
 #P1 SWITCH AND P2 ATTACK                
         elif action1==2 and action2==1:
-            choice1=None
+            choice1="None"
             score(x,y,p1,p2,turn)
             choice2=fchoice(y,tr2)  
             if p2.ai==True or choice2=="":             
@@ -721,7 +581,7 @@ def battle(x,y,tr1,tr2):
             skip(x,y,tr1,tr2)
 #P1 ATTACKS AND P2 SWITCHES                
         elif action1==1 and action2==2:
-            choice2=None
+            choice2="None"
             score(x,y,p1,p2,turn)
             choice1=fchoice(x,tr1)
             if p1.ai==True or choice1=="":

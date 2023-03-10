@@ -61,6 +61,10 @@ f" {tr.name}: Aah, yes, indeed this life is grand! Grand, it is! Eh? I'm Brandon
         print(f" {tr.name}: What does a Pokémon Trainer really need to be successful? I guess everyone might have their own answer. But for me... I want the strongest rival for myself.\n")
     if "Burgh" in tr.name:
         print(f" {tr.name}: If the battle brings out the beauty in Bug-type Pokémon, it will be a scene that makes my heart flutter, win or lose. My bug Pokémon are abuzz with anticipation. Let's get straight to it!\n")
+    if tr.name=="Brock(Hard Mode)":
+        field.weather="Sandstorm"
+    if tr.name=="Misty(Hard Mode)":
+        field.weather="Rainy"
     if tr.name=="Blaine(Hardcore Mode)":
         print(f" {tr.name}: Are you ready? Cause I'm not here to play a fair battle haahhahaha!\n")
         field.weather="Desolate Land"

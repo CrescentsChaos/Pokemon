@@ -108,8 +108,70 @@ def outro(tr,sr,mon,field):
         print(random.choice([f" {tr.name}:\n Imagine losing to an AI. Bruh...Wtf are you doing with your life?🤣\n",f" {tr.name}:\n Humans this humans that...You are more worthless than something that does not exist!😒\n"]))
     else:
         pass
+    print("===================================================================================")
+    dedlist(tr,sr)
+    statistics(tr,sr)
         #if mon.use!=None:
 #            print(f" {tr.name}:\n Did you feel my pain in that {mon.use} from {mon.name}!\n")
 #        else:
 #            print(random.choice([f" {tr.name}:\n Me and {mon.name} trained a lot! Thanks for that!\n",f" {tr.name}:\n You are a fool if you thought you could beat me and {mon.name}...fwhahahhahahaha!\n"]))
     print("===================================================================================")
+def dedlist(tr,sr):
+    z=tr.faintedmon
+    x=[]
+    y=[]
+    for i in z:
+        if i.owner==tr:
+            x.append(i)
+        if i.owner==sr:
+            y.append(i)
+    tr.faintedmon=x        
+    sr.faintedmon=y
+    tr.pokemons+=tr.faintedmon
+    sr.pokemons+=sr.faintedmon
+def statistics(tr,sr):
+    trname=tr.name.split(" ")[-1]
+    srname=sr.name.split(" ")[-1]
+    trdmgdealt=0
+    srdmgdealt=0
+    trcarry=None
+    srcarry=None
+    trdmgrec=0
+    srdmgrec=0
+    trtank=None
+    srtank=None
+    for i in tr.pokemons:
+         if trdmgdealt<i.dmgdealt:
+             trdmgdealt=i.dmgdealt
+             trcarry=i
+    print(f" 🏅 Carry from the winning team: {trname}'s {trcarry.name} ({trdmgdealt})") 
+    for i in sr.pokemons:
+         if srdmgdealt<i.dmgdealt:
+             srdmgdealt=i.dmgdealt
+             srcarry=i
+    print(f" 🥈 Carry from the losing team: {srname}'s {srcarry.name} ({srdmgdealt})") 
+    for i in tr.pokemons:
+         if trdmgrec<i.dmgrec:
+             trdmgrec=i.dmgrec
+             trtank=i
+    print(f" 🏅 Tank from the winning team: {trname}'s {trtank.name} ({trdmgrec})") 
+                
+    for i in sr.pokemons:
+         if srdmgrec<i.dmgrec:
+             srdmgrec=i.dmgrec
+             srtank=i
+    print(f" 🥈 Tank from the losing team: {srname}'s {srtank.name} ({srdmgrec})")
+    if srdmgdealt>trdmgdealt and srdmgdealt>700:
+        print(f" 💯 Best Carry: {srname}'s {srcarry.name} ({srdmgdealt})") 
+    if trdmgdealt>srdmgdealt and trdmgdealt>700:
+        print(f" 💯 Best Carry: {trname}'s {trcarry.name} ({trdmgdealt})") 
+    if srdmgrec>trdmgrec and (srdmgrec>700 or srdmgrec>srtank.maxhp*2):
+        print(f" 💯 Best Tank: {srname}'s {srtank.name} ({srdmgrec})") 
+    if trdmgrec>srdmgrec and (trdmgrec>700 or trdmgrec>trtank.maxhp*2):
+        print(f" 💯 Best Tank: {trname}'s {trtank.name} ({trdmgrec})") 
+    if trtank==trcarry and (trdmgdealt>700 and trdmgrec>700):
+        print(f" 🏆 Most Valuable Pokémon: {trname}'s {trcarry.name}!")
+    if srtank==srcarry and (srdmgdealt>700 and srdmgrec>700):
+        print(f" 🏆 Most Valuable Pokémon: {srname}'s {srcarry.name}!")
+    
+     

@@ -3,7 +3,7 @@ from trainers import *
 p1AI=True
 p2AI=True
 megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Amoharosite","Audinite","Banettite","Beedrillite","Blastoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
-allclass=["Black Belt","Dojo Master","Dragon Tamer","Skier","Kindler","Sailor","Swimmer","Veteran","Challenger","Ruin Explorer","Ace Trainer","Expert","Street Punk","Scuba Diver","Ruin Maniac","Paleontologist","Surfer","Marine Biologist","Biker","Cueball","Bird Keeper","Pilot","Sky Diver","Venom Expert","Fire Breather","Rocker","Guitarist","Bug Catcher","Psychic","Exorcist","Electrician","Smuggler","Thief","Goon","Boarder","Desert Explorer","Egyptian","Tamer","Captain","Pirate","Driver","Magma Grunt","Aqua Grunt","Rocket Grunt","Galactic Grunt","Gardener","Factory Boss","Industry Worker","Hiker","Kanto Trainer","Johto Trainer","Hoenn Trainer","Sinnoh Trainer","Unova Trainer","UB Expert","Businessman","Police Officer","Investigator","Military Officer","Navy Officer","Air Force Officer","Bug Researcher","Fisherman","Chaos Trainer","Plasma Grunt","Shadow Triads","Kalos Trainer","Alola Trainer","Galar Trainer","Chef","MasterChef","Cook","Foodie","Beauty","Gentleman","Camper","Lass","Scientist","Breeder","Pokémon Ranger","Backpacker","Policeman","Super Nerd","Cool Trainer","Pokémon Trainer","Paldea Trainer","Battle Girl","Worker","Doctor","Nurse","Coach Trainer","Poké Maniac","Juggler","Crush Girl","Channeler","Waiter","Musician","Aroma Lady","Butler","Count","Countess","Duke","Earl","Pro Wrestler","Burglar","Gambler","Teacher","Parasol Lady","Tuber","Rancher","Smasher","Triathlete"]
+allclass=["Black Belt","Dojo Master","Dragon Tamer","Skier","Kindler","Sailor","Swimmer","Veteran","Challenger","Ruin Explorer","Ace Trainer","Expert","Street Punk","Scuba Diver","Ruin Maniac","Paleontologist","Surfer","Marine Biologist","Biker","Cueball","Bird Keeper","Pilot","Sky Diver","Venom Expert","Fire Breather","Rocker","Guitarist","Bug Catcher","Psychic","Exorcist","Electrician","Smuggler","Thief","Goon","Boarder","Desert Explorer","Egyptian","Tamer","Captain","Pirate","Driver","Magma Grunt","Aqua Grunt","Rocket Grunt","Galactic Grunt","Gardener","Factory Boss","Industry Worker","Hiker","Kanto Trainer","Johto Trainer","Hoenn Trainer","Sinnoh Trainer","Unova Trainer","UB Expert","Businessman","Police Officer","Investigator","Military Officer","Navy Officer","Air Force Officer","Bug Researcher","Fisherman","Chaos Trainer","Plasma Grunt","Shadow Triads","Kalos Trainer","Alola Trainer","Galar Trainer","Chef","MasterChef","Cook","Foodie","Beauty","Gentleman","Camper","Lass","Scientist","Breeder","Pokémon Ranger","Backpacker","Policeman","Super Nerd","Cool Trainer","Pokémon Trainer","Paldea Trainer","Battle Girl","Worker","Doctor","Nurse","Coach Trainer","Poké Maniac","Juggler","Crush Girl","Channeler","Waiter","Musician","Aroma Lady","Butler","Count","Countess","Duke","Earl","Pro Wrestler","Burglar","Gambler","Teacher","Parasol Lady","Tuber","Rancher","Smasher","Triathlete","Competitive Player"]
 #from typematchup import *
 def teamset(mons,num=6):
     new=[]
@@ -21,26 +21,26 @@ def showsmogon(obj):
         
     return text
 def teammaker(trclass=None,trname=None,pknum=6,field=field):
-#    print(" ⚠️TEST: "+trclass)
+#    print(" ⚠️TET: "+trclass)
     "Creates Team"
     mons=[]
     team=[]
     new_name=None
     if trclass in ["Triathlete"]:
         mons=[Magnezone, Pelipper,Starmie,Dodrio,Electrode,Flareon,Pinsir,Houndoom,Wyrdeer,Mantine, Klinklang,Wailord,Kingdra, Azumarill,Minun,Plusle,Arcanine, Floatzel, Tentacruel,Golduck,Walrein, Sableye,Slaking, Poliwrath, Politoed]
-    if trclass in ["Pokémon Trainer","Pokémon Ranger"]:
+    if trclass in ["Pokémon Trainer","Pokémon Ranger","Competitive Player"]:
         mons=allmon
     ultrabeasts=[Blacephalon,Stakataka,Naganadel,Necrozma,DMNecrozma,DWNecrozma,FMLunala,RSSolgaleo,Lunala,Solgaleo,Guzzlord,Kartana,Celesteela,Xurkitree,Buzzwole,Nihilego,Pheromosa]
-    legendary=[Chiyu,Tinglu,Chienpao,Wochien,Enamorus,TEnamorus,Koraidon,Miraidon,ICalyrex,SCalyrex,Regieleki,Regidrago,Glastrier,Spectrier,Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandorus,TThundurus,TTornadus,Thundurus,Tornadus,Landorus,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,Groudon,Kyogre,PGroudon,PKyogre,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
+    legendary=[Chiyu,Tinglu,Chienpao,Wochien,Enamorus,TEnamorus,Koraidon,Miraidon,ICalyrex,SCalyrex,Regieleki,Regidrago,Glastrier,Spectrier,Zarude,DUrshifu,WUrshifu,Eternatus,Zamazenta,Zacian,GArticuno,GZapdos,GMoltres,Melmetal,Zeraora,Silvally,Marshadow,Magearna,Tapufini,Tapubulu,Tapulele,Tapukoko,Diancie,UHoopa,Volcanion,CZygarde,Xerneas,Yveltal,Genesect,Keldeo,Meloetta,PMeloetta,BKyurem,WKyurem,Zekrom,Reshiram,Kyurem,TLandorus,TThundurus,TTornadus,Thundurus,Tornadus,Landorus,Victini,Cobalion,Terrakion,Virizion,Arceus,Shaymin,SShaymin,Darkrai,Cresselia,Manaphy,Uxie,Azelf,Mesprit,Registeel,Regirock,Regice,Articuno,Zapdos,Moltres,Raikou,Entei,Suicune,Lugia,Hooh,Celebi,Deoxys,ADeoxys,SDeoxys,DDeoxys,Jirachi,Mew,Rayquaza,Latias,Latios,Groudon,Kyogre,Mewtwo,Dialga,ODialga,Palkia,OPalkia,Giratina,OGiratina,Heatran,Regigigas]
     if trclass in ["UB Expert"]:
         mons=ultrabeasts
     if trclass in ["Paldea Trainer"]:
         palmon=[Meowscarada,Skeledirge, Quaquaval, Oinkologne,Spidops,Lokix,Pawmot, Clodsire,Maushold,Dachsbun, Arboliva, Garganacl, Annihilape,Armarouge, Ceruledge,Bellibolt, Kilowattrel, Dudunsparce, Farigiraf,Mabosstiff,Grafaiai,Brambleghast, Toedscruel,Klawf, Scovillain,Rabsca,Espathra,Tinkaton,Wugtrio, Bombirdier,Palafin,Revavroom,Cyclizar, Orthworm, Glimmora,Houndstone, Flamigo,Cetitan, Kingambit,Veluza,Dondozo,Tatsugiri, Greattusk, Screamtail, Brutebonnet, Fluttermane, Slitherwing, Sandyshocks, Irontreads,Ironbundle,Ironhands, Ironjugulis,Ironmoth,Ironthorns, Baxcalibur, Gholdengo,Wochien,Chienpao,Tinglu,Chiyu, Roaringmoon, Ironvaliant,Koraidon,Miraidon, Ironleaves, Walkingwake]
-        natmon=[Chansey,Golduck, Wigglytuff,Hypno,Gengar,Raichu, Gyarados,Persian,Dugtrio,Eevee,Primeape,Jolteon, Vaporeon,Flareon,Muk,Electrode,Ditto,Arcanine, PTauros, Venomoth,Scyther, Slowbro, Cloyster, Dragonite, Jumpluff, Houndoom,Sunflora,Blissey, Azumarill, Sudowoodo, Ampharos,Donphan,Espeon,Umbreon, Ursaring, Forretress, Scizor, Heracross, Tyranitar, Slowking,Delibird, Masquerain, Gardevoir, Slaking, Breloom,Grumpig, Hariyama, Pelipper,Swalot,Torkoal,Camerupt, Medicham,Whiscash,Zangoose,Seviper,Altaria,Tropius,Cacturne,Salamence,Sableye,Glalie, Kricketune, Vespiquen, Floatzel,Gallade,Luxray, Staraptor, Mismagius, Garchomp, Drifblim, Bronzong, Lucario, Toxicroak, Leafeon,Glaceon, Pachirisu,Skuntank, Magnezone, Weavile, Honchkrow, Hippowdon,Spiritomb,WRotom,HRotom,MRotom,FRotom,FrRotom, EGastrodon, WGastrodon,Lumineon, Abomasnow,Froslass, Lilligant,Haxorus, Sawsbuck, Amoongus, Zoroark, Gothitelle, Krookodile,Volcarona, Alomomola, Eelektross, Beartic, Cryogonal, Braviary, Bisharp, Hydreigon, Talonflame, Vivillon,Florges,Goodra, Sylveon,Dedenne,Gogoat,Pyroar,Hawlucha,Noivern, Dragalge, Clawitzer, Avalugg, Gumshoos,Tsareena, MDLycanroc, MNLycanroc, DLycanroc, Oricorio, Crabominable, Salazzle, Mimikyu,Lurantis,Mudsdale,Oranguru,Passimian,Komala,Palossand,Toxapex,Greedent, Corviknight, Drednaw, Coalossal,Appletun,Flapple,Copperajah, Barraskewda, Toxtricity, Polteageist, Indeedee, Sandaconda, Hatterene, Grimmsnarl, Dragapult, Stonjourner, Eiscue, Pincurchin, Frosmoth]
+        natmon=[Charizard,Pikachu,Primeape,Chansey,Golduck, Wigglytuff,Hypno,Gengar,Raichu, Gyarados,Persian,Dugtrio,Eevee,Primeape,Jolteon, Vaporeon,Flareon,Muk,Electrode,Ditto,Arcanine, Tauros,PTauros, Venomoth,Scyther, Slowbro, Cloyster, Dragonite,Articuno,Zapdos,Moltres,Mewtwo,Mew, Typhlosion,Jumpluff, Houndoom,Sunflora,Blissey, Azumarill, Sudowoodo, Ampharos,Quagsire,Donphan,Espeon,Umbreon, Ursaring, Forretress, Scizor, Heracross, Tyranitar, Slowking,Delibird, Masquerain, Gardevoir, Slaking, Breloom,Grumpig, Hariyama, Pelipper,Swalot,Torkoal,Camerupt, Medicham,Whiscash,Zangoose,Seviper,Altaria,Tropius,Cacturne,Salamence,Sableye,Glalie, Kricketune, Vespiquen, Floatzel,Gallade,Luxray, Staraptor, Mismagius, Garchomp, Drifblim, Bronzong, Lucario, Toxicroak, Leafeon,Glaceon, Pachirisu,Skuntank, Magnezone, Weavile, Honchkrow, Hippowdon,Spiritomb,WRotom,HRotom,MRotom,FRotom,FrRotom, EGastrodon, WGastrodon,Lumineon, Abomasnow,Froslass, Lilligant,Haxorus, Sawsbuck, Amoongus, Zoroark, Gothitelle, Krookodile,Volcarona, Alomomola, Eelektross, Beartic, Cryogonal, Braviary, Bisharp, Hydreigon, Talonflame, Vivillon,Florges,Goodra, Sylveon,Dedenne,Gogoat,Pyroar,Hawlucha,Noivern, Dragalge, Clawitzer, Avalugg, Gumshoos,Tsareena, MDLycanroc, MNLycanroc, DLycanroc, Oricorio, Crabominable, Salazzle, Mimikyu,Lurantis,Mudsdale,Oranguru,Passimian,Komala,Palossand,Toxapex,Greedent, Corviknight, Drednaw, Coalossal,Appletun,Flapple,Copperajah, Barraskewda, Toxtricity, Polteageist, Indeedee, Sandaconda, Hatterene, Grimmsnarl, Dragapult, Stonjourner, Eiscue, Pincurchin, Frosmoth]
         mixmon=natmon+palmon
         mons=random.choice([mixmon,palmon])
     if trclass in ["Galar Trainer"]:
-        galmon=[HElectrode,GArticuno,GZapdos,GMoltres,GRapidash,GSlowbro,GSlowking,Sirfetchd,GWeezing,MrRime,HArcanine,HTyphlosion,GCorsola,HSamurott,HLilligant,Obstagoon,GDarmanitan,HZoroark,HBraviary,HGoodra,HAvalugg,HDecidueye,Melmetal,Runerigus,Garbodor,Rillaboom,Cinderace,Inteleon,Corviknight,Greedent,Orbeetle,Thievul,Dubwool,Eldegoss,Drednaw,Coalossal,Flapple,Appletun,Boltund,Sandaconda,Barraskewda,Toxtricity,Grapplot,Centiskorch,Polteageist,Hatterene,Grimmsnarl,Perrserker,Alcremie,Frosmoth,Stonjourner,Cursola,MrRime,Falinks,Pincurchin,Eiscue,Indeedee,Copperajah,Dracovish,Dracozolt,Arctovish,Arctozolt,Duraludon,Dragapult,DUrshifu,WUrshifu]
+        galmon=[HElectrode,GArticuno,GZapdos,GMoltres,GRapidash,GSlowbro,GSlowking,Sirfetchd,GWeezing,MrRime,HArcanine,HTyphlosion,GCorsola,HSamurott,HLilligant,Obstagoon,GDarmanitan,HZoroark,HBraviary,HGoodra,HAvalugg,HDecidueye,Melmetal,Runerigus,Garbodor,Rillaboom,Cinderace,Inteleon,Corviknight,Greedent,Orbeetle,Thievul,Dubwool,Eldegoss,Drednaw,Coalossal,Flapple,Appletun,Boltund,Sandaconda,Barraskewda,Toxtricity,Grapplot,Centiskorch,Polteageist,Hatterene,Grimmsnarl,Perrserker,Alcremie,Frosmoth,Stonjourner,Cursola,MrRime,Falinks,Pincurchin,Eiscue,Indeedee,Copperajah,Dracovish,Dracozolt,Arctovish,Arctozolt,Duraludon,Dragapult,DUrshifu,WUrshifu, Pyukumuku]
         natmon=[Venusaur, Charizard,Blastoise,Butterfree,Pikachu,Meowth, Machamp,Gengar,Kingler,Lapras,Snorlax,Sandslash, Nidoqueen,Nidoking,Clefable, Ninetales, Wigglytuff,Vileplume,Dugtrio,Golduck,Arcanine,Poliwrath, Alakazam,Tentacruel,Rapidash,Slowbro, Cloyster, Exeggutor,Marowak, Hitmonlee, Hitmonchan,Weezing,Rhydon,Chansey, Kangaskhan, Seaking,Starmie,MrMime,Jynx,Pinsir,Tauros, Gyarados,Ditto, Vaporeon, Jolteon,Flareon,Omastar, Kabutops, Aerodactyl, Articuno, Zapdos,Moltres, Dragonite,Noctowl,Lanturn,Xatu, Bellossom, Sudowoodo,Politoed, Quagsire, Espeon,Umbreon, Slowking,Wobbuffet, Steelix,Scizor,Shuckle,Heracross, Octillery,Delibird,Mantine,Skarmory,Kingdra, Porygon2,Hitmontop,Miltank, Blissey, Raikou,Suicune,Entei, Tyranitar,Celebi,Hooh,Lugia,Mew,Mewtwo,Sceptile,Blaziken,Swampert,Linoone,Ludicolo,Shiftry, Pelipper, Gardevoir,Ninjask,Shedinja,Exploud, Sableye,Mawile,Aggron,Manectric,Sharpedo,Wailord, Torkoal, Flygon,Altaria,Whiscash,Solrock,Lunatone,Crawdaunt,Claydol,Cradily,Armaldo,Milotic,Dusclops,Absol,Glalie,Walrein,Relicanth,Salamence, Metagross,Regirock,Regice,Registeel,Latias,Latios,Kyogre,Groudon, Rayquaza,Jirachi,Luxray,Roserade,Vespiquen,Cherrim, WGastrodon, EGastrodon,Drifblim, Lopunny,Skuntank,Bronzong,Spiritomb, Garchomp,Lucario, Hippowdon,Drapion,Toxicroak, Abomasnow,Weavile, Magnezone, Lickilicky,Rhyperior, Tangrowth,Electivire,Magmortar,Togekiss,Leafeon,Glaceon,Mamoswine, PorygonZ,Dusknoir,Gallade,Froslass,HRotom,FrRotom,FRotom,WRotom,MRotom,Uxie,Mesprit,Azelf,Dialga,Palkia,ODialga,OPalkia,Heatran,Regigigas,Giratina,OGiratina, Cresselia,Victini, Stoutland, Liepard,Musharna, Unfezant, Gigalith,Swoobat, Excadrill,Audino, Conkeldurr, Seismitoad,Sawk,Throh, Scolipede, Whimsicott, Lilligant, Krookodile, Darmanitan, Maractus,Crustle,Scrafty, Sigilyph, Cofagrigus, Carracosta,Archeops, Garbodor,Zoroark,Cinccino, Gothitelle, Reuniclus, Vanilluxe,Emolga,Escavalier, Amoongus, Jellicent, Galvantula, Ferrothorn, Klinklang, Beheeyem, Chandelure, Haxorus,Beartic, Cryogonal,Accelgor,Stunfisk,GStunfisk,Mienshao, Druddigon,Golurk, Bisharp, Bouffalant, Braviary,Mandibuzz,Heatmor,Durant, Hydreigon, Volcarona,Cobalion, Terrakion, Virizion, Tornadus, TTornadus, Thundurus, TThundurus,Reshiram,Zekrom, Landorus, TLandorus,Kyurem,WKyurem,BKyurem,Keldeo,Genesect]
         mixmon=natmon+galmon
         mons=random.choice([mixmon,galmon])
@@ -303,7 +303,14 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
             if member.item in megastones and len(team)==5:
                 team.append(member)
                 mons.remove(party)                  
-
+    if len(team)==0 and trclass in ["Competitive Player"]:    
+        while len(team)!=pknum:
+            party=random.choices(mons)[0]
+            c="OU-"+random.choice(["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"])
+            member=party(maxiv=c)
+            if member.item not in megastones and "(" not in member.name and len(team)<6:
+                team.append(member)
+                mons.remove(party)
     else:
         while len(team)!=pknum:
 #            print(f"⚠️{trclass} ERROR!!!!")
@@ -355,36 +362,37 @@ def match():
     return t1,t2   
 #E4 Bruno
 bruno1=Steelix(maxiv="Yes",move=["Earthquake","Iron Head", "Curse","Gyro Ball"],nature="Brave",item="Steelixite")
-bruno2=Machamp(maxiv="Yes",move=["Knock Off","Close Combat","Stone Edge","Facade"],nature="Adamant", ability="Guts")
-bruno3=Hitmonchan(maxiv="Yes",move=["Thunder Punch","Close Combat","Fire Punch","Ice Punch"],nature="Adamant")
-bruno4=Hitmonlee(maxiv="Yes",move=["Hi Jump Kick","Knock Off","Close Combat","Stone Edge"],nature="Adamant")
-bruno5=Steelix(maxiv="Yes",move=["Earthquake","Iron Head", "Curse","Gyro Ball"],nature="Brave",ability="Heatproof")
-bruno6=Poliwrath(name="Poliwrath",maxiv="Fighting",move=["Close Combat","Liquidation","Recover","Surging Strikes"],nature="Adamant")
-bruno7=Hitmontop(maxiv="Yes")
-bruno8=Hariyama(maxiv="Yes")
-bruno9=Lucario(maxiv="Yes")
-bruno10=AGolem(maxiv="Yes")
-brunoteam=teamset([bruno6,bruno2,bruno3,bruno4,bruno5,bruno7,bruno8,bruno9,bruno10],5)+[bruno1]
+bruno2=Machamp(maxiv="Yes",move=["Bullet Punch","Dynamic Punch","Stone Edge","Earthquake"],nature="Adamant", ability="No Guard")
+bruno3=Hitmonchan(maxiv="Yes",move=["Thunder Punch","Close Combat","Fire Punch","Ice Punch"],nature="Adamant", ability="Iron Fist")
+bruno4=Hitmonlee(maxiv="Yes",move=["High Jump Kick","Knock Off","Poison Jab","Stone Edge"],nature="Adamant", ability="Reckless")
+bruno6=Poliwrath(name="Poliwrath",maxiv="Fighting",move=["Close Combat","Liquidation","Body Slam","Surging Strikes"],nature="Adamant")
+bruno7=Hitmontop(maxiv="Yes",move=["Earthquake","Close Combat","Counter","Quick Attack"])
+bruno8=Hariyama(maxiv="Yes",item="Sitrus Berry",move=["Bulk Up","Low Kick","Bullet Punch","Knock Off"])
+bruno9=Lucario(maxiv="Yes", ability="Inner Focus",move=["Close Combat","Counter","Extreme Speed","Iron Tail"])
+bruno10=AGolem(maxiv="Yes",move=["Thunder Punch","Rock Slide","Superpower","Earthquake"])
+brunoteam=teamset([bruno6,bruno1,bruno3,bruno4,bruno7,bruno8,bruno9,bruno10],5)+[bruno2]
 bruno=Trainer(colored("Elite Four Bruno","red"),brunoteam,"Kanto")
 #E4 Lance
-lance1=Hydreigon(maxiv="Yes",move=["Dark Pulse","Flamethrower","Thunderbolt","Dragon Pulse"],nature="Modest")
+lance1=Hydreigon(maxiv="Yes",move=["Dark Pulse","Fire Blast","Earth Power","Draco Meteor"],nature="Modest",item="White Herb")
 lance2=Gyarados(name="Gyarados✨",maxiv="Yes",move=["Dragon Dance","Waterfall","Earthquake","Ice Fang"],nature="Adamant")
 lance3=Aerodactyl(maxiv="Yes",move=["Stone Edge","Earthquake","Roost","Stealth Rock"],nature="Jolly")
-lance4=Dragonite (maxiv="Yes",move=["Dragon Dance","Extreme Speed","Dragon Claw","Roost"],nature="Adamant")
-lance5=Kingdra(maxiv="Yes",move=["Rain Dance","Draco Meteor","Surf","Ice Beam"],nature="Modest",ability="Swift Swim")
-lance6=Charizard(maxiv="Yes",move=["Dragon Dance","Roost","Dragon Claw","Flare Blitz"],nature="Adamant",item="Charizardite X",atkev=252,spatkev=0)
-lance7=Haxorus(maxiv="Yes")
-lance8=AExeggutor(maxiv="Yes")
-lanceteam=teamset([lance1,lance2,lance3,lance6,lance5,lance7,lance8],5)+[lance4]
+lance4=Dragonite (maxiv="Yes",move=["Dragon Dance","Extreme Speed","Dragon Claw","Roost"],nature="Adamant",item="Focus Sash")
+lance5=Kingdra(maxiv="Yes",move=["Flash Cannon","Dragon Pulse","Surf","Ice Beam"],nature="Modest",item="Scope Lens")
+lance6=Charizard(maxiv="Yes",move=["Dragon Dance","Thunder Punch","Dragon Claw","Flare Blitz"],nature="Adamant",item="Charizardite X",atkev=252,spatkev=0)
+lance7=Haxorus(maxiv="Yes",item="Choice Scarf",move=["Outrage","Superpower","Earthquake","Rock Slide"], ability="Mold Breaker")
+lance8=AExeggutor(maxiv="Yes",move=["Giga Drain","Psychic","Dragon Pulse","Hyper Voice"],atkev=0,spatkev=252)
+lance9=Salamence (maxiv="Yes",item="Expert Belt",move=["Dragon Claw","Crunch","Earthquake","Stone Edge"], ability="Intimidate")
+lance10=Flygon (maxiv="Yes",item="Power Herb",move=["Solar Beam","Draco Meteor","Earth Power","U-turn"],spatkev=252,atkev=0, ability="Levitate")
+lanceteam=teamset([lance1,lance2,lance3,lance6,lance5,lance7,lance8,lance9,lance10],5)+[lance4]
 lance=Trainer(colored("Elite Four Lance","red"),lanceteam,"Kanto")
 #E4 Lorelei 
-lorelei1=Lapras(maxiv="Yes",move=["Ice Beam","Hydro Pump","Recover","Thunder"],nature="Modest")
-lorelei2=Slowbro(maxiv="Yes",move=["Slack Off","Flamethrower","Hydro Pump","Ice Beam"],nature="Modest",item="Slowbronite")
-lorelei3=Dewgong(maxiv="Yes",move=["Ice Beam","Hydro Pump","Recover","Blizzard"],nature="Modest")
+lorelei1=Lapras(maxiv="Yes",move=["Blizzard","Hydro Pump","Dragon Pulse","Thunder"],nature="Modest")
+lorelei2=Slowbro(maxiv="Yes",move=["Yawn","Flamethrower","Surf","Psychic"],nature="Modest",item="Slowbronite")
+lorelei3=Dewgong(maxiv="Yes",move=["Aqua Jet","Waterfall","Ice Shard","Iron Tail"],nature="Adamant",spatkev=0,atkev=252)
 lorelei4=Cloyster(maxiv="Yes",move=["Rock Blast","Pin Missile","Icicle Spear","Shell Smash"],nature="Adamant")
 lorelei5=Jynx(maxiv="Yes",move=["Ice Beam","Psychic","Recover","Blizzard"],nature="Timid")
 lorelei6=Mamoswine(name="Mamoswine(Z-Crystal)",maxiv="Yes",move=["Ice Beam","Earthquake","Stone Edge","Blizzard"],nature="Naughty")
-lorelei7=ASandslash(maxiv="Yes")
+lorelei7=ASandslash(maxiv="Yes",move=["Ice Punch","Earthquake","Iron Tail","Ice Shard"])
 loreleiteam=teamset([lorelei6,lorelei2,lorelei3, lorelei4,lorelei5,lorelei7],5)+[lorelei1]
 lorelei=Trainer(colored("Elite Four Lorelei","cyan"),loreleiteam,"Kanto")
 #Red
@@ -402,7 +410,7 @@ red11=Articuno(maxiv="Yes")
 redteam=teamset([red4,red5,red6,red2,red3,red8,red9,red10],4)+[red7,red1]
 red=Trainer(colored("Pokémon Trainer Red","red"),redteam,"Kanto")
 #E4 Agatha
-agatha1=Crobat(maxiv="Yes",move=["Roost","Toxic","Brave Bird","U-Turn"],nature="Jolly")
+agatha1=Crobat(maxiv="Yes",move=["Roost","Toxic","Brave Bird","U-turn"],nature="Jolly")
 agatha2=Mismagius(maxiv="Yes",move=["Thunderbolt","Dazzling Gleam","Shadow Ball","Nasty Plot"],nature="Timid")
 agatha3=Arbok(maxiv="Yes",move=["Earthquake","Poison Jab","Crunch","Coil"], nature="Adamant")
 agatha4=Weezing(maxiv="Yes",move=["Sludge Bomb","Will-O-Wisp","Flamethrower","Toxic"],nature="Bold")
@@ -449,7 +457,7 @@ tonoy1=Umbreon(maxiv="Yes",item="Leftovers", ability="Inner Focus",move=["Wish",
 tonoy2=Conkeldurr(maxiv="Yes",item="Flame Orb",nature="Adamant", ability="Guts",move=["Mach Punch","Bulk Up","Stone Edge","Drain Punch"])
 tonoy3=Venusaur(maxiv="Yes",item="Venusaurite",nature="Modest", ability="Chlorophyll",move=["Earth Power","Sludge Bomb","Sleep Powder","Giga Drain"])
 tonoy4=Skarmory (maxiv="Yes",item="Rocky Helmet", ability="Sturdy", nature="Impish", move=["Whirlwind","Roost","Stealth Rock","Brave Bird"])
-tonoy5=Scizor(maxiv="Yes",item="Life Orb", ability="Technician", nature="Adamant",move=["Bullet Punch","U-Turn","Superpower","Roost"])
+tonoy5=Scizor(maxiv="Yes",item="Life Orb", ability="Technician", nature="Adamant",move=["Bullet Punch","U-turn","Superpower","Roost"])
 tonoy6=Cloyster(maxiv="Yes",item="Focus Sash", ability="Skill Link",nature="Adamant",move=["Ice Shard","Icicle Spear","Rock Blast","Shell Smash"])
 tonoyteam=teamset ([tonoy1,tonoy2,tonoy3,tonoy4,tonoy5,tonoy6])
 tonoy=Trainer(colored("Developer Crescent","yellow"),tonoyteam,"Hoenn")
@@ -462,7 +470,7 @@ janine7=Venomoth(maxiv="Yes")
 janine8=Drapion(maxiv="Yes")
 janine9=Crobat(maxiv="Yes")
 janineteam=teamset ([janine3,janine4,janine8,janine5,janine6,janine7],5)+[janine9]
-janine=Trainer("Gym Leader Janine",janineteam,"Kanto")
+janine=Trainer(colored("Gym Leader Janine","magenta"),janineteam,"Kanto")
 #goh
 goh1=Heracross(maxiv="Yes")
 goh2=Scizor(maxiv="Yes")
@@ -493,7 +501,7 @@ goh26=AExeggutor (maxiv="Yes")
 goh27=Shedinja (maxiv="Yes")
 goh28=Regieleki(maxiv="Yes")
 gohteam=teamset ([goh1, goh2,goh3,goh4,goh5,goh6,goh7,goh10,goh11,goh12,goh13,goh14,goh15,goh16,goh17,goh18,goh19,goh20,goh21,goh22,goh23,goh24,goh25,goh26,goh27],3)+[goh8,goh28,goh9]
-goh=Trainer("Pokémon Trainer Goh",gohteam,"Kanto")
+goh=Trainer(colored("Pokémon Trainer Goh","red"),gohteam,"Kanto")
 #Champion Steven
 steven1=Claydol(maxiv="Yes",move=["Reflect","Earth Power","Extrasensory","Light Screen"],nature="Bold")
 steven2=Armaldo(maxiv="Yes",move=["X-Scissor","Rock Blast","Earthquake","Crush Claw"],nature="Adamant", ability="Battle Armor")
@@ -506,7 +514,7 @@ steven8=Excadrill(maxiv="Yes",item="Focus Sash",move=["Earthquake","Rock Slide",
 steven9=Aerodactyl(maxiv="Yes", ability="Pressure",move=["Fire Fang","Thunder Fang","Ice Fang","Rock Slide"],item="Focus Sash")
 steven10=Archeops(maxiv="Yes",item="Sitrus Berry",move=["Head Smash","Acrobatics","Earthquake","Extreme Speed"])
 steventeam=teamset([steven1,steven2,steven3,steven4,steven5,steven7,steven8,steven9,steven10],5)+[steven6]
-steven=Trainer("Hoenn Champion Steven", steventeam,"Hoenn")
+steven=Trainer(colored("Hoenn Champion Steven","white"), steventeam,"Hoenn")
 #Champion Wallace
 wallace1=Ludicolo(maxiv="Yes",move=["Energy Ball","Scald","Ice Beam","Fake Out"], ability="Swift Swim",item="Life Orb")
 wallace2=Starmie(maxiv="Yes",move=["Psychic","Recover","Surf","Thunderbolt"],nature="Timid",item="Expert Belt")
@@ -516,7 +524,7 @@ wallace5=Swampert(maxiv="Yes",move=["Earthquake","Liquidation","Ice Punch","Hamm
 wallace6=Milotic(maxiv="Yes",move=["Hydro Pump","Recover","Dragon Pulse","Blizzard"],nature="Modest",ability="Marvel Scale",item="Rocky Helmet")
 wallace7=Walrein(maxiv="Yes",item="Leftovers",move=["Surf","Yawn","Blizzard","Sheer Cold"])
 wallace8=Seaking(maxiv="Yes")
-wallace9=Sharpedo(maxiv="Yes",item="Focus Sash",move=["Hydro Pump","Crunch","Zen Headbutt","Aqua Jet"], ability="Rough Skin")
+wallace9=Sharpedo(maxiv="Yes",item="Focus Sash",move=["Liquidation","Zen Headbutt","Aqua Jet","Crunch"], ability="Rough Skin")
 wallace10=Whiscash(maxiv="Yes", ability="Oblivious",move=["Earthquake","Muddy Water","Rock Tomb","Rain Dance"],item="Damp Rock")
 wallace11=Tentacruel(maxiv="Yes", ability="Clear Body",move=["Sludge Wave","Rain Dance","Dazzling Gleam","Scald"])
 wallaceteam=teamset([wallace1,wallace2,wallace3,wallace4,wallace5,wallace7,wallace8,wallace9,wallace10,wallace11],5)+[wallace6]
@@ -528,7 +536,7 @@ tobias3=Entei(maxiv="Yes",move=["Lava Plume","Stone Edge","Flare Blitz","Fire Bl
 tobias4=Heatran(maxiv="Yes",move=["Magma Storm","Flash Cannon","Ancient Power","Earth Power"],nature="Calm")
 tobias5=Latias(maxiv="Yes",move=["Mist Ball","Dragon Pulse","Calm Mind","Shadow Ball"],nature="Timid")
 tobias6=Cresselia(maxiv="Yes",move=["Lunar Blessing","Moonblast","Psychic","Shadow Ball"],nature="Calm")
-tobias=Trainer("Pokémon Trainer Tobias",[tobias3,tobias4,tobias5,tobias6,tobias1,tobias2],"Sinnoh")
+tobias=Trainer(colored("Pokémon Trainer Tobias","red"),[tobias3,tobias4,tobias5,tobias6,tobias1,tobias2],"Sinnoh")
 #Champion Cynthia
 cynthia1=WGastrodon(maxiv="Yes",move=["Earthquake","Scald","Sludge Bomb","Rock Tomb"],nature="Calm",item="Leftovers", ability="Storm Drain")
 cynthia2=Togekiss(maxiv="Yes",move=["Air Slash","Thunder Wave","Moonblast","Aura Sphere"],nature="Modest", ability="Serene Grace",item="Leftovers")
@@ -545,30 +553,30 @@ cynthia12=PorygonZ(maxiv="Yes",move=["Hyper Beam","Shadow Ball","Ice Beam","Thun
 cynthiateam=teamset([cynthia1,cynthia2,cynthia3,cynthia4,cynthia5,cynthia11, cynthia12],5)+[cynthia6]
 cynthia=Trainer(colored("Sinnoh Champion Cynthia","yellow"), cynthiateam,"Sinnoh")
 #E4 Aaron
-aaron1=Yanmega(maxiv="Yes",move=["Air Slash","Bug Buzz","Signal Beam","Ancient Power"],nature="Modest")
-aaron2=Vespiquen(maxiv="Yes",move=["Attack Order","Heal Order","Defense Order","Bug Buzz"],nature="Modest")
-aaron3=Scizor(maxiv="Yes",move=["U-Turn","Superpower","Bullet Punch","Roost"],nature="Adamant")
-aaron4=Heracross(maxiv="Yes",move=["U-Turn","Close Combat","Megahorn","Brick Break"],nature="Adamant",item="Heracronite")
-aaron5=Flygon(name="Flygon",maxiv="Bug",move=["Earthquake","Dragon Claw","Dragon Dance","Tera Blast"], nature="Jolly")
-aaron7=Armaldo(maxiv="Yes")
-aaron6=Drapion(maxiv="Yes",move=["Wicked Blow","Toxic","Crunch","Cross Poison"],nature="Adamant")
-aaron8=Dustox(maxiv="Yes")
-aaron9=Beautifly(maxiv="Yes")
-aaronteam=teamset([aaron1,aaron2,aaron3,aaron4,aaron5,aaron7,aaron8,aaron9],5)+[aaron6]
-aaron=Trainer("Elite Four Aaron",aaronteam,"Sinnoh")
+aaron1=Yanmega(maxiv="Yes",move=["Air Slash","Bug Buzz","Signal Beam","Ancient Power"],nature="Modest",item="Wise Glasses", ability="Speed Boost")
+aaron2=Vespiquen(maxiv="Yes",move=["Attack Order","Power Gem","Defend Order","Air Slash"],nature="Modest",item="Sitrus Berry")
+aaron3=Scizor(maxiv="Yes",move=["Swords Dance","X-Scissor","Bullet Punch","Night Slash"],nature="Adamant", ability="Technician")
+aaron4=Heracross(maxiv="Yes",move=["Earthquake","Close Combat","Rock Slide","Pin Missile"],nature="Adamant",item="Heracronite")
+aaron5=Flygon(name="Flygon",maxiv="Bug",move=["Earth Power","Dragon Pulse","Boomburst","Bug Buzz"], nature="Jolly",item="Wise Glasses",atkev=0,spatkev=252)
+aaron6=Drapion(maxiv="Yes",move=["Night Slash","Earthquake","X-Scissor","Cross Poison"],nature="Adamant", ability="Sniper",item="Scope Lens")
+aaron8=Dustox(maxiv="Yes",item="Black Sludge",move=["Toxic","Bug Buzz","Moonlight","Light Screen"])
+aaron9=Beautifly(maxiv="Yes",item="Wise Glasses",move=["Bug Buzz","Shadow Ball","Psychic","Quiver Dance"])
+aaronteam=teamset([aaron1,aaron2,aaron3,aaron4,aaron5,aaron8,aaron9],5)+[aaron6]
+aaron=Trainer(colored("Elite Four Aaron","green"),aaronteam,"Sinnoh")
 #Bertha
-bertha1=Golem(maxiv="Yes")
-bertha2=Hippowdon(maxiv="Yes")
-bertha3=Gliscor(maxiv="Yes")
-bertha4=Nidoking (maxiv="Yes")
-bertha5=Mamoswine(maxiv="Yes")
-bertha6=Rhyperior(maxiv="Yes")
-bertha7=Steelix(maxiv="Yes",item="Steelixite")
-bertha8=Quagsire (maxiv="Yes")
-bertha9=Whiscash(maxiv="Yes")
-bertha10=Donphan(maxiv="Yes")
+bertha1=Golem(maxiv="Yes",item="Soft Sand", move=["Rock Polish","Heavy Slam","Earthquake","Stone Edge"], ability="Sturdy")
+bertha2=Hippowdon(maxiv="Yes", ability="Sand Stream",move=["Ice Fang","Earthquake","Body Press","Slack Off"],item="Iapapa Berry")
+bertha3=Gliscor(maxiv="Yes", ability="Poison Heal",item="Toxic Orb",move=["Earthquake","Thunder Fang","Guillotine","X-Scissor"])
+bertha4=Nidoking (maxiv="Yes",item="Life Orb", ability="Sheer Force",move=["Sludge Bomb","Earth Power","Thunderbolt","Ice Beam"],nature="Modest")
+bertha5=Mamoswine(maxiv="Yes",item="Never-Melt Ice",move=["Earthquake","Icicle Spear","Ice Shard","Double-Edge"])
+bertha6=Rhyperior(maxiv="Yes",item="Muscle Band", ability="Solid Rock",move=["Rock Slide","Earthquake","Ice Punch","Thunder Punch"])
+bertha7=Steelix(maxiv="Yes",item="Steelixite",move=["Gyro Ball","Earthquake","Rock Slide","Thunder Fang"], ability="Sturdy")
+bertha8=Quagsire (maxiv="Yes",move=["Recover","Toxic","Earthquake","Surf"], ability="Water Absorb")
+bertha9=Whiscash(maxiv="Yes",item="Rindo Berry",move=["Scald","Earthquake","Zen Headbutt","Ice Beam"])
+bertha10=Donphan(maxiv="Yes", ability="Sturdy",move=["Earthquake","Ice Shard","Play Rough","Rock Slide"],item="Expert Belt")
+bertha11=Sudowoodo (maxiv="Yes",item="Sitrus Berry", ability="Rock Head",move=["Double-Edge","Head Smash","Sucker Punch","Low Kick"])
 berthateam= teamset([bertha1,bertha5,bertha3,bertha4,bertha7,bertha6,bertha8,bertha9,bertha10],5)+[bertha2]
-bertha=Trainer("Elite Four Bertha",berthateam,"Sinnoh")
+bertha=Trainer(colored("Elite Four Bertha","yellow"),berthateam,"Sinnoh")
 #rika
 rika1=Camerupt(maxiv="Yes")
 rika2=Whiscash(maxiv="Yes")
@@ -580,32 +588,32 @@ rika7=Irontreads(maxiv="Yes")
 rikateam=teamset([rika1,rika2,rika3,rika4,rika6],5)+teamset([rika5,rika7],1)
 rika=Trainer("Elite Four Rika",rikateam,"Paldea")
 #Flint
-flint1=Rapidash(maxiv="Yes", ability="Flame Body")
-flint2=Entei(maxiv="Yes", ability="Inner Focus")
-flint3=Magmortar(maxiv="Yes",ability="Flame Body",item=random.choice(["Lum Berry","Sitrus Berry"]))
-flint4=Houndoom(maxiv="Yes",item="Houndoominite")
-flint5=Arcanine(maxiv="Yes",ability="Intimidate")
+flint1=Rapidash(maxiv="Yes", ability="Flame Body",move=["Flare Blitz","Hypnosis","Iron Tail","Poison Jab"])
+flint2=Entei(maxiv="Yes", ability="Inner Focus",item="Muscle Band",move=["Sacred Fire","Extreme Speed","Bulldoze","Iron Head"])
+flint3=Magmortar(maxiv="Yes",ability="Flame Body",item=random.choice(["Lum Berry","Sitrus Berry"]),move=["Fire Blast","Thunderbolt","Focus Blast","Psychic"])
+flint4=Houndoom(maxiv="Yes",move=["Flamethrower","Dark Pulse","Nasty Plot","Destiny Bond"])
+flint5=Arcanine(maxiv="Yes",ability="Intimidate",item="Shuca Berry",move=["Flare Blitz","Play Rough","Close Combat","Extreme Speed"])
 flint6=Infernape(maxiv="Yes", ability="Iron Fist",item="Focus Sash",move=["Thunder Punch","Fire Punch","Close Combat","Mach Punch"])
-flint7=Lopunny(maxiv="Yes",item="Leftovers")
-flint8=Drifblim(maxiv="Yes",ability="Unburden",item="Sitrus Berry")
-flint9=Steelix(maxiv="Yes", ability="Sheer Force",item="Life Orb")
-flint10=Flareon(maxiv="Yes", ability="Flash Fire")
-flint11=Ninetales(maxiv="Grass", ability="Drought",item="Heat Rock")
-flint12=HRotom(maxiv="Yes")
-flint13=Blaziken(maxiv="Yes", ability="Speed Boost")
+flint7=Lopunny(maxiv="Yes",item="Leftovers",move=["Mirror Coat","High Jump Kick","Fire Punch","Quick Attack"])
+flint8=Drifblim(maxiv="Yes",ability="Unburden",item="Sitrus Berry",move=["Strength Sap","Will-O-Wisp","Shadow Ball","Destiny Bond"])
+flint9=Steelix(maxiv="Yes", ability="Sheer Force",item="Life Orb",move=["Thunder Fang","Fire Fang","Iron Tail","Crunch"])
+flint10=Flareon(maxiv="Yes", ability="Flash Fire",item="Sitrus Berry",move=["Flare Blitz","Flail","Will-O-Wisp","Quick Attack"])
+flint11=Ninetales(maxiv="Grass", ability="Drought",item="Heat Rock",move=["Flamethrower","Solar Beam","Hypnosis","Nasty Plot"])
+flint12=HRotom(maxiv="Yes",item="Choice Scarf",move=["Overheat","Discharge","Volt Switch","Shadow Ball"])
+flint13=Blaziken(maxiv="Yes", ability="Speed Boost",move=["Protect","Close Combat","Rock Slide","Flare Blitz"])
 flintteam=teamset([flint1,flint2,flint3,flint4,flint5,flint7,flint8,flint9,flint10,flint11,flint12,flint13],5)+[flint6]
-flint=Trainer("Elite Four Flint",flintteam,"Sinnoh")
+flint=Trainer(colored("Elite Four Flint","red"),flintteam,"Sinnoh")
 #Lucian
-lucian1=Farigiraf(maxiv="Yes")
-lucian2=Espeon(maxiv="Yes")
-lucian3=Bronzong(maxiv="Yes")
-lucian4=Alakazam(maxiv="Yes")
-lucian5=Slowbro(maxiv="Yes")
-lucian6=Gallade(maxiv="Yes",item="Galladite")
-lucian7=MrMime(maxiv="Yes")
+lucian1=Farigiraf(maxiv="Yes", ability="Armor Tail",move=["Twin Beam","Recover","Body Slam","Hypnosis"])
+lucian2=Espeon(maxiv="Yes",move=["Psychic","Dazzling Gleam","Shadow Ball","Light Screen"], ability="Magic Bounce")
+lucian3=Bronzong(maxiv="Yes", ability="Levitate",move=["Gyro Ball","Earthquake","Rock Slide","Extrasensory"],item="Muscle Band")
+lucian4=Alakazam(maxiv="Yes",move=["Nasty Plot","Psychic","Dazzling Gleam","Thunderbolt"])
+lucian5=Slowbro(maxiv="Yes", ability="Regenerator",move=["Scald","Psychic","Flamethrower","Psychic"],item="Leftovers")
+lucian6=Gallade(maxiv="Yes",item="Galladite",move=["Close Combat","Psycho Cut","Poison Jab","Shadow Sneak"], ability="Justified")
+lucian7=MrMime(maxiv="Yes",item="Light Clay",move=["Light Screen","Reflect","Psychic","Dazzling Gleam"], ability="Filter")
 lucian8=Medicham(maxiv="Yes")
 lucianteam=teamset([lucian1,lucian2,lucian7,lucian4,lucian5,lucian8],4)+[lucian6,lucian3]
-lucian=Trainer("Elite Four Lucian",lucianteam,"Sinnoh")
+lucian=Trainer(colored("Elite Four Lucian","magenta"),lucianteam,"Sinnoh")
 #Buck
 buck1=Shuckle(maxiv="Yes")
 buck2=Umbreon(maxiv="Yes")
@@ -638,7 +646,7 @@ palmer3=Dragonite(maxiv="Yes",item="Choice Band",move=["Fire Punch","Outrage","E
 palmer4=Cresselia(maxiv="Yes",item="Sitrus Berry",move=["Moonblast","Thunder Wave","Moonlight","Ice Beam"])
 palmer5=Heatran(maxiv="Yes",item="Focus Sash",move=["Heat Wave","Flash Cannon","Dragon Pulse","Earth Power"])
 palmer6=Regigigas(maxiv="Yes",move=["Crush Grip","Earthquake","Knock Off","Protect"],item="Life Orb")
-palmer=Trainer("Tower Tycoon Palmer",[palmer1,palmer2,palmer3,palmer4,palmer5,palmer6],"Sinnoh")
+palmer=Trainer(colored("Tower Tycoon Palmer","green"),[palmer1,palmer2,palmer3,palmer4,palmer5,palmer6],"Sinnoh")
 #Thorton
 Thorton1=Bronzong(maxiv="Yes")
 Thorton2=Ursaluna(maxiv="Yes")
@@ -646,7 +654,7 @@ Thorton3=Ledian(maxiv="Yes")
 Thorton4=Electivire(maxiv="Yes")
 Thorton5=Skarmory(maxiv="Yes")
 Thorton6=Tyranitar(maxiv="Yes",item="Tyranitarite")
-Thorton=Trainer("Factory Head Thorton",[Thorton5,Thorton2,Thorton3,Thorton4,Thorton6,Thorton1],"Sinnoh")
+Thorton=Trainer(colored("Factory Head Thorton","green"),[Thorton5,Thorton2,Thorton3,Thorton4,Thorton6,Thorton1],"Sinnoh")
 #noland
 noland1=Breloom(maxiv="Yes")
 noland2=Rhyperior(maxiv="Yes")
@@ -661,7 +669,7 @@ noland10=Golduck(maxiv="Yes")
 noland11=Manectric(maxiv="Yes")
 noland12=Flygon(maxiv="Yes")
 nolandteam=teamset([noland1,noland2,noland3,noland4,noland5,noland7,noland10,noland11,noland12,noland8,noland9],5)+[noland6]
-noland=Trainer("Factory Head Noland",nolandteam,"Hoenn")
+noland=Trainer(colored("Factory Head Noland","red"),nolandteam,"Hoenn")
 #Darach
 darach1=Staraptor(maxiv="Yes",item="King's Rock",nature="Jolly",move=["Return","Brave Bird","Roost","Close Combat"], ability="Intimidate")
 darach2=Empoleon(maxiv="Yes",item="Razor Claw",move=["Waterfall","Drill Peck","Brick Break","Knock Off"],nature="Adamant",atkev=252)
@@ -671,7 +679,7 @@ darach5=Gallade(maxiv="Yes",nature="Adamant",move=["Psycho Cut","Close Combat","
 darach6=Alakazam(maxiv="Yes",item="Focus Sash",nature="Modest",move=["Nasty Plot","Psychic","Focus Blast","Shadow Ball"])
 darach7=Metagross(maxiv="Yes",item="Air Balloon",move=["Fire Punch","Zen Headbutt","Meteor Mash","Bullet Punch"])
 darachteam=teamset([darach1,darach2,darach3,darach6,darach7],4)+[darach4,darach5]
-darach=Trainer("Castle Velvet Darach",darachteam,"Sinnoh")
+darach=Trainer(colored("Castle Velvet Darach","yellow"),darachteam,"Sinnoh")
 #volo
 volo1=Spiritomb(maxiv="Yes")
 volo2=Togekiss(maxiv="Yes")
@@ -681,7 +689,7 @@ volo5=Garchomp(maxiv="Yes")
 volo6=OGiratina(maxiv="Yes")
 volo7=Roserade(maxiv="Yes")
 voloteam=teamset([volo1,volo2,volo3,volo4,volo7],4)+[volo5,volo6]
-volo=Trainer("Pokémon Wielder Volo",voloteam,"Hisui")
+volo=Trainer(colored("Pokémon Wielder Volo","yellow"),voloteam,"Hisui")
 #Dahlia
 dahlia1=Dusknoir(maxiv="Yes",move=["Will-O-Wisp","Trick Room","Shadow Punch","Trick"],nature="Brave",item="Iron Ball")
 dahlia2=Medicham(maxiv="Yes",nature="Jolly",item="Salac Berry",move=["Zen Headbutt","Fake Out","Bulk Up","Drain Punch"])
@@ -689,7 +697,7 @@ dahlia3=Ludicolo(maxiv="Yes",item="Muscle Band",nature="Adamant",atkev=252,move=
 dahlia4=Blaziken(maxiv="Yes",nature="Adamant",move=["Flare Blitz","High Jump Kick","Thunder Punch","Night Slash"],item="Blazikenite")
 dahlia5=Togekiss(maxiv="Yes",nature="Modest",move=["Air Slash","Aura Sphere","Psychic","Moonblast"],item="Expert Belt")
 dahlia6=Zapdos(maxiv="Yes",nature="Modest",item="Bright Powder",move=["Thunderbolt","Heat Wave","Hurricane","Roost"])
-dahlia=Trainer("Arcade Star Dahlia",[dahlia1,dahlia2,dahlia3,dahlia5,dahlia4,dahlia6],"Sinnoh")
+dahlia=Trainer(colored("Arcade Star Dahlia","yellow"),[dahlia1,dahlia2,dahlia3,dahlia5,dahlia4,dahlia6],"Sinnoh")
 #Archie
 archie7=Walrein(maxiv="Yes")
 archie1=Mightyena(maxiv="Yes")
@@ -697,9 +705,9 @@ archie2=Muk(maxiv="Yes")
 archie3=Crobat(maxiv="Yes")
 archie4=Tentacruel(maxiv="Yes")
 archie5=Sharpedo(maxiv="Yes",nature=random.choice(["Adamant","Jolly"]),move=["Crunch","Ice Fang","Protect",random.choice(["Earthquake","Psychic Fangs"])],item="Sharpedonite")
-archie6=PKyogre(name="Primal Kyogre",maxiv=random.choice(["Grass","Ground"]),nature=random.choice(["Modest","Timid"]),move=["Origin Pulse","Ice Beam",random.choice(["Tera Blast","Calm Mind"]),random.choice(["Water Spout","Thunder"])])
+archie6=Kyogre(maxiv=random.choice(["Grass","Ground"]),nature=random.choice(["Modest","Timid"]),move=["Origin Pulse","Ice Beam",random.choice(["Tera Blast","Calm Mind"]),random.choice(["Water Spout","Thunder"])],item="Blue Orb")
 archieteam=teamset([archie1,archie2,archie3,archie4,archie5],5)+[archie6]
-archie=Trainer("Aqua Leader Archie",archieteam,"Hoenn")
+archie=Trainer(colored("Aqua Leader Archie","blue"),archieteam,"Hoenn")
 #Maxie
 maxie7=Houndoom(maxiv="Yes")
 maxie1=Mightyena(maxiv="Yes")
@@ -707,7 +715,7 @@ maxie2=Weezing(maxiv="Yes")
 maxie3=Crobat(maxiv="Yes")
 maxie4=Torkoal(maxiv="Yes", ability="Drought",item="Heat Rock")
 maxie5=Camerupt(maxiv="Yes",nature="Calm",move=["Fire Blast","Earth Power","Rest","Ancient Power"],item="Camerupite")
-maxie6=PGroudon(name="Primal Groudon",maxiv="Rock",nature="Adamant",move=["Stealth Rock","Swords Dance","Precipice Blades",random.choice(["Rock Tomb","Stone Edge"])])
+maxie6=Groudon(maxiv="Rock",nature="Adamant",move=["Stealth Rock","Swords Dance","Precipice Blades",random.choice(["Rock Tomb","Stone Edge"])],item="Red Orb")
 maxieteam=teamset([maxie1,maxie2,maxie3,maxie4,maxie5],5)+[maxie6]
 maxie=Trainer(colored("Magma Leader Maxie","red"),maxieteam,"Hoenn")
 #Tabitha
@@ -745,7 +753,7 @@ illegal=Trainer("Missing No.",[illegal1,illegal2],"???")
 #cyrus
 cyrus1=Weavile(maxiv="Yes",item="Focus Sash",move=["Fake Out","Ice Punch","Ice Shard","Night Slash"])
 cyrus2=Honchkrow(maxiv="Yes", ability="Super Luck",item="Scope Lens",move=["Night Slash","Drill Peck","Defog","Steel Wing"])
-cyrus3=Crobat(maxiv="Yes",item="Quick Claw",move=["Tailwind","Cross Poison","U-Turn","Dual Wingbeat"], ability="Infiltrator")
+cyrus3=Crobat(maxiv="Yes",item="Quick Claw",move=["Tailwind","Cross Poison","U-turn","Dual Wingbeat"], ability="Infiltrator")
 cyrus5=Houndoom(maxiv="Yes", move=["Fire Blast","Dark Pulse","Sludge Bomb","Shadow Ball"])
 cyrus4=Gyarados (maxiv="Yes",item="Sitrus Berry", move=["Dragon Dance","Ice Fang","Power Whip","Waterfall"], ability="Intimidate")
 cyrus8=Entei(maxiv="Yes",item="Muscle Band",move=["Sacred Fire","Bulldoze","Extreme Speed","Iron Head"], ability="Inner Focus")
@@ -816,8 +824,8 @@ siebold6=Blastoise(maxiv="Yes",item="Blastoisinite",move=["Dragon Pulse","Dark P
 siebold=Trainer(colored("Elite Four Siebold","blue"),[siebold1,siebold2,siebold3,siebold4,siebold5,siebold6],"Kalos")
 #E4 Wikstrom
 wikstrom1=Probopass(maxiv="Yes",move=["Power Gem","Earth Power","Discharge","Flash Cannon"], ability="Sturdy",spatkev=252)
-wikstrom2=Aegislash (maxiv="Yes",move=["Sacred Sword","Iron Head","Shadow Claw","King's Shield"])
-wikstrom3=Escavalier(maxiv="Yes",move=["Double Iron Bash","X-Scissor","U-Turn","Swords Dance"],atkev=252)
+wikstrom2=Aegislash (maxiv="Yes",move=["Sacred Sword","Iron Head","Shadow Claw","King's Shield"],nature="Adamant")
+wikstrom3=Escavalier(maxiv="Yes",move=["Double Iron Bash","X-Scissor","U-turn","Swords Dance"],atkev=252)
 wikstrom4=HGoodra(maxiv="Yes")
 wikstrom5=Klefki(maxiv="Yes",move=["Flash Cannon","Spikes","Dazzling Gleam","Taunt"], ability="Prankster")
 wikstrom6=Scizor(maxiv="Yes",item="Scizorite",move=["X-Scissor","Night Slash","Iron Head","Bullet Punch"],nature="Adamant")
@@ -831,13 +839,13 @@ drasna5=Tyrantrum(maxiv="Yes")
 drasna6=Altaria(maxiv="Yes",item="Altarianite")
 drasna=Trainer(colored("Elite Four Drasna","red"),[drasna1,drasna2,drasna3,drasna4,drasna5,drasna6],"Kalos")
 #E4 Malva
-malva1=Talonflame(maxiv="Yes")
-malva2=Pyroar(maxiv="Yes")
-malva3=Torkoal(maxiv="Yes")
-malva4=Chandelure(maxiv="Yes")
-malva5=Delphox(maxiv="Yes")
-malva6=Houndoom(maxiv="Yes",item="Houndoominite")
-malva7=Yveltal(maxiv="Yes")
+malva1=Talonflame(maxiv="Yes",spatkev=0,atkev=252,move=["Brave Bird","Swords Dance","Roost","Flare Blitz"], ability="Gale Wings",nature="Adamant",item="Leftovers")
+malva2=Pyroar(maxiv="Yes",item=random.choice(["Life Orb","Choice Specs"]),move=["Fire Blast","Hyper Voice","Hidden Power",random.choice(["Will-O-Wisp","Taunt","Flamethrower"])],nature="Timid")
+malva3=Torkoal(maxiv="Yes", ability="Drought",item="Heat Rock",move=["Stealth Rock","Yawn","Lava Plume","Rapid Spin"],nature="Bold")
+malva4=Chandelure(maxiv="Yes", ability="Flash Fire",move=["Fire Blast","Shadow Ball","Energy Ball","Trick"],item="Choice Scarf",nature="Timid")
+malva5=Delphox(maxiv="Yes",item=random.choice(["Life Orb","Salac Berry"]), ability="Blaze", nature="Timid",move=["Fire Blast","Psychic","Calm Mind","Grass Knot"])
+malva6=Houndoom(maxiv="Yes",item="Houndoominite", ability="Flash Fire", nature="Timid",move=["Nasty Plot","Fire Blast","Dark Pulse",random.choice(["Taunt","Will-O-Wisp"])])
+malva7=Yveltal(maxiv="Yes",item=random.choice(["Life Orb","Black Glasses"]), nature="Rash",move=["Dark Pulse","Oblivion Wing","Sucker Punch",random.choice(["Heat Wave","Focus Blast"])])
 malva=Trainer(colored("Elite Four Malva","red"),[malva1,malva2,malva4,malva5,malva6,malva7],"Kalos")
 #n
 n1=Carracosta(maxiv="Yes")
@@ -1042,7 +1050,7 @@ blue2=Alakazam(maxiv="Yes")
 blue3=Rhyperior(maxiv="Yes")
 blue4=Gyarados(maxiv="Yes")
 blue5=Arcanine(maxiv="Yes")
-blue6=Pidgeot(maxiv="Yes",nature="Timid", move=["Hurricane","Heat Wave","Roost","U-Turn"],item="Pidgeotite")
+blue6=Pidgeot(maxiv="Yes",nature="Timid", move=["Hurricane","Heat Wave","Roost","U-turn"],item="Pidgeotite")
 blue7=Machamp(maxiv="Yes")
 blue8=Tyranitar(maxiv="Yes")
 blue9=Blastoise (maxiv="Yes")
@@ -1063,7 +1071,7 @@ falkner2=Honchkrow(maxiv="Yes")
 falkner3=Swellow(maxiv="Yes")
 falkner4=Skarmory(maxiv="Yes")
 falkner5=Noctowl(maxiv="Yes")
-falkner6=Pidgeot(maxiv="Yes",nature="Timid", move=["Hurricane","Heat Wave","Roost","U-Turn"],item="Pidgeotite")
+falkner6=Pidgeot(maxiv="Yes",nature="Timid", move=["Hurricane","Heat Wave","Roost","U-turn"],item="Pidgeotite")
 falkner7=Staraptor(maxiv="Yes")
 falkner8=Fearow(maxiv="Yes")
 falkner9=Xatu(maxiv="Yes")
@@ -1126,8 +1134,8 @@ bren18=Tropius(maxiv="Yes")
 bren19=Raichu(maxiv="Yes")
 bren20=Claydol(maxiv="Yes")
 bren21=Exploud(maxiv="Yes")
-bren10=PGroudon(maxiv="Yes")
-bren22=PKyogre(maxiv="Yes")
+bren10=Groudon(maxiv="Yes")
+bren22=Kyogre(maxiv="Yes")
 bren23=Rayquaza(maxiv="Yes")
 brenteam=teamset([bren1,bren5,bren7,bren8,bren9,bren11,bren12,bren13,bren14,bren15,bren16,bren17,bren18,bren19,bren20,bren21,bren10,bren22,bren23],5)+[bren6]
 brendan=Trainer(colored("Pokémon Trainer Brendan","green"),brenteam,"Hoenn")
@@ -1153,8 +1161,8 @@ may18=Tropius(maxiv="Yes")
 may19=Raichu(maxiv="Yes")
 may20=Claydol(maxiv="Yes")
 may21=Exploud(maxiv="Yes")
-may22=PKyogre(maxiv="Yes")
-may23=PGroudon(maxiv="Yes")
+may22=Kyogre(maxiv="Yes")
+may23=Groudon(maxiv="Yes")
 may24=Rayquaza(maxiv="Yes")
 mayteam=teamset([may1,may2,may3,may4,may5,may7,may8,may9,may10,may11,may12,may13,may14,may15,may16,may17,may18,may19,may20,may21,may22,may23,may24],5)+[may6]
 may=Trainer(colored("Pokémon Trainer May","red"),mayteam,"Hoenn")
@@ -1229,23 +1237,15 @@ drake5=Haxorus(maxiv="Yes")
 drake6=Salamence(maxiv="Yes",item="Salamencite")
 drake=Trainer (colored("Elite Four Drake","red"),[drake1,drake2,drake3,drake4,drake5,drake6],"Hoenn")
 #Karen
-karen1=Weavile(maxiv="Yes")
-karen2=Absol(maxiv="Yes",item="Absolite")
-karen3=Spiritomb(maxiv="Yes")
-karen4=Houndoom(maxiv="Yes")
-karen5=Honchkrow(maxiv="Yes")
-karen6=Umbreon(maxiv="Yes",nature="Careful",move=["Toxic","Wish","Protect","Foul Play"])
-karen7=Vileplume(maxiv="Yes")
-karen8=Gengar(maxiv="Yes")
-karen9=Magmortar(maxiv="Yes")
-karen10=Victreebel (maxiv="Yes")
-karen11=Persian(maxiv="Yes")
-karen12=Slowbro(maxiv="Yes")
-karen13=Electrode(maxiv="Yes")
-karen14=Mismagius (maxiv="Yes")
-karen15=Rapidash(maxiv="Yes")
-karen16=Flareon(maxiv="Yes")
-karenteam=teamset([karen1,karen2,karen3,karen4,karen5,karen7,karen8,karen9,karen10,karen11,karen12,karen13,karen14,karen15,karen16],5)+[karen6]
+karen1=Weavile(maxiv="Yes",move=["Ice Shard","Ice Punch","Low Kick","Night Slash"])
+karen2=Absol(maxiv="Yes",item="Absolite", ability="Super Luck",move=["Psycho Cut","Night Slash","Protect","Play Rough"])
+karen3=Spiritomb(maxiv="Yes",move=["Curse","Sucker Punch","Pain Split","Shadow Sneak"])
+karen4=Houndoom(maxiv="Yes",move=["Nasty Plot","Sludge Bomb","Dark Pulse","Flamethrower"], ability="Flash Fire")
+karen5=Honchkrow(maxiv="Yes",move=["Drill Peck","Thunder Wave","Whirlwind","Sucker Punch"], ability="Super Luck",item="Scope Lens")
+karen6=Umbreon(maxiv="Yes",nature="Careful",move=["Toxic","Wish","Protect","Foul Play"],item="Leftovers", ability="Synchronize")
+karen7=Vileplume(maxiv="Yes",move=["Sleep Powder","Petal Dance","Sludge Bomb","Moonlight"])
+karen8=Gengar(maxiv="Yes",move=["Focus Blast","Destiny Bond","Shadow Ball","Sludge move"], ability="Levitate")
+karenteam=teamset([karen1,karen2,karen3,karen4,karen5,karen7,karen8],5)+[karen6]
 karen=Trainer (colored("Elite Four Karen","yellow"),karenteam,"Johto")
 #brock
 brock1=Omastar(maxiv="Yes",item="Rindo Berry",move=["Hydro Pump","Ancient Power","Ice Beam","Earth Power"])
@@ -1337,7 +1337,7 @@ alderteam=teamset([alder1,alder2,alder3,alder4,alder5,alder7,alder8,alder9,alder
 alder=Trainer (colored("Unova Champion Alder","red"),alderteam,"Unova")
 #barry
 barry1=Roserade(maxiv="Yes", ability="Natural Cure",move=["Sludge Bomb","Giga Drain","Shadow Ball","Sleep Powder"],item="Black Sludge")
-barry2=Staraptor(maxiv="Yes", ability="Reckless",move=["Close Combat","Brave Bird","U-Turn","Double-Edge"], nature="Jolly",item="Choice Scarf")
+barry2=Staraptor(maxiv="Yes", ability="Reckless",move=["Close Combat","Brave Bird","U-turn","Double-Edge"], nature="Jolly",item="Choice Scarf")
 barry3=Hitmonlee(maxiv="Yes")
 barry4=Heracross(maxiv="Yes",item="Heracronite", ability="Moxie",move=["Close Combat","Rock Slide","Earthquake","Bullet Seed"])
 barry5=Skarmory(maxiv="Yes")
@@ -1450,9 +1450,9 @@ odrake=Trainer ("Supreme Gym Leader Drake",[odrake1,odrake2,odrake3,odrake4,odra
 #Leon
 leonmax=random.randint(1,4)
 leon1=MrRime(maxiv="Yes")
-leon2=Aegislash(maxiv="Yes")
+leon2=Aegislash(maxiv="Yes",nature="Adamant",atkev=252)
 leon3=Dragapult (maxiv="Yes")
-leon4=Inteleon(maxiv="Yes",move=[random.choice(["Hydro Pump","Snipe Shot"]),"Dark Pulse","Ice Beam","U-Turn"],nature="Timid")
+leon4=Inteleon(maxiv="Yes",move=[random.choice(["Hydro Pump","Snipe Shot"]),"Dark Pulse","Ice Beam","U-turn"],nature="Timid")
 leon5=Rillaboom(maxiv="Yes",move=["Drum Beating","Acrobatics","High Horsepower","Knock Off"],item="Flying Gem")
 leon6=Cinderace(maxiv="Yes",ability="Libero",move=["Scorching Sands","Pyro Ball","Sucker Punch","Grass Knot"])
 leon7=Charizard (maxiv="Yes",move=["Flamethrower","Ancient Power","Air Slash","Dragon Pulse"],atkev=0,spatkev=252)
@@ -1534,6 +1534,47 @@ cheryl36=Tangrowth(maxiv="Yes")
 cheryl37=Dusknoir(maxiv="Yes")
 cherylteam=teamset([cheryl1,cheryl2,cheryl3,cheryl4,cheryl5,cheryl7,cheryl8,cheryl9,cheryl10,cheryl11,cheryl12,cheryl13,cheryl14,cheryl15,cheryl16,cheryl17,cheryl18,cheryl19,cheryl20,cheryl21,cheryl22,cheryl23,cheryl24,cheryl25,cheryl26,cheryl27,cheryl28,cheryl29,cheryl30,cheryl31,cheryl32,cheryl33,cheryl34,cheryl35,cheryl36,cheryl37],5)+[cheryl6]
 cheryl=Trainer(colored("Pokémon Trainer Cheryl","green"),cherylteam,"Sinnoh")
+#nate
+nate1=Beartic(maxiv="Yes")
+nate2=Archeops(maxiv="Yes")
+nate3=Sawk(maxiv="Yes")
+nate4=Escavalier(maxiv="Yes")
+nate5=Accelgor(maxiv="Yes")
+nate6=Excadrill (maxiv="Yes")
+nate7=Braviary (maxiv="Yes")
+nate8=Mienshao(maxiv="Yes")
+nate9=Vanilluxe (maxiv="Yes")
+nate10=Haxorus(maxiv="Yes")
+nate11=Darmanitan(maxiv="Yes")
+nate12=Golurk(maxiv="Yes")
+nate13=Cryogonal (maxiv="Yes")
+nate14=Reuniclus (maxiv="Yes")
+nate15=Bisharp(maxiv="Yes")
+nate16=Conkeldurr (maxiv="Yes")
+nate17=Krookodile (maxiv="Yes")
+nate18=Chandelure (maxiv="Yes")
+nate19=Bouffalant (maxiv="Yes")
+nate20=Eelektross (maxiv="Yes")
+nate21=Druddigon (maxiv="Yes")
+nate22=Audino(maxiv="Yes")
+nate23=Amoongus(maxiv="Yes")
+nate24=Alomomola(maxiv="Yes")
+nate25=Jellicent (maxiv="Yes")
+nate26=Throh (maxiv="Yes")
+nate27=Cofagrigus(maxiv="Yes")
+nate28=Ferrothorn (maxiv="Yes")
+nate29=Mandibuzz (maxiv="Yes")
+nate30=Klinklang(maxiv="Yes")
+nate31=Lilligant (maxiv="Yes")
+nate32=Durant(maxiv="Yes")
+nate33=Gigalith (maxiv="Yes")
+nate34=Gothitelle (maxiv="Yes")
+nate35=Musharna(maxiv="Yes")
+nate36=Scrafty(maxiv="Yes")
+nate37=Arcanine(maxiv="Yes")
+nateteam=teamset([nate1,nate2,nate3,nate4,nate5,nate7,nate8,nate9,nate10,nate11,nate12,nate13,nate14,nate15,nate16,nate17,nate18,nate19,nate20,nate21,nate22,nate23,nate24,nate25,nate26,nate27,nate28,nate29,nate30,nate31,nate32,nate33,nate34,nate35,nate36,nate6],5)+[nate37]
+rosa=Trainer(colored("Pokémon Trainer Rosa","red"),nateteam,"Unova")
+nate=Trainer(colored("Pokémon Trainer Nate","blue"),nateteam,"Unova")
 #mira
 mira1=PorygonZ(maxiv="Yes")
 mira2=Gengar(maxiv="Yes")
@@ -1598,15 +1639,15 @@ surgeteam=teamset([surge1,surge2,surge3,surge4,surge5,surge7,surge8,surge9],5)+[
 surge=Trainer (colored("Gym Leader Lt.Surge","yellow"),surgeteam,"Kanto")
 #blainehc
 blainehc1=Heliolisk(maxiv="Yes", ability="Solar Power",item="Focus Sash",nature="Timid",move=["Boomburst","Weather Ball","Thunderbolt","Solar Beam"])
-blainehc2=PGroudon(name="Primal Groudon✨",maxiv="Yes", nature="Naive",move=["Precipice Blades","Fire Blast","Stone Edge","Solar Beam"])
-blainehc3=GDarmanitan(maxiv="Yes", ability="Zen Mode",nature="Jolly",move=["Mountain Gale","Flare Blitz","U-Turn","Rock Slide"],item="Ice Gem")
+blainehc2=Groudon(name="Primal Groudon✨",maxiv="Yes", nature="Naive",move=["Precipice Blades","Fire Blast","Stone Edge","Solar Beam"],item="Red Orb")
+blainehc3=GDarmanitan(maxiv="Yes", ability="Zen Mode",nature="Jolly",move=["Mountain Gale","Flare Blitz","U-turn","Rock Slide"],item="Ice Gem")
 blainehc4=Venusaur (maxiv="Yes", ability="Chlorophyll", nature="Modest",item="Focus Sash",move=["Growth","Solar Beam","Sludge Bomb","Weather Ball"])
 blainehc5=Hooh(maxiv="Yes",name="Ho-Oh(Z-Crystal)",nature="Jolly",move=["Sacred Fire","Brave Bird","Earthquake","Solar Beam"])
 blainehc6=Charizard(maxiv="Yes",nature="Jolly",move=["Dragon Dance","Flare Blitz","Dragon Claw","Earthquake"],item="Charizardite X",atkev=252,spatkev=0)
 blainehcteam=teamset([blainehc1,blainehc2,blainehc3,blainehc4,blainehc5],5)+[blainehc6]
 blainehc=Trainer ("Blaine(Hardcore Mode)",blainehcteam,"Kanto")
 #erika
-erika1=Jumpluff(maxiv="Yes", ability="Chlorophyll",move=["U-Turn","Sleep Powder","Giga Drain","Air Slash"])
+erika1=Jumpluff(maxiv="Yes", ability="Chlorophyll",move=["U-turn","Sleep Powder","Giga Drain","Air Slash"])
 erika2=Bellossom(name="Bellossom(Z-Crystal)",maxiv="Yes", ability="Chlorophyll",move=["Sunny Day","Solar Beam","Giga Drain","Weather Ball"])
 erika3=Tangrowth(maxiv="Ice", ability="Regenerator", item="Assault Vest",move=[random.choice(["Hidden Power","Sludge Bomb"]),"Giga Drain","Earthquake","Knock Off"])
 erika4=Victreebel(maxiv="Yes", ability="Chlorophyll",move=["Swords Dance","Sucker Punch","Leaf Blade","Reflect"],item="Salac Berry")
@@ -1658,21 +1699,17 @@ sabrina17=Swoobat(maxiv="Yes")
 sabrinateam=teamset([sabrina1,sabrina2,sabrina3,sabrina4,sabrina5,sabrina7,sabrina8,sabrina9,sabrina10,sabrina11,sabrina12,sabrina13,sabrina14,sabrina15, sabrina16, sabrina17],5)+[sabrina6]
 sabrina=Trainer (colored("Gym Leader Sabrina","magenta"),sabrinateam,"Kanto")
 #koga
-koga1=Ariados(maxiv="Yes")
-koga2=Venomoth(maxiv="Yes")
-koga3=Crobat(name="Crobat(Z-Crystal)",maxiv="Yes")
-koga4=Weezing(maxiv="Yes")
-koga5=Skuntank(maxiv="Yes")
-koga6=Muk(maxiv="Yes")
-koga7=Toxicroak(maxiv="Yes")
-koga8=Forretress(maxiv="Yes")
-koga9=Tentacruel (maxiv="Yes")
-koga10=Beedrill(maxiv="Yes",item="Beedrillite")
-koga11=Ditto(maxiv="Yes")
-koga12=Pidgeot(maxiv="Yes")
-koga13=Tangrowth (maxiv="Yes")
-koga14=Swalot (maxiv="Yes")
-kogateam=teamset([koga1,koga2,koga3,koga4,koga5,koga7,koga8,koga9,koga10,koga11,koga12,koga13,koga14],5)+[koga6]
+koga1=Ariados(maxiv="Yes",move=["Sticky Web","Megahorn","Poison Jab","Night Shade"], ability="Insomnia")
+koga2=Venomoth(maxiv="Yes",move=["Sludge Bomb","Giga Drain","Psychic","Bug Buzz"])
+koga3=Crobat(name="Crobat(Z-Crystal)",maxiv="Yes",move=["Sky Attack","Cross Poison","Toxic","Poison Jab"], ability="Inner Focus")
+koga4=Weezing(maxiv="Yes",move=["Fire Blast","Thunder","Toxic","Sludge Bomb"])
+koga5=Skuntank(maxiv="Yes",move=["Sucker Punch","Flamethrower","Explosion","Sludge Bomb"], ability="Aftermath")
+koga6=Muk(maxiv="Yes",move=["Dark Pulse","Moonblast","Giga Drain","Sludge Bomb"])
+koga7=Toxicroak(maxiv="Yes", ability="Dry Skin",move=["X-Scissor","Cross Chop","Gunk Shot","Drain Punch"])
+koga8=Forretress(maxiv="Yes",move=["Explosion","Protect","Toxic Spikes","Spikes"], ability="Sturdy")
+koga9=Tentacruel (maxiv="Yes",move=["Sludge Bomb","Giga Drain","Toxic","Hydro Pump"])
+koga14=Swalot (maxiv="Yes",move=["Amnesia","Sludge Bomb","Pain Split","Yawn"], ability="Sticky Hold",item="Leftovers")
+kogateam=teamset([koga1,koga2,koga3,koga4,koga5,koga7,koga8,koga9,koga14],5)+[koga6]
 koga=Trainer (colored("Elite Four Koga","magenta"),kogateam,"Kanto")
 #Guzma
 Guzma1=Ariados(maxiv="Yes")
@@ -2452,12 +2489,12 @@ hassel6=Baxcalibur(name="Baxcalibur",maxiv="Dragon", ability="Thermal Exchange",
 hasselteam=teamset([hassel2,hassel3,hassel4,hassel5,hassel1],5)+[hassel6]
 hassel=Trainer (colored("Elite Four Hassel","red"),hasselteam,"Paldea")
 #poppy
-poppy1=Bronzong(maxiv="Yes")
-poppy2=Copperajah(maxiv="Yes")
-poppy3=Magnezone(maxiv="Yes")
-poppy4=Corviknight(maxiv="Yes")
+poppy1=Bronzong(maxiv="Yes",move=["Iron Defense","Zen Headbutt","Rock Blast","Earthquake"], ability="Levitate")
+poppy2=Copperajah(maxiv="Yes",move=["High Horsepower","Heavy Slam","Stealth Rock","Play Rough"], ability="Sheer Force")
+poppy3=Magnezone(maxiv="Fire",move=["Discharge","Flash Fire","Light Screen","Hidden Power"], ability="Sturdy")
+poppy4=Corviknight(maxiv="Yes", ability="Pressure",move=["Brave Bird","Iron Head","Iron Defense","Body Press"])
 poppy5=Gholdengo(maxiv="Yes")
-poppy6=Tinkaton(name="Tinkaton",maxiv="Steel")
+poppy6=Tinkaton(maxiv="Steel",move=["Play Rough","Gigaton Hammer","Brick Break","Stone Edge"])
 poppyteam=teamset([poppy2,poppy3,poppy4,poppy5,poppy1],5)+[poppy6]
 poppy=Trainer (colored("Elite Four Poppy","white"),poppyteam,"Paldea")
 #geeta
@@ -2498,6 +2535,15 @@ valerie5=Mawile(maxiv="Yes", item="Mawilite")
 valerie6=Sylveon(maxiv="Yes")
 valerieteam=teamset([valerie2,valerie3,valerie4,valerie5,valerie1],5)+[valerie6]
 valerie=Trainer (colored("Gym Leader Valerie","magenta"),valerieteam,"Kalos")
+#kogah
+kogah1=Swellow(maxiv="Yes",item="Choice Specs", ability="Aerilate",nature="Timid",move=["Boomburst","U-turn","U-turn","Boomburst"])
+kogah2=Accelgor(maxiv="Yes",item="Life Orb", ability="Sheer Force",nature="Timid",move=["Bug Buzz","U-turn","Focus Blast","Sludge Bomb"])
+kogah3=Drapion(maxiv="Yes",item="Choice Scarf", ability="Sniper",nature="Jolly",move=["Wicked Blow","Cross Poison","Wicked Blow","Cross Poison"])
+kogah4=Greninja(maxiv="Yes",item="Life Orb", ability="Battle Bond",nature="Timid",move=["Surf","Water Shuriken","Dark Pulse","Ice Beam"])
+kogah5=Dragapult(maxiv="Yes", item="Life Orb", ability="Infiltrator",nature="Timid",move=["Shadow Ball","Flamethrower","Dragon Pulse","U-turn"],spatkev=252,atkev=0)
+kogah6=Toxtricity(maxiv="Yes",item="Throat Spray", ability="Punk Rock",nature="Timid",move=["Volt Switch","Boomburst","Sludge Bomb","Overdrive"])
+kogahteam=teamset([kogah2,kogah3,kogah4,kogah5,kogah1],5)+[kogah6]
+kogah=Trainer (colored("Koga(Hard Mode)","magenta"),kogahteam,"Kanto")
 #olympia
 olympia1=Reuniclus(maxiv="Yes", ability="Magic Guard")
 olympia2=Malamar(maxiv="Yes", ability="Contrary")
@@ -2602,7 +2648,7 @@ giallo4=Mandibuzz(maxiv="Yes")
 giallo5=Hydreigon(maxiv="Yes")
 giallo6=Krookodile(maxiv="Yes")
 gialloteam=teamset([giallo2,giallo3,giallo4,giallo5,giallo1],5)+[giallo6]
-giallo=Trainer ("Plasma Sage Giallo",gialloteam,"Unova")
+giallo=Trainer (colored("Plasma Sage Giallo","yellow"),gialloteam,"Unova")
 #opal
 opal1=GRapidash(maxiv="Yes")
 opal2=Primarina(maxiv="Yes")
@@ -2620,7 +2666,7 @@ xadv4=Manectric(maxiv="Yes")
 xadv5=Gengar(maxiv="Yes")
 xadv6=Pinsir(maxiv="Yes")
 xadvteam=teamset([xadv2,xadv6,xadv4,xadv5,xadv1],5)+[xadv3]
-xadv=Trainer ("Pokémon Trainer X",xadvteam,"Kalos")
+xadv=Trainer (colored("Pokémon Trainer X","blue"),xadvteam,"Kalos")
 #bede
 bede1=GRapidash(maxiv="Yes")
 bede2=Gardevoir(maxiv="Yes")
@@ -2695,7 +2741,7 @@ nemona5=Skeledirge(maxiv="Yes")
 nemona6=Meowscarada(maxiv="Yes")
 nemona7=Quaquaval(maxiv="Yes")
 nemonateam=teamset([nemona2,nemona6,nemona4,nemona5,nemona1,nemona7],5)+[nemona3]
-nemona=Trainer ("Pokémon Trainer Nemona",nemonateam,"Paldea")
+nemona=Trainer (colored("Pokémon Trainer Nemona","blue"),nemonateam,"Paldea")
 #katy
 katy1=Lokix(maxiv="Yes")
 katy2=Forretress(maxiv="Yes")
@@ -2767,7 +2813,7 @@ gorm4=Kingambit(maxiv="Yes")
 gorm5=Banette(maxiv="Yes",item="Banettite")
 gorm6=Cofagrigus(maxiv="Yes")
 gormteam=teamset([gorm2,gorm3,gorm4,gorm5,gorm1],5)+[gorm6]
-gorm=Trainer ("Plasma Sage Gorm",gormteam,"Unova")
+gorm=Trainer (colored("Plasma Sage Gorm","yellow"),gormteam,"Unova")
 #sordward
 sordward1=Falinks(maxiv="Yes")
 sordward2=Golisopod(maxiv="Yes")
@@ -2787,17 +2833,18 @@ shielbert6=Zamazenta(maxiv="Yes")
 shielbertteam=teamset([shielbert2,shielbert3,shielbert4,shielbert5,shielbert1],5)+[shielbert6]
 shielbert=Trainer (colored("Pokémon Trainer Shielbert","red"),shielbertteam,"Galar")
 #gladion
-gladion1=Zoroark(maxiv="Yes")
-gladion2=Crobat(maxiv="Yes")
-gladion3=Weavile(maxiv="Yes")
-gladion4=MNLycanroc(name="Midnight Lycanroc(Z-Crystal)",maxiv="Yes",move=["Stone Edge","Swords Dance","Outrage","Crunch"])
-gladion5=Lucario(maxiv="Yes",item="Lucarionite")
-gladion6=Silvally(maxiv="Yes")
-gladion7=Venusaur(maxiv="Yes")
-gladion8=Charizard(maxiv="Yes")
-gladion9=Blastoise(maxiv="Yes")
+gladion1=Zoroark(maxiv="Yes",move=["Night Daze","Hyper Voice","Grass Knot","Foul Play"])
+gladion2=Crobat(maxiv="Yes", ability="Inner Focus",move=["Acrobatics","X-Scissor","Steel Wing","Cross Poison"])
+gladion3=Weavile(maxiv="Yes",move=["Ice Shard","Night Slash","Brick Break","Shadow Claw"])
+gladion4=MNLycanroc(name="Midnight Lycanroc(Z-Crystal)",maxiv=random.choice(["Yes","Rock","Dragon"]),move=["Stone Edge","Swords Dance","Outrage","Crunch"])
+gladion5=Lucario(maxiv="Yes",item="Lucarionite",move=["Aura Sphere","Flash Cannon","Psychic","Extreme Speed"],spatkev=252, ability="Inner Focus")
+gladion6=Silvally(maxiv="Yes",move=["Crunch","Multi-Attack","Crush Claw","X-Scissor"])
+gladion7=Venusaur(maxiv="Yes",move=["Petal Blizzard","Sludge Bomb","Earthquake","Outrage"],atkev=252)
+gladion8=Charizard(maxiv="Yes",move=["Air Slash","Flamethrower","Outrage","Earthquake"], atkev=252)
+gladion9=Blastoise(maxiv="Yes",move=["Surf","Ice Beam","Earthquake","Outrage"],atkev=252)
 gladion10=Nihilego(name="Lille✨",maxiv="Yes")
-gladionteam=teamset([gladion2,gladion3,gladion4,gladion5,gladion1,gladion10],4)+teamset([gladion7,gladion8,gladion9],1)+[gladion6]
+gladion11=PorygonZ(maxiv="Yes",move=["Dark Pulse","Ice Beam","Thunderbolt","Hyper Beam"])
+gladionteam=teamset([gladion2,gladion3,gladion4,gladion5,gladion1,gladion10,gladion11],4)+teamset([gladion7,gladion8,gladion9],1)+[gladion6]
 gladion=Trainer (colored("Pokémon Trainer Gladion","yellow"),gladionteam,"Alola")
 #morimoto
 morimoto1=Spiritomb(maxiv="Yes")
@@ -2825,7 +2872,7 @@ morimoto22=Simipour(maxiv="Yes")
 morimoto23=Simisage(maxiv="Yes")
 morimoto24=Simisear (maxiv="Yes")
 morimototeam=teamset([morimoto2,morimoto3,morimoto4,morimoto5,morimoto1,morimoto10,morimoto7,morimoto8,morimoto9,morimoto6,morimoto11,morimoto12,morimoto13,morimoto14,morimoto15,morimoto16,morimoto17,morimoto18,morimoto19,morimoto20,morimoto21,morimoto22,morimoto23,morimoto24],6)
-morimoto=Trainer ("GAME FREAK's Morimoto",morimototeam,"Alola")
+morimoto=Trainer (colored("GAME FREAK's Morimoto","yellow"),morimototeam,"Alola")
 #dawn
 dawn1=Lopunny(maxiv="Yes")
 dawn2=Typhlosion (maxiv="Yes",item="Choice Scarf")
@@ -2889,7 +2936,7 @@ bronius4=Bisharp(maxiv="Yes")
 bronius5=Sableye(maxiv="Yes",item="Sablenite")
 bronius6=Amoongus(maxiv="Yes")
 broniusteam=teamset([bronius2,bronius3,bronius4,bronius5,bronius1],5)+[bronius6]
-bronius=Trainer ("Plasma Sage Bronius",broniusteam,"Unova")
+bronius=Trainer (colored("Plasma Sage Bronius","yellow"),broniusteam,"Unova")
 #ryoku
 ryoku1=Garbodor(maxiv="Yes")
 ryoku2=Absol(maxiv="Yes")
@@ -2898,7 +2945,7 @@ ryoku4=Bisharp(maxiv="Yes")
 ryoku5=Pinsir(maxiv="Yes",item="Pinsirite")
 ryoku6=Scolipede(maxiv="Yes")
 ryokuteam=teamset([ryoku2,ryoku3,ryoku4,ryoku5,ryoku1],5)+[ryoku6]
-ryoku=Trainer ("Plasma Sage Ryoku",ryokuteam,"Unova")
+ryoku=Trainer (colored("Plasma Sage Ryoku","yellow"),ryokuteam,"Unova")
 #rood
 rood1=Swoobat(maxiv="Yes")
 rood2=Stoutland(maxiv="Yes")
@@ -2907,7 +2954,7 @@ rood4=Granbull(maxiv="Yes")
 rood5=Houndoom(maxiv="Yes",item="Houndoominite")
 rood6=Chandelure(maxiv="Yes")
 roodteam=teamset([rood2,rood3,rood4,rood5,rood1],5)+[rood6]
-rood=Trainer ("Plasma Sage Rood",roodteam,"Unova")
+rood=Trainer (colored("Plasma Sage Rood","yellow"),roodteam,"Unova")
 #zinzolin
 zinzolin1=Abomasnow(maxiv="Yes",item="Abomasite")
 zinzolin2=Vanilluxe(maxiv="Yes")
@@ -2916,7 +2963,7 @@ zinzolin4=Weavile(maxiv="Yes")
 zinzolin5=Kyurem(maxiv="Yes")
 zinzolin6=Cryogonal(name="Cryogonal",maxiv="Steel")
 zinzolinteam=teamset([zinzolin2,zinzolin3,zinzolin4,zinzolin5,zinzolin1],5)+[zinzolin6]
-zinzolin=Trainer ("Plasma Sage Zinzolin",zinzolinteam,"Unova")
+zinzolin=Trainer (colored("Plasma Sage Zinzolin","yellow"),zinzolinteam,"Unova")
 #colress
 colress1=Magnezone(maxiv="Yes")
 colress2=Beheeyem(maxiv="Yes")
@@ -2927,7 +2974,7 @@ colress6=Klinklang(maxiv="Yes")
 colress7=Muk(maxiv="Yes")
 colress8=Electrode(maxiv="Yes")
 colressteam=teamset([colress2,colress3,colress4,colress5,colress1,colress7,colress8],5)+[colress6]
-colress=Trainer ("Team Plasma Colress",colressteam,"Unova")
+colress=Trainer (colored("Plasma Admin Colress","yellow"),colressteam,"Unova")
 #argenta
 argenta1=random.choice(allmon)(maxiv="Yes")
 argenta2=random.choice(allmon)(maxiv="Yes")
@@ -2960,7 +3007,7 @@ eusine3=Hypno(maxiv="Yes")
 eusine4=Alakazam(maxiv="Yes",item="Alakazite")
 eusine5=Gengar(maxiv="Yes")
 eusine6=Electrode(maxiv="Yes")
-eusine=Trainer("Pokémon Trainer Eusine",[eusine1,eusine2,eusine3,eusine4,eusine5,eusine6],"Johto")
+eusine=Trainer(colored("Pokémon Trainer Eusine","magenta"),[eusine1,eusine2,eusine3,eusine4,eusine5,eusine6],"Johto")
 #evelyn
 evelyn1=Pachirisu(maxiv="Yes",item="Sitrus Berry")
 evelyn2=Primeape(maxiv="Yes",item="Scope Lens")
@@ -2971,7 +3018,7 @@ evelyn6=Latios(maxiv="Yes",item="Latiosite")
 evelyn7=Persian(maxiv="Yes",item="Life Orb")
 evelyn8=Lumineon(maxiv="Yes",item="Expert Belt")
 evelynteam=teamset([evelyn7,evelyn8,evelyn1,evelyn2,evelyn3,evelyn4,evelyn6],5)+[evelyn5]
-evelyn=Trainer("Battle Chatelaine Evelyn",evelynteam,"Hoenn")
+evelyn=Trainer(colored("Battle Chatelaine Evelyn","white"),evelynteam,"Hoenn")
 #morgan
 morgan1=Mantine(maxiv="Yes",item="Wacan Berry")
 morgan2=Sawsbuck (maxiv="Yes",item="Leftovers")
@@ -2982,7 +3029,7 @@ morgan6=Virizion(maxiv="Yes",item="Coba Berry")
 morgan7=Terrakion(maxiv="Yes",item="Sitrus Berry")
 morgan8=Latias(maxiv="Yes",item="Latiasite")
 morganteam=teamset([morgan7,morgan8,morgan1,morgan2,morgan3,morgan4,morgan6],5)+[morgan5]
-morgan=Trainer("Battle Chatelaine Morgan",morganteam,"Hoenn")
+morgan=Trainer(colored("Battle Chatelaine Morgan","white"),morganteam,"Hoenn")
 #nita
 nita1=Purugly(maxiv="Yes",item="Life Orb")
 nita2=Wigglytuff (maxiv="Yes",item="Leftovers")
@@ -2991,7 +3038,7 @@ nita4=Tornadus(maxiv="Yes",item="Yache Berry")
 nita5=Thundurus(maxiv="Yes",item="Sitrus Berry")
 nita6=Landorus(maxiv="Yes",item="Choice Scarf")
 nitateam=teamset([nita1,nita2,nita3,nita4,nita5],5)+[nita6]
-nita=Trainer("Battle Chatelaine Nita",nitateam,"Hoenn")
+nita=Trainer(colored("Battle Chatelaine Nita","white"),nitateam,"Hoenn")
 #dana
 dana1=Mamoswine (maxiv="Yes",item="Persim Berry")
 dana2=Dragalge (maxiv="Yes",item="Bright Powder")
@@ -3006,7 +3053,7 @@ dana10=Regirock (maxiv="Yes",item="Luminous Moss")
 dana11=Regice (maxiv="Yes")
 dana12=Registeel(maxiv="Yes",item="King's Rock")
 danateam=teamset([dana1,dana2,dana3,dana4,dana5,dana6,dana7,dana8,dana9,dana10,dana11],5)+[dana12]
-dana=Trainer("Battle Chatelaine Dana",danateam,"Hoenn")
+dana=Trainer(colored("Battle Chatelaine Dana","white"),danateam,"Hoenn")
 #courtney
 courtney1=Mightyena(maxiv="Yes")
 courtney2=Weezing(maxiv="Yes")
@@ -3051,7 +3098,7 @@ adaman3=Glaceon(maxiv="Yes")
 adaman4=Vaporeon(maxiv="Yes")
 adaman5=Leafeon(maxiv="Yes")
 adaman6=Umbreon(maxiv="Yes")
-adaman=Trainer("Clan Leader Adaman",[adaman1,adaman2,adaman3,adaman4,adaman5,adaman6],"Hisui")
+adaman=Trainer(colored("Clan Leader Adaman","blue"),[adaman1,adaman2,adaman3,adaman4,adaman5,adaman6],"Hisui")
 #celosia
 celosia1=Absol(maxiv="Yes")
 celosia2=Zoroark(maxiv="Yes")
@@ -3060,7 +3107,7 @@ celosia4=Liepard(maxiv="Yes")
 celosia5=Drapion(maxiv="Yes")
 celosia6=Manectric(maxiv="Yes",item="Manectite")
 celosiateam=teamset([celosia2,celosia3,celosia4,celosia5,celosia1],5)+[celosia6]
-celosia=Trainer ("Team Flare Celosia",celosiateam,"Kalos")
+celosia=Trainer (colored("Team Flare Celosia","red"),celosiateam,"Kalos")
 #bryony
 bryony1=Mandibuzz(maxiv="Yes")
 bryony2=Krookodile(maxiv="Yes")
@@ -3094,10 +3141,10 @@ xerosic=Trainer (colored("Team Flare Xerosic","red"),xerosicteam,"Kalos")
 bossheatran=Heatran(name="Legendary Heatran",maxiv="Yes",hpev=252,atkev=252,defev=252,spatkev=252,speedev=252,item="Magma Stone",move=["Magma Storm","Flash Cannon","Earth Power","Fire Blast"])
 cheatran=Trainer("Trial Legend Crescent",[bossheatran])
 #kyogre
-bosskyogre=PKyogre(name="Legendary Kyogre",maxiv="Yes",hpev=252,atkev=252,defev=252,spatkev=252,speedev=252,item="Navy Orb",move=["Origin Pulse","Water Spout","Thunder","Ice Beam"])
+bosskyogre=Kyogre(name="Legendary Kyogre",maxiv="Yes",hpev=252,atkev=252,defev=252,spatkev=252,speedev=252,item="Navy Orb",move=["Origin Pulse","Water Spout","Thunder","Ice Beam"])
 ckyogre=Trainer("Trial Legend Crescent",[bosskyogre])
 #groudon
-bossgroudon=PGroudon(name="Legendary Groudon",maxiv="Yes",hpev=252,atkev=252,defev=252,spatkev=252,speedev=252,item="Crimson Orb",move=["Precipice Blades","Eruption","Earthquake","Solar Beam"])
+bossgroudon=Groudon(name="Legendary Groudon",maxiv="Yes",hpev=252,atkev=252,defev=252,spatkev=252,speedev=252,item="Crimson Orb",move=["Precipice Blades","Eruption","Earthquake","Solar Beam"])
 cgroudon=Trainer("Trial Legend Crescent",[bossgroudon])
 #raikou
 bossraikou=Raikou(name="Legendary Raikou",maxiv="Yes",hpev=252,atkev=252,defev=252,spatkev=252,speedev=252,item="Rainbow Feather",move=["Thunder Fang","Crunch","Extreme Speed","Wild Charge"])
@@ -3111,7 +3158,7 @@ giacomo3=Mabosstiff(maxiv="Yes")
 giacomo4=Krookodile(maxiv="Yes")
 giacomo5=Kingambit(maxiv="Yes")
 giacomo6=Revavroom(name="Segin Starmobile",type1="Dark",type2=None,maxiv="Yes",move=["Wicked Torque","Spin Out","Poison Jab","Gunk Shot"])
-giacomo=Trainer("Team Star Giacomo",[giacomo1,giacomo2,giacomo3,giacomo4,giacomo5,giacomo6],"Paldea")
+giacomo=Trainer(colored("Team Star Giacomo","red"),[giacomo1,giacomo2,giacomo3,giacomo4,giacomo5,giacomo6],"Paldea")
 #mela
 mela1=Torkoal(maxiv="Yes")
 mela2=Coalossal(maxiv="Yes")
@@ -3119,7 +3166,7 @@ mela3=Arcanine(maxiv="Yes")
 mela4=Armarouge(maxiv="Yes")
 mela5=Houndoom(maxiv="Yes",item="Houndoominite")
 mela6=Revavroom(name="Schedar Starmobile",type1="Fire",type2=None,maxiv="Yes",move=["Blazing Torque","Spin Out","Poison Jab","Gunk Shot"])
-mela=Trainer("Team Star Mela",[mela1,mela2,mela3,mela4,mela5,mela6],"Paldea")
+mela=Trainer(colored("Team Star Mela","red"),[mela1,mela2,mela3,mela4,mela5,mela6],"Paldea")
 #atticus
 atticus1=Skuntank(maxiv="Yes")
 atticus2=Muk(maxiv="Yes")
@@ -3127,7 +3174,7 @@ atticus3=Dragalge(maxiv="Yes")
 atticus4=Toxapex(maxiv="Yes")
 atticus5=Grafaiai(maxiv="Yes")
 atticus6=Revavroom(name="Navi Starmobile",type1="Poison",type2=None,maxiv="Yes",move=["Noxious Torque","Spin Out","Poison Jab","Gunk Shot"])
-atticus=Trainer("Team Star Atticus",[atticus1,atticus2,atticus3,atticus4,atticus5,atticus6],"Hoenn")
+atticus=Trainer(colored("Team Star Atticus","red"),[atticus1,atticus2,atticus3,atticus4,atticus5,atticus6],"Hoenn")
 #ortega
 ortega1=Azumarill(maxiv="Yes")
 ortega2=Wigglytuff(maxiv="Yes")
@@ -3135,7 +3182,7 @@ ortega3=Dachsbun(maxiv="Yes")
 ortega4=Klefki(maxiv="Yes")
 ortega5=Hatterene(maxiv="Yes")
 ortega6=Revavroom(name="Ruchbah Starmobile",type1="Fairy",type2=None,maxiv="Yes",move=["Magical Torque","Spin Out","Poison Jab","Gunk Shot"])
-ortega=Trainer("Team Star Ortega",[ortega1,ortega2,ortega3,ortega4,ortega5,ortega6],"Paldea")
+ortega=Trainer(colored("Team Star Ortega","red"),[ortega1,ortega2,ortega3,ortega4,ortega5,ortega6],"Paldea")
 #eri
 eri1=Toxicroak(maxiv="Yes")
 eri2=Passimian(maxiv="Yes")
@@ -3143,7 +3190,7 @@ eri3=Primeape(maxiv="Yes")
 eri4=Annihilape(maxiv="Yes")
 eri5=Lucario(maxiv="Yes",item="Lucarionite")
 eri6=Revavroom(name="Caph Starmobile",type1="Fighting",type2=None,maxiv="Yes",move=["Combat Torque","Spin Out","Poison Jab","Gunk Shot"])
-eri=Trainer("Team Star Eri",[eri1,eri2,eri3,eri4,eri5,eri6],"Paldea")
+eri=Trainer(colored("Team Star Eri","red"),[eri1,eri2,eri3,eri4,eri5,eri6],"Paldea")
 #penny
 penny1=Umbreon(maxiv="Yes")
 penny2=Leafeon(maxiv="Yes")
@@ -3151,7 +3198,7 @@ penny3=Flareon(maxiv="Yes")
 penny4=Jolteon(maxiv="Yes")
 penny5=Vaporeon(maxiv="Yes")
 penny6=Sylveon(name="Sylveon",maxiv="Fairy")
-penny=Trainer("Star Leader Penny",[penny1,penny2,penny3,penny4,penny5,penny6],"Paldea")
+penny=Trainer(colored("Star Leader Penny","red"),[penny1,penny2,penny3,penny4,penny5,penny6],"Paldea")
 #mai
 mai1=Snorlax(maxiv="Yes")
 mai2=Weavile(maxiv="Yes")
@@ -3160,7 +3207,7 @@ mai4=Ambipom(maxiv="Yes")
 mai5=Floatzel(maxiv="Yes")
 mai6=Wyrdeer(maxiv="Yes")
 maiteam=teamset([mai1,mai2,mai3,mai4,mai5],5)+[mai6]
-mai=Trainer("Warden Mai",maiteam,"Hisui")
+mai=Trainer(colored("Warden Mai","white"),maiteam,"Hisui")
 #lian
 lian1=Mamoswine(maxiv="Yes")
 lian2=HGoodra(maxiv="Yes")
@@ -3169,7 +3216,7 @@ lian4=Hippowdon(maxiv="Yes")
 lian5=Rhyperior(maxiv="Yes")
 lian6=Kleavor(maxiv="Yes")
 lianteam=teamset([lian1,lian2,lian3,lian4,lian5],5)+[lian6]
-lian=Trainer("Warden Lian",lianteam,"Hisui")
+lian=Trainer(colored("Warden Lian","yellow"),lianteam,"Hisui")
 #calaba
 calaba1=Bibarel(maxiv="Yes")
 calaba2=Lickilicky(maxiv="Yes")
@@ -3178,7 +3225,7 @@ calaba4=Lopunny(maxiv="Yes",item="Lopunnite")
 calaba5=Purugly(maxiv="Yes")
 calaba6=Ursaluna(maxiv="Yes")
 calabateam=teamset([calaba1,calaba2,calaba3,calaba4,calaba5],5)+[calaba6]
-calaba=Trainer("Warden Calaba",calabateam,"Hisui")
+calaba=Trainer(colored("Warden Calaba","yellow"),calabateam,"Hisui")
 #iscan
 iscan1=EGastrodon(maxiv="Yes")
 iscan2=Empoleon(maxiv="Yes")
@@ -3187,7 +3234,7 @@ iscan4=Sharpedo(maxiv="Yes")
 iscan5=Floatzel(maxiv="Yes")
 iscan6=Basculegion(maxiv="Yes")
 iscanteam=teamset([iscan1,iscan2,iscan3,iscan4,iscan5],5)+[iscan6]
-iscan=Trainer("Warden Iscan",iscanteam,"Hisui")
+iscan=Trainer(colored("Warden Iscan","blue"),iscanteam,"Hisui")
 #palina
 palina1=Torkoal(maxiv="Yes")
 palina2=Infernape(maxiv="Yes")
@@ -3196,7 +3243,7 @@ palina4=Rapidash(maxiv="Yes")
 palina5=Camerupt(maxiv="Yes")
 palina6=HArcanine(maxiv="Yes")
 palinateam=teamset([palina1,palina2,palina3,palina4,palina5],5)+[palina6]
-palina=Trainer("Warden Palina",palinateam,"Hisui")
+palina=Trainer(colored("Warden Palina","red"),palinateam,"Hisui")
 #peony
 peony1=Bronzong(maxiv="Yes")
 peony2=Perrserker(maxiv="Yes")
@@ -3205,7 +3252,7 @@ peony4=Aggron(maxiv="Yes")
 peony5=Scizor(maxiv="Yes")
 peony6=Copperajah(maxiv="Yes")
 peonyteam=teamset([peony1,peony2,peony3,peony4,peony5],5)+[peony6]
-peony=Trainer ("Champion Peony",peonyteam,"Alola")
+peony=Trainer (colored("Champion Peony","red"),peonyteam,"Alola")
 #klara
 klara1=Amoongus(maxiv="Yes")
 klara2=Drapion(maxiv="Yes")
@@ -3214,7 +3261,7 @@ klara4=GWeezing(maxiv="Yes")
 klara5=GSlowking (maxiv="Yes")
 klara6=GSlowbro(maxiv="Yes")
 klarateam=teamset([klara2,klara3,klara4,klara5,klara1],5)+[klara6]
-klara=Trainer ("Gym Leader Klara",klarateam,"Galar")
+klara=Trainer (colored("Gym Leader Klara","magenta"),klarateam,"Galar")
 #avery
 avery1=Indeedee(maxiv="Yes")
 avery2=GSlowking(maxiv="Yes")
@@ -3223,7 +3270,7 @@ avery4=Alakazam(maxiv="Yes")
 avery5=GRapidash(maxiv="Yes")
 avery6=GSlowbro(maxiv="Yes")
 averyteam=teamset([avery2,avery3,avery4,avery5,avery1],5)+[avery6]
-avery=Trainer ("Gym Leader Avery",averyteam,"Galar")
+avery=Trainer (colored("Gym Leader Avery","magenta"),averyteam,"Galar")
 #arven
 arven1=Greedent(maxiv="Yes")
 arven2=Cloyster(maxiv="Yes")
@@ -3232,7 +3279,7 @@ arven4=Toedscruel(maxiv="Yes")
 arven5=Garganacl(maxiv="Yes")
 arven6=Mabosstiff(name="Mabosstiff",maxiv="Dark")
 arventeam=teamset([arven2,arven3,arven4,arven5,arven1],5)+[arven6]
-arven=Trainer ("Pokémon Trainer Arven",arventeam,"Paldea")
+arven=Trainer (colored("Pokémon Trainer Arven","white"),arventeam,"Paldea")
 #jessie
 jessie1=Wobbuffet(maxiv="Yes")
 jessie2=Seviper(maxiv="Yes")
@@ -3256,7 +3303,7 @@ clavell7=Amoongus(maxiv="Yes")
 clavell8=Meowscarada(name="Meowscarada",maxiv=random.choice(["Grass","Dark"]))
 clavell9=Skeledirge(name="Skeledirge",maxiv=random.choice(["Fire","Ghost"]))
 clavellteam=teamset([clavell2,clavell3,clavell4,clavell5,clavell1,clavell7],5)+teamset([clavell6, clavell9, clavell8],1)
-clavell=Trainer ("Director Clavell Mesagoza",clavellteam,"Paldea")
+clavell=Trainer (colored("Director Clavell Mesagoza","white"),clavellteam,"Paldea")
 #zoey
 zoey1=Glameow(maxiv="Yes")
 zoey2=Lumineon(maxiv="Yes")
@@ -3286,7 +3333,7 @@ james9=Meowth(maxiv="Yes")
 jamesteam=teamset([james2,james3,james4,james5,james1,james6,james7,james8],5)+[james9]
 james=Trainer (colored("Team Rocket James","cyan"),jamesteam,"Kanto")
 jessiejamesteam=teamset([james2,james3,james4,james5,james1,james6,james7,james8,jessie2,jessie3,jessie4,jessie5,jessie1,jessie6,jessie7,jessie8],5)+[james9]
-jessiejames=Trainer ("Team Rocket Jessie & James",jessiejamesteam,"Kanto")
+jessiejames=Trainer (colored("Team Rocket Jessie & James","red"),jessiejamesteam,"Kanto")
 #nando
 nando1=Roserade(maxiv="Yes")
 nando2=Sunflora(maxiv="Yes")
@@ -3326,7 +3373,7 @@ kenny3=Machamp(maxiv="Yes")
 kenny4=Breloom(maxiv="Yes")
 kenny5=Alakazam(maxiv="Yes",item="Alakazite")
 kenny6=Empoleon(maxiv="Yes")
-kenny=Trainer("Coordinator Kenny",[kenny1,kenny2,kenny3,kenny4,kenny5,kenny6],"Sinnoh")
+kenny=Trainer(colored("Coordinator Kenny","cyan"),[kenny1,kenny2,kenny3,kenny4,kenny5,kenny6],"Sinnoh")
 #ritchie
 ritchie1=Tentacruel(maxiv="Yes")
 ritchie2=Swellow(name="Rose",maxiv="Yes")
@@ -3334,7 +3381,7 @@ ritchie3=Tyranitar(name="Cruise",maxiv="Rock")
 ritchie4=Butterfree(name="Happy",maxiv="Yes")
 ritchie5=Charizard(name="Zippo",maxiv="Yes",item="Charizardite Y",atkev=0,spatkev=252)
 ritchie6=Pikachu(name="Sparky",maxiv="Yes")
-ritchie=Trainer("Pokémon Trainer Ritchie",[ritchie1,ritchie2,ritchie3,ritchie4,ritchie5,ritchie6],"Kanto")
+ritchie=Trainer(colored("Pokémon Trainer Ritchie","cyan"),[ritchie1,ritchie2,ritchie3,ritchie4,ritchie5,ritchie6],"Kanto")
 #hugh
 hugh3=Eelektross (maxiv="Yes")
 hugh4=Flygon (maxiv="Yes")
@@ -3356,7 +3403,7 @@ harrison3=Miltank(maxiv="Yes")
 harrison4=Steelix(maxiv="Yes")
 harrison5=Houndoom(name="Houndoom",maxiv="Dark")
 harrison6=Blaziken(maxiv="Yes",item="Blazikenite")
-harrison=Trainer("Pokémon Trainer Harrison",[harrison1,harrison2,harrison3,harrison4,harrison5,harrison6],"Hoenn")
+harrison=Trainer(colored("Pokémon Trainer Harrison","red"),[harrison1,harrison2,harrison3,harrison4,harrison5,harrison6],"Hoenn")
 #harley
 harley1=Sceptile(maxiv="Yes")
 harley2=Ariados(maxiv="Yes")
@@ -3372,7 +3419,7 @@ tyson3=Donphan(maxiv="Yes")
 tyson4=Sceptile (name="Sceptile",maxiv="Grass")
 tyson5=Metagross (maxiv="Yes")
 tyson6=Meowth (maxiv="Yes")
-tyson=Trainer("Pokémon Trainer Tyson",[tyson1,tyson2,tyson3,tyson4,tyson5,tyson6],"Hoenn")
+tyson=Trainer(colored("Pokémon Trainer Tyson","white"),[tyson1,tyson2,tyson3,tyson4,tyson5,tyson6],"Hoenn")
 #solidad
 solidad1=Blissey (maxiv="Yes")
 solidad2=Snorlax(maxiv="Yes")
@@ -3380,7 +3427,7 @@ solidad3=Butterfree(maxiv="Yes")
 solidad4=Pidgeot (name="Pidgeot",maxiv="Normal")
 solidad5=Lapras (maxiv="Yes")
 solidad6=Slowbro (maxiv="Yes",item="Slowbronite")
-solidad=Trainer("Coordinator Solidad",[solidad1,solidad2,solidad3,solidad4,solidad5,solidad6],"Kanto")
+solidad=Trainer(colored("Coordinator Solidad","white"),[solidad1,solidad2,solidad3,solidad4,solidad5,solidad6],"Kanto")
 #dino
 dino1=Seismitoad(maxiv="Yes")
 dino2=Leavanny (maxiv="Yes")
@@ -3395,7 +3442,7 @@ dino10=Galvantula (maxiv="Yes")
 dino11=Sawsbuck (maxiv="Yes")
 dino12=Unfezant (maxiv="Yes")
 dinoteam=teamset([dino1,dino2,dino3,dino4,dino5,dino7,dino8,dino9,dino10,dino11,dino12],5)+[dino6]
-dino=Trainer("Pokémon Trainer Dino",dinoteam,"Unova")
+dino=Trainer(colored("Pokémon Trainer Dino","red"),dinoteam,"Unova")
 #burgundy
 burgundy1=Reuniclus(maxiv="Yes")
 burgundy2=Scolipede (maxiv="Yes")
@@ -3403,7 +3450,7 @@ burgundy3=Darmanitan(maxiv="Yes")
 burgundy4=Stoutland (maxiv="Yes")
 burgundy5=Sawsbuck(maxiv="Yes")
 burgundy6=Samurott(name="Samurott",maxiv="Water")
-burgundy=Trainer("Connoisseuse Burgundy",[burgundy1,burgundy2,burgundy3,burgundy4,burgundy5,burgundy6],"Unova")
+burgundy=Trainer(colored("Connoisseuse Burgundy","white"),[burgundy1,burgundy2,burgundy3,burgundy4,burgundy5,burgundy6],"Unova")
 #virgil
 virgil1=Glaceon(maxiv="Yes")
 virgil2=Jolteon(maxiv="Yes")
@@ -3418,7 +3465,7 @@ virgil10=Ampharos (maxiv="Yes")
 virgil11=Zebstrika (maxiv="Yes")
 virgil12=Sylveon(maxiv="Yes")
 virgilteam=teamset([virgil1,virgil2,virgil3,virgil4,virgil5,virgil7,virgil8,virgil9,virgil10,virgil11,virgil12],5)+[virgil6]
-virgil=Trainer("Pokémon Trainer Virgil",virgilteam,"Unova")
+virgil=Trainer(colored("Pokémon Trainer Virgil","white"),virgilteam,"Unova")
 #cameron
 cameron1=Watchog(maxiv="Yes")
 cameron2=Swanna(maxiv="Yes")
@@ -3427,7 +3474,7 @@ cameron4=Ferrothorn (maxiv="Yes")
 cameron5=Hydreigon(name="Hydreigon",maxiv="Dark")
 cameron6=Samurott (maxiv="Yes")
 cameronteam=teamset([cameron1,cameron2,cameron3,cameron4,cameron5],5)+[cameron6]
-cameron=Trainer("Pokémon Trainer Cameron",cameronteam,"Unova")
+cameron=Trainer(colored("Pokémon Trainer Cameron","green"),cameronteam,"Unova")
 #Ilima
 Ilima1=Eevee(name="Eevee(Z-Crystal)",maxiv="Yes")
 Ilima2=ARaticate (maxiv="Yes")
@@ -3436,7 +3483,7 @@ Ilima4=Komala(maxiv="Yes")
 Ilima5=Smeargle(maxiv="Yes")
 Ilima6=Kangaskhan (maxiv="Yes",item="Kangaskhanite")
 Ilimateam=teamset([Ilima1,Ilima2,Ilima3,Ilima4,Ilima5],5)+[Ilima6]
-Ilima=Trainer("Trial Captain Ilima",Ilimateam,"Alola")
+Ilima=Trainer(colored("Trial Captain Ilima","white"),Ilimateam,"Alola")
 #kiawe
 kw=random.randint(1,3)
 kw1,kw2,kw3=None,None,None
@@ -3473,7 +3520,7 @@ saguaro4=Vespiquen(maxiv="Yes")
 saguaro5=Goodra(maxiv="Yes")
 saguaro6=Hatterene(maxiv="Yes")
 saguaroteam=teamset([saguaro1,saguaro2,saguaro3,saguaro5,saguaro4],5)+[saguaro6]
-saguaro=Trainer("Instructor Saguaro",saguaroteam,"Paldea")
+saguaro=Trainer(colored("Instructor Saguaro","white"),saguaroteam,"Paldea")
 #jacq
 jacq1=Arcanine(maxiv="Yes")
 jacq2=Lurantis(maxiv="Yes")
@@ -3482,7 +3529,7 @@ jacq4=Mudsdale(maxiv="Yes")
 jacq5=Slowbro(maxiv="Yes")
 jacq6=Farigiraf(maxiv="Yes")
 jacqteam=teamset([jacq1,jacq2,jacq3,jacq5,jacq4],5)+[jacq6]
-jacq=Trainer("Instructor Jacq",jacqteam,"Paldea")
+jacq=Trainer(colored("Instructor Jacq","white"),jacqteam,"Paldea")
 #mallow
 mallow1=Comfey(maxiv="Yes")
 mallow2=Tsareena(name="Tsareena(Z-Crystal)",maxiv="Yes")
@@ -3502,7 +3549,7 @@ ramone5=Stoutland(maxiv="Yes")
 ramone6=Chandelure (maxiv="Yes")
 ramone7=Unfezant (maxiv="Yes")
 ramoneteam=teamset([ramone1,ramone2,ramone3,ramone4,ramone5,ramone7],5)+[ramone6]
-ramone=Trainer("Pokémon Trainer Ramone",ramoneteam,"Unova")
+ramone=Trainer(colored("Pokémon Trainer Ramone","white"),ramoneteam,"Unova")
 #forina
 forina1=Shiftry (maxiv="Yes")
 forina2=Breloom (maxiv="Yes")
@@ -3526,7 +3573,7 @@ calem11=Jolteon(maxiv="Yes")
 calem12=Vaporeon (maxiv="Yes")
 calem13=Flareon(maxiv="Yes")
 calemteam=teamset([calem3,calem4,calem5,calem7,calem6],4)+[calem10,calem1]
-calem=Trainer("Pokémon Trainer Calem",calemteam,"Kalos")
+calem=Trainer(colored("Pokémon Trainer Calem","blue"),calemteam,"Kalos")
 #sun
 sun1=APersian(name="Cent",maxiv="Yes")
 sun2=Stakataka (name="Drachma",maxiv="Yes")
@@ -3535,7 +3582,7 @@ sun4=Mimikyu(name="Penny",maxiv="Yes")
 sun5=SWishiwashi (name="Quarter",maxiv="Yes")
 sun6=Incineroar(name="Dollar",maxiv="Yes")
 sunteam=teamset([sun2,sun3,sun4,sun5,sun1],5)+[sun6]
-sun=Trainer ("Pokémon Trainer Sun",sunteam,"Alola")
+sun=Trainer (colored("Pokémon Trainer Sun","yellow"),sunteam,"Alola")
 #Lillie
 Lillie1=Comfey(maxiv="Yes")
 Lillie2=ANinetales(maxiv="Yes")
@@ -3554,7 +3601,7 @@ raifort4=Lumineon(maxiv="Yes")
 raifort5=Scizor(maxiv="Yes")
 raifort6=Gengar(maxiv="Yes")
 raifortteam=teamset([raifort1,raifort2,raifort3,raifort5,raifort4],5)+[raifort6]
-raifort=Trainer("Instructor Raifort",raifortteam,"Paldea")
+raifort=Trainer(colored("Instructor Raifort","white"),raifortteam,"Paldea")
 #miriam
 miriam1=Pincurchin(maxiv="Yes")
 miriam2=Hypno (maxiv="Yes")
@@ -3563,7 +3610,7 @@ miriam4=Glalie(maxiv="Yes")
 miriam5=Eelektross(maxiv="Yes")
 miriam6=Toxapex(maxiv="Yes")
 miriamteam=teamset([miriam1,miriam2,miriam3,miriam5,miriam4],5)+[miriam6]
-miriam=Trainer("Instructor Miriam",miriamteam,"Paldea")
+miriam=Trainer(colored("Instructor Miriam","white"),miriamteam,"Paldea")
 #dendra
 dendra1=PTauros(type2="Fire",maxiv="Yes")
 dendra2=PTauros(type2="Water",maxiv="Yes")
@@ -3572,7 +3619,7 @@ dendra4=Medicham(maxiv="Yes")
 dendra5=Hawlucha(maxiv="Yes")
 dendra6=Hariyama(maxiv="Yes")
 dendrateam=teamset([dendra1,dendra2,dendra3,dendra5,dendra4],5)+[dendra6]
-dendra=Trainer("Instructor Dendra",dendrateam,"Paldea")
+dendra=Trainer(colored("Instructor Dendra","white"),dendrateam,"Paldea")
 #tyme
 tyme1=MNLycanroc(maxiv="Yes")
 tyme2=Drednaw(maxiv="Yes")
@@ -3581,7 +3628,7 @@ tyme4=Stonjourner(maxiv="Yes")
 tyme5=Coalossal(maxiv="Yes")
 tyme6=Garganacl(maxiv="Yes")
 tymeteam=teamset([tyme1,tyme2,tyme3,tyme5,tyme4],5)+[tyme6]
-tyme=Trainer("Instructor Tyme",tymeteam,"Paldea")
+tyme=Trainer(colored("Instructor Tyme","white"),tymeteam,"Paldea")
 #salvatore
 salvatore1=Honchkrow (maxiv="Yes")
 salvatore2=Persian(maxiv="Yes")
@@ -3590,7 +3637,7 @@ salvatore4=Glaceon(maxiv="Yes")
 salvatore5=Gothitelle (maxiv="Yes")
 salvatore6=Raichu(maxiv="Yes")
 salvatoreteam=teamset([salvatore1,salvatore2,salvatore3,salvatore5,salvatore4],5)+[salvatore6]
-salvatore=Trainer("Instructor Salvatore",salvatoreteam,"Paldea")
+salvatore=Trainer(colored("Instructor Salvatore","white"),salvatoreteam,"Paldea")
 #amber
 amber1=Pelipper(maxiv="Yes")
 amber2=Ninjask(maxiv="Yes")
@@ -3601,12 +3648,28 @@ amber5=Gorebyss(maxiv="Yes")
 amber=Trainer(colored("Aqua Admin Amber","blue"),[amber1,amber2,amber3,amber4,amber5,amber6],"Hoenn")   
 #brunoh
 brunoh1=Infernape(maxiv="Yes",item="Focus Sash",move=["Taunt","Pyro Ball","Close Combat","Stealth Rock"], ability="Blaze",nature="Jolly")
-brunoh2=DUrshifu(maxiv="Yes",item="Focus Sash",move=["Wicked Blow","Close Combat","U-Turn","Poison Jab"],nature="Jolly")
-brunoh3=Zacian(maxiv="Yes",move=["Behemoth Blade","Close Combat","Play Rough","Crunch"],nature="Jolly")
-brunoh4=Kommo(maxiv="Yes",item="Throat Spray",move=["Aura Sphere","Close Combat","Clanging Scales","Clangorous Soul"],nature="Naive")
-brunoh6=Lucario(maxiv="Yes",item="Lucarionite",move=["Aura Sphere","Bullet Punch","Close Combat","Flash Cannon"],nature="Naive")
-brunoh5=Conkeldurr(maxiv="Yes", ability="Guts",item="Flame Orb",move=["Knock Off","Close Combat","Mach Punch","Drain Punch"],nature="Adamant")
+brunoh2=DUrshifu(maxiv="Yes",item="Choice Scarf",move=["Wicked Blow","Close Combat","U-turn","Poison Jab"],nature="Jolly")
+brunoh3=Zacian(maxiv="Yes",move=["Behemoth Blade","Close Combat","Swords Dance","Crunch"],nature="Jolly")
+brunoh4=Kommo(maxiv="Yes",item="Throat Spray",move=["Aura Sphere","Flash Cannon","Clanging Scales","Clangorous Soul"],nature="Timid")
+brunoh6=Lucario(maxiv="Yes",item="Lucarionite",move=["Swords Dance","Bullet Punch","Close Combat","Meteor Mash"],nature="Jolly")
+brunoh5=Conkeldurr(maxiv="Yes", ability="Iron Fist",item="Assault Vest",move=["Knock Off","Ice Punch","Mach Punch","Drain Punch"],nature="Adamant")
 brunoh=Trainer("E4 Bruno(Hard Mode)",[brunoh1,brunoh2,brunoh3,brunoh4,brunoh5,brunoh6],"Kanto") 
+#edit
+brockh1=Terrakion(item="Lum Berry",ability="Justified",maxiv="Yes",nature="Jolly",move=["Close Combat","X-Scissor","Stone Edge","Stealth Rock"])
+brockh2=Landorus(item="Life Orb",ability="Sand Force",maxiv="Yes",nature="Naive",move=["Earthquake","Grass Knot","Stone Edge","U-turn"])
+brockh3=CZygarde(item="Leftovers",ability="Power Construct",maxiv="Yes",nature="Careful",move=["Coil","Thousand Arrows","Rest","Sleep Talk"])
+brockh4=Sandslash(name="Sandslash(Z-Crystal)",item="Groundium-Z",ability="Sand Rush",maxiv="Ground",nature="Jolly",move=["Swords Dance","Earthquake","Stone Edge","Knock Off"])
+brockh5=Empoleon(item="Leftovers",ability="Competitive",maxiv="Yes",nature="Bold",move=["Scald","Ice Beam","Toxic","Roost"])
+brockh6=Aerodactyl(item="Aerodactylite",ability="Pressure",maxiv="Yes",nature="Jolly",move=["Stone Edge","Dual Wingbeat","Earthquake","Dragon Dance"])
+brockh=Trainer("Brock(Hard Mode)",[brockh1,brockh2,brockh3,brockh4,brockh5,brockh6],"Kanto")
+#edit
+mistyh1=Kingdra(item="Life Orb",ability="Swift Swim",maxiv="Yes",nature="Modest",move=["Hydro Pump","Draco Barrage","Hurricane","Flip Turn"])
+mistyh2=Seismitoad(item="Life Orb",ability="Swift Swim",maxiv="Yes",nature="Modest",move=["Earth Power","Weather Ball","Power Whip","Focus Blast"])
+mistyh3=Jirachi(item="Leftovers",ability="Serene Grace",maxiv="Yes",nature="Timid",move=["Psyshock","Thunder","Water Pulse","Calm Mind"])
+mistyh4=TThundurus(name="Therian Thundurus(Z-Crystal)",item="Fightinium-Z",ability="Volt Absorb",maxiv="Fighting",nature="Timid",move=["Thunder","Weather Ball","Focus Blast","Nasty Plot"])
+mistyh5=Gyarados(item="Gyaradosite",ability="Intimidate",maxiv="Yes",nature="Jolly",move=["Waterfall","Crunch","Earthquake","Dragon Dance"])
+mistyh6=Greninja(item="Focus Sash",ability="Protean",maxiv="Yes",nature="Naive",move=["Ice Beam","Surf","Dark Pulse","U-turn"])
+mistyh=Trainer("Misty(Hard Mode)",[mistyh1,mistyh2,mistyh3,mistyh4,mistyh5,mistyh6],"Kanto")
 #maskedman
 maskedman1=Lugia(maxiv="Yes")
 maskedman2=Hooh(maxiv="Yes")
@@ -3636,28 +3699,58 @@ marley15=Floatzel(maxiv="Yes")
 marley16=Ambipom(maxiv="Yes")
 marleyteam=teamset([marley1,marley2,marley3,marley4,marley5,marley7,marley8,marley9,marley10,marley11,marley12,marley13,marley14,marley15,marley16],5)+[marley6]
 marley=Trainer(colored("Pokémon Trainer Marley","white"),marleyteam,"Sinnoh")
+hof1=Toxapex(name="Toxapex",item="Black Sludge",ability="Regenerator",maxiv="Yes",nature="Impish",move=["Knock Off","Scald","Baneful Bunker","Toxic Spikes"],hpev=252,atkev=0,defev=252,spatkev=0,spdefev=0,speedev=0)
+hof2=Ferrothorn(name="Ferrothorn",item="Rocky Helmet",ability="Iron Barbs",maxiv="Yes",nature="Brave",move=["Gyro Ball","Shadow Claw","Grass Knot","Stealth Rock"],hpev=248,atkev=0,defev=0,spatkev=8,spdefev=0,speedev=0)
+hof3=Corviknight(name="Corviknight",item="Leftovers",ability="Pressure",maxiv="Yes",nature="Impish",move=["Roost","Brave Bird","Reflect","Light Screen"],hpev=248,atkev=0,defev=252,spatkev=0,spdefev=0,speedev=0)
+hof4=Dracozolt(name="Dracozolt",item="Choice Scarf",ability="Sand Rush",maxiv="Yes",nature="Rash",move=["Bolt Beak","Flamethrower","Earth Power","Draco Meteor"],hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252)
+hof5=Polteageist(name="Polteageist",item="Focus Sash",ability="Weak Armor",maxiv="Yes",nature="Modest",move=["Giga Drain","Stored Power","Shell Smash","Shadow Ball"],hpev=0,atkev=0,defev=0,spatkev=252,spdefev=4,speedev=252)
+hof6=Silvally(name="Silvally",item="Fairy Memory",ability="RKS System",maxiv="Yes",nature="Jolly",move=["Iron Head","Multi-Attack","Swords Dance","Protect"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=4,speedev=252)
+hof=Trainer("Hall of Fame Silver",[hof1, hof2, hof3, hof4, hof5, hof6], "Unknown")
+garyhc1=Kyogre(name="Kyogre",item="Blue Orb",ability="Primordial Sea",maxiv="Yes",nature="Timid",move=["Origin Pulse","Thunder","Ice Punch","Liquidation"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+garyhc2=Arceus(name="Arceus(Z-Crystal)",item="Normalium-Z",ability="Multitype",maxiv="Yes",nature="Jolly",move=["Extremespeed","Shadow Claw","Recover","Swords Dance"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+garyhc3=DWNecrozma(name="Necrozma(Z-Crystal)",item="Ultranecrozmium-Z",ability="Neuroforce",maxiv="Yes",nature="Jolly",move=["Photon Geyser","Earthquake","Stone Edge","Dragon Dance"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+garyhc4=Metagross(name="Metagross",item="Metagrossite",ability="Tough Claws",maxiv="Yes",nature="Jolly",move=["Meteor Mash","Ice Punch","Thunder Punch","Bullet Punch"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+garyhc5=EEternatus(name="Eternatus-Eternamax",item="Eternamax Orb",ability="Levitate",maxiv="Yes",nature="Timid",move=["Draco Barrage","Sludge Wave","Thunder","Recover"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+garyhc6=Swampert(name="Swampert",item="Swampertite",ability="Swift Swim",maxiv="Yes",nature="Adamant",move=["Earthquake","Waterfall","Ice Punch","Stone Edge"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+garyhc=Trainer("Gary(Hard Mode)",[garyhc1, garyhc2, garyhc3, garyhc4, garyhc5, garyhc6], "Unknown")
+wulfrich1=Froslass(name="Froslass",item="Bright Powder",ability="Snow Cloak",maxiv="Ice",nature="Timid",move=["Blizzard","Thunderbolt","Shadow Ball","Psychic"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+wulfrich2=Jynx(name="Jynx",item="Life Orb",ability="Dry Skin",maxiv="Ice",nature="Timid",move=["Lovely Kiss","Psychic","Blizzard","Energy Ball"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+wulfrich3=Aurorus(name="Aurorus",item="Icy Rock",ability="Snow Warning",maxiv="Rock",nature="Modest",move=["Blizzard","Earth Power","Power Gem","Protect"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+wulfrich4=WKyurem(name="White Kyurem",item="Life Orb",ability="Turboblaze",maxiv="Dragon",nature="Hasty",move=["Fusion Flare","bizzard","Earth Power","Dragon Pulse"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+wulfrich5=Lapras(name="Lapras",item="Icicle Plate",ability="Water Absorb",maxiv="Water",nature="Quiet",move=["Blizzard","Giga Drain","Focus Blast","Ice Shard"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+wulfrich6=Abomasnow(name="Abomasnow-Mega",item="Abomasite",ability="Snow Warning",maxiv="Grass",nature="Quiet",move=["Blizzard","Giga Drain","Focus Blast","Ice Shard"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+wulfrich=Trainer("Wulfric(Hard Mode)",[wulfrich1, wulfrich2, wulfrich3, wulfrich4, wulfrich5, wulfrich6], "Kalos")
+olympiah1=Claydol(name="Claydol",item="Leftovers",ability="Levitate",maxiv="Ground",nature="Modest",move=["Earth Power","Psyshock","Calm Mind","Ice Beam"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+olympiah2=Sigilyph(name="Sigilyph",item="Flame Orb",ability="Magic Guard",maxiv="Psychic",nature="Calm",move=["Stored Power","Cosmic Power","Psycho Shift","Roost"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+olympiah3=ADeoxys(name="Deoxys-Attack",item="Focus Sash",ability="Pressure",maxiv="Psychic",nature="Hasty",move=["Psycho Boost","Superpower","Fire Punch","Knock Off"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+olympiah4=Latias(name="Latias",item="Soul Dew",ability="Levitate",maxiv="Dragon",nature="Bold",move=["Psyshock","Dragon Pulse","Calm Mind","Recover"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+olympiah5=Metagross(name="Metagross",item="Air Balloon",ability="Tough Claws",maxiv="Steel",nature="Adamant",move=["Meteor Mash","Earthquake","Ice Punch","Rock Polish"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+olympiah6=Medicham(name="Medicham-Mega",item="Medichamite",ability="Pure Power",maxiv="Fighting",nature="Jolly",move=["Drain Punch","Zen Headbutt","Ice Punch","Poison Jab"],hpev=0,atkev=0,defev=0,spatkev=0,spdefev=0,speedev=0)
+olympiah=Trainer("Olympia(Hard Mode)",[olympiah1, olympiah2, olympiah3, olympiah4, olympiah5, olympiah6], "Kalos")
+
 #TEST2
-t3=Walkingwake(maxiv="Yes")
-t4=Ironleaves(maxiv="Yes")
-t5=SWishiwashi(maxiv="Yes")
-t6=Skarmory(maxiv="Yes",item="Rocky Helmet",move=["Spikes","Whirlwind","Roost","Brave Bird"])
-t7=Miraidon(maxiv="Yes")
-t8=Koraidon(maxiv="Yes")
+t3=Annihilape(maxiv="Yes")
+t4=Charizard(maxiv="OU-Grass")
+t5=Arceus(maxiv="Yes")
+t6=Skarmory(maxiv="Yes",item="Rocky Helmet",move=["Perish Song","Healing Wish","Roost","Outrage"])
+t7=Silvally(maxiv="Yes")
+t8=HRotom(maxiv="Yes",move=["Will-O-Wisp","Hex","Overheat","Shadow Ball"])
 test2=Trainer("Test-02",[t3,t4,t5,t6,t7,t8])
 #############
 #matchx=match
 e4list=[lorelei,bruno,agatha, lance,will,koga,karen,sidney,phoebe,glacia,drake,aaron,bertha,flint,lucian,shauntal,marshal,grimsley,caitlin,siebold,wikstrom,drasna,malva,kahili,acerola,olivia,molayne,hala,rika,larry,poppy,hassel]
 
 champlist=[oak,blue,red,odrake,ethan,steven,wallace,brendan,may,cynthia,alder,iris,diantha,kukui,ash,mustard,peony,leon,geeta]
+
 fronlist=[noland,lucy,tucker,greta,anabel,brandon,spenser,palmer,darach,dahlia,argenta,Thorton]
 
 gymlist=[brock,misty,surge,erika,sabrina,janine,blaine,cissy,danny,rudy,luana,falkner,bugsy,whitney,chuck,pryce,jasmine,claire,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,roark,gardenia,fantina,byron,maylene,wake,candice,volkner,cilan,chili,cress,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon,viola,grant,korrina,ramos,clemont,valerie,olympia,wulfric,milo,nessa,kabu,bea,allister,opal,bede,gordie,melony,piers,marnie,raihan,klara,avery,katy,brassius,Iono,kofu,ryme,grusha,tulip]
 
-test=[test2]
+test=[test2,hof]
 
-hardlist=[erikah,erikahc,blainehc,brunoh]
+hardlist=[erikah,erikahc,blainehc,brunoh,kogah,brockh,mistyh,garyhc,wulfrich,olympiah]
 
-talentlist=[gary,barry,paul,sun,calem,lucas,xadv,tyme,salvatore,miriam,dendra,raifort,jacq,saguaro,Lillie,mallow,lana,kiawe,Ilima,forina,hugh,hop,hau,shauna,tierno,ramone,cameron,virgil,dino,burgundy,solidad,tyson,harley,harrison,ritchie,dawn,kenny,ursula,trip,drew,riley,cheryl,marley,mira,nando,conway,zoey,zinnia,arven,clavell,sordward,shielbert,morimoto,palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,sawyer,emmet,ingo,silver,buck,n,alain,tobias,quillon,danika,horace,wally,nemona,evelyn,nita,dana,morgan,adaman]
+talentlist=[gary,barry,paul,sun,calem,lucas,nate,rosa,xadv,tyme,salvatore,miriam,dendra,raifort,jacq,saguaro,Lillie,mallow,lana,kiawe,Ilima,forina,hugh,hop,hau,shauna,tierno,ramone,cameron,virgil,dino,burgundy,solidad,tyson,harley,harrison,ritchie,dawn,kenny,ursula,trip,drew,riley,cheryl,marley,mira,nando,conway,zoey,zinnia,arven,clavell,sordward,shielbert,morimoto,palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,sawyer,emmet,ingo,silver,buck,n,alain,tobias,quillon,danika,horace,wally,nemona,evelyn,nita,dana,morgan,adaman]
 
 evilist=[sird,jessiejames,jessie,james,petrel,proton,ariana,archer,maskedman,giovanni,shelly,matt,archie,amber,courtney,blaise,tabitha,maxie,saturn,mars,jupiter,cyrus,lusamine,rose,Guzma,volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,butler]
 
@@ -3673,10 +3766,10 @@ def genplayer2(f):
     field.weather="Clear"
     field.terrain="Normal"    
     if "Kanto" in f.location:
-        pl=random.choice([ash,gary,red,giovanni,jessiejames,genTrainer(trclass=random.choice(["Kanto Trainer"])),genTrainer(trclass=random.choice(allclass))])
+        pl=random.choice([lorelei,bruno,agatha, lance,brock,misty,surge,erika,sabrina,janine,blaine,ash,gary,red,giovanni,jessiejames,genTrainer(trclass=random.choice(["Kanto Trainer"])),genTrainer(trclass=random.choice(allclass))])
         
     if "Hoenn" in f.location:
-        pl=random.choices([random.choice([brendan,may,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,steven,wallace,sidney,phoebe,drake,glacia,zinnia,archie,maxie,tabitha,matt,shelly,courtney,jessie,james,jessiejames]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Hoenn Trainer")],weights=[1,10,4],k=1)[0]
+        pl=random.choices([random.choice([noland,lucy,tucker,greta,anabel,brandon,spenser,brendan,may,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,steven,wallace,sidney,phoebe,drake,glacia,zinnia,archie,maxie,tabitha,matt,shelly,courtney,jessie,james,jessiejames]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Hoenn Trainer")],weights=[1,10,4],k=1)[0]
         
     if "Paldea" in f.location:
         pl=random.choices([random.choice([tyme,salvatore,miriam,dendra,raifort,jacq,saguaro,tulip,grusha,ryme,kofu,Iono,brassius,katy,penny,eri,ortega,atticus,mela,giacomo,hassel,larry,poppy,rika,geeta,clavell,arven]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Paldea Trainer")],weights=[1,10,4],k=1)[0]
@@ -3685,13 +3778,13 @@ def genplayer2(f):
         pl=random.choices([random.choice([ethan,silver,falkner,bugsy,whitney,chuck,pryce,jasmine,claire,will,bruno,karen,lance, koga]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Johto Trainer")],weights=[1,10,4],k=1)[0]
         
     if "Sinnoh" in f.location:
-        pl=random.choices([random.choice([cynthia,aaron,lucian,bertha,flint,roark,gardenia,fantina,byron,maylene,wake,candice,volkner,cyrus,mars,jupiter,saturn]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Sinnoh Trainer")],weights=[1,10,4],k=1)[0]
+        pl=random.choices([random.choice([dawn,kenny,ursula,trip,drew,riley,cheryl,marley,mira,nando,conway,zoey,cynthia,aaron,lucian,bertha,flint,roark,gardenia,fantina,byron,maylene,wake,candice,volkner,cyrus,mars,jupiter,saturn,palmer,darach,dahlia,argenta,Thorton]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Sinnoh Trainer")],weights=[1,10,4],k=1)[0]
         
     if "Kalos" in f.location:
-        pl=random.choices([random.choice([wulfric,olympia,valerie,clemont,ramos,korrina,viola,grant,diantha,alain,sawyer,tierno,trevor,calem]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Kalos Trainer")],weights=[1,10,4],k=1)[0]
+        pl=random.choices([random.choice([wulfric,olympia,valerie,clemont,ramos,korrina,viola,grant,diantha,alain,sawyer,tierno, shauna,trevor,calem]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Kalos Trainer")],weights=[1,10,4],k=1)[0]
         
     if "Alola" in f.location:
-        pl=random.choice([kahili,acerola,olivia,molayne,hala,kukui,gladion,hau,genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Alola Trainer")])
+        pl=random.choice([Lillie,mallow,lana,kiawe,Ilima, lusamine,kahili,acerola,olivia,molayne,hala,kukui,gladion,hau,genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Alola Trainer")])
         
     if " Galar" in f.location:
         pl=random.choices([random.choice([raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,leon,hop,rose,mustard]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Galar Trainer")],weights=[1,10,4],k=1)[0]
@@ -3911,7 +4004,7 @@ def genplayer2(f):
         pl=random.choice([misty,blue,genTrainer(trclass=random.choice(["Swimmer","Marine Biologist","Rocket Grunt","Bird Keeper","Lass","Black Belt","Ace Trainer","Psychic","Coach Trainer"]))])
         field.weather="Cloudy"
     if "Tournament" in f.location:
-        pl=random.choice([random.choice(gymlist),random.choice(e4list),random.choice(champlist),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)])   
+        pl=random.choice([random.choice(gymlist),random.choice(e4list),random.choice(champlist),random.choice(fronlist),random.choice(evilist),random.choice(talentlist),genTrainer(trclass="Competitive Player")])   
     if "Battle Frontier, Hoenn" in f.location:    
         pl=random.choices([random.choice([brandon,noland,lucy,greta,anabel,tucker,spenser]),genTrainer(trclass="Pokémon Trainer")],weights=[1,5],k=1)[0]
         
