@@ -1,9 +1,10 @@
 #pylint:disable=C0304
 #pylint:disable=C0303
 #pylint:disable=C0301
-
+from hiddenpower import *
 class Moves:
     def __init__(self):
+        self.premove=["Solar Beam","Meteor Beam","Skull Bash","Geomancy","Phantom Force","Shadow Force","Sky Attack","Ice Burn","Freeze Shock","Solar Blade","Bounce"]
         self.abilityigmoves=["G-Max Fireball","G-Max Hydrosnipe","G-Max Drum Solo","Light That Burns The Sky","Photon Geyser","Moongeist Beam","Sunsteel Strike","Menacing Moonraze Maelstrom","Searing Sunraze Smash"]
         self.windmoves=["Bleakwind Storm","Whirlwind","Blizzard","Heat Wave","Hurricane","Petal Blizzard","Sandsear Storm","Sandstorm","Springtide Storm","Wildbolt Storm","Tailwind","Icy Wind"]
         self.multimove=["Bullet Seed","Rock Blast","Pin Missile","Icicle Spear","Dual Chop","Dual Wingbeat","Arm Thrust","Water Shuriken","Double Iron Bash","Spike Cannon","Triple Axel","Triple Arrows","Triple Kick","Population Bomb","Scale Shot"]
@@ -17,11 +18,11 @@ class Moves:
         self.contactmoves=["Fire Punch","Ice Punch","Thunder Punch","Horn Drill","Body Slam","Double-Edge","Drill Peck","Submission","Seismic Toss","Strength","Petal Dance","Waterfall","Skull Bash","High Jump Kick","Dizzy Punch","Leech Life","Crabhammer","Slash","Triple Kick","Mach Punch","Outrage","Steel Wing","Return","Dynamic Punch","Megahorn","Rapid Spin","Iron Tail","Cross Chop","Crunch","Extreme Speed","Fake Out","Facade","Superpower","Brick Break","Knock Off","Arm Thrust","Blaze Kick","Needle Arm","Poison Fang","Crush Claw","Meteor Mash","Shadow Punch","Sky Uppercut","Dragon Claw","Poison Tail","Volt Tackle","Leaf Blade","Hammer Arm","Gyro Ball","U-turn","Close Combat","Assurance","Last Resort","Sucker Punch","Flare Blitz","Force Palm","Poison Jab","Night Slash","Aqua Tail","X-Scissor","Dragon Rush","Drain Punch","Brave Bird","Giga Impact","Bullet Punch","Avalanche","Shadow Claw","Thunder Fang","Ice Fang","Fire Fang","Psychic Fangs","Shadow Sneak","Zen Headbutt","Power Whip","Cross Poison","Iron Head","Grass Knot","Wood Hammer","Aqua Jet","Head Smash","Crash Grip","Shadow Force","Heavy Slam","Foul Play","Acrobatics","Dragon Tail","Wild Charge","Drill Run","Dual Chop","Horn Leech","Sacred Sword","Razor Shell","Heat Crash","Head Charge","Gear Grind","Bolt Strike","V-create","Flying Press","Fell Stinger","Phantom Force","Draining Kiss","Play Rough","Nuzzle","Power-up Punch","Dragon Ascent","First Impression","Darkest Lariat","Ice Hammer","High Horsepower","Solar Blade","Throat Chop","Anchor Shot","Lunge","Fire Lash","Smart Strike","Trop Kick","Dragon Hanmer","Stomping Tantrum","Accelerock","Liquidation","Spectral Thief","Sunsteel Strike","Zing Zap","Multi-Attack","Plasma Fists","Jaw Lock","Bolt Beak","Double Iron Bash","Fishious Rend","Body Press","Behemoth Blade","Behemoth Bash","Breaking Swipe","Spirit Break","False Surrender","Grassy Glide","Skitter Smack","Flip Turn","Triple Axel","Dual Wingbeat","Wicked Blow","Surging Strikes","Thunderous Kick","Quick Attack","Aqua Step","Aqua Cutter","Axe Kick","Bitter Blade","Blazing Torque","Collision Course","Combat Torque","Double Shock","Electro Drift","Gigaton Hammer","Glaive Rush","Hyper Drill","Jet Punch","Ice Spinner","Kowtow Cleave","Last Respects","Lumina Crash","Magical Torque","Mortal Spin","Noxious Torque","Order Up","Pounce","Rage Fist","Raging Bull","Ruination","Spin Out","Trailblaze","Triple Dive","Wicked Torque","Soul Robbery","Dragon Tail"]
         self.nondmgmove=["Stealth Rock","Toxic","Toxic Spikes","Sticky Web"]
         self.buffmove=["Iron Defense","Calm Mind","Swords Dance","Shell Smash","Bulk Up","Recover","Roost","Moonlight","Morning Sun","Synthesis","Hail","Rain Dance","Sunny Day","Sandstorm","Trickroom","Dragon Dance","Belly Drum","Nasty Plot","Rest","Coil","Curse","Heal Order","Defend Order", "Protect","Spiky Shield","King's Shield","Acid Armor","Amnesia","Aqua Ring","Silk Trap","Heal Bell","Aromatherapy","Cosmic Power","Quiver Dance","Cotton Guard","Electric Terrain","Grassy Terrain","Misty Terrain","Psychic Terrain","Snowscape","Geomancy","Iron Defense","Light Screen","Reflect","Slack Off","Soft-Boiled","Tail Glow","Jungle Healing","Obstract","Growth","Trick Room","Tailwind","Shell Trap","Flail"]
-        self.normalmoves=["Double-Edge","Return","Body Slam","Boomburst","Crush Claw","Crush Grip","Dizzy Punch","Egg Bomb","Explosion","Extreme Speed","Hyper Voice","Facade","Multi-Attack","Strength","Hyper Beam","Giga Impact","Relic Song","Techno Blast","Weather Ball","Breakneck Blitz","Skull Bash","Metronome","Head Charge","Max Strike","Rapid Spin","Pulverizing Pancake","Extreme Evoboost","Hyper Drill","G-Max Replenish","Population Bomb","Slash","Endeavor","Pain Split","Whirlwind","Quick Attack","G-Max Gold Rush","G-Max Cuddle","Last Resort","Hidden Power","Present","Assist","Tri Attack"]
+        self.normalmoves=["Double-Edge","Return","Body Slam","Boomburst","Crush Claw","Crush Grip","Dizzy Punch","Egg Bomb","Explosion","Extreme Speed","Hyper Voice","Facade","Multi-Attack","Strength","Hyper Beam","Giga Impact","Relic Song","Techno Blast","Weather Ball","Breakneck Blitz","Skull Bash","Metronome","Head Charge","Max Strike","Rapid Spin","Pulverizing Pancake","Extreme Evoboost","Hyper Drill","G-Max Replenish","Population Bomb","Slash","Endeavor","Pain Split","Whirlwind","Quick Attack","G-Max Gold Rush","G-Max Cuddle","Last Resort","Hidden Power","Present","Assist","Tri Attack","Fake Out"]
         self.firemoves=["Fire Blast","Flare Blitz","Flamethrower","Magma Storm","Eruption","Lava Plume","Fire Punch","Blaze Kick","Fire Fang","Fire Lash","Heat Crash","Pyro Ball","Raging Fury","Sacred Fire","V-create","Blast Burn","Blue Flare","Fiery Dance","Fusion Flare","Heat Wave","Inferno","Mystical Fire","Searing Shot","Inferno Overdrive","Armor Cannon","Bitter Blade","Max Flare","G-Max Wildfire","G-Max Centiferno","Shell Trap","Torch Song","Blazing Torque","G-Max Fireball","Overheat"]
         self.watermoves=["Hydro Pump","Surf","Liquidation","Flip Turn","Hydro Cannon","Muddy Water","Origin Pulse","Scald","Snipe Shot","Sparkling Aria","Steam Eruption","Waterfall","Water Spout","Aqua Jet","Crabhammer","Fishious Rend","Razor Shell","Surging Strikes","Water Shuriken","Wave Crash","Hydro Vortex","Aqua Tail","Max Geyser","G-Max Cannonade","G-Max Hydrosnipe","G-Max Foam Burst","G-Max Stonesurge","G-Max Rapid Flow","Aqua Step","Muddy Water","Oceanic Operetta","Aqua Cutter","Chilling Water","Jet Punch","Octazooka","Triple Dive","Hydro Steam"]
         self.electricmoves=["Thunderbolt","Thunder","Volt Switch","Aura Wheel","Bolt Beak","Bolt Strike","Fusion Bolt","Plasma Fists","Thunder Fang","Thunder Punch","Volt Tackle","Electro Ball","Electroweb","Zap Cannon","Gigavolt Havoc","Wild Charge","Overdrive","Max Lightning","G-Max Volt Crash","G-Max Stun Shock","Discharge","Wildbolt Storm","10,000,000 Volt Thunderbolt","Catastropika","Stoked Sparksurfer","Electro Drift","Parabolic Charge","Double Shock","Nuzzle","Thunder Cage","Rising Voltage","Zing Zap"]
-        self.groundmoves=["Earthquake","Earth Power","Scorching Sands","Sandsear Storm","Bone Rush","Drill Run","Headlong Rush","High Horsepower","Land's Wrath","Precipice Baldes","Stomping Tantrum","Thousand Arrows","Thousand Waves","Tectonic Rage","Magnitude","Bulldoze","Max Quake","Sandsear Storm","G-Max Sandblast"]
+        self.groundmoves=["Earthquake","Earth Power","Scorching Sands","Sandsear Storm","Bone Rush","Drill Run","Headlong Rush","High Horsepower","Land's Wrath","Precipice Blades","Stomping Tantrum","Thousand Arrows","Thousand Waves","Tectonic Rage","Magnitude","Bulldoze","Max Quake","Sandsear Storm","G-Max Sandblast"]
         self.icemoves=["Ice Beam","Blizzard","Icicle Crash","Freeze Shock","Ice Fang","Ice Punch","Ice Shard","Icicle Spear","Mountain Gale","Freeze Dry","Frost Breath","Ice Burn","Subzero Slammer","Glacial Lance","Max Hailstorm","G-Max Resonance","Ice Spinner","Ice Hammer","Glaciate","Triple Axel","Icy Wind","Avalanche"]
         self.fightingmoves=["Superpower","Close Combat","High Jump Kick","Aura Sphere","Final Gambit","Focus Blast","Secret Sword","Arm Thrust","Body Press","Brick Break","Drain Punch","Mach Punch","Dynamic Punch","Flying Press","Force Palm","Hammer Arm","Power-up Punch","Sacred Sword","Seismic Toss","Sky Uppercutt","Triple Arrows","All-Out Pummeling","Meteor Assault","Submission","Max Knuckle","G-Max Chi Strike","Thunderous Kick","Collision Course","Counter","Combat Torque","Smelling Salts","Low Kick","Triple Kick"]
         self.psychicmoves=["Psychic","Extrasensory","Psychic Fangs","Psycho Cut","Psyshield Bash","Zen Headbutt","Esper Wing","Luster Purge","Mist Ball","Psycho Boost","Psystrike","Stored Power","Shattered Psyche","Prismatic Laser","Expanding Force","Max Mindstorm","Freezing Glare","Genesis Supernova","Light That Burns The Sky","Lumina Crash","Mirror Coat","Twin Beam","Dream Eater","Soul Robbery","G-Max Gravitas","Psyshock","Psyblade"]
@@ -35,7 +36,7 @@ class Moves:
         self.poisonmoves=["Poison Jab","Sludge Bomb","Cross Poison","Sludge Wave","Dire Claw","Gunk Shot","Belch","Poison Fang","Poison Tail","Venoshock","Acid Downpour","Max Ooze","G-Max Malodor","Noxious Torque","Acid Spray","Barb Barrage"]
         self.steelmoves=["Flash Cannon","Meteor Mash","Bullet Punch","Steel Beam","Doom Desire","Gyro Ball","Heavy Slam","Iron Head","Iron Tail","Steel Wing","Corkscrew Crash","Sunsteel Strike","Max Steelspike","Behemoth Bash","Behemoth Blade","Searing Sunraze Smash","G-Max Steelsurge","Make It Rain","Double Iron Bash","Gigaton Hammer","Spin Out","G-Max Meltdown","Gear Grind","Anchor Shot"]
         self.flyingmoves=["Brave Bird","Sky Attack","Acrobatics","Beak Blast","Dragon Ascent","Drill Peck","Dual Wingbeat","Supersonic Skystrike","Aeroblast","Hurricane","Oblivion Wing","Air Slash","Max Airstream","Bleakwind Storm","G-Max Wind Rage","Sonic Slash","Aerial Ace","Bounce"]
-        self.statusmove=["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect","Spiky Shield","King's Shield","Heal Order","Defend Order","Grassy Terrain","Electric Terrain","Misty Terrain","Psychic Terrain","Yawn","Doodle","Cosmic Power","Charm","Chilly Reception","Amnesia","Aromatherapy","Wish","Quiver Dance","Glare","Haze","Healing Bell","Light Screen","Reflect","Acid Armor","Agility","Aqua Ring","Autotomize","Cotton Guard","Corrosive Gas","Encore","Forest's Curse","Soak","Magic Powder","Trick-or-Treat","Iron Defense","Metronome","Pain Split","Growth","Destiny Bond","Shore Up","Aurora Veil","Max Guard","Shell Trap","Taunt","Encore","Toxic","Spikes","Psycho Shift","Barrier","Healing Wish","Lunar Dance","Acupressure","Me First","Lovely Kiss","Perish Song","Feather Dance","Fake Tears","Swagger"]   
+        self.statusmove=["Sleep Powder","Iron Defense","Calm Mind","Swords Dance","Bulk Up","Recover","Roost","Thunder Wave","Lunar Blessing","Take Heart","Heart Swap","Will-O-Wisp","Moonlight","Synthesis","Morning Sun","Rain Dance","Sunny Day","Hail","Sandstorm","Dark Void","Trick Room","Nasty Plot","Shell Smash","Dragon Dance","Belly Drum","Spore","Hypnosis","Rest","Coil","Curse","Strength Sap","Leech Seed","Protect","Spiky Shield","King's Shield","Heal Order","Defend Order","Grassy Terrain","Electric Terrain","Misty Terrain","Psychic Terrain","Yawn","Doodle","Cosmic Power","Charm","Chilly Reception","Amnesia","Aromatherapy","Wish","Quiver Dance","Glare","Haze","Healing Bell","Light Screen","Reflect","Acid Armor","Agility","Aqua Ring","Autotomize","Cotton Guard","Corrosive Gas","Encore","Forest's Curse","Soak","Magic Powder","Trick-or-Treat","Iron Defense","Metronome","Pain Split","Growth","Destiny Bond","Shore Up","Aurora Veil","Max Guard","Shell Trap","Taunt","Encore","Toxic","Spikes","Psycho Shift","Barrier","Healing Wish","Lunar Dance","Acupressure","Me First","Lovely Kiss","Perish Song","Feather Dance","Fake Tears","Swagger","Tric"]   
         self.healingmoves=["Recover","Roost","Synthesis","Morning Sun","Moonlight","Slack Off","Soft-Boiled","Milk Drink","Rest","Lunar Blessing","Giga Drain","Drain Punch","Jungle Healing","Pain Split","Wish","Bitter Blade","Draining Kiss","Horn Leech","Leech Life","Parabolic Charge","Oblivion Wing","Shore Up"]
         self.priorityatkmoves=["Aqua Jet","Bullet Punch","Extreme Speed","Sucker Punch","Fake Out","Jet Punch","Quick Attack","First Impression","Fake Out"]
         self.atkboost=["Swords Dance","Bulk Up","Fillet Away","Dragon Dance","Belly Drum","Clangorous Soul","Coil","Curse","Growth","Hone Claws","Howl","No Retreat","Meditate","Power-up Punch","Shell Smash","Victory Dance","Shift Gear","Tidy Up"]
@@ -49,4 +50,80 @@ class Moves:
         self.pp5=["Aeroblast","Ancient Power","Armor Cannon","Astral Barrage","Behemoth Bash","Behemoth Blade","Blast Burn","Bleakwind Storm","Blizzard","Blue Flare","Bolt Strike","Burn Up","Burning Jealousy","Chloroblast","Clanging Scales","Clangorous Soul","Close Combat","Collision Course","Cross Chop","Crush Grip","Destiny Bond","Diamond Storm","Doom Desire","Double Iron Bash","Double Shock","Draco Meteor","Dragpn Ascent","Dragon Energy","Dynamax Cannon","Dynamic Punch","Electro Drift","Encore","Endeavor","Eruption","Eternabeam","Explosion","Extreme Speed","Final Gambit","Fire Blast","Fissure","Fleur Cannon","Focus Blast","Frenzy Plant","Fusion Bolt","Fusion Flare","Giga Impact","Gigaton Hammer","Glacial Lance","Glaive Rush","Guillotine","Gunk Shot","Gyro Ball","Head Smash","Headlong Rush","Heal Bell","Horn Drill","Hydro Pump","Hydro Cannon","Hyper Beam","Hyper Drill","Hyperspace Fury","Hyperspace Hole","Inferno","Lash Out","Last Resort","Leaf Storm","Light of Ruin","Luster Purge","Magma Storm","Make It Rain","Meteor Assault","Mind Blown","Mist Ball","Misty Explosion","Moongeist Beam","Moonlight","Morning Sun","Mountain Gale","Overheat","Perish Song","Photon Geyser","Psycho Boost","Pyro Ball","Rain Dance","Roar of Time","Rock Wrecker","Sacred Fire","Sandsear Storm","Searing Shot","Seed Flare","Sheer Cold","Spacial Rend","Spin Out","Springtide Storm","Steam Eruption","Steel Beam","Steel Roller","Stone Edge","Sucker Punch","Sunny Day","Sunsteel Strike","Superpower","Surging Strikes","Synthesis","Technoblast","Trick Room","V-create","Water Spout","Wicked Blow","Wildbolt Storm","Zap Cannon","Dark Hole","Armor Cannon","Collision Course","Double Shock","Electro Drift","Gigaton Hammer","Glaive Rush","Hyper Drill","Make It Rain","Spin Out","Strength Sap","Sucker Punch","Techno Blast"]
         self.statusmove+=self.nondmgmove+self.buffmove+self.healingmoves
         self.allmove=self.firemoves+self.watermoves+self.electricmoves+self.grassmoves+self.normalmoves+self.darkmoves+self.ghostmoves+self.psychicmoves+self.poisonmoves+self.steelmoves+self.fairymoves+self.bugmoves+self.fightingmoves+self.flyingmoves+self.icemoves+self.rockmoves+self.groundmoves+self.dragonmoves+self.statusmove
+    def hpselect(self,mon):
+            x=hidp(mon.hpiv,mon.atkiv,mon.defiv,mon.spatkiv,mon.spdefiv,mon.speediv)
+            type=x[0]
+            if "Dragon" in (mon.maxiv,type):
+                self.dragonmoves+=["Hidden Power"]
+            if "Psychic" in (mon.maxiv,type):
+                self.psychicmoves+=["Hidden Power"]
+            if "Ghost" in (mon.maxiv,type):
+                self.ghostmoves+=["Hidden Power"]
+            if "Normal" in (mon.maxiv,type):
+                self.normalmoves+=["Hidden Power"]
+            if "Bug" in (mon.maxiv,type):
+                self.bugmoves+=["Hidden Power"]
+            if "Steel" in (mon.maxiv,type):
+                self.steelmoves+=["Hidden Power"]
+            if "Ice" in (mon.maxiv,type):
+                self.icemoves+=["Hidden Power"]
+            if "Fighting" in (mon.maxiv,type):
+                self.fightingmoves+=["Hidden Power"]
+            if "Dark" in (mon.maxiv,type):
+                self.darkmoves+=["Hidden Power"]
+            if "Fairy" in (mon.maxiv,type):
+                self.fairymoves+=["Hidden Power"]
+            if "Flying" in (mon.maxiv,type):
+                self.flyingmoves+=["Hidden Power"]
+            if "Poison" in (mon.maxiv,type):
+                self.poisonmoves+=["Hidden Power"]
+            if "Ground" in (mon.maxiv,type):
+                self.groundmoves+=["Hidden Power"]
+            if "Rock" in (mon.maxiv,type):
+                self.rockmoves+=["Hidden Power"]
+            if "Grass" in (mon.maxiv,type):
+                self.grassmoves+=["Hidden Power"]
+            if "Electric" in (mon.maxiv,type):
+                self.electricmoves+=["Hidden Power"]
+            if "Water" in (mon.maxiv,type):
+                self.watermoves+=["Hidden Power"]
+            if "Fire" in (mon.maxiv,type):
+                self.firemoves+=["Hidden Power"]
+    def teraselect(self,mon):
+            if mon.tera=="Dragon":
+                self.dragonmoves+=["Tera Blast"]
+            if mon.tera=="Psychic":
+                self.psychicmoves+=["Tera Blast"]
+            if mon.tera=="Ghost":
+                self.ghostmoves+=["Tera Blast"]
+            if mon.tera=="Normal":
+                self.normalmoves+=["Tera Blast"]
+            if mon.tera=="Bug":
+                self.bugmoves+=["Tera Blast"]
+            if mon.tera=="Steel":
+                self.steelmoves+=["Tera Blast"]
+            if mon.tera=="Ice":
+                self.icemoves+=["Tera Blast"]
+            if mon.tera=="Fighting":
+                self.fightingmoves+=["Tera Blast"]
+            if mon.tera=="Dark":
+                self.darkmoves+=["Tera Blast"]
+            if mon.tera=="Fairy":
+                self.fairymoves+=["Tera Blast"]
+            if mon.tera=="Flying":
+                self.flyingmoves+=["Tera Blast"]
+            if mon.tera=="Poison":
+                self.poisonmoves+=["Tera Blast"]
+            if mon.tera=="Ground":
+                self.groundmoves+=["Tera Blast"]
+            if mon.tera=="Rock":
+                self.rockmoves+=["Tera Blast"]
+            if mon.tera=="Grass":
+                self.grassmoves+=["Tera Blast"]
+            if mon.tera=="Electric":
+                self.electricmoves+=["Tera Blast"]
+            if mon.tera=="Water":
+                self.watermoves+=["Tera Blast"]
+            if mon.tera=="Fire":
+                self.firemoves+=["Tera Blast"]
 typemoves=Moves()

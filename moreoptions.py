@@ -88,7 +88,7 @@ def characters(text,location,nm=2):
             chosen=random.choices([genplayer2(field),genTrainer(trclass="Pokémon Trainer")],weights=[15,5],k=1)[0]
             #random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)
     else:
-        ch=input(" Enter what you wanna play with: ")
+        ch=input(" Enter who you wanna play with: ")
         if ch in ("rn",""):
             chosen=random.choice(team)
         else:

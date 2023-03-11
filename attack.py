@@ -8,23 +8,32 @@ allmove=list(set(typemoves.firemoves+typemoves.watermoves+typemoves.electricmove
 #    n+=1
 #    print(str(n)+"."+i)
 nondmgmove=typemoves.statusmove+typemoves.buffmove+["Stealth Rock","Toxic","Toxic Spikes","Sticky Web","Trick Room"]
-premove=["Solar Beam","Meteor Beam","Skull Bash","Geomancy","Phantom Force","Shadow Force","Sky Attack","Ice Burn","Freeze Shock","Solar Blade","Bounce"]
+
 def faint(self,other,tr,optr,field,turn):
     if self.hp<=0:
+        prdx=[]
+        di=[]
+        nn=0
         self.hp=0
         self.status="Fainted"
         name=self.name
         if self.dmax is True:
             self.dmax=False
             nn=-1
-            prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron"]
-            for i in prdx:
-                if i in self.name:
-                    nn=-2
-            if nn==-1:
-                name=self.name.split(" ")[-1]
-            if nn==-2:
-                name=name[8:]
+            prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White","Ice Rider","Shadow Rider"]
+        di=["Single","Rapid"]
+        for i in di:
+            if i in self.name:
+                nn=3
+        for i in prdx:
+            if i in self.name:
+                nn=-2
+        if nn==3:
+            self.name=self.name[11:]    
+        if nn==-1:
+            self.name=self.name.split(" ")[-1]
+        if nn==-2:
+            self.name=name[8:]
             print(f" 🔻 {name} returned to it's normal state!")
             self.name=name
         if "Mega " in self.name:
@@ -115,9 +124,9 @@ def faint(self,other,tr,optr,field,turn):
             if self.hp<=0:
                 faint(self,other,tr,optr,field,turn)
         return self
-def fchoice(pk,tr):
+def fchoice(pk,ck,tr,field):
     if tr.ai is False:
-        movelist(pk)
+        movelist(pk,ck,field)
         choice=input(f" {tr.name}: Choose a move.\n >>")
         if choice in ["1","2","3","4","5","6"]:
             choice=int(choice)
@@ -163,7 +172,7 @@ def switch(self,other,trainer,trainer2,field,turn):
     if self.dmax is True:
         self.dmax=False
         nn=-1
-        prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White"]
+        prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White","Ice Rider","Shadow Rider"]
         di=["Single","Rapid"]
         for i in di:
             if i in self.name:
@@ -193,7 +202,7 @@ def switch(self,other,trainer,trainer2,field,turn):
             if n in ["1","2","3","4","5","6"]:
                 n=int(n)
                 trainer.pokemons[n-1].info()
-                movelist(trainer.pokemons[n-1])
+                movelist(trainer.pokemons[n-1],other,field)
                 return switch(self,other,trainer,trainer2,field)
             else:
                 return switch(self,other,trainer,trainer2,field)
@@ -251,9 +260,6 @@ def withdaweff(self,trainer,other):
             self.hp+=round(self.maxhp/3)
         elif self.hp>(self.maxhp/3):
             self.hp=self.maxhp
-        
-#INTIMIDATE        
-     
 #Stance Change        
 def stancechange(self,other,turn,field,used):    
     if used not in typemoves.statusmove and self.ability=="Stance Change" and self.sword!=True:
@@ -322,6 +328,8 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
     
 #########ATTACK
 def attack(self,other,tr,optr,used,opuse,field,turn):
+    if used not in typemoves.allmove:
+        print(f" ⚠️⚠️⚠️⚠️ Selected Move: {used.upper()}⚠️⚠️⚠️⚠️")
     me=self
     they=other
     if self.roost!=False:
@@ -490,8 +498,8 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         x=list(x)
         used=random.choice(x)
         print(f" Metronome turned into {used}!")
-    if self.precharge==True and len(self.moves)>0 and "Geomancy" not in self.moves and self.status!="Sleep" and canatk==True:
-        l=list(set(self.moves).intersection(premove))
+    if self.precharge==True and len(self.moves)>0 and "Geomancy" not in self.moves and self.status not in ["Sleep","Frozen"] and canatk==True:
+        l=list(set(self.moves).intersection(typemoves.premove))
         if len(l)!=0:
             used=l[0]
     if (field.terrain=="Psychic" or other.ability in ["Dazzling","Queenly Majesty","Armor Tail"]) and used in typemoves.prioritymove:
@@ -519,7 +527,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             print(f" {self.name} used {used}!")
             print(f" {other.name} avoided the attack({used}).")
             used="None"
-    if opuse in ["Phantom Force","Shadow Force","Sky Attack","Bounce"] and other.precharge==True and used not in premove and self.precharge==False and used not in typemoves.buffmove:
+    if opuse in ["Phantom Force","Shadow Force","Sky Attack","Bounce"] and other.precharge==True and used not in typemoves.premove and self.precharge==False and used not in typemoves.buffmove:
         print(f" {self.name} used {used}!")
         print(f" {other.name} avoided the attack({used}).")
         used="None"
@@ -2311,18 +2319,25 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         elif used =="Hydro Vortex":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Waterium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             hydrovortex(self,other)
             self.moves.remove(used)
         elif used =="Oceanic Operetta":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             operetta(self,other)
             self.moves.remove(used)
         elif used =="Malicious Moonsault":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             moonsault(self,other)
             self.moves.remove(used)
         elif used =="Light That Burns The Sky":
@@ -2331,114 +2346,152 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 transformation(self,other,turn)
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
             skyburn(self,other)
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             self.moves.remove(used)
         elif used =="Let's Snuggle Forever":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             snuggle(self,other)
             self.moves.remove(used)      
         elif used =="Extreme Evoboost":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             exevoboost(self,other)
             self.moves.remove(used)      
         elif used =="Guardian of Alola":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             goalola(self,other)
             self.moves.remove(used)
         elif used =="Stoked Sparksurfer":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             sparksurf(self,other)
             self.moves.remove(used)
         elif used =="Clangorous Soulblaze ":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             soulblaze(self,other)
             self.moves.remove(used)
         elif used =="Sinister Arrow Raid":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             arrowraid(self,other)
             self.moves.remove(used)
         elif used =="Soul-Stealing 7-Star Strike":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             soulstealing(self,other)
             self.moves.remove(used)
         elif used =="Menacing Moonraze Maelstrom":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             menacingmoonrazemaelstrom(self,other)
             self.moves.remove(used)
         elif used =="Searing Sunraze Smash":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             searingsunrazesmash(self,other)
             self.moves.remove(used)
         elif used =="Genesis Supernova":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             genesissupernova(self,other,field,turn)
             self.moves.remove(used)
         elif used =="Pulverizing Pancake":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Snorlium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             pulverizingpancake(self,other)
             self.moves.remove(used)
         elif used =="Splintered Stormshards":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Lycanium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             stormshards(self,other)
             self.moves.remove(used)                
         elif used =="Inferno Overdrive":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Firium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             infernooverdrive(self,other)
             self.moves.remove(used)
         elif used =="Bloom Doom":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Grassium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             bloomdoom(self,other)
             self.moves.remove(used)
         elif used =="Gigavolt Havoc":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Electrium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             gigavolthavoc(self,other)
             self.moves.remove(used)
         elif used =="Catastropika":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             catastropika(self,other)
             self.moves.remove(used)
         elif used =="Pulverizing Pancake":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             pulverizingpancake(self,other)
             self.moves.remove(used)
         elif used =="10,000,000 Volt Thunderbolt":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             tenmvolttb(self,other)
             self.moves.remove(used)
         elif used =="Acid Downpour":
@@ -2446,83 +2499,111 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             print(f" {self.name} reacting to {tr.name}'s Poisonium-Z.")
             aciddownpour(self,other)
             self.moves.remove(used)
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
         elif used =="Breakneck Blitz":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Normalium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             breakneckblitz(self,other)
             self.moves.remove(used)
         elif used =="All-Out Pummeling":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Fightinium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             alloutpummeling(self,other)
             self.moves.remove(used)
         elif used =="Black Hole Eclipse":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Darkinium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             blackholeeclipse(self,other)
             self.moves.remove(used)
         elif used =="Continental Crush":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Rockium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             continentalcrush(self,other)
             self.moves.remove(used)
         elif used =="Tectonic Rage":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Groundium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             tectonicrage(self,other)
             self.moves.remove(used)
         elif used =="Corkscrew Crash":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Steelium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             corkscrewcrash(self,other)
             self.moves.remove(used)
         elif used =="Devastating Drake":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Dragonium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             devastatingdrake(self,other)
             self.moves.remove(used)
         elif used =="Shattered Psyche":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Psychium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             shatteredpsyche(self,other)
             self.moves.remove(used)
         elif used =="Never-ending Nightmare":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Ghostium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             neverendingnightmare(self,other)
             self.moves.remove(used)
         elif used =="Supersonic Skystrike":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Flyinium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             supersonicskystrike(self,other)
             self.moves.remove(used)
         elif used =="Savage Spin-Out":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Buginium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             savagespinout(self,other)
             self.moves.remove(used)
         elif used =="Subzero Slammer":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Icium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             subzeroslammer (self,other)
             self.moves.remove(used)
         elif used =="Twinkle Tackle":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Fairium-Z.")
-            self.item+="[Used]"
+            self.item+="[Used]"             
+            print(f" {self.name} surrounded itself with its Z-Power!")
+            print(f" {self.name} unleashes its full-force Z-Move!")
             twinkletackle(self,other)
             self.moves.remove(used)
         elif used=="Counter":
@@ -2886,7 +2967,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
     if other.ability=="Stamina" and other.hp!=before and self.hp>0:
         print(f" {other.name}'s {other.ability}!")
         defchange(other,self,0.5)       
-    if self.hp<self.maxhp/2 and self.hp>0:
+    if self.hp<=self.maxhp/2 and self.hp>0:
         if self.item=="Sitrus Berry":       
             self.hp+=round(self.maxhp/4)
             print(f" {self.name} restored HP using its {self.item}!")
@@ -2903,6 +2984,34 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         other.speed=40
         other.calcst()
         other.hp=other.maxhp*per
+    if self.item=="White Herb":
+        if self.atkb<1 or self.defb<1 or self.spatkb<1 or self.spdefb<1 or self.speedb<1:
+            print(f" White Herb cured {self.name}'s negative stats!")
+            self.item+="[Used]"
+            if self.atkb<1:
+                self.atkb=1
+            if self.defb<1:
+                self.defb=1
+            if self.spatkb<1:
+                self.spatkb=1
+            if self.spdefb<1:
+                self.spdefb=1
+            if self.speedb<1:
+                self.speedb=1
+    if other.item=="White Herb":
+        if other.atkb<1 or other.defb<1 or other.spatkb<1 or other.spdefb<1 or other.speedb<1:
+            print(f" White Herb cured {other.name}'s negative stats!")
+            other.item+="[Used]"
+            if other.atkb<1:
+                other.atkb=1
+            if other.defb<1:
+                other.defb=1
+            if other.spatkb<1:
+                other.spatkb=1
+            if other.spdefb<1:
+                other.spdefb=1
+            if other.speedb<1:
+                other.speedb=1                
     return self,other
     
     
@@ -2910,6 +3019,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
 def effects(self,other,tr,turn):
     print("  ")
     self.flinched=False
+    self.canfakeout=False
     if "Berry" in self.item and self.ability=="Harvest":
         if field.weather in ["Sunny","Desolate Land"]:
             if "Berry[Used]" in self.item:
@@ -3066,7 +3176,7 @@ def effects(self,other,tr,turn):
             print (" 🌐 The dimensions turned back to normal!")
     if self.dmax is True and turn==self.maxend:
         self.dmax=False
-        prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White"]
+        prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White","Ice Rider","Shadow Rider"]
         di=["Single","Rapid"]
         x=1
         for i in di:

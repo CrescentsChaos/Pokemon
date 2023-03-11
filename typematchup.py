@@ -1005,6 +1005,8 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1   
+    typemoves.hpselect(self)
+    typemoves.teraselect(self)
     if self.maxiv!="No":
         self.geniv()
     if self.flashfire==True:
@@ -1032,21 +1034,6 @@ def prebuff(self,other,tr1,turn,field):
     if self.item!="None" and "Choice" not in self.item:
         self.choiced=False
         self.choicedmove="None"
-    
-    if self.item=="White Herb":
-        if self.atkb<1 or self.defb<1 or self.spatkb<1 or self.spdefb<1 or self.speedb<1:
-            print(f" White Herb cured {self.name}'s negative stats!")
-            self.item+="[Used]"
-            if self.atkb<1:
-                self.atkb=1
-            if self.defb<1:
-                self.defb=1
-            if self.spatkb<1:
-                self.spatkb=1
-            if self.spdefb<1:
-                self.spdefb=1
-            if self.speedb<1:
-                self.speedb=1
     if tr1.auroraveil is True:
         if turn==tr1.avendturn:
             tr1.auroraveil=False

@@ -445,24 +445,27 @@ def switchAI(self,other,tr,tr2, field):
 #    bestdeflist=["Steelix","Aggron","Tyranitar","Amoongus","Rillaboom","Blastoise","Metagross","Groudon","Eternatus","Shuckle","Stakataka","Regirock","Avalugg","Cloyster","Slowbro","Bastiodon","Defense","Toxapex","Ice Rider","Diancie","Shield","Registeel","Orthworm","Zamazenta","rigus","Probopass","Melmetal","Golisopod","Torkoal","Skarmory","Forretress","Buzzwole","Stonjourner","Turtonator","Dusknoir","Dusclops","Carracosta","Tusk","Kartana","Ferrothorn","Garganacl","Glastr","Wishiwashi","Gigalith","Uxie","Leafeon","Rhyperior","Relicanth","Lugia","Golem","Cobalion","Audino","Ting-Lu","Sandaconda","Kommo","Crustle","Gliscor","Tangrowth","Sableye","Chesnaught","Hippowdon"]
 #    bestspdeflist=["Eternatus","Shuckle","Regice","Kyogre","Defense","Florges","Ho-Oh","Lugia","Goodra","Latias","Probopass","Registeel","Shield","Diancie","Zamazenta","Toxapex","Mantine","Bastiodon","Blissey","Cryogonal","Gardevoir","Wo-Chien","Wishiwashi","Dusknoir","Araquanid","Nihilego","Cursola","Hoopa","Sylveon","Umbreon","Fini","Uxie","Dusclops","Cresselia","Celesteela"]
         if i !="None":
+            if other.perishturn>0:
+                if i.ability in ["Arena Trap","Shadow Tag"]:
+                    best.append(i)
             x=moveAI(i,other,tr,tr2,field)
             y=moveAI(other,i,tr2,tr,field)
-#        if len(y[0])!=0 and len(x[0])>0 and (other.maxspdef*other.spdefb)<200 and i.maxspatk>250 and i not in bestoff:
-#            bestoff.append(i)
-#        if len(y[0])!=0 and len(x[0])>0 and (other.maxdef*other.defb)<200 and i.maxatk>250 and i not in bestoff:
-#            bestoff.append(i)
-#        if len(y[0])!=0 and (other.maxatk*other.atkb)>(other.maxspatk*other.spatkb) and i.maxdef>350 and i not in defmon:
-#            defmon.append(i)
-#        if len(y[0])!=0 and (other.maxspatk*other.spatkb)>(other.maxatk*other.atkb) and i.maxspdef>350 and i not in spdefmon:
-#            spdefmon.append(i)
-#        if len(y[0])==0 and (other.maxspatk*other.spatkb)>(other.maxatk*other.atkb) and i.maxspdef>(other.maxspatk*other.spatkb) and i not in spdefmon:
-#            spdefmon.append(i)
-#        if len(y[0])==0 and (other.maxatk*other.atkb)>(other.maxspatk*other.spatkb) and i.maxdef>(other.maxatk*other.atkb) and i not in defmon:
-#            defmon.append(i)
-        if i in bestoff and len(x[3])==0 and i.maxspeed>(other.maxspeed*other.speedb):
-            best.append(i)
-        if "Poison" in (i.type1,i.type2,i.teratype) and "Toxic Spikes" in i.owner.hazard:
-            best.append(i)
+            if len(y[0])!=0 and len(x[0])>0 and (other.maxspdef*other.spdefb)<200 and i.maxspatk>250 and i not in bestoff:
+                bestoff.append(i)
+            if len(y[0])!=0 and len(x[0])>0 and (other.maxdef*other.defb)<200 and i.maxatk>250 and i not in bestoff:
+                bestoff.append(i)
+            if len(y[0])!=0 and (other.maxatk*other.atkb)>(other.maxspatk*other.spatkb) and i.maxdef>350 and i not in defmon:
+                defmon.append(i)
+            if len(y[0])!=0 and (other.maxspatk*other.spatkb)>(other.maxatk*other.atkb) and i.maxspdef>350 and i not in spdefmon:
+                spdefmon.append(i)
+            if len(y[0])==0 and (other.maxspatk*other.spatkb)>(other.maxatk*other.atkb) and i.maxspdef>(other.maxspatk*other.spatkb) and i not in spdefmon:
+                spdefmon.append(i)
+            if len(y[0])==0 and (other.maxatk*other.atkb)>(other.maxspatk*other.spatkb) and i.maxdef>(other.maxatk*other.atkb) and i not in defmon:
+                defmon.append(i)
+            if i in bestoff and len(x[3])==0 and i.maxspeed>(other.maxspeed*other.speedb):
+                best.append(i)
+            if "Poison" in (i.type1,i.type2,i.teratype) and "Toxic Spikes" in i.owner.hazard:
+                best.append(i)
 #    print("=====================")   
 #    print(f"Against {other.name}: ")
 #    print("=====================")   

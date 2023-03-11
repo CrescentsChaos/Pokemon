@@ -5,7 +5,7 @@ def confuse(self,other,turn,ch=100):
     if self.ability=="Serene Grace":
         miss/=2
     chance=random.randint(1,100)
-    if chance>=miss and other.confused is False and self.ability!="Sheer Force" and other.ability not in ["Own Tempo"]:
+    if chance>=miss and other.confused is False and self.ability!="Sheer Force" and other.ability not in ["Own Tempo"] and other.status!="Sleep":
         print(f" 😕 {other.name} became confused!")
         other.confused=True
         other.confuseendturn=turn+random.randint(2,5)

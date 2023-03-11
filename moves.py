@@ -301,7 +301,7 @@ def blueflare(self,other):
 def iceburn(self,other):
     if self.item=="Power Herb" or self.precharge==True:
         if self.item=="Power Herb":
-            self.item=None
+            self.item+="[Used]"
             print(f" {self.name} became fully charged due to its Power Herb.")
         self.atktype="Ice"
         w=weathereff(self,other)
@@ -727,7 +727,7 @@ def skullbash(self,other):
     print(f" ⛑️ {self.name} used "+colored(" Skull Bash","white")+"!")
     if self.item=="Power Herb" or self.precharge is True:
         if self.item=="Power Herb":
-            self.item=None  
+            self.item+="[Used]"  
             atkchange(self,other,0.5)
             defchange(self,other,0.5)
             print(f" {self.name} became fully charged due to its Power Herb.")
@@ -751,7 +751,7 @@ def meteorbeam(self,other):
     print(f" ☄️ {self.name} used "+colored(" Meteor Beam","yellow")+"!")
     if self.item=="Power Herb" or self.precharge is True:
         if self.item=="Power Herb":
-            self.item=None  
+            self.item+="[Used]"  
             spatkchange(self,other,0.5)
             print(f" {self.name} became fully charged due to its Power Herb.")
         al=1
@@ -776,7 +776,7 @@ def geomancy(self,other):
         spdefchange(self,other,1)   
         speedchange(self,other,1)
         self.precharge=False
-        self.item=None
+        self.item+="[Used]"
     else:
         print(f" {self.name} is absorbing power.")
         self.precharge=True
@@ -1348,7 +1348,7 @@ def moonsault(self,other):
 def operetta(self,other):
     al=1
     r=randroll()
-    print(f" 🦭🎶💥 {self.name} used "+colored(" Oceanic Operetta","blue")+"!")
+    print(f" 🦭🎶 {self.name} used "+colored(" Oceanic Operetta","blue")+"!")
     self.atktype="Water"
     c=critch(self,other)
     ab=weakness(self,other,field)
@@ -2387,16 +2387,18 @@ def signalbeam (self,other,turn):
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,75,a,b,c,r,al)  
     confuse(self,other,turn,10)
+    
 def aeroblast (self,other):
     al=1
     r=randroll()
-    print(f" {self.name} used "+colored(" Aeroblast","cyan")+"!")
+    print(f" ☄️ {self.name} used "+colored(" Aeroblast","cyan")+"!")
     self.atktype="Flying"
     c=critch(self,other,2)
     ab=weakness(self,other,field)
     a=ab[0]
     b=ab[1]   
     other.hp-=special(self,self.level,self.spatk,other.spdef,100,a,b,c,r,al)        
+    
 def makeitrain(self,other):
     al=1
     r=randroll()
@@ -3801,7 +3803,7 @@ def skyuppercut(self,other):
 def shadowforce(self,other):
     if self.item=="Power Herb" or self.precharge==True:
         if self.item=="Power Herb":
-            self.item=None
+            self.item+="[Used]"
             print(f" 👥 {self.name} became fully charged due to its Power Herb.")
         al=1
         r=randroll()
@@ -3821,7 +3823,7 @@ def shadowforce(self,other):
 def phantomforce(self,other):
     if self.item=="Power Herb" or self.precharge==True:
         if self.item=="Power Herb":
-            self.item=None
+            self.item+="[Used]"
             print(f" {self.name} became fully charged due to its Power Herb.")
         al=1
         r=randroll()
@@ -5665,7 +5667,7 @@ def boltstrike(self,other):
 def freezeshock(self,other):
     if self.item=="Power Herb" or self.precharge==True:
         if self.item=="Power Herb":
-            self.item=None
+            self.item+="[Used]"
             print(f" {self.name} became fully charged due to its Power Herb.")
         al=1
         r=randroll()
@@ -6360,7 +6362,7 @@ def woodhammer(self,other):
 def skyattack(self,other):
     if self.item=="Power Herb" or self.precharge==True:
         if self.item=="Power Herb":
-            self.item=None
+            self.item+="[Used]"
             print(f" {self.name} became fully charged due to its Power Herb.")
         al=1
         r=randroll()
@@ -6380,7 +6382,7 @@ def skyattack(self,other):
 def bounce(self,other):
     if self.item=="Power Herb" or self.precharge==True:
         if self.item=="Power Herb":
-            self.item=None
+            self.item+="[Used]"
             print(f" {self.name} became fully charged due to its Power Herb.")
         al=1
         r=randroll()
@@ -7915,7 +7917,7 @@ def solarbeam(self,other):
     if field.weather=="Sandstorm":
         w*=0.5
     if self.item=="Power Herb":
-        self.item=None
+        self.item+="[Used]"
         print(f" {self.name} became fully charged due to its Power Herb.")
         self.precharge=True
     if (field.weather in ["Sunny","Desolate Land"]) or self.precharge is True:
@@ -7935,7 +7937,7 @@ def solarblade(self,other):
     w=1
     r=randroll()
     if self.item=="Power Herb":
-        self.item=None
+        self.item+="[Used]"
         print(f" {self.name} became fully charged due to its Power Herb.")
         self.precharge=True
     if (field.weather in ["Sunny","Desolate Land"]) or self.precharge is True:

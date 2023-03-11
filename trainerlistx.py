@@ -40,7 +40,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
         mixmon=natmon+palmon
         mons=random.choice([mixmon,palmon])
     if trclass in ["Galar Trainer"]:
-        galmon=[HElectrode,GArticuno,GZapdos,GMoltres,GRapidash,GSlowbro,GSlowking,Sirfetchd,GWeezing,MrRime,HArcanine,HTyphlosion,GCorsola,HSamurott,HLilligant,Obstagoon,GDarmanitan,HZoroark,HBraviary,HGoodra,HAvalugg,HDecidueye,Melmetal,Runerigus,Garbodor,Rillaboom,Cinderace,Inteleon,Corviknight,Greedent,Orbeetle,Thievul,Dubwool,Eldegoss,Drednaw,Coalossal,Flapple,Appletun,Boltund,Sandaconda,Barraskewda,Toxtricity,Grapplot,Centiskorch,Polteageist,Hatterene,Grimmsnarl,Perrserker,Alcremie,Frosmoth,Stonjourner,Cursola,MrRime,Falinks,Pincurchin,Eiscue,Indeedee,Copperajah,Dracovish,Dracozolt,Arctovish,Arctozolt,Duraludon,Dragapult,DUrshifu,WUrshifu, Pyukumuku]
+        galmon=[HElectrode,GArticuno,GZapdos,GMoltres,GRapidash,GSlowbro,GSlowking,Sirfetchd,GWeezing,MrRime,HArcanine,HTyphlosion,GCorsola,HSamurott,HLilligant,Obstagoon,GDarmanitan,HZoroark,HBraviary,HGoodra,HAvalugg,HDecidueye,Melmetal,Runerigus,Garbodor,Rillaboom,Cinderace,Inteleon,Corviknight,Greedent,Orbeetle,Thievul,Dubwool,Eldegoss,Drednaw,Coalossal,Flapple,Appletun,Boltund,Sandaconda,Barraskewda,Toxtricity,Grapploct,Centiskorch,Polteageist,Hatterene,Grimmsnarl,Perrserker,Alcremie,Frosmoth,Stonjourner,Cursola,MrRime,Falinks,Pincurchin,Eiscue,Indeedee,Copperajah,Dracovish,Dracozolt,Arctovish,Arctozolt,Duraludon,Dragapult,DUrshifu,WUrshifu, Pyukumuku]
         natmon=[Venusaur, Charizard,Blastoise,Butterfree,Pikachu,Meowth, Machamp,Gengar,Kingler,Lapras,Snorlax,Sandslash, Nidoqueen,Nidoking,Clefable, Ninetales, Wigglytuff,Vileplume,Dugtrio,Golduck,Arcanine,Poliwrath, Alakazam,Tentacruel,Rapidash,Slowbro, Cloyster, Exeggutor,Marowak, Hitmonlee, Hitmonchan,Weezing,Rhydon,Chansey, Kangaskhan, Seaking,Starmie,MrMime,Jynx,Pinsir,Tauros, Gyarados,Ditto, Vaporeon, Jolteon,Flareon,Omastar, Kabutops, Aerodactyl, Articuno, Zapdos,Moltres, Dragonite,Noctowl,Lanturn,Xatu, Bellossom, Sudowoodo,Politoed, Quagsire, Espeon,Umbreon, Slowking,Wobbuffet, Steelix,Scizor,Shuckle,Heracross, Octillery,Delibird,Mantine,Skarmory,Kingdra, Porygon2,Hitmontop,Miltank, Blissey, Raikou,Suicune,Entei, Tyranitar,Celebi,Hooh,Lugia,Mew,Mewtwo,Sceptile,Blaziken,Swampert,Linoone,Ludicolo,Shiftry, Pelipper, Gardevoir,Ninjask,Shedinja,Exploud, Sableye,Mawile,Aggron,Manectric,Sharpedo,Wailord, Torkoal, Flygon,Altaria,Whiscash,Solrock,Lunatone,Crawdaunt,Claydol,Cradily,Armaldo,Milotic,Dusclops,Absol,Glalie,Walrein,Relicanth,Salamence, Metagross,Regirock,Regice,Registeel,Latias,Latios,Kyogre,Groudon, Rayquaza,Jirachi,Luxray,Roserade,Vespiquen,Cherrim, WGastrodon, EGastrodon,Drifblim, Lopunny,Skuntank,Bronzong,Spiritomb, Garchomp,Lucario, Hippowdon,Drapion,Toxicroak, Abomasnow,Weavile, Magnezone, Lickilicky,Rhyperior, Tangrowth,Electivire,Magmortar,Togekiss,Leafeon,Glaceon,Mamoswine, PorygonZ,Dusknoir,Gallade,Froslass,HRotom,FrRotom,FRotom,WRotom,MRotom,Uxie,Mesprit,Azelf,Dialga,Palkia,ODialga,OPalkia,Heatran,Regigigas,Giratina,OGiratina, Cresselia,Victini, Stoutland, Liepard,Musharna, Unfezant, Gigalith,Swoobat, Excadrill,Audino, Conkeldurr, Seismitoad,Sawk,Throh, Scolipede, Whimsicott, Lilligant, Krookodile, Darmanitan, Maractus,Crustle,Scrafty, Sigilyph, Cofagrigus, Carracosta,Archeops, Garbodor,Zoroark,Cinccino, Gothitelle, Reuniclus, Vanilluxe,Emolga,Escavalier, Amoongus, Jellicent, Galvantula, Ferrothorn, Klinklang, Beheeyem, Chandelure, Haxorus,Beartic, Cryogonal,Accelgor,Stunfisk,GStunfisk,Mienshao, Druddigon,Golurk, Bisharp, Bouffalant, Braviary,Mandibuzz,Heatmor,Durant, Hydreigon, Volcarona,Cobalion, Terrakion, Virizion, Tornadus, TTornadus, Thundurus, TThundurus,Reshiram,Zekrom, Landorus, TLandorus,Kyurem,WKyurem,BKyurem,Keldeo,Genesect]
         mixmon=natmon+galmon
         mons=random.choice([mixmon,galmon])
@@ -63,7 +63,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
         namelist=["Taishi","Damme","Wesley","Joe","Dolph","Kenji","Kiyo","Lao","Lung","Nob","Wai","Yoshi","Atsushi","Daisuke","Hideki","Hitoshi","Koichi","Koji","Yuji","Rhett","Takao","Theodore","Zander","Aaron","Hugh","Mike","Nicolas","Shea","Takashi","Adam","Carl","Colby","Darren","David","Derek","Gregory","Griffin","Jarrett","Kendal","Luke","Nathaniel","Philip","Rafael","Ray","Ricky","Sean","Willie","Davon","Ander","Kenji","Manford","Benjamin","Edward","Grant","Jay","Kendrew","Kentaro","Ryder","Teppei","Tyrone","Corey","Donny","Drago","Gordon","Grigor","Jeriel","Kenneth","Mathis","Martell","Rodrigo","Rich","Rocky","Wesley","Zachery","Alonzo","Gunnar","Killan","Markus","Yanis","Ricardo","Igor","Cadox","Banting","Clayton","Earl","Greg","Roy","Terry","Walter","Tracy","Alvaro","Curtis"]
         nn=random.choice(namelist)
         new_name=trclass+" "+nn
-        mons=[Sawk,Throh,PTauros,Flamigo,Slitherwing,Annihilape,Quaquaval,Ironvaliant,Ironhands,Greattusk,Hitmontop,DUrshifu,WUrshifu,Sirfetchd,Grapplot,Sneasler,HDecidueye,Hawlucha,Pangoro,Chesnaught,Mienshao,Scrafty,HLilligant,Conkeldurr,Emboar,Gallade,Machamp,Poliwrath,Hitmonchan,Hitmonlee,Infernape,Blaziken,Breloom,Primeape,Heracross,Hariyama]
+        mons=[Sawk,Throh,PTauros,Flamigo,Slitherwing,Annihilape,Quaquaval,Ironvaliant,Ironhands,Greattusk,Hitmontop,DUrshifu,WUrshifu,Sirfetchd,Grapploct,Sneasler,HDecidueye,Hawlucha,Pangoro,Chesnaught,Mienshao,Scrafty,HLilligant,Conkeldurr,Emboar,Gallade,Machamp,Poliwrath,Hitmonchan,Hitmonlee,Infernape,Blaziken,Breloom,Primeape,Heracross,Hariyama]
     
         #STEEL
     if trclass in ["Factory Boss","Industry Worker"]:
@@ -199,7 +199,7 @@ def teammaker(trclass=None,trname=None,pknum=6,field=field):
         if trclass in [ "Beauty","Lass","Aroma Lady","Countess","Parasol Lady"]:
             mons=[Wigglytuff,Blissey,Swanna,Sylveon,Whimsicott, Alcremie,Slurpuff,Tsareena,Azumarill,GRapidash, Vileplume,Vaporeon,Cloyster, Bellossom, Seaking,Starmie,Clefable,Togekiss, Gardevoir,Mawile,Altaria,Florges,Klefki,Primarina, Hatterene,Dachsbun,Screamtail,Fluttermane,Tinkaton]
         if trclass in ["Battle Girl","Crush Girl"]:
-            mons=[Sawk,Throh,PTauros,Flamigo,Slitherwing,Annihilape,Quaquaval,Ironvaliant,Ironhands,Greattusk,Hitmontop,DUrshifu,WUrshifu,Sirfetchd,Grapplot,Sneasler,HDecidueye,Hawlucha,Pangoro,Chesnaught,Mienshao,Scrafty,HLilligant,Conkeldurr,Emboar,Gallade,Machamp,Poliwrath,Hitmonchan,Hitmonlee,Infernape,Blaziken,Breloom,Primeape,Heracross,Hariyama]
+            mons=[Sawk,Throh,PTauros,Flamigo,Slitherwing,Annihilape,Quaquaval,Ironvaliant,Ironhands,Greattusk,Hitmontop,DUrshifu,WUrshifu,Sirfetchd,Grapploct,Sneasler,HDecidueye,Hawlucha,Pangoro,Chesnaught,Mienshao,Scrafty,HLilligant,Conkeldurr,Emboar,Gallade,Machamp,Poliwrath,Hitmonchan,Hitmonlee,Infernape,Blaziken,Breloom,Primeape,Heracross,Hariyama]
         if trclass in ["Nurse"]:
             mons=[Audino,Chansey,Blissey,Alomomola, Gothitelle,Musharna, Leavanny,Clefable, Wigglytuff,Hatterene,Aromatisse]
             
@@ -1572,9 +1572,21 @@ nate34=Gothitelle (maxiv="Yes")
 nate35=Musharna(maxiv="Yes")
 nate36=Scrafty(maxiv="Yes")
 nate37=Arcanine(maxiv="Yes")
+hilbert1=Samurott(maxiv="Yes")
+hilbert2=Genesect(maxiv="Yes")
+hilbert3=Mightyena(maxiv="Yes")
+hilbert4=Zekrom(maxiv="Yes")
+hilda1=Emboar(maxiv="Yes")
+hilda2=Victini(maxiv="Yes")
+hilda3=Diancie(maxiv="Yes")
+hilda4=Grapploct(name="Grapploct✨",maxiv="Yes")
 nateteam=teamset([nate1,nate2,nate3,nate4,nate5,nate7,nate8,nate9,nate10,nate11,nate12,nate13,nate14,nate15,nate16,nate17,nate18,nate19,nate20,nate21,nate22,nate23,nate24,nate25,nate26,nate27,nate28,nate29,nate30,nate31,nate32,nate33,nate34,nate35,nate36,nate6],5)+[nate37]
 rosa=Trainer(colored("Pokémon Trainer Rosa","red"),nateteam,"Unova")
 nate=Trainer(colored("Pokémon Trainer Nate","blue"),nateteam,"Unova")
+hildateam=teamset(nateteam+[hilda3,hilda4],4)+[hilda1,hilda2]
+hilbertteam=teamset(nateteam+[hilbert3,hilbert4],4)+[hilbert1,hilbert2]
+hilbert=Trainer(colored("Pokémon Trainer Hilbert","blue"),hilbertteam,"Unova")
+hilda=Trainer(colored("Pokémon Trainer Hilda","red"),hildateam,"Unova")
 #mira
 mira1=PorygonZ(maxiv="Yes")
 mira2=Gengar(maxiv="Yes")
@@ -2595,7 +2607,7 @@ kabuteam=teamset([kabu2,kabu3,kabu4,kabu5,kabu1],5)+[kabu6]
 kabu=Trainer (colored("Gym Leader Kabu","red"),kabuteam,"Galar")
 #bea
 bea1=Hawlucha(maxiv="Yes")
-bea2=Grapplot(maxiv="Yes")
+bea2=Grapploct(maxiv="Yes")
 bea3=Hitmontop(maxiv="Yes")
 bea4=Pangoro(maxiv="Yes")
 bea5=Sirfetchd(maxiv="Yes")
@@ -2854,7 +2866,7 @@ morimoto4=Jolteon(maxiv="Yes")
 morimoto5=Vaporeon(maxiv="Yes")
 morimoto6=Flareon(maxiv="Yes")
 morimoto7=Cursola(maxiv="Yes")
-morimoto8=Grapplot(maxiv="Yes")
+morimoto8=Grapploct(maxiv="Yes")
 morimoto9=Dragapult(maxiv="Yes")
 morimoto10=Coalossal(maxiv="Yes")
 morimoto11=Snorlax(maxiv="Yes")
@@ -3750,7 +3762,7 @@ test=[test2,hof]
 
 hardlist=[erikah,erikahc,blainehc,brunoh,kogah,brockh,mistyh,garyhc,wulfrich,olympiah]
 
-talentlist=[gary,barry,paul,sun,calem,lucas,nate,rosa,xadv,tyme,salvatore,miriam,dendra,raifort,jacq,saguaro,Lillie,mallow,lana,kiawe,Ilima,forina,hugh,hop,hau,shauna,tierno,ramone,cameron,virgil,dino,burgundy,solidad,tyson,harley,harrison,ritchie,dawn,kenny,ursula,trip,drew,riley,cheryl,marley,mira,nando,conway,zoey,zinnia,arven,clavell,sordward,shielbert,morimoto,palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,sawyer,emmet,ingo,silver,buck,n,alain,tobias,quillon,danika,horace,wally,nemona,evelyn,nita,dana,morgan,adaman]
+talentlist=[gary,barry,paul,sun,calem,lucas,nate,rosa,hilbert,hilda,xadv,tyme,salvatore,miriam,dendra,raifort,jacq,saguaro,Lillie,mallow,lana,kiawe,Ilima,forina,hugh,hop,hau,shauna,tierno,ramone,cameron,virgil,dino,burgundy,solidad,tyson,harley,harrison,ritchie,dawn,kenny,ursula,trip,drew,riley,cheryl,marley,mira,nando,conway,zoey,zinnia,arven,clavell,sordward,shielbert,morimoto,palina,iscan,calaba,lian,mai,goh,gladion,eusine,benga,trevor,sawyer,emmet,ingo,silver,buck,n,alain,tobias,quillon,danika,horace,wally,nemona,evelyn,nita,dana,morgan,adaman]
 
 evilist=[sird,jessiejames,jessie,james,petrel,proton,ariana,archer,maskedman,giovanni,shelly,matt,archie,amber,courtney,blaise,tabitha,maxie,saturn,mars,jupiter,cyrus,lusamine,rose,Guzma,volo,penny,eri,ortega,atticus,mela,giacomo,xerosic,aliana,celosia,bryony,mable,lysandre,ghetsis,colress,giallo,zinzolin,rood,ryoku,bronius,gorm,alsada,alturo,butler]
 

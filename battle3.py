@@ -73,10 +73,10 @@ def action(tr,self,other):
             if tr.canmax is True and (self.item!="None" and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype=="None" and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "Z-Crystal" not in self.name and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name) and tr.cantera==False:
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 8. ⭕ Dynamax/Gigantamax\n")
             elif tr.cantera is True and ((self.item!="None" and self.item not in megastones) and "Z-Crystal" not in self.name):
-                if tr.canmax is True and (self.item!="None" and self.item not in megastones) and "Z-Crystal" not in self.name and self.teratype=="None" and ("Zacian" not in self.name and "Zamazenta" not in self.name and "Eternatus" not in self.name and "m-Z" not in self.item and "Rayquaza" not in self.name and "Primal" not in self.name and "Mega" not in self.name):
+                if tr.canmax is True and tr.cantera is True:
                     print(f"\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 7. 💎 Terastallize({self.tera})\n 8. ⭕ Dynamax/Gigantamax\n")
-                else:
-                    print(f"\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 7. 💎 Terastallize({self.tera})\n")
+                elif tr.cantera is True and tr.canmax is False:
+                    print(f"\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n")
             elif tr.canmega is True and self.item!="None" and (self.item in megastones or "Dragon Ascent" in self.moves):
                 print("\n Actions:\n 1. 💥 Fight\n 2. 🔁 Switch\n 3. ❌ Forfeit\n 4. ℹ️ Pokemons\n 5. 🌐 Smogonify\n 9. 🧬 Mega Evolve\n")
             elif self.item!="None" and "Ultranecrozium-Z" in self.item and "Ultra" not in self.name:
@@ -250,8 +250,8 @@ def battle(x,y,tr1,tr2):
 #IF BOTH CHOOSES TO ATTACK
         if action1==1 and action2==1:
             score(x,y,p1,p2,turn)
-            choice1=fchoice(x,tr1)
-            choice2=fchoice(y,tr2)    
+            choice1=fchoice(x,y,tr1,field)
+            choice2=fchoice(y,x,tr2,field)    
             if p1.ai==True or choice1=="":              
                 choice1=moveAI(x,y,tr1,tr2,field)[0]
             if p1.ai==False:     
@@ -550,7 +550,7 @@ def battle(x,y,tr1,tr2):
         elif action1==2 and action2==1:
             choice1="None"
             score(x,y,p1,p2,turn)
-            choice2=fchoice(y,tr2)  
+            choice2=fchoice(y,x,tr2,field)  
             if p2.ai==True or choice2=="":             
                 choice2=moveAI(y,x,tr2,tr1,field)[0]    
             if p2.ai==False:
@@ -583,7 +583,7 @@ def battle(x,y,tr1,tr2):
         elif action1==1 and action2==2:
             choice2="None"
             score(x,y,p1,p2,turn)
-            choice1=fchoice(x,tr1)
+            choice1=fchoice(x,y,tr1,field)
             if p1.ai==True or choice1=="":
                 choice1=moveAI(x,y,tr1,tr2,field)[0]  
             if p1.ai==False:
