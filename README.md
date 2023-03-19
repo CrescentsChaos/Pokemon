@@ -2,7 +2,7 @@
 <a><img height="200" src="https://media.discordapp.net/attachments/982880054583394375/1082982994131828756/20230308_170704.png"/></a>
 <h1>
 Pokémon Crescent</bold></h1>
-✴️ Run the main.py to play the game!<br>
+✴️ Run the main_pk.py to play the game!<br>
 1.🆕 Pokémon from all the regions (600+)<br>
 2.❌ Unevolved pokémons aren't available<br>
 3.🆕 Abilities<br>
