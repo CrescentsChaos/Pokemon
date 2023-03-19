@@ -10,7 +10,7 @@ print(f" 🌁 {field.location}")
 p1="None"
 p2="None"
 #SKIP
-def skip(x,y,tr1,tr2):
+def skip(x,y,tr1,tr2,field):
     skip=False
     while skip!=True:
         kk=input("\n Do you want to skip this turn? (Enter anything)\n >>> ")
@@ -39,11 +39,11 @@ def skip(x,y,tr1,tr2):
                 print(f" ✅ You are controlling {tr1.name}.")        
         if kk=="info2":
             y.info()
-            movelist(y)
+            movelist(y,x,field)
             skip=False
         if kk=="info1":
             x.info()
-            movelist(x)
+            movelist(x,y,field)
             skip=False
         if kk=="":
             print(f" ✅ Turn skipped successfully!")
@@ -52,12 +52,18 @@ def characters(text,location,nm=2):
     team="None"
     num=0
     chosen="None"
+    if text in ["img"]:
+        team=[genTrainer(trclass="Chaos Trainer")]
     if text in ["comp"]:
         team=[genTrainer(trclass="Competitive Player")]
-    if text in ["dv"]:
+    elif text in ["fs"]:
+        team=[genTrainer(trclass="Fusion Trainer")]
+    elif text in ["dv"]:
         team=[tonoy]
     elif text in ["e4","elite four"]:
         team=e4list
+    elif text in ["rd"]:
+        team=raids
     elif text in ["hc"]:
         team=hardlist
     elif text in ["evil","villain","ev"]:
@@ -126,7 +132,7 @@ if p2.ai is False or (p1.ai,p2.ai)==(True,True):
     showteam(p2)
     print("\n")
 if False in (p1.ai,p2.ai):
-    skip("None","None",p1,p2)     
+    skip("None","None",p1,p2,field)     
 if p1.ai is False:
     showmon(p1)
     mon=input(" Choose your leading mon: ")

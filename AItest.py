@@ -184,6 +184,10 @@ def moveAI(self,other,mtr,otr,field):
         resistlist=resistlist+dragonres
     mystablist+=("Judgement","Multi-Attack")
     weaklist=list(set(weaklist)-set(resistlist)-set(immunelist))
+    if self.taunted:
+        myimmunemove+=list(set(mymove). intersection (typemoves.statusmove))
+    if (field.terrain=="Psychic") or other.ability in ["Dazzling","Queenly Majesty","Armor Tail"]:
+        myimmunemove+=list(set(mymove). intersection (typemoves.prioritymove))
     if other.ability in ["Water Absorb","Water Compaction","Storm Drain","Dry Skin"] or field.weather=="Desolate Land":
         myimmunemove+=list(set(mymove). intersection (typemoves.watermoves))
     if other.ability in ["Volt Absorb","Motor Drive","Lightning Rod"]:
@@ -269,6 +273,7 @@ def moveAI(self,other,mtr,otr,field):
     eheal=list(set(mymove).intersection(typemoves.healingmoves))
     eprior=list(set(mymove).intersection(typemoves.priorityatkmoves))
     superduper=list(set(emove).intersection(mystablist))
+    mymove=list(set(mymove)-set(myimmunelist))
     if self.item !="None" and "Choice" in self.item:
         mymove=list(set(mymove)-set(typemoves.statusmove))
         mymove=list(set(mymove)-set(typemoves.terrainmove))
@@ -315,6 +320,9 @@ def moveAI(self,other,mtr,otr,field):
     if field.weather=="Hail":
         if "Hail" in mymove:
             mymove.remove("Hail")        
+    if other.owner.future!=0:
+        if "Future Sight" in mymove:
+            mymove.remove("Future Sight")               
     if field.weather=="Sunny":
         if "Sunny Day" in mymove:
             mymove.remove("Sunny Day")        
@@ -327,7 +335,10 @@ def moveAI(self,other,mtr,otr,field):
     if self.speed<other.speed and other.status=="Alive":
         if "Thunder Wave" in mymove:
             use="Thunder Wave"
-             
+    if self.spatkb==4:
+        mymove=list(set(mymove)-set(mymove). intersection(typemoves.spatkboost))            
+    if self.atkb==4:
+        mymove=list(set(mymove)-set(mymove). intersection(typemoves.atkboost))            
     if self.protect!=False:       
         mymove=list(set(mymove)-set(typemoves.protectmoves))
     if other.status!="Alive":
@@ -377,7 +388,7 @@ def moveAI(self,other,mtr,otr,field):
         if "Toxic Spikes"  in mymove:
             use="Toxic Spikes"  
     if (other.hp<=(other.maxhp*0.20) or other.defb<0.5) and self.speed<other.speed and len(eprior)!=0:
-        use=random.choice([eprior[0],emove])             
+        use=random.choice(eprior+emove)  
     if self.item !="None" and "Choice" in self.item and self.choiced is False and use !="None" and self.dmax is False and self.owner.ai==True and self.owner.ai==True:
         self.choiced=True
         self.choicedmove=use
@@ -406,16 +417,19 @@ def moveAI(self,other,mtr,otr,field):
         use=list(set(self.moves).intersection(["Outrage","Thrash","Petal Dance","Raging Fury"]))[0]
     if use =="None" or use==[]:
         if len(mymove)==0:
-            use=random.choice(self.moves)
+            if len(resmove)==0:
+                use=random.choice(self.moves)
+            else:
+                use=random.choice(resmove)
         else:
             use=random.choice(mymove)
 #    print("=====================")     
 #        print(f"{self.name}'s AI says against {other.name}:"    )
 #    print("=====================")     
-#    print("USABLE MOVES:",mymove)
+#    print(f" {self.name}'s USABLE MOVES:",mymove)
 #    print("EFFECTIVE MOVES:",emove)
 #    if myimmunemove!=[]:
-#        print("IMMUNE MOVES: ",myimmunemove)
+#        print(f" {self.name}'s IMMUNE MOVES on {other.name}: ",myimmunemove)
 #    print("RESISTED MOVES: ",resmove)
 #    print("NON RES STAB MOVES:",mystablist)
 #    print("STAB AND EFFECTIVE:",superduper)
@@ -545,7 +559,7 @@ def decision (self,other,tr1,tr2,field):
             action=2      
         if self.owner.cantera is True and (self==self.owner.pokemons[-1] or self.atk>250 or self.spatk>250 or "Tera Blast" in self.moves or self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]):
             action=random.choices([1,7], weights=[2,5],k=1)[0]
-        if (self.atk>350 or self.spatk>350) and self.owner.canmax is True and (self.item!="None" and self.item not in megastones):
+        if self.owner.canmax is True and ((self.item!="None" and self.item not in megastones and (self.spatk>350 or self.atk>350)) or self.maxiv=="max"):
             action=8
         if self.item in megastones and "Mega" not in self.name and tr1.canmega==True:
             action=random.choices([1,9], weights=[2,8],k=1)[0]
@@ -554,6 +568,8 @@ def decision (self,other,tr1,tr2,field):
         if self.perishturn==1:
             action=2
         if self.fmoveturn!=0:
+            action=1
+        if self.precharge==True:
             action=1
         if other.ability=="Arena Trap" and "Flying" in (self.type1,self.type2,self.teratype):
             action=1        

@@ -2,12 +2,35 @@ import random
 def outro(tr,sr,mon,field):
     mons=[]
     mmons=[]
+    trname=tr.name.split(" ")[-1]
     for k in sr.pokemons:
         mmons.append(k.name)
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
     print("===================================================================================")
+    if "Tucker" in tr.name:
+        print(random.choice([f" {tr.name}: Ahahaha! Aren't you embarrassed? Everyone's watching!\n",f" {tr.name}: My Dome Ace title isn't just for show!\n"]))
+    if "Tucker" in sr.name:
+        print(random.choice([f" {sr.name}: Grr... What the...\n",f" {sr.name}: Ahahaha! You're inspiring!\n"]))
+    if "Pyramid" in sr.name:
+        print(random.choice([f" {sr.name}: That's it! You’ve done great! You've worked hard for this!\n",f" {sr.name}: That's it! You've done it! You kept working for this!\n"]))
+    if "Pyramid" in tr.name:
+        print(random.choice([f" {tr.name}: Hey! Don't give up now! Get up! Don't lose faith in yourself!\n",f" {tr.name}: Hey! What's wrong with you! Let's see some effort! Get up!\n"]))
+    if "Spenser" in sr.name:
+        print(random.choice([f" {sr.name}: Ah... Now this is something else...\n",f" {sr.name}: Well, that was some display! Even fully unleashed, my brethren could not overpower you. You team spirit is truly admirable! Here! Bring me that thing, will you?\n"]))
+    if "Spenser" in tr.name:
+        print(random.choice([f" {tr.name}: Your Pokémon are wimpy because you're wimpy as a Trainer!\n",f" {tr.name}: Gwahahaha! My brethren, we have nothing to fear!\n"]))
+    if "Greta" in tr.name:
+        print(random.choice([f" {tr.name}: Heheh! What did you expect?\n"]))
+    if "Greta" in sr.name:
+        print(random.choice([f" {sr.name}: No way! Good job!\n",f" {sr.name}: It's going to be fun the next time! I'm looking forward to it!\n",f" {sr.name}: Huh? Are you serious?!\n",f" {sr.name}: Arrrgh! This is so infuriating! If we ever battle again, I won't lose! Don't you forget it! Bye-bye!\n"]))
+    if "Aaron" in sr.name:
+        print(random.choice([f" {sr.name}: I will now concede defeat. But I think you came to see how great Bug-type Pokémon can be. I hope you also realized why you're up against in the Pokémon League. Battling is a deep and complex affair...\n",f" {sr.name}: Guess I was still one step behind... You've won.\n"]))
+    if "Klara" in sr.name:
+        print(random.choice([f" {sr.name}: Not good... Not good at all, man... How'd this kid get so strong?!\n"]))
+    if "Avery" in sr.name:
+        print(random.choice([f" {sr.name}: Ahem! You have potential. Why, you made me use a whole three percent of my strength! Still... How should I put this...\n"]))
     if "Wake" in sr.name:
         print(random.choice([f" {sr.name}: Hunwah! It's gone and ended! How will I say this... I want more! I wanted to battle a lot more!\n"]))
     if "Wake" in tr.name:
@@ -48,22 +71,22 @@ def outro(tr,sr,mon,field):
         print(random.choice([f" {sr.name}: Woah, that was great!\n You lived up to the hype!\n"]))
     if "Jasmine" in sr.name:
         print(random.choice([f" {sr.name}: Well done...\n"]))
-    if "Misty" in sr.name:
-        print(random.choice([f" {sr.name}: Wow!\n You are too much!\n",f" {sr.name}: Ayaya!"]))
     if "Tonoy" in tr.name:
         print(f" {tr.name}: Thanks for playing the game! 😶‍🌫️\n")
+    if "Lance" in tr.name:
+        print(f" {tr.name}: I never give up, no matter what. You must be the same?\n")
     if "Iris" in tr.name:
         print(random.choice([f" {tr.name}: Do you ever feel that way too, {srname}?\n",f" {tr.name}: {mon.name} is amazing , right? I've trained him well..\n"]))
     if "Brendan" in sr.name:
         print(random.choice([f" {sr.name}: Drat, wasted yet again...\n",f" {sr.name}: Oof, I'm missing something...\n",f" {sr.name}: Not sure what I was expecting...\n",f" {sr.name}: Heh... not bad...\n"]))
     if "Lorelei" in sr.name:
-        print(random.choice([f" {sr.name}: ... Things shouldn't be this way!\n"]))
+        print(random.choice([f" {sr.name}: ... Things shouldn't be this way!\n",f" {sr.name}: You're better than I thought! Go on ahead! You only got a taste of Pokémon League power!\n",f" {sr.name}: I may have lost to you, but I'll never give up on my Ice-type Pokémon! You should aim to win using Pokémon you like best, too!\n"]))
     if "Bruno" in sr.name:
-        print(random.choice([f" {sr.name}: Why? How could I lose?\n"]))
+        print(random.choice([f" {sr.name}: Why? How could I lose?\n",f" {sr.name}: My job is done! Go face your next challenge!\n",f" {sr.name}: Having lost, I have no right to say anything… Go face your next challenge!\n",f" {sr.name}: If you have defeated me, then my job is done. Ugh! I may not like it, but...go! Go face your next challenge!\n", f" {sr.name}: Ugh! No! So my training is still lacking, is that it? ...Go. Do not trouble yourself on my behalf. Continue to move forward!\n",f" {sr.name}: I have regrets!\n"]))
     if "Agatha" in sr.name:
-        print(random.choice([f" {sr.name}: Oh, my!\n You are something special, child!\n"]))
+        print(random.choice([f" {sr.name}: Oh, my!\n You are something special, child!\n",f" {sr.name}: You win! I see what the old duff sees in you now. I've nothing else to say. Run along now, child!\n",f" {sr.name}: Not bad!\n",f" {sr.name}: Small wonder that old-timer's taken such an interest in you. Oak and I used to be good rivals, too, you know. Just like you and Gary. Well, what are you waiting for? Head on to the next room!\n"]))
     if "Lance" in sr.name:
-        print(random.choice([f" {sr.name}: That's it!\n"]))
+        print(random.choice([f" {sr.name}: That's it! I hate to admit it, but you are a Pokémon master!\n",f" {sr.name}: …It's over. But it's an odd feeling. I'm not angry that I lost. In fact, I feel happy. Happy that I witnessed the rise of a great new Champion!\n",f" {sr.name}: …Whew. You have become truly powerful, {trname}. Your Pokémon have responded to your strong and upstanding nature. As a trainer, you will continue to grow strong with your Pokémon.\n",f" {sr.name}: I'm sure you already know this, but dragons are sacred and legendary creatures! That's why I won't lose next time!\n"]))
     if "Erika" in sr.name:
         print(random.choice([f" {sr.name}: Oh! I concede defeat... You are remarkably strong.... That was a delightful match. I felt inspired.\n"]))
     if "Chuck" in sr.name:
@@ -72,8 +95,16 @@ def outro(tr,sr,mon,field):
         print(random.choice([f" {sr.name}: Gah...Now I'm not just single, I'm a frickin loser too!\n",f" {sr.name}: Whoa, amazing! You're an expert on Pokémon! My research isn't complete yet.\n"]))
     if "Koga" in sr.name:
         print(random.choice([f" {sr.name}: Humph!\n You have proven your worth!",f" {sr.name}: I subjected you to everything I could muster. But my efforts failed. I must hone my skills. Go on to the next room, and put your abilities to the test!\n"]))
+    if "Karen" in sr.name:
+        print(random.choice([f" {sr.name}: Well, aren't you good. I like that in a trainer.\n",f" {sr.name}: Strong Pokémon. Weak Pokémon. That is only the selfish perception of people. Truly skilled trainers should try to win with their favorites. I like your style. You understand what's important. Go on--the Champion is waiting.\n"]))
     if "Falkner" in sr.name:
         print(random.choice([f" {sr.name}: Mmm... I have much to learn even before attaining the Mega Stones...\n"]))
+    if "Cynthia" in sr.name:
+        print(random.choice([f" {sr.name}: Just a few moments ago, you were the most powerful challenger. And just now, you became the most powerful of all the Trainers. You are now our newest Champion!\n",f" {sr.name}: My heart is pounding so hard because I had such a heated battle with you. You are a really great Trainer!!\n",f" {sr.name}: That was beyond my expectation! What an exceptional battle! You certainly bear a resemblance to that Trainer who faced Giratina... Oh, pardon me.\n",f" {sr.name}: No matter how fun the battle is, it will always end sometime...\n"]))
+    if "Diantha" in sr.name:
+        print(random.choice([f" {sr.name}: Witnessing the noble spirits of you and your Pokémon in battle has really touched my heart...\n"]))
+    if "Diantha" in tr.name:
+        print(random.choice([f" {tr.name}: Oh, fantastic! What did you think? My team was pretty cool, right? It's a bit embarrassing to show off, but I love to show their best sides!\n"]))
     if "Pryce" in sr.name:
         print(random.choice([f" {sr.name}: Impressive... It appears you've overcame many obstacles as well.\n"]))
     if "Clair" in sr.name:
@@ -86,8 +117,6 @@ def outro(tr,sr,mon,field):
         print(random.choice([f" {tr.name}: Ha! That was a truly intense fight!\n",f" {tr.name}: I hope we meet again...\n"]))
     if "Blue" in sr.name:
         print(random.choice([f" {sr.name}: Hey! Take it easy!\n",f" {sr.name}: Aww!\n You just lucked out!\n",f" {sr.name}: No! That can't be!\n",f" {sr.name}: What!?\n"]))
-    if "Surge" in sr.name:
-        print(random.choice([f" {sr.name}: Now that's a shocker!\n",f" {sr.name}: Truly shocking!\n"]))
     if "Morty" in sr.name:
         print(random.choice([f" {sr.name}: I'm still not good enough yet...\n"]))
     if "Grunt" in sr.name:
@@ -111,7 +140,7 @@ def outro(tr,sr,mon,field):
     print("===================================================================================")
     dedlist(tr,sr)
     statistics(tr,sr)
-        #if mon.use!=None:
+        #if mon.use!="None":
 #            print(f" {tr.name}:\n Did you feel my pain in that {mon.use} from {mon.name}!\n")
 #        else:
 #            print(random.choice([f" {tr.name}:\n Me and {mon.name} trained a lot! Thanks for that!\n",f" {tr.name}:\n You are a fool if you thought you could beat me and {mon.name}...fwhahahhahahaha!\n"]))
@@ -134,12 +163,12 @@ def statistics(tr,sr):
     srname=sr.name.split(" ")[-1]
     trdmgdealt=0
     srdmgdealt=0
-    trcarry=None
-    srcarry=None
+    trcarry="None"
+    srcarry="None"
     trdmgrec=0
     srdmgrec=0
-    trtank=None
-    srtank=None
+    trtank="None"
+    srtank="None"
     for i in tr.pokemons:
          if trdmgdealt<i.dmgdealt:
              trdmgdealt=i.dmgdealt

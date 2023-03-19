@@ -1,64 +1,66 @@
 import sys
 from pokemonbase2 import *
-z="""Claydol @ Leftovers  
-Ability: Levitate  
-Tera Type: Ground  
-EVs: 252 HP / 252 SpA / 4 Spe  
-Modest Nature  
-- Earth Power  
-- Psyshock  
-- Calm Mind  
-- Ice Beam  
-
-Sigilyph @ Flame Orb  
-Ability: Magic Guard  
-Tera Type: Psychic  
-EVs: 248 HP / 8 SpA / 252 SpD  
-Calm Nature  
-- Stored Power  
-- Cosmic Power  
-- Psycho Shift  
-- Roost  
-
-Deoxys-Attack @ Focus Sash  
-Ability: Pressure  
-Tera Type: Psychic  
-EVs: 252 Atk / 252 Spe  
+z="""Glalie @ Lum Berry  
+Ability: Intimidate  
+Tera Type: Ice  
+EVs: 4 Atk / 252 SpA / 252 Spe  
 Hasty Nature  
-- Psycho Boost  
-- Superpower  
-- Fire Punch  
-- Knock Off  
+- Weather Ball  
+- Ice Beam  
+- Spikes  
+- Explosion  
 
-Latias @ Soul Dew  
-Ability: Levitate  
-Tera Type: Dragon  
-EVs: 248 HP / 252 Def / 8 SpA  
-Bold Nature  
-- Psyshock  
-- Dragon Pulse  
-- Calm Mind  
-- Recover  
+Wailord @ Lum Berry  
+Ability: Pressure  
+Tera Type: Water  
+EVs: 248 HP / 8 Atk / 252 SpA  
+Lax Nature  
+- Hyper Voice  
+- Water Spout  
+- Explosion  
+- Amnesia  
 
-Metagross @ Air Balloon  
-Ability: Tough Claws  
-Tera Type: Steel  
-EVs: 252 Atk / 252 Spe  
-Adamant Nature  
-- Meteor Mash  
+Regice @ Lum Berry  
+Ability: Clear Body  
+Tera Type: Ice  
+EVs: 248 HP / 8 Atk / 252 SpA  
+Quiet Nature  
+- Counter  
+- Ice Beam  
+- Thunder  
+- Explosion  
+
+Dewgong @ Lum Berry  
+Ability: Swift Swim  
+Tera Type: Water  
+EVs: 4 Atk / 252 SpA / 252 Spe  
+Mild Nature  
+- Ice Beam  
+- Drill Run  
+- Hidden Power [Grass]  
+- Surf  
+
+Swampert @ Lum Berry  
+Ability: Swift Swim  
+Tera Type: Water  
+EVs: 4 Atk / 252 SpA / 252 Spe  
+Mild Nature  
 - Earthquake  
-- Ice Punch  
-- Rock Polish  
+- Yawn  
+- Muddy Water  
+- Ancient Power  
 
-Medicham-Mega @ Medichamite  
-Ability: Pure Power  
-Tera Type: Fighting  
-EVs: 248 Atk / 8 SpD / 248 Spe  
-Jolly Nature  
-- Drain Punch  
-- Zen Headbutt  
-- Ice Punch  
-- Poison Jab"""
+Lapras @ Lum Berry  
+Ability: Shell Armor  
+Tera Type: Water  
+EVs: 248 HP / 8 Atk / 252 SpA  
+Mild Nature  
+- Ice Shard  
+- Thunder  
+- Ice Beam  
+- Hydro Pump  
+
+"""
 
 
 #def str_to_class(classname):
@@ -226,7 +228,7 @@ def smogonteam(z):
     for i in z:
         n+=1
         pastemon(i,n)
-    print(f'edited=Trainer("Imported Trainer",[edit1, edit2, edit3, edit4, edit5, edit6], "Unknown")')  
+    print(f'edit=Trainer("x",[edit1, edit2, edit3, edit4, edit5, edit6], "x")')  
 smogonteam(z)
 #x="""x"""
 #x=x.strip()

@@ -5,47 +5,83 @@ from hiddenpower import *
 megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Amoharosite","Audinite","Banettite","Beedrillite","Blastoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
 #ENTRY EFFECTS            
 def entryeff(self,other,trainer,trainer2,field,turn):
-    print("")
     pokeintro(self,other,trainer,trainer2,field,turn)
+    #Berserk Gene
+    if self.item=="Berserk Gene":
+        print("===================================================================================")
+        print(f" 💢 {self.name} is going berserk!")
+        atkchange(self,self,0.5)
+        spatkchange(self,self,0.5)
+        self.confused==True
+        print("===================================================================================")
+    #Comatose
+    if self.ability=="Comatose":
+        print("===================================================================================")
+        print(f" 🐨 {self.name}'s {self.ability}!")
+        self.status="Drowsy"
+        print("===================================================================================")
+    #Flower Gift
     if self.ability=="Flower Gift" and field.weather in ["Sunny","Desolate Land"] and "Blossom" not in self.name:
+        print("===================================================================================")
         print(f" 🌸 {self.name}'s {self.ability}!")
         self.name+="-Blossom"
+        print("===================================================================================")
+    #Anticipation
     if self.ability=="Anticipation":
         l=moveAI(other,self,trainer2,trainer,field)[1]
         dangermoves=["Explosion","Fissure","Sheer Cold","Horn Drill"]+l
         x=list(set(other.moves). intersection(dangermoves)) 
         if len(x)>0:
             x=str(x)[1:-1:]
+            print("===================================================================================")
             print(f" 🕵️ {self.name}'s {self.ability}.")
             print(f" ⚠️ {other.name} has some risky moves like {x}!")
+            print("===================================================================================")
+    #Illusion
     if self.ability=="Illusion":
         self.name=trainer.pokemons[len(trainer.pokemons)-1].name.split(" ")[-1]
+    #Pressure
     if self.ability=="Pressure" and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and other.use not in typemoves.abilityigmoves:
+        print("===================================================================================")
         print(f" 🦕 {self.name}'s {self.ability}!")
         print(f" {self.name} is exerting its pressure!")
+        print("===================================================================================")
+    #Bull Rush
     if self.ability=="Bull Rush":
         self.bullrush=True
+    #Supreme Overlord
     if self.ability=="Supreme Overlord" and len(trainer.pokemons)!=6:
+        print("===================================================================================")
         print(f" 👺 {self.name} gained strength from the fallen!")
+        print("===================================================================================")
+    #Frisk
     if self.ability=="Frisk":
+        print("===================================================================================")
         print(f" 🔎 {self.name}'s {self.ability}!")
         print(f" ✅ {other.name} is holding {other.item}!")
+        print("===================================================================================")
+    #Air Lock/Cloud Nine
     if self.ability in ["Air Lock","Cloud Nine"] and field.weather!="Clear":
+        print("===================================================================================")
         print(f" ☁️ {self.name}'s {self.ability}.\n The effects of the weather disappeared!")
-        field.weather="Clear"
+        print("===================================================================================")
+    #Delta Stream        
     if self.ability=="Delta Stream" and field.weather!="Strong Winds":
+        print("===================================================================================")
         print(f" 🍃 {self.name}'s {self.ability}. Mysterious strong winds are protecting Flying-type Pokémon!")
+        print("===================================================================================")
         field.weather="Strong Winds"
-    prebuff(self,other,trainer,turn,field)
+    #Stakeout        
     if self.ability=="Stakeout":
         self.atk*=2
         self.spatk*=2
-    self.maxendturn(turn)
-    print("")
+    #All ability in party        
     abilitylist=[]
     for i in trainer.pokemons:
         abilitylist.append(i.ability)
+    #Download        
     if self.ability=="Download":
+        print("===================================================================================")
         print(f" 📩 {self.name}'s Download!")
         m=[a,b,c,d,e]=[other.atk,other.defense,other.spatk,other.spdef,other.speed]
         if trainer2.reflect==True:
@@ -62,41 +98,56 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         	spdefchange(self,other,0.5)
         elif x==d:
         	spatkchange(self,other,0.5)
+        print("===================================================================================")
+    #Commander        	
     if "Commander" in abilitylist and "Dondozo" in self.name:
+        print("===================================================================================")
         print(f" 🪖 Tatsugiri's Commander!")
         atkchange(self,other,1)
         spatkchange(self,other,1)
         defchange(self,other,1)
         spdefchange(self,other,1)
         speedchange(self,other,1)
+        print("===================================================================================")
+    #Trace        
     if self.ability=="Trace" and other.ability not in ["As One","Battle Bond","Commander","Disguise","Forecast","Ice Face","Imposter","Illusion","Multitype","Power of Alchemy","Protosynthesis","Stance Change","Quark Drive","RKS System","Schooling","Trace","Zen Mode","Zero to Hero"] and other.item!="Ability Shield":
+            print("===================================================================================")
             print(f" {self.name}'s {self.ability}!")        
             self.ability=other.ability
-    
+            print("===================================================================================")
+    #Legendary Aura    
     if "Legendary" in self.name and self.item in ["Silver Feather","Crimson Orb","Navy Orb","Jade Orb","Rainbow Feather","Team Rocket Armor"]:
+        print("===================================================================================")
         print(f" 🔱 {self.item} shrouded {self.name} with mystical energy!")
         self.hp*=6/len(trainer.pokemons)
         self.maxhp*=6/len(trainer.pokemons)
-#        self.maxdef*=1.2
-#        self.maxspdef*=1.2
-#        self.maxatk*=1.2
-#        self.maxspatk*=1.2
-#        self.maxspeed*=1.2
+        print("===================================================================================")
+    #Quark Drive
     if "Quark Drive" in self.ability and (field.terrain=="Electric" or self.item=="Booster Energy"):
+        print("===================================================================================")
         print(f" ⚡ {self.name}'s {self.ability}!")
+        print("===================================================================================")
+    #Protosynthesis
     if "Protosynthesis" in self.ability and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
+        print("===================================================================================")
         print(f" ☀️ {self.name}'s {self.ability}!")
-    
+        print("===================================================================================")
+    #Costar
     if self.ability=="Costar":     
+        print("===================================================================================")
         print(f" 🦩 {self.name}'s {self.ability}!")
         self.atkb=other.atkb
         self.defb=other.defb
         self.spatkb=other.spatkb
         self.spdefb=other.spdefb
         self.speedb=other.speedb   
+        print("===================================================================================")
+    #Imposter        
     if self.ability=="Imposter" and other.dmax is False:
+        print("===================================================================================")
         print(f" 👾 {self.name}'s {self.ability}!")
         print(f' {self.name} transformed into {other.name}!')
+        print("===================================================================================")
         self.hp=round(other.maxhp*(self.hp/self.maxhp))
         self.maxhp=other.maxhp
         self.maxatk=other.maxatk
@@ -120,40 +171,55 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         self.ability=other.ability
         self.pplist=[5,5,5,5]
         self.name=self.name+f"({other.name})"
-    if self.ability == "Delta Stream" :
-        field.weather=="Strong Wind"
+    #Sand Stream
     if (self.ability == "Sand Stream" or (self.ability=="Forecast" and self.item=="Smooth Rock")) and field.weather not in ["Sandstorm","Primordial Sea","Desolate Land"]:
+        print("===================================================================================")
         print(f" 🏜️{self.name}'s {self.ability} whipped up a sandstorm!")
         field.weather="Sandstorm" 
         field.sandturn=turn
         field.sandend(self,other)
-    
+        print("===================================================================================")
+    #Primordial Sea
     if self.ability=="Primordial Sea" and field.weather!="Primordial Sea":
+        print("===================================================================================")
         print(f" 🌊 {self.name}'s {self.ability}. A heavy rain began to fall!")
+        print("===================================================================================")
         field.weather="Primordial Sea"
+    #Desolate Land
     if self.ability=="Desolate Land" and field.weather!="Desolate Land":
+        print("===================================================================================")
         print(f" 🌋 {self.name}'s {self.ability}. The sunlight turned extremely harsh!")
+        print("===================================================================================")
         field.weather="Desolate Land"
+    #Drought/ Orichalcum Pulse
     if (self.ability in  ["Drought","Orichalcum Pulse"] or (self.ability=="Forecast" and self.item=="Heat Rock")) and field.weather not in ["Sunny","Primordial Sea","Desolate Land"]:
+        print("===================================================================================")
         print(f" ☀️{self.name}'s {self.ability} intensified the sun's rays!")
         if self.ability=="Orichalcum Pulse":
             print(f" ♊ {self.name} turned the sunlight harsh, sending its ancient pulse into a frenzy!")
         field.weather="Sunny"
         field.sunturn=turn
         field.sunend(self,other)
+        print("===================================================================================")
+    #Drizzle
     if (self.ability == "Drizzle" or (self.ability=="Forecast" and self.item=="Damp Rock")) and field.weather not in ["Rainy","Primordial Sea","Desolate Land"]:
+        print("===================================================================================")
         print(f" 🌧️{self.name}'s {self.ability} made it rain!")
         field.weather="Rainy"
         field.rainturn=turn
         field.rainend(self,other)
+        print("===================================================================================")
+    #Snow Warning
     if (self.ability == "Snow Warning" or (self.ability=="Forecast" and self.item=="Icy Rock")) and field.weather not in ["Primordial Sea","Desolate Land","Snowstorm"]:
+        print("===================================================================================")
         print(f" 🌨️{self.name}'s {self.ability} whipped up a snowstorm!")
         field.weather="Snowstorm"      
         field.snowstormturn=turn
-        field.snowstormend(self,other)
-    
-        
+        field.snowstormend(self,other)     
+        print("===================================================================================")   
+    #Electric Surge/Hadron Engine
     if self.ability in ["Electric Surge","Hadron Engine"]:
+        print("===================================================================================")
         print(f" {self.name}'s {self.ability}!")
         print(" ⚡ An electric self ran across the battlefield!")
         if self.ability=="Hadron Engine":
@@ -161,46 +227,70 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         field.terrain="Electric"
         field.eleturn=turn
         field.eleend(self,other)
+        print("===================================================================================")
+   #Misty Surge
     if self.ability=="Misty Surge":
+        print("===================================================================================")
         print(f" {self.name}'s {self.ability}!")
         print(" 🌸 Mist swirled around the battlefield!")
         field.terrain="Misty"
         field.misturn=turn
         field.misend(self,other)
-    if self.ability=="Grassy Surge":
+        print("===================================================================================")
+    #Grassy Surge
+    if self.ability in ["Grassy Surge","Dance of the Specter"]:
+        print("===================================================================================")
         print(f" {self.name}'s {self.ability}!")
         print(" 🌿 Grass grew to cover the battlefield!")
         field.terrain="Grassy"
         field.grassturn=turn
         field.grassend(self,other)
+        print("===================================================================================")
+    #Psychic Surge
     if self.ability=="Psychic Surge":
+        print("===================================================================================")
         print(f" {self.name}'s {self.ability}!")
         print(" 👁️ The battlefield got weird!")
         field.terrain="Psychic"        
         field.psyturn=turn
         field.psyend(self,other)      
+        print("===================================================================================")
+    #Spikes
     if "Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots":
+        print("===================================================================================")
         print(f" ✴️ {self.name} was hurt by the Spikes!")
+        print("===================================================================================")
         if trainer.hazard.count("Spikes")==3:
             self.hp-=(self.maxhp/4)
         if trainer.hazard.count("Spikes")==2:
             self.hp-=(self.maxhp/6)
         if trainer.hazard.count("Spikes")==1:
             self.hp-=(self.maxhp/8)
+   #Toxic Spikes
     if "Toxic Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots" and "Steel" not in (self.type1,self.type2,self.teratype) and self.status=="Alive":
         if "Poison" in (self.type1,self.type2,self.teratype):
             trainer.hazard.remove("Toxic Spikes")
+            print("===================================================================================")
             print(f" 💜 {self.name} absorbed the Toxic Spikes!")
+            print("===================================================================================")
         else:
             if trainer.hazard.count("Toxic Spikes")==1:
+                print("===================================================================================")
                 print(f" ☣️ {self.name} was poisoned by toxic spikes!")
+                print("===================================================================================")
                 self.status="Poisoned"
             if trainer.hazard.count("Toxic Spikes")>=2:
+                print("===================================================================================")
                 print(f" ☣️ {self.name} was badly poisoned by toxic spikes!")
+                print("===================================================================================")
                 self.status="Badly Poisoned"
-    if "Sticky Web" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots":       
+    #Sticky Web
+    if "Sticky Web" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots":    
+        print("===================================================================================")
+        print(f" 🕸️ {self.name} fell into the sticky web!")   
         speedchange(self,other,-0.5)
-        
+        print("===================================================================================")
+   #Stealth Rock
     if "Stealth Rock" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust","Mountaineer"] and self.item!="Heavy-Duty Boots":
         buff=2
         #print(self.type1,self.type2)
@@ -218,7 +308,10 @@ def entryeff(self,other,trainer,trainer2,field,turn):
             buff=1
         #print(buff)
         self.hp-=(1+(self.maxhp*0.0625*buff))
+        print("===================================================================================")
         print(f" 🪨 Pointed stones dug into {self.name}!")
+        print("===================================================================================")
+    #Steel Spikes
     if "Steel Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots":
         buff=2
         #print(self.type1,self.type2)
@@ -236,7 +329,11 @@ def entryeff(self,other,trainer,trainer2,field,turn):
             buff=1
         #print(buff)
         self.hp-=(1+(self.maxhp*0.0625*buff))
+        print("===================================================================================")
         print(f" 📌 The sharp steel bit into {self.name}!")
+        print("===================================================================================")
+    self.maxendturn(turn)
+    prebuff(self,other,trainer,turn,field)
 def mxmove(self,typem=typemoves):
     maxmove=[]
     gm="None"
@@ -381,9 +478,58 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         print(f" ✴️ {self.name} flashed its Quick Claw!")
     if self.item!="None" and "Air Balloon" in self.item:
         print(f" 🎈 {self.name} floats in the air with its Air Balloon!")
+    if self.ability=="Turboblaze":
+        print(f" 🔥 {self.name} is radiating a blazing aura!")  
+    if self.ability=="Teravolt":
+        print(f" ⚡ {self.name} is radiating a bursting aura!")  
+    if self.ability=="Fairy Aura":
+        print(f" 🧚‍♀️ {self.name} is radiating a fairy aura!")  
+    if self.ability=="Dark Aura":
+        print(f" 🌑 {self.name} is radiating a dark aura!")  
+    if self.ability=="Aura Break":
+        print(f" 🧬 {self.name} reversed all the other pokemons aura!")  
+    if self.ability=="Mold Breaker":
+        print(f" {self.name} breaks the mold!")        
     if "Alpha " in self.name:
         prevname=self.name.split("Alpha ")[-1]
         print(f" 👹 {prevname}'s alpha aura spreading in the air!")
+    if self.item=="Griseous Core" and "Origin" not in self.name:
+        print(f" ♑ {self.name}'s Origin Reversion! It reverted to its origin form!")
+        self.name="Origin Giratina"
+        per=self.hp/self.maxhp
+        self.ability="Levitate"
+        self.hp=150
+        self.atk=120
+        self.defense=100
+        self.spatk=120
+        self.spdef=100
+        self.speed=90
+        self.calcst()
+        self.hp=self.maxhp*per
+    if self.item=="Adamant Crystal" and "Origin" not in self.name:
+        print(f" ♐ {self.name}'s Origin Reversion! It reverted to its origin form!")
+        self.name="Origin Dialga"
+        per=self.hp/self.maxhp
+        self.hp=100
+        self.atk=100
+        self.defense=120
+        self.spatk=150
+        self.spdef=120
+        self.speed=90
+        self.calcst()
+        self.hp=self.maxhp*per
+    if self.item=="Lustrous Globe" and "Origin" not in self.name:
+        print(f" ♓ {self.name}'s Origin Reversion! It reverted to its origin form!")
+        self.name="Origin Palkia"
+        per=self.hp/self.maxhp
+        self.hp=90
+        self.atk=100
+        self.defense=100
+        self.spatk=150
+        self.spdef=120
+        self.speed=120
+        self.calcst()
+        self.hp=self.maxhp*per
     if self.megaintro is False and self.item=="Blue Orb":
         prevname=self.name.split(" ")[-1]
         print(f" ⛎ {prevname}'s Primal Reversion! It reverted to its primal form!")
@@ -400,10 +546,10 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         self.hp=self.maxhp*per
         self.megaintro=True
     if self.ability=="Intrepid Sword":
-        print(f" {self.name}'s {self.ability}")
+        print(f" 🗡️ {self.name}'s {self.ability}!")
         atkchange(self,other,0.5)      
     if self.ability=="Dauntless Shield":
-        print(f" {self.name}'s {self.ability}")
+        print(f" 🛡️ {self.name}'s {self.ability}!")
         defchange(self,other,0.5)
     if self.megaintro is False and self.item=="Red Orb":
         prevname=self.name.split(" ")[-1]
@@ -430,14 +576,14 @@ def statchange(self,other,tr1,turn):
     speedbuff=1
     
 def transformation(self,other,turn):
-    print(" ")
+    print("===================================================================================")
     self.abilityused=False
     trname=self.owner.name.split(" ")[-1]
     if "💎" in self.name:
         if self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
             self.teratype=self.tera
         typ="None"
-        if self.teratype is "None" and self.maxiv not in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
+        if self.teratype =="None" and self.maxiv not in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
             self.teratype=self.tera
         if self.teratype=="Dragon":
             typ="🐲"
@@ -1131,4 +1277,5 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         entryeff(self,other,self.owner,other.owner,field,turn)
+    print("===================================================================================")        
     #prebuff(self,other,self.owner,turn,field)

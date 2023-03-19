@@ -20,6 +20,12 @@ def intro (tr,sr,field):
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
+    if "Tucker" in tr.name:
+        print(f" {tr.name}: Ahahah! Do you hear it? This crowd! They're all itching to see our match! Ahahah! I bet you're twitching all over from the tension of getting to battle me! But don't worry about a thing! I'm the no. 1 star of the Battle Dome! I, Tucker the Dome Ace, will bathe you in a brilliant glow! Your strategy! Let's see it! The final match! {srname} versus the Dome Ace, Tucker! Let the battle begin!\n")
+    if "Spenser" in tr.name:
+        print(f" {tr.name}: My physical being is with Pokémon always! My heart beats as one with Pokémon always! Young one of a Trainer! Do you believe in your Pokémon? Can you believe them through and through? If your bonds of trust are frail, you will never beat my brethren! The bond you share with your Pokémon! Prove it to me here!\n")
+    if "Greta" in tr.name:
+        print(f" {tr.name}: Hey! Howdy! ...Wait, are you the challenger?\n")
     if "Wake" in tr.name:
         print(f" {tr.name}: Welcome! I don't get challenged very often! The glory you are now beholding is the Pastoria Gym Leader! That's right, I'm Crasher Wake! My Pokémon were toughened up by stormy white waters! They'll take everything you can throw at them and then pull you under! Victory will be ours! Come on, let's get it done!\n")
     if "Bugsy" in tr.name:
@@ -45,8 +51,6 @@ def intro (tr,sr,field):
         print(random.choice([f" {tr.name}: Young adventurer... Wouldn't you agree that explorations are the grandest of adventures? Your own wits! Your own strength! Your own Pokémon! And, above all, only your courage to lead you through unknown worlds...\n",
 f" {tr.name}: Aah, yes, indeed this life is grand! Grand, it is! Eh? I'm Brandon. I'm the Pyramid King, which means I'm in charge here. Most people call me the chief! You coming here means you have that much confidence in yourself, am I right? Hahahah! This should be exciting! Now, then! Bring your courage to our battle!\n",f" {tr.name}: ...You've finally returned, young explorer... Your love for adventure seems to come deep from within your heart... Yes... You are exactly as I was in my own youth... ... ... ...Ah... The passionate! The dangerous! The desperate! Those days of death-defying, life-affirming adventures are back..."
 "Now, then! I sense my courage is off the meter! Everything you have! I'm braced for it all!\n"]))
-    if " Spenser" in tr.name:
-        print(f" {tr.name}: My physical being is with Pokémon always! My heart beats as one with Pokémon always! Young one of a Trainer! Do you believe in your Pokémon? Can you believe them through and through? If your bonds of trust are frail, you will never beat my brethren! The bond you share with your Pokémon! Prove it to me here!\n")
     if " Turo" in tr.name:
         print(f" {tr.name}: Many other Pokémon also came to this place from across the boundaries of time. But I was never able to bring over more than two specimens of Miraidon.\n")
     if " Sada" in tr.name:

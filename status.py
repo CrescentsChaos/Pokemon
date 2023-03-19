@@ -49,7 +49,7 @@ def paralyzed(self,other,ch=100):
     if chance>=miss and other.status=="Paralyzed" and other.ability in ["Synchronize"] and self.status=="Alive":
         self.status="Paralyzed"
         print(f" {other.name}'s {other.ability}!")
-        print(f" ⚡ {self.name} was badly poisoned.")        
+        print(f" ⚡ {self.name} was paralayzed.")        
     if chance>=miss and other.ability in ["Magic Bounce"] and self.status=="Alive" and other.status!="Paralyzed":
         self.status="Paralyzed"
         print(f" {other.name}'s {other.ability}!")
