@@ -1,6 +1,5 @@
-from trainerlistx import *
+from fieldtrip import *
 from moves import *
-from quotes import *
 pkball=random.choice(["Poké Ball","Great Ball","Ultra Ball","Net Ball","Quick Ball","Master Ball","Beast Ball","Dive Ball","Nest Ball","Repeat Ball","Timer Ball","Cherish Ball","Dream Ball","Dusk Ball","Fast Ball","Heal Ball","Heavy Ball","Level Ball","Love Ball","Lure Ball","Luxury Ball","Moon Ball","Park Ball","Premier Ball","Safari Ball"])
 allmove=list(set(typemoves.firemoves+typemoves.watermoves+typemoves.electricmoves+typemoves.grassmoves+typemoves.normalmoves+typemoves.darkmoves+typemoves.ghostmoves+typemoves.psychicmoves+typemoves.poisonmoves+typemoves.steelmoves+typemoves.fairymoves+typemoves.bugmoves+typemoves.fightingmoves+typemoves.flyingmoves+typemoves.icemoves+typemoves.rockmoves+typemoves.groundmoves+typemoves.dragonmoves+typemoves.statusmove)-set(typemoves.zmoves+typemoves.maxmovelist))
 #n=0
@@ -21,7 +20,7 @@ def faint(self,other,tr,optr,field,turn):
         if self.dmax is True:
             self.dmax=False
             nn=-1
-            prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White","Ice Rider","Shadow Rider","Tapu"]
+            prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White","Ice Rider","Shadow Rider","Tapu","Wake"]
         di=["Single","Rapid"]
         for i in di:
             if i in self.name:
@@ -44,10 +43,9 @@ def faint(self,other,tr,optr,field,turn):
             if "Charizard" in self.name:
                 name="Charizard"
             print(f" 🧬 {name} returned to it's normal state!")
-            self.name=name
         print(f" 🏁 Refree: {self.name} is unable to battle!")
         print(f" 😵😵‍💫 {tr.name}'s {self.name} fainted!")
-        print( " ❌❌❌❌❌ "+colored ("KO: ","white")+colored(self.name.upper(),"white")+" ❌❌❌❌❌")
+        print( " ❌❌❌❌❌ "+colored ("KO: ","white")+colored(self.name.upper(),"white",attrs=["bold"])+" ❌❌❌❌❌")
         if other.ability=="Battle Bond" and "Ash" not in other.name and other.dmax==False:
             print(f" {other.name}'s {other.ability}.")
             if "Ash" not in other.name and "Greninja" in other.name:
@@ -179,15 +177,15 @@ def switch(self,other,trainer,trainer2,field,turn):
     self.spatk=self.maxspatk
     self.spdef=self.maxspdef
     self.defense=self.maxdef
-    self.badpoison=1
+    self.toxicCounter=1
     self.perishturn=0
-    self.priority=self.recharge=self.seeded=self.flinched=self.protect=other.protect=self.shelltrap=self.choiced=self.dbond=self.salty=self.flashfire=False
+    self.priority=self.recharge=self.seeded=self.flinched=self.protect=other.protect=self.shelltrap=self.choiced=self.dbond=self.salty=self.flashfire=self.taunted=self.confused=self.encore=False
     self.canfakeout=True 
     self.choicedmove="None"    
     if self.dmax is True:
         self.dmax=False
         nn=-1
-        prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White","Ice Rider","Shadow Rider","Tapu"]
+        prdx=["Great Tusk","Sandy Shocks","Roaring Moon","Brute Bonnet","Slither Wing","Flutter Mane","Scream Tail","Iron","Unbound","Tapu","Black","White","Attack","Defense","Speed","Hero","Alolan","Hisuian","Galarian","Dusk Mane","Dawn Wing","Black","White","Ice Rider","Shadow Rider","Tapu","Wake"]
         di=["Single","Rapid"]
         for i in di:
             if i in self.name:
@@ -334,7 +332,7 @@ def preattackcheck(self,other,tr,optr,use,opuse,field,turn):
         if ch>90:
             print(f" 🤢 {other.name}'s {other.ability}!")
             self.flinched=True   
-    if self.item=="King's Rock":
+    if self.item in ["King's Rock","Razor Fang"]:
         ch=random.randint(1,100)
         if ch>90 and other.ability not in ["Inner Focus"]:
             other.flinched=True
@@ -361,11 +359,11 @@ def accheck(self,other,field):
         accuracy=50
     if self.use in typemoves.acc70:
         accuracy=70
-    if field.weather in ["Sunny","Sandstorm","Desolate Land"] and self.use=="Thunder":
-        accuracy=50;
-    if field.weather in ["Sunny","Sandstorm","Desolate Land"] and self.use=="Blizzard":
+    if other.ability=="Wonder Skin" and self.use in typemoves.statusmove and self.use not in typemoves.buffmove:
+        eff*=0.5  
+    if field.weather in ["Sunny","Sandstorm","Desolate Land"] and self.use in ["Blizzard","Thunder","Hurricane"]:
         accuracy=50
-    if field.weather in ["Rainy","Primordial Sea"] and self.use=="Thunder":
+    if field.weather in ["Rainy","Primordial Sea"] and self.use in ["Thunder","Hurricane"]:
         accuracy=100
     if field.weather in ["Hail","Snowstorm"] and self.use=="Blizzard":
         accuracy=100
@@ -377,17 +375,17 @@ def accheck(self,other,field):
         eff*=1.1
     if other.item in ["Bright Powder","Lax Incense"]:
         eff*=0.9
-    if other.ability=="Tangled Feet" and other.confused==True and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+    if other.ability=="Tangled Feet" and other.confused==True and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
         eff*=0.5
     if self.ability=="Hustle":
         eff*=0.8
     if other.ability not in ["Air Lock","Cloud Nine"] and self.ability not in ["Air Lock","Cloud Nine"] and field.weather=="Fog":
         eff*=0.6
-    if other.ability=="Snow Cloak" and self.ability not in ["Air Lock","Cloud Nine"] and field.weather in ["Snowstorm","Hail"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
-        eff*=0.8
-    if other.ability=="Sand Veil" and self.ability not in ["Air Lock","Cloud Nine"] and field.weather=="Sandstorm"and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
-        eff*=0.8
-    if self.ability=="Compound Eyes":
+    if other.ability=="Snow Cloak" and self.ability not in ["Air Lock","Cloud Nine"] and field.weather in ["Snowstorm","Hail"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
+        eff*=0.75
+    if other.ability=="Sand Veil" and self.ability not in ["Air Lock","Cloud Nine"] and field.weather=="Sandstorm"and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
+        eff*=0.75
+    if self.ability in ["Compound Eyes","Illuminate"]:
         eff*=1.3
     eff*=(other.evasion/100)
     eff*=(self.accuracy/100)
@@ -396,13 +394,11 @@ def accheck(self,other,field):
         accuracy=100    
     if self.use in typemoves.noaccuracy:
         accuracy=100
-    if self.ability=="No Guard" or other.ability=="No Guard":
-        accuracy=100
 #    if self.dmax==True:
 #        accuracy=100
 #    if self.use in typemoves.zmoves:
 #        accuracy=100
-    if other.use in ["Phantom Force","Shadow Force","Sky Attack","Bounce","Dig","Fly"] and other.precharge==True and used not in typemoves.buffmove:
+    if other.use in ["Phantom Force","Shadow Force","Sky Attack","Bounce","Dig","Fly","Dive"] and other.precharge==True and used not in typemoves.buffmove and used!="None":
         accuracy=0
         if other.use in ["Bounce","Fly","Sky Attack"] and self.use=="Thunder":
             accuracy=1
@@ -410,12 +406,14 @@ def accheck(self,other,field):
         if "Dig" in other.use and self.use in ["Earthquake","Magnitude"]:
             accuracy=1
             self.atk*=2
-    print(f" Accuracy: {int(accuracy)}")
+    if self.ability=="No Guard" or other.ability=="No Guard":
+        accuracy=100            
+#    print(f" Accuracy: {int(accuracy)}")
     ch=random.randint(1, 100)
     if accuracy<100 and ch>accuracy:
         self.precharge=False
         print(f" {self.name} used {self.use}!")
-        print(f" {other.name} avoided the atrack!")
+        print(f" {other.name} avoided the attack!")
         used="None"
         if self.use in ["High Jump Kick","Axe Kick"]:
             a=b=c=r=al=1
@@ -444,7 +442,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         if tr.ai==True:
             cl="red"
         print(colored("===================================================================================",cl))
-        print(f" {tr.name}:")
+        attackquote(self,tr,used)
         print(colored("===================================================================================",cl))
     preattackcheck(self,other,tr,optr,used,opuse,field,turn)
     hit=1
@@ -465,13 +463,28 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             self.hp-=physical(self,self.level,self.atk,self.defense,base=40,a=1,r=r)
         else:
             canatk=True
+    if self.infatuated==True:
+        if self.item=="Destiny Knot" and other.infatuated==False:
+            other.infatuated=True
+            print(f" 🥰 {other.name} is infatuated.")
+        ch=random.randint(1,100)
+        if ch<=25:
+            canatk=False
+            used="None"
+            self.precharge=False
+            print(f" 🥰 {self.name} is infatuated.")
+            print(f" 💕 {self.name} is immobilized by love!")
+        else:
+            print(f" 🥰 {self.name} is infatuated.")
+            canatk=True
     if self.status=="Paralyzed":
         ch=random.randint(1,100)
         if ch<=25:
             canatk=False
             used="None"
             self.precharge=False
-            print(f" ⚡ {self.name} couldn't move because it's paralyzed!")
+            print(f" ⚡ {self.name} is paralyzed.")
+            print(colored(f" ⚡ {self.name} couldn't move because it's paralyzed!!","yellow",attrs=["bold"]))
         else:
             print(f" ⚡ {self.name} is paralyzed.")
             canatk=True
@@ -497,12 +510,12 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             print(f" ‼️ {self.name} thawed out.")
             self.status="Alive"
         else:
-            print(f" 🧊 {self.name} is frozen solid!")
+            print(colored(f" 🧊 {self.name} is frozen solid!","cyan",attrs=["bold"]))
             used="None"    
     
     if self.flinched==True and self.dmax is False:
             self.precharge=False
-            print(f" 😧 {self.name} flinched and couldn't move.")
+            print(colored (f" 😧 {self.name} flinched and couldn't move.","white",attrs=["bold"]))
             self.flinched=False
             used="None"
     if self.use!="None" and used=="Gigaton Hammer" and self.use=="Gigaton Hammer":
@@ -510,11 +523,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         print(" ❌ Cannot use Gigaton Hammer consecutively!")      
     if self.fmove==True and self.status!="Sleep" and canatk==True:
         used=list(set(self.moves).intersection(["Outrage","Thrash","Petal Dance","Raging Fury"]))[0]
-    if optr.sub!="None":
-        if optr.sub.hp>0:
-            other=optr.sub
-            if used in typemoves.soundmoves or used in typemoves.statusmove:   
-                used="None"     
+    
     if self.recharge==True:
         print(f" 🔋 {self.name} is recharging.")
         self.recharge=False
@@ -527,7 +536,16 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
 ########
     self.use=used 
     used=accheck(self,other,field)
-    if optr.sub!="False" and (used in typemoves.statusmove and used not in typemoves.buffmove):
+    if optr.sub!="None":
+        if optr.sub.hp>0:
+            other=optr.sub
+            if used in typemoves.bypass or self.ability=="Infiltrator":
+                other=subr
+            if used not in typemoves.soundmoves and used in typemoves.statusmove:   
+                print(f" {self.name} used {used}!")
+                print(" It failed!")
+                used="None"     
+    if optr.sub!="None" and (used in typemoves.statusmove and used not in typemoves.buffmove) and used not in typemoves.bypass:
         print(f" {self.name} used {used}!")
         print(" It failed!")
         used="None"
@@ -594,7 +612,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
     if used not in typemoves.statusmove:
         other.atkby=self.name
         other.atktime+=1
-    if other.ability=="Disguise" and other.abilityused==False and used not in typemoves.statusmove+typemoves.buffmove+typemoves.zmoves+typemoves.multimove+typemoves.abilityigmoves and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if other.ability=="Disguise" and other.abilityused==False and used not in typemoves.statusmove+typemoves.buffmove+typemoves.zmoves+typemoves.multimove+typemoves.abilityigmoves and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"]:
         print(f" {self.name} used {used}!")
         print(f" 🥸 {other.name}'s {other.ability}!")     
         print(f" {other.name}'s disguise was busted!")
@@ -636,7 +654,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         print("  🚳 Cannot use priority moves!")
     
     before=other.hp
-    if optr.sub!="None":
+    if optr.sub!="None" and used not in typemoves.bypass:
         before=optr.sub.hp
     sbefore=self.hp
     if self.ability=="Truant" and used!="Slack Off":
@@ -651,10 +669,6 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         self.truant=False
         
 #######
-    if turn==other.taunturn:
-        print(f" {other.name}'s taunt ended!")
-    if turn==other.encturn:
-        print(f" {other.name}'s encore ended!")
     if used in moves or used not in moves:
 #        print(used)
         if self.taunted==True and used in typemoves.statusmove:
@@ -677,7 +691,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             self.precharge=False
             used="None"
         
-        if other.protect==True and other.dmax is True and used not in typemoves.buffmove and used not in ["G-Max One Blow","G-Max Rapid Flow"]:
+        if other.protect==True and other.dmax is True and used not in typemoves.buffmove and used not in ["G-Max One Blow","G-Max Rapid Flow"] and used!="None":
             print(f" 🛡️ {other.name} protected itself from {self.name}'s {used}.")
             other.protect="Pending"
             if used in typemoves.zmoves:
@@ -710,7 +724,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
            
             if "Baneful Bunker" in other.use and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"]:
                 if self.status=="Alive":
-                    self.status=["Badly Poisoned"]   
+                    self.status="Badly Poisoned"
                     print(f" ☠️ {self.name} was badly poisoned.")  
         elif used=="Toxic":
             toxic(self,other)
@@ -718,6 +732,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             thunderwave(self,other)
         elif used=="Sucker Punch":
             if opuse in nondmgmove or opuse =="None":
+                print(f" 👿 {self.name} used "+colored(" Sucker Punch","white",attrs=["bold"])+"!")
                 print("  It failed.")
             else:
                 suckerpunch(self,other)
@@ -758,7 +773,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         elif used=="Apple Acid":
             appleacid(self,other)
         elif used=="Taunt":
-            print(f" 🤌 {self.name} used "+ colored(" Taunt","white")+"!")
+            print(f" 🤌 {self.name} used "+ colored(" Taunt","white",attrs=["bold"])+"!")
             if other.taunted==True:
                 print(" It failed.")
             if other.taunted==False:
@@ -927,7 +942,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             hydrosteam(self,other)
         elif used=="Lunar Dance":
             self.hp=0
-            print(f" 🌙 {self.name} used "+colored(" Lunar Dance","magenta")+"!")
+            print(f" 🌙 {self.name} used "+colored(" Lunar Dance","magenta",attrs=["bold"])+"!")
             self=faint(self,other,tr,optr,field,turn)
             if self.hp<self.maxhp:
                 print(f" {self.name}'s HP was restored and status was cured!")
@@ -935,7 +950,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             self.status="Alive"
         elif used=="Healing Wish":
             self.hp=0
-            print(f" {self.name} used "+colored(" Healing Wish","magenta")+"!")
+            print(f" {self.name} used "+colored(" Healing Wish","magenta",attrs=["bold"])+"!")
             self=faint(self,other,tr,optr,field,turn)
             if self.hp<self.maxhp:
                 print(f" {self.name}'s HP was restored and status was cured!")
@@ -965,8 +980,21 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             faketears(self,other)
         elif used=="Tri Attack":
             triattack(self,other)
+        elif used=="Doom Desire":
+            print(f" 💫 {self.name} used "+colored(" Doom Desire","white",attrs=["bold"])+"!")
+            if optr.doom!=0:
+                print(" It failed!")
+            if optr.doom==0:
+                optr.doom=turn+3
+                print(f" 🌟 {self.name} chose Doom Desire as it's Destiny!")
+                al=1
+                r=randroll()
+                c=1
+                a=1
+                b=1
+                optr.ftmul=special(self,other.level,self.spatk,other.spdef,140,a,b,c,r,al)
         elif used=="Future Sight":
-            print(f" {self.name} used "+colored(" Future Sight","magenta")+"!")
+            print(f" {self.name} used "+colored(" Future Sight","magenta",attrs=["bold"])+"!")
             if optr.future!=0:
                 print(" It failed!")
             if optr.future==0:
@@ -997,7 +1025,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                     self=switch(self,other,tr,optr,field,turn)
                           
         elif used=="Substitute":
-            print(f" 🎎 {self.name} used Substitute!")
+            print(f" 🎎 {self.name} used "+colored("Substitute","green")+"!")
             if self.hp<(self.maxhp/4) or tr.sub!="None":
                 print(f" It failed!")
             if self.hp>(self.maxhp/4) and tr.sub=="None": 
@@ -1019,34 +1047,54 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 other.lockon=True
         elif used=="Recycle":
             recycle(self,other)   
+        elif used=="Sweet Kiss":
+            sweetkiss(self,other,turn)   
         elif used=="Flame Charge":
             flamecharge(self,other)
         elif used=="Trailblaze":
             trailblaze(self,other) 
         elif used=="Minimize":
-            print(f" ◽▫️{self.name} used Minimize!")
-            self.evasion-=20
+            print(f" ◽▫️{self.name} used "+colored(" Minimize","white",attrs=["bold"])+"!")
+            if self.evasion>40:
+                print(f" 🔼 {self.name}'s evasion sharply rose!")
+                self.evasion-=20
         elif used=="Sand Attack":
-            print(f" 😖 {self.name} used Sand Attack!")
-            self.accuracy-=10
+            print(f" 😖 {self.name} used "+colored(" Sand Attack","yellow",attrs=["bold"])+"!")
+            if other.accuracy>40:
+                print(f" 🔽 {other.name}'s accuracy fell!")
+                other.accuracy-=10
         elif used=="Smokescreen":
-            print(f" 💣 {self.name} used Smokescreen!")
-            self.accuracy-=10
+            print(f" 💣 {self.name} used "+colored(" Smokescreen","white",attrs=["bold"])+"!")
+            if other.accuracy>40:
+                print(f" 🔽 {other.name}'s accuracy fell!")
+                other.accuracy-=10
         elif used=="Double Team":
-            print(f" 🥷 {self.name} used Double Team!")
-            self.evasion-=10
+            print(f" 🥷 {self.name} used "+colored(" Double Team","white",attrs=["bold"])+"!")
+            if self.evasion>40:
+                print(f" 🔼 {self.name}'s evasion rose!")
+                self.evasion-=10            
         elif used=="Focus Punch":
             focuspunch(self,other)
         elif used=="Pollen Puff":
             pollenpuff(self,other)
+        elif used=="Dive":
+            dive(self,other)
         elif used=="Fly":
             fly(self,other)
         elif used=="Dig":
             dig(self,other)
         elif used=="Growth":
             growth(self,other)
+        elif used=="Power Trip":
+            powertrip(self,other)
+        elif used=="Skill Swap":
+            skillswap(self,other)
         elif used=="Reversal":
             reversal(self,other)
+        elif used=="G-Max Tartness":
+            gmaxtartness(self,other)
+        elif used=="G-Max Sweetness":
+            gmaxsweetness(self,other)
         elif used=="G-Max Cuddle":
             gmaxcuddle(self,other)
         elif used=="G-Max Gold Rush":
@@ -1252,7 +1300,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             swordsdance(self,other)
             if other.ability=="Dancer":
                 print(f" {other.name}'s {other.ability}!")
-                swordsdance(other)
+                swordsdance(other,self)
         elif used=="Nasty Plot":
             nastyplot(self,other)
         elif used=="Shell Smash":
@@ -1279,8 +1327,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         elif used=="Drill Peck":
             drillpeck(self,other)
         elif used=="Triple Arrows":
-            for i in range(3):
+            hitx=0
+            while True:
+                hitx+=1
                 triplearrows(self,other)
+                if hitx==3 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")     
         elif used=="Boomburst":
             boomburst(self,other)
         elif used=="Muddy Water":
@@ -1441,7 +1494,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 print(f" {self.name} returned to it's {pkball}.")
                 self=switch(self,other,tr,optr,field,turn)                
         elif used=="Teleport":
-            print(f" 🔄 {self.name} used "+colored(" Teleport","magenta")+"!")
+            print(f" 🔄 {self.name} used "+colored(" Teleport","magenta",attrs=["bold"])+"!")
             if len(tr.pokemons)==1:
                 print(" It failed!")
             if len(tr.pokemons)>1:
@@ -1461,7 +1514,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         elif used=="Overheat":
             overheat(self,other)
         elif used=="Roar":
-            print(f" 🐯 {self.name} used "+colored(" Roar","white")+"!")
+            print(f" 🐯 {self.name} used "+colored(" Roar","white",attrs=["bold"])+"!")
             if len(optr.pokemons)>1 and other.ability!="Suction Cups" and other.dmax is False:
                 resetboost(other,self)
                 l=other
@@ -1472,7 +1525,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 print(f" {other.name} was dragged out!")
                 entryeff(other,self,optr,tr,field,turn)
         elif used=="Whirlwind":
-            print(f" 🌪️ {self.name} used "+colored(" Whirlwind","white")+"!")
+            print(f" 🌪️ {self.name} used "+colored(" Whirlwind","white",attrs=["bold"])+"!")
             print(f" {other.name} blew away with the wind.")
             if len(optr.pokemons)>1 and other.ability!="Suction Cups" and other.dmax is False:
                 resetboost(other,self)
@@ -1530,14 +1583,29 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         elif used=="Coil":
             coil(self,other)
         elif used=="Dual Chop":
-            for i in range(2):
+            hitx=0
+            while True:
+                hitx+=1
                 dualchop(self,other)
+                if hitx==2 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")      
         elif used=="Dragon Darts":
-            for i in range(2):
+            hitx=0
+            while True:
+                hitx+=1
                 dragondarts(self,other)
+                if hitx==2 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")      
         elif used=="Dual Wingbeat":
-            for i in range(2):
+            hitx=0
+            while True:
+                hitx+=1
                 dualwingbeat(self,other)
+                if hitx==2 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")      
         elif used=="Order Up":
             orderup(self,other)                
         elif used=="Acrobatics":
@@ -1561,9 +1629,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 watershuriken(self,other)
             print(f" It hit {hit} time(s).")           
         elif used=="Double Iron Bash":
-            for i in range(2):
+            hitx=0
+            while True:
+                hitx+=1
                 ironbash(self,other)
-            print(f" It hit 2 time(s).")         
+                if hitx==2 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")           
         elif used=="Population Bomb":
             hit=0
             choice=0
@@ -1578,34 +1650,53 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                     print(f" {self.name}'s {self.ability}.")
                     hit=10
                     break
-            for i in range(hit):
+            hitx=0
+            while True:
+                hitx+=1
                 populationbomb(self,other)
-            print(f" It hit {hit} time(s).")    
+                if hitx==hit or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")    
         elif used=="Twin Beam":
-            for i in range(2):
+            hitx=0
+            while True:
+                hitx+=1
                 twinbeam(self,other)
-            print(f" It hit 2 time(s).")      
+                if hitx==2 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")      
         elif used=="Gear Grind":
-            for i in range(2):
-                geargrind(self,other)    
-            print(f" It hit 2 time(s).")    
+            hitx=0
+            while True:
+                hitx+=1
+                geargrind(self,other)
+                if hitx==2 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")        
         elif used=="Scale Shot":
-            hit=random.randint(2,5)
-            if self.item=="Loaded Dice":
-                hit=random.randint(4,5)
+            hit=random.randint(3,5)
             if self.ability=="Skill Link":
                 print(f" {self.name}'s {self.ability}.")
                 hit=5
-            for i in range(hit):
+            if self.item=="Loaded Dice":
+                hit=random.randint(4,5)
+            hitx=0
+            while True:
+                hitx+=1
                 scaleshot(self,other)
+                if hitx==hit or other.hp<=0:
+                    break 
             speedchange(self,self,0.5)       
             defchange(self,self,-0.5)
-            print(f" It hit {hit} time(s).") 
+            print(f" It hit {hitx} time(s).")
         elif used=="Triple Dive":
-            hit=3
-            for i in range(hit):
+            hitx=0
+            while True:
+                hitx+=1
                 tripledive(self,other)
-            print(f" It hit {hit} time(s).")
+                if hitx==3 or other.hp<=0:
+                    break
+            print(f" It hit {hitx} time(s).")      
         elif used=="Bone Rush":
             hit=random.randint(3,5)
             if self.ability=="Skill Link":
@@ -1613,9 +1704,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 hit=5
             if self.item=="Loaded Dice":
                 hit=random.randint(4,5)
-            for i in range(hit):
+            hitx=0
+            while True:
+                hitx+=1
                 bonerush(self,other)
-            print(f" It hit {hit} time(s).")
+                if hitx==hit or other.hp<=0:
+                    break 
+            print(f" It hit {hitx} time(s).")
         elif used=="Bullet Seed":
             hit=random.randint(3,5)
             if self.ability=="Skill Link":
@@ -1623,9 +1718,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 hit=5
             if self.item=="Loaded Dice":
                 hit=random.randint(4,5)
-            for i in range(hit):
+            hitx=0
+            while True:
+                hitx+=1
                 bulletseed(self,other)
-            print(f" It hit {hit} time(s).")
+                if hitx==hit or other.hp<=0:
+                    break 
+            print(f" It hit {hitx} time(s).")
         elif used=="Jet Punch":
             jetpunch(self,other)
         elif used=="Signal Beam":
@@ -1685,7 +1784,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         elif used=="Flash Cannon":
             flashcannon(self,other)
         elif used=="Toxic Spikes":
-            print(f" ☠️ {self.name} used "+colored("Toxic Spikes","magenta")+".")
+            print(f" ☠️ {self.name} used "+colored("Toxic Spikes","magenta",attrs=["bold"])+".")
             if tr.hazard.count("Toxic Spikes")==3:
                 print(" Nothing happened!")
             elif optr.hazard.count(" Toxic Spikes")<3 and other.ability!="Magic Bounce":
@@ -1697,7 +1796,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 tr.hazard.append("Toxic Spikes")
             
         elif used=="Spikes":
-            print(f" ✴️ {self.name} used "+colored(" Spikes","yellow")+"!")
+            print(f" ✴️ {self.name} used "+colored(" Spikes","yellow",attrs=["bold"])+"!")
             if optr.hazard.count("Spikes")<3 and other.ability!="Magic Bounce":
                 print(" ✴️ Spikes were scattered all around the opposing team!")
                 optr.hazard.append("Spikes")
@@ -1709,7 +1808,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 print(" Nothing happened!")
               
         elif used=="Stealth Rock":
-            print(f" 🪨 {self.name} used "+colored(" Stealth Rock","yellow")+"!")
+            print(f" 🪨 {self.name} used "+colored(" Stealth Rock","yellow",attrs=["bold"])+"!")
             if "Stealth Rock" in optr.hazard:
                 print(" Nothing happened!")
             if "Stealth Rock" not in optr.hazard and other.ability!="Magic Bounce":
@@ -1720,7 +1819,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 print(" 🪨 Pointed stones float in the air around your team!")
                 tr.hazard.append("Stealth Rock")  
         elif used=="Sticky Web":
-            print(f" {self.name} used "+colored(" Sticky Web","green")+"!")
+            print(f" {self.name} used "+colored(" Sticky Web","green",attrs=["bold"])+"!")
             if "Sticky Web" in optr.hazard:
                 print(" Nothing happened!")
             if "Sticky Web" not in optr.hazard and other.ability!="Magic Bounce":
@@ -1739,54 +1838,66 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             snarl(self,other)
         elif used=="Soft-Boiled":
             if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             else:
                 softboiled(self,other)
         elif used=="Heal Order":
             if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             else:
                 healorder(self,other)
         elif used=="Slack Off":
             if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             else:
                 slackoff(self,other)
         elif used=="Roost":
             if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             else:
                 roost(self,other)
         elif used=="Recover":
             if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             else:
                 recover(self,other)
-            
+        elif used=="Jungle Healing":
+            if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
+                print("  It failed!")
+            else:
+                junglehealing (self,other)            
         elif used=="Spiky Shield":
             self.protect=True
-            print(f" 🔰 {self.name} used "+colored(" Spiky Shield","green")+"!")
+            print(f" 🔰 {self.name} used "+colored(" Spiky Shield","green",attrs=["bold"])+"!")
         elif used=="Baneful Bunker":
             self.protect=True
-            print(f" ⛺ {self.name} used "+colored(" Baneful Bunker","magenta")+"!")
+            print(f" ⛺ {self.name} used "+colored(" Baneful Bunker","magenta",attrs=["bold"])+"!")
         elif used=="Silk Trap":
             self.protect=True
-            print(f" 🕸️ {self.name} used "+colored(" Silk Trap","magenta")+"!")
+            print(f" 🕸️ {self.name} used "+colored(" Silk Trap","green",attrs=["bold"])+"!")
         elif used=="Protect":
             self.protect=True
-            print(f" 🛡️ {self.name} used "+colored(" Protect","white")+"!")
+            print(f" 🛡️ {self.name} used "+colored(" Protect","white",attrs=["bold"])+"!")
         elif used=="Max Guard":
             self.protect=True
-            print(f" 🔺🛡️ {self.name} used "+colored(" Max Guard","white")+"!")
+            print(f" 🔺🛡️ {self.name} used "+colored(" Max Guard","white",attrs=["bold"])+"!")
         elif used=="King's Shield":
             self.protect=True
-            print(f" 👑🛡️ {self.name} used "+colored(" King's Shield","white")+"!")
+            print(f" 👑🛡️ {self.name} used "+colored(" King's Shield","white",attrs=["bold"])+"!")
         elif used=="Morning Sun":
             if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             else:
                 morningsun(self,other)
         elif used=="Moonlight":
+            print(f" {self.name} used {used}!")
             if self.hp==self.maxhp:
                 print("  It failed!")
             else:
@@ -1808,6 +1919,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 victorydance(other)
         elif used=="Light Screen":
             if tr.lightscreen==True:
+                print(f" {self.name} used {used}!")
                 print(" It Failed!")
             if tr.lightscreen==False:
                 lightscreen(self,other,tr,turn)
@@ -1815,16 +1927,19 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             calmmind(self,other)
         elif used=="Aurora Veil":
             if tr.auroraveil==True:
+                print(f" {self.name} used {used}!")
                 print(" It failed!")
             if tr.auroraveil==False:
                 auroraveil(self,other,tr,turn)
         elif used=="Tailwind":
             if tr.tailwind==True:
+                print(f" {self.name} used {used}!")
                 print(" It failed!")
             if tr.tailwind==False:
                 tailwind(self,other,tr,turn)
         elif used=="Reflect":
             if tr.reflect==True:
+                print(f" {self.name} used {used}!")
                 print(" It failed!")
             if tr.reflect==False:
                 reflect(self,other,tr,turn)
@@ -1864,6 +1979,8 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             naturesmadness(self,other)
         elif used=="Scorching Sands":
             scorchingsands(self,other)
+        elif used=="Thrash":
+            thrash(self,other)
         elif used=="Outrage":
             outrage(self,other)
         elif used=="Pounce":
@@ -1986,12 +2103,14 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             hex (self,other)
         elif used=="First Impression":
             if self.canfakeout==False:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             if self.canfakeout==True:
                 firstimpression(self,other)
                 self.canfakeout=False
         elif used=="Fake Out":
             if self.canfakeout==False and self.ability!="Parental Bond[Used]":
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             if self.canfakeout==False and self.ability=="Parental Bond[Used]":
                 fakeout(self,other)
@@ -2015,6 +2134,8 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             surf(self,other)
         elif used=="Aqua Tail":
             aquatail(self,other)
+        elif used=="Razor Wind":
+            razorwind(self,other)
         elif used=="Sky Attack":
             skyattack(self,other)
         elif used=="Belly Drum":
@@ -2050,8 +2171,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 hit=5
             if self.item=="Loaded Dice":
                 hit=random.randint(4,5)
-            for i in range(hit):
+            hitx=0
+            while True:
+                hitx+=1
                 armthrust(self,other)
+                if hitx==hit or other.hp<=0:
+                    break 
+            print(f" It hit {hitx} time(s).")
         elif used=="Pin Missile":
             hit=random.randint(3,5)
             if self.ability=="Skill Link":
@@ -2059,9 +2185,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 hit=5
             if self.item=="Loaded Dice":
                 hit=random.randint(4,5)
-            for i in range(hit):
+            hitx=0
+            while True:
+                hitx+=1
                 pinmissile(self,other)
-            print(f" It hit {hit} time(s).")
+                if hitx==hit or other.hp<=0:
+                    break 
+            print(f" It hit {hitx} time(s).")
         elif used=="Misty Explosion":
             if other.ability=="Damp":
                 print("  Can't explode on Damp Pokémons.")
@@ -2079,9 +2209,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 hit=5
             if self.item=="Loaded Dice":
                 hit=random.randint(4,5)
-            for i in range(hit):
+            hitx=0
+            while True:
+                hitx+=1
                 iciclespears(self,other)
-            print(f" It hit {hit} time(s).")
+                if hitx==hit or other.hp<=0:
+                    break 
+            print(f" It hit {hitx} time(s).")
         elif used=="Waterfall":
             waterfall(self,other)
         elif used=="Wood Hammer":
@@ -2090,6 +2224,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             energyball(self,other)
         elif used=="Rest":
             if self.hp==self.maxhp:
+                print(f" {self.name} used {used}!")
                 print("  It failed!")
             else:
                 rest(self,other,turn)
@@ -2263,10 +2398,10 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             if "Ultra" not in self.name:
                 transformation(self,other,turn)
             print(f" {self.name} reacting to {tr.name}'s {self.item}.")
-            skyburn(self,other)
             self.item+="[Used]"             
             print(f" {self.name} surrounded itself with its Z-Power!")
             print(f" {self.name} unleashes its full-force Z-Move!")
+            skyburn(self,other)
             self.moves.remove(used)
         elif used =="Let's Snuggle Forever":
             self.name=self.name.split("(")[0]
@@ -2414,12 +2549,12 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             self.moves.remove(used)
         elif used =="Acid Downpour":
             self.name=self.name.split("(")[0]
-            print(f" {self.name} reacting to {tr.name}'s Poisonium-Z.")
-            aciddownpour(self,other)
-            self.moves.remove(used)
-            self.item+="[Used]"             
             print(f" {self.name} surrounded itself with its Z-Power!")
             print(f" {self.name} unleashes its full-force Z-Move!")
+            print(f" {self.name} reacting to {tr.name}'s Poisonium-Z.")
+            self.item+="[Used]"   
+            aciddownpour(self,other)
+            self.moves.remove(used)                                  
         elif used =="Breakneck Blitz":
             self.name=self.name.split("(")[0]
             print(f" {self.name} reacting to {tr.name}'s Normalium-Z.")
@@ -2525,13 +2660,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             twinkletackle(self,other)
             self.moves.remove(used)
         elif used=="Counter":
-           print(f" {self.name} used "+colored(" Counter","red")+"!")
+           print(f" 👊 {self.name} used "+colored(" Counter","red",attrs=["bold"])+"!")
            if other.atkcat=="Physical" and "Ghost" not in (other.type1,other.type2,other.teratype):
                other.hp-=self.dmgtaken*2
            else:
                print(" It failed.")
         elif used=="Mirror Coat":
-           print(f" {self.name} used "+colored(" Mirror Coat","magenta")+"!")
+           print(f" 🪞 {self.name} used "+colored(" Mirror Coat","magenta",attrs=["bold"])+"!")
            if other.atkcat=="Special" and "Dark" not in (other.type1,other.type2,other.teratype):
                other.hp-=self.dmgtaken*2
            else:
@@ -2581,12 +2716,12 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             if ch<40:
                 print(f" 💝 {other.name} got up remembering {other.owner.name}'s friendship!")
                 other.hp=1
-        if other.ability=="Phoenix Down" and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and used not in typemoves.abilityigmoves:
+        if other.ability=="Phoenix Down" and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and used not in typemoves.abilityigmoves:
             print(f" 🌈 {other.name}'s Phoenix Down!")
             print(f" {other.name} revived itself to half of its HP.")
             other.hp=(other.maxhp/2)      
             other.ability="Phoenix Down[Used]"  
-        if other.ability=="Sturdy" and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and used not in typemoves.abilityigmoves and used not in typemoves.multimove:
+        if other.ability=="Sturdy" and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and used not in typemoves.abilityigmoves and used not in typemoves.multimove:
             print(f" {other.name}'s Sturdy!")
             print(f" {other.name} hung on using Sturdy.")
             other.hp=1
@@ -2628,7 +2763,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
     
     per=round(((before-other.hp)/other.maxhp)*100,2)
     sper=round(((sbefore-self.hp)/self.maxhp)*100,2)
-    if other.focus==True and other.hp!=before:
+    if other.focus==True and other.hp<before:
         print(f" {other.name} lost its focus!")
         other.focus=False
     if optr.sub!="None" and used not in typemoves.soundmoves:
@@ -2638,10 +2773,12 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         if optr.sub.hp<=0:
             optr.sub="None"
             print(f" The substitute faded away!")
+    if self.hp>self.maxhp:
+        self.hp=self.maxhp            
     if other.hp<0:
         per=round((before/other.maxhp)*100,2)
     if self.hp<0:
-        sper=round((sbefore/self.maxhp)*100,2)   
+        sper=round((sbefore/self.maxhp)*100,2)
 #PERCENTAGE       
     if before>they.hp and they==other:
         me.dmgdealt+=before-other.hp
@@ -2678,7 +2815,7 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
                 other.ability="Gulp Missile"  
             print("===================================================================================")
     if other.hp>0:
-        if other.ability=="Weak Armor" and self.atkcat=="Physical":
+        if other.ability=="Weak Armor" and self.atkcat=="Physical" and other.hp<before:
             print("===================================================================================")
             print(f" 🥜 {other.name}'s {other.ability}!")
             defchange (other,other,-0.5)
@@ -2706,44 +2843,44 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             if other.item in ["Aguav Berry","Figy Berry","Ipapa Berry","Mago Berry","Wiki Berry"]:
                 other.hp+=round(other.maxhp/3)
                 print("===================================================================================")
-                print(f" {other.name} consumed it's {other.item} and restored some HP!")
-                if other.item=="Wiki Berry":
+                print(colored(f" {other.name} consumed it's {other.item} and restored some HP!","green"))
+                if other.item=="Wiki Berry" and self.ability not in ["Unnerve","As One"]:
                     if other.nature in ["Adamant","Jolly","Careful","Impish"]:
                         confuse(other,other,turn,100)
-                if other.item=="Ipapa Berry":
+                if other.item=="Ipapa Berry" and self.ability not in ["Unnerve","As One"]:
                     if other.nature in ["Lonely","Mild","Gentle","Hasty"]:
                         confuse(other,other,turn,100)
-                if other.item=="Aguav Berry":
+                if other.item=="Aguav Berry" and self.ability not in ["Unnerve","As One"]:
                     if other.nature in ["Naughty","Naive","Rash","Lax"]:
                         confuse(other,other,turn,100)
-                if other.item=="Mago Berry":
+                if other.item=="Mago Berry" and self.ability not in ["Unnerve","As One"]:
                     if other.nature in ["Brave","Quiet","Sassy","Relaxed"]:
                         confuse(other,other,turn,100)
-                if other.item=="Figy Berry":
+                if other.item=="Figy Berry" and self.ability not in ["Unnerve","As One"]:
                     if other.nature in ["Modest","Timid","Calm","Bold"]:
                         confuse(other,other,turn,100)
                 other.item+="[Used]"
-            if other.item=="Sitrus Berry":
+            if other.item=="Sitrus Berry" and self.ability not in ["Unnerve","As One"]:
                 other.hp+=round(other.maxhp/4)
-                print(f" {other.name} restored HP using its {other.item}!")
+                print(colored(f" 🍋 {other.name} restored HP using its {other.item}!!","yellow"))
                 other.item+="[Used]"
             print("===================================================================================")                        
               
 
     if used not in typemoves.statusmove:
         if other.item=="Rowap Berry" and other.atkcat=="Special" and self.hp!=sbefore:
-          print(f" {other.name}'s {other.item} damaged {self.name}!")
+          print(colored(f" 🫐 {other.name}'s {other.item} damaged {self.name}!!","cyan"))
           self.hp-=(other.maxhp/8)
           other.item+="[Used]"
-        if other.item=="Kee Berry":
-            print(f" {other.item} raised it's defense.")
+        if other.item=="Kee Berry" and self.ability not in ["Unnerve","As One"]:
+            print(colored(f" 🍑 {other.item} raised it's defense!!","red"))
             defchange(other,self,0.5)
             other.item+="[Used]"
         if other.ability=="Innards Out" and other==they and other.hp<=0:
             print(f" {other.name}'s Innards Out!")
             self.hp-=before
-        if other.item=="Jacoba Berry" and other.atkcat=="Physical" and self.hp!=sbefore:
-            print(f" {other.name}'s {other.item} damaged {self.name}!")
+        if other.item=="Jaboca Berry" and other.atkcat=="Physical" and self.hp!=sbefore:
+            print(colored(f" 🍇 {other.name}'s {other.item} damaged {self.name}!!","yellow"))
             self.hp-=round(self.maxhp/8)
             other.item+="[Used]"
     if self.item=="Throat Spray" and used in typemoves.soundmoves:
@@ -2751,55 +2888,55 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         print(f" The Throat Spray raised {self.name}'s Special Attack!")
         self.item+="[Used]"            
     if other.item=="Maranga Berry" and other.atkcat=="Special" and self.hp!=sbefore:
-          print(f" {other.item} raised it's special defense.")
+          print(colored(f" 🍍 {other.item} raised it's special defense!!","yellow"))
           spdefchange(other,self,0.5)
           other.item+="[Used]"
     if other.hp>0:
           if other.hp<=(other.maxhp/4)  and before>(other.maxhp/4):
-              if other.item=="Starf Berry":
+              if other.item=="Starf Berry" and self.ability not in ["Unnerve","As One"]:
                   ss=random.randint(1,5)
                   if ss==1:
-                      print(f" {other.item} sharply raised it's attack.")
+                      print(colored(f" 🌟 {other.item} sharply raised it's attack!!","green"))
                       atkchange(other,self,1)
                   if ss==2:
-                      print(f" {other.item} sharply raised it's special attack.")
+                      print(colored(f" 🌟 {other.item} sharply raised it's special attack!!","green"))
                       spatkchange(other,self,1)
                   if ss==3:
-                      print(f" {other.item} sharply raised it's defense.")
+                      print(colored(f" 🌟 {other.item} sharply raised it's defense!!","green"))
                       defchange(other,self,1)
                   if ss==4:
-                      print(f" {other.item} sharply raised it's special defense.")
+                      print(colored(f" 🌟 {other.item} sharply raised it's special defense!!","green"))
                       spdefchange(other,self,1)
                   if ss==5:
-                      print(f" {other.item} sharply raised it's speed.")
+                      print(colored(f" 🌟 {other.item} sharply raised it's speed!!","green"))
                       speedchange(other,self,1)
                       other.item+="[Used]"
               if other.item=="Custap Berry" and other.speed<self.speed:
-                  print(f" {other.item} will let {other.name} move first!")
+                  print(colored(f" 🥝 {other.item} will let {other.name} move first!!","red"))
                   other.priority=True
                   other.item+="[Used]"
-              if other.item=="Salac Berry":
-                  print(f" {other.item} raised it's speed.")
+              if other.item=="Salac Berry" and self.ability not in ["Unnerve","As One"]:
+                  print(colored(f" 🥬 {other.item} raised it's speed!!","green"))
                   speedchange(other,self,0.5)
                   other.item+="[Used]"
-              if other.item=="Petaya Berry":
-                  print(f" {other.item} raised it's special attack.")
+              if other.item=="Petaya Berry" and self.ability not in ["Unnerve","As One"]:
+                  print(colored(f" 🌰 {other.item} raised it's special attack!!","red"))
                   spatkchange(other,self,0.5)
                   other.item+="[Used]"
-              if other.item=="Liechi Berry":
-                  print(f" {other.item} raised it's attack.")
+              if other.item=="Liechi Berry" and self.ability not in ["Unnerve","As One"]:
+                  print(colored(f" 🍓 {other.item} raised it's attack!!","yellow"))
                   atkchange(other,self,0.5)
                   other.item+="[Used]"
-              if other.item=="Lansat Berry":
-                  print(f" {other.item} raised it's critical hit ratio.")
+              if other.item=="Lansat Berry" and self.ability not in ["Unnerve","As One"]:
+                  print(colored(f" 🍅 {other.item} raised it's critical hit ratio!!","red"))
                   other.critrate*=4
                   other.item+="[Used]"
-              if other.item=="Ganlon Berry":
-                  print(f" {other.item} raised it's defense.")
+              if other.item=="Ganlon Berry" and self.ability not in ["Unnerve","As One"]:
+                  print(colored(f" 🍆 {other.item} raised it's defense!!","blue"))
                   defchange(other,self,0.5)
                   other.item+="[Used]"
-              if other.item=="Apicot Berry":
-                  print(f" {other.item} raised it's special defense.")
+              if other.item=="Apicot Berry" and self.ability not in ["Unnerve","As One"]:
+                  print(colored(f" 🍈 {other.item} raised it's special defense!!","green"))
                   spdefchange(other,self,0.5)
                   other.item+="[Used]"
     if self.dbond is True and other.hp<=0:
@@ -2819,12 +2956,13 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         if self.item=="None":
             self.item="Sticky Barb"
             other.item+="[Used]"
-    if other.ability=="Gooey" and me.ability not in ["Clear Body","Good as Gold"] and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and other.hp!=before:
-        print(f" 🐌 {other.name}'s {other.ability}!")     
+    if other.ability in ["Gooey","Tangling Hair"] and me.ability not in ["Clear Body","Good as Gold"] and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and other.hp!=before:
+        print(f" {other.name}'s {other.ability}!")     
         speedchange(self,other,-0.5)
     if other.ability=="Radiant Blaze" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and other.hp!=before:
         confuse(self,other,turn,100)        
     if other.ability=="Flame Body" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and other.hp!=before:
+        print(f" 🔥 {other.name}'s {other.ability}!")
         burn(self,other,30)
     if other.ability=="Seed Sower" and "Toxic Spikes" not in tr.hazard and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and field.terrain!="Grassy" and other.hp!=before:
         print(f" 🚜 {other.name}'s {other.ability}!")
@@ -2836,19 +2974,30 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
         print(f" ☣️ {other.name}'s {other.ability}!")   
         print(" ☠️ Poison spikes were scattered all around the opposing team!")
         tr.hazard.append("Toxic Spikes")   
-    if other.ability in ["Mummy","Lingering Aroma","Wandering Spirit"] and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads","Ability Shield"] and other.hp!=before:     
+    if other.ability in ["Mummy","Lingering Aroma","Wandering Spirit"] and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads","Ability Shield"] and other.hp!=before and self.ability not in ["Mummy","Lingering Aroma","Wandering Spirit"]:     
         print(f" {other.name}'s {other.ability}!")
         self.ability=other.ability   
+    if other.ability=="Cute Charm" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and other.hp!=before:  
+        self.infatuated=True
+        print(f" 🥰 {other.name}'s {other.ability}!")
+        print(f" 🥰 {self.name} is infatuated!")
+    if other.ability=="Perish Body" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and other.hp!=before and 0 in (self.perishturn,other.perishturn):   
+        print(f" 💀 {other.name}'s {other.ability}!")  
+        if self.perishturn==0:
+            self.perishturn=4
+        if other.perishturn==0:
+            other.perishturn=4  
     if other.ability=="Static" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"] and other.hp!=before:
+        print(f" ⚡ {other.name}'s {other.ability}!")
         paralyzed(other,self,30)
     if other.ability=="Venomous Aura" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"]:
         print(f" {other.name}'s {other.ability}!")
         poison(other,self,100)        
     if other.ability=="Poison Point" and me.status=="Alive" and me.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"]:
-        print(f" {other.name}'s {other.ability}!")
+        print(f" ☣️ {other.name}'s {other.ability}!")
         poison(other,self,30)
     if self.ability in ["Poison Touch","Toxic Fangs","Toxic Drain"] and other.status=="Alive" and other.ability!="Long Reach" and used in typemoves.contactmoves and self.item not in ["Punching Glove","Protective Pads"]:
-        print(f" {self.name}'s {self.ability}!")
+        print(f" ☣️ {self.name}'s {self.ability}!")
         poison(self,other,30)  
     if used in typemoves.contactmoves and other.item=="Air Balloon" and self.item not in ["Punching Glove","Protective Pads"] and used not in typemoves.groundmoves and other.hp!=before:
         print(f" 🎈 {other.name}'s Air Balloon popped off!")
@@ -2886,61 +3035,69 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
             print(f" 🟣 {me.name} lost some of its HP!")
             if self.hp<0:
                 self.hp=0
-    if other.item=="Custap Berry" and other.speed<self.speed and self.hp<(self.maxhp/4) and self.hp>0:
-        print(f" {other.item} will let {other.name} move first!")
+    if other.item=="Custap Berry" and other.speed<self.speed and self.hp<(self.maxhp/4) and self.hp>0 and self.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🥝 {other.item} will let {other.name} move first!!","red"))
         other.priority=True
         other.item+="[Used]"     
-    if self.item=="Cheri Berry" and self.status=="Paralyzed" and self.hp>0:
-        print(f" {self.item} cured {self.name}'s paralysis!")
+    if other.item=="Persim Berry" and other.confused==True and other.hp>0 and self.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍑 {other.item} cured {other.name}'s confusion!!","red"))
+        other.confused=False
+        other.item+="[Used]"        
+    if self.item=="Persim Berry" and self.confused==True and self.hp>0 and other.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍑 {self.item} cured {self.name}'s confusion!!","red"))
+        self.confused=False
+        self.item+="[Used]"        
+    if self.item=="Cheri Berry" and self.status=="Paralyzed" and self.hp>0 and other.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍒 {self.item} cured {self.name}'s paralysis!!","red"))
         self.status="Alive"
         self.item+="[Used]"
-    if self.item=="Rawst Berry" and self.status=="Burned" and self.hp>0:
-        print(f" {self.item} cured {self.name} from burn!")
+    if self.item=="Rawst Berry" and self.status=="Burned" and self.hp>0 and self.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍓 {self.item} cured {self.name} from burn!!","cyan"))
         self.status="Alive"
         self.item+="[Used]"
-    if self.item=="Chesto Berry" and self.status=="Sleep" and self.hp>0:
-        print(f" {self.item} cured {self.name} from sleep state!")
-        print(f" {self.name} woke up!")
+    if self.item=="Chesto Berry" and self.status=="Sleep" and self.hp>0 and other.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🌰 {self.item} cured {self.name} from sleep state!!","blue"))
+        print(f" ‼️ {self.name} woke up!")
         self.status="Alive"
         self.item+="[Used]"
-    if other.item=="Chesto Berry" and other.status=="Sleep" and other.hp>0:
-        print(f" {other.item} cured {other.name} from sleep state!")
-        print(f" {other.name} woke up!")
+    if other.item=="Chesto Berry" and other.status=="Sleep" and other.hp>0 and self.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🌰 {other.item} cured {other.name} from sleep state!!","blue"))
+        print(f" ‼️ {other.name} woke up!")
         other.status="Alive"
         other.item+="[Used]"
-    if self.item=="Aspear Berry" and self.status=="Frozen" and self.hp>0:
-        print(f" {self.item} cured {self.name} from frozen state!")
-        print(f" {self.item} thawed out!")
+    if self.item=="Aspear Berry" and self.status=="Frozen" and self.hp>0 and other.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍐 {self.item} cured {self.name} from frozen state!!","yellow"))
+        print(f" ‼️ {self.item} thawed out!")
         self.status="Alive"
         self.item+="[Used]"
-    if other.item=="Aspear Berry" and other.status=="Frozen" and other.hp>0:
-        print(f" {other.item} cured {other.name} from frozen state!")
-        print(f" {other.item} thawed out!")
+    if other.item=="Aspear Berry" and other.status=="Frozen" and other.hp>0 and self.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍐 {other.item} cured {other.name} from frozen state!!","yellow"))
+        print(f" ‼️ {other.item} thawed out!")
         other.status="Alive"
         other.item+="[Used]"
-    if self.item=="Pecha Berry" and self.status=="Badly Poisoned" and self.hp>0:
-        print(f" {self.item} cured {self.name}'s poison!")
+    if self.item=="Pecha Berry" and self.status=="Badly Poisoned" and self.hp>0 and other.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍑 {self.item} cured {self.name}'s poison!!","red"))
         self.status="Alive"
         self.item+="[Used]"
-    if other.item=="Pecha Berry" and other.status=="Badly Poisoned" and other.hp>0:
-        print(f" {other.item} cured {other.name}'s poison!")
+    if other.item=="Pecha Berry" and other.status=="Badly Poisoned" and other.hp>0 and self.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🍑 {other.item} cured {other.name}'s poison!!","red"))
         other.status="Alive"
         other.item+="[Used]"
-    if self.item=="Lum Berry" and self.status!="Alive"and self.hp>0:
-        print(f" {self.item} cured {self.name}'s status condition!")
+    if self.item=="Lum Berry" and self.status!="Alive"and self.hp>0 and other.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🫒 {self.item} cured {self.name}'s status condition!!","green"))
         self.status="Alive"
         self.item+="[Used]"        
-    if other.item=="Lum Berry" and other.status!="Alive" and other.hp>0:
-        print(f" {other.item} cured {other.name}'s status condition!")
+    if other.item=="Lum Berry" and other.status!="Alive" and other.hp>0 and self.ability not in ["Unnerve","As One"]:
+        print(colored(f" 🫒 {other.item} cured {other.name}'s status condition!!","green"))
         other.status="Alive"
         other.item+="[Used]"         
     if other.ability=="Stamina" and other.hp!=before and self.hp>0:
         print(f" {other.name}'s {other.ability}!")
         defchange(other,self,0.5)       
     if self.hp<=self.maxhp/2 and self.hp>0:
-        if self.item=="Sitrus Berry":       
+        if self.item=="Sitrus Berry" and other.ability not in ["Unnerve","As One"]:       
             self.hp+=round(self.maxhp/4)
-            print(f" {self.name} restored HP using its {self.item}!")
+            print(colored(f" 🍋 {self.name} restored HP using its {self.item}!!","yellow"))
             self.item+="[Used]"    
     if other.ability=="Schooling" and "School" in other.name and other.hp<=(other.maxhp*0.25):
         print(f" 🐟 {other.name}'s {other.ability}!")
@@ -2991,6 +3148,22 @@ def attack(self,other,tr,optr,used,opuse,field,turn):
 def effects(self,other,tr,turn):
     self.flinched=False
     self.canfakeout=False
+    if turn==self.taunturn:
+        print(f" {self.name}'s taunt ended!")
+        self.taunted=False
+    if turn==self.encturn:
+        print(f" {self.name}'s encore ended!")
+        self.encore=False
+    if self.trap!=other:
+        self.trap=False
+    if self.ability=="Hunger Switch" and self.dmax==False and self.hp>0:
+        print(f" {self.name}'s Hunger Switch!")
+        if "Full Belly" in self.name:
+            self.name="Hungry Mode Morpeko"
+            self.atktype="Dark"
+        elif "Hungry Mode" in self.name:
+            self.name="Full Belly Morpeko"
+            self.atktype="Electric"
     if self.ability=="Swarm":
         if self.hp<=(self.maxhp*0.3):
             print(f" 🪲 {self.name} is swarming around {other.name}!")
@@ -3003,11 +3176,21 @@ def effects(self,other,tr,turn):
     if self.ability=="Blaze":
         if self.hp<=(self.maxhp*0.3):
             print(f" 🔥 {self.name} is unleashing huge amount of flame energy!")
+    if tr.doom!=0 and tr.doom==turn:
+        print(f" 💫 {self.name} took the Doom Desire attack!")
+        self.hp-=tr.ftmul
+        tr.doom=0
+        tr.ftmul=0
     if tr.future!=0 and tr.future==turn:
-        print(f" 🔮 {self.name} took the future sight!")
+        print(f" 🔮 {self.name} took the Future Sight attack!")
         self.hp-=tr.ftmul
         tr.future=0
         tr.ftmul=0
+    if self.status!="Alive" and self.ability=="Shed Skin":
+        x=random.randint(1,100)
+        if x>67:
+            print(f" 🦪 {self.name}'s Shed Skin!")
+            self.status="Alive"
     if "Berry" in self.item and self.ability=="Harvest":
         if field.weather in ["Sunny","Desolate Land"]:
             if "Berry[Used]" in self.item:
@@ -3019,6 +3202,9 @@ def effects(self,other,tr,turn):
                 if "Berry[Used]" in self.item:
                     print(f" 🌽 {self.name}'s Harvest!")
                     self.item=self.item.split("[")[0]
+    if field.weather in ["Rainy","Primordial Sea"] and self.ability=="Hydration" and self.status!="Alive":
+        self.status="Alive"           
+        print(f" 💉 {self.name}'s status was cured by Hydration.")            
     if field.weather=="Primordial Sea" and "Primordial Sea" not in (self.ability,other.ability) and "Marine" not in field.location:
         field.weather="Clear"
         print (" 🌤️ The heavy rainfall stopped.")
@@ -3072,9 +3258,10 @@ def effects(self,other,tr,turn):
             confuse(self,self,turn,100)
     if self.perishturn!=0:
         self.perishturn-=1
-        print(f" {self.name}'s perish count fell to {self.perishturn}!")
+        print(f" 💔 {self.name}'s perish count fell to {self.perishturn}!")
         if self.perishturn==0:
             self.hp=0
+            print(f" 💀 {self.name} perished away!")
     if self.ability=="Power Construct" and "Complete" not in self.name and self.hp<=(self.maxhp/2) and self.hp>0:
         print(f" ⚕️ {self.name}'s Power Construct!")
         self.name="Complete Zygarde"
@@ -3129,12 +3316,12 @@ def effects(self,other,tr,turn):
         if other.hp<=(other.maxhp-other.maxhp/16):
             other.hp+=round(other.maxhp/16)   
     #HAIL DAMAGE
-    if field.weather =="Hail" and self.ability!="Snow Cloak" and self.item!="Safety Googles" and self.hp>0:     
+    if field.weather =="Hail" and self.ability not in ["Snow Cloak","Ice Body","Overcoat","Slush Rush"] and self.item!="Safety Googles" and self.hp>0:     
         if self.type1!="Ice" and self.type2!="Ice" and self.ability!="Magic Guard":
             self.hp-=round(self.maxhp/16)
             print(f" ❄️ {self.name} is pelted by the hail!")
     #SAND DAMAGE
-    if field.weather =="Sandstorm" and self.ability!="Sand Veil" and self.item!="Safety Googles" and self.hp>0:
+    if field.weather =="Sandstorm" and self.ability not in ["Sand Veil","Sand Force","Overcoat","Sand Rush"] and self.item!="Safety Googles" and self.hp>0:
         if self.type1 not in ["Rock","Ground","Steel"] and self.type2 not in ["Rock","Ground","Steel"] and self.ability!="Magic Guard":
             self.hp-=(1+round(self.maxhp/16))
             print(f" 🏜️ {self.name} is buffeted by the sandstorm!")
@@ -3144,8 +3331,8 @@ def effects(self,other,tr,turn):
         print(f" ☠️ {self.name} was hurt by poison.")
     #BADLY POISONED
     if self.status=="Badly Poisoned" and self.ability not in ["Magic Guard","Poison Heal","Toxic Boost","Immunity"] and self.hp>0:
-        self.hp-=(1+(self.maxhp*self.badpoison/16))
-        self.badpoison+=1
+        self.hp-=(1+(self.maxhp*self.toxicCounter/16))
+        self.toxicCounter+=1
         print(f" ☠️ {self.name} was hurt by fatal poison.")        
     #BURN        
     if self.status=="Burned" and self.ability not in ["Magic Guard","Flare Boost"] and self.hp>0:
@@ -3203,11 +3390,12 @@ def effects(self,other,tr,turn):
     if self.olock is True:
         defchange(self,other,-0.5)
         spdefchange(self,other,-0.5)
-    if self.ability=="Speed Boost":
+    if self.ability=="Speed Boost" and self.hp>0:
         print(f" {self.name}'s {self.ability}!")
         speedchange(self,other,0.5)
     if 0 in self.pplist:
         if self.dmax is False and self.use in self.moves:
+            self.lostmoves.append(self.moves[self.pplist.index(0)])
             self.moves.remove(self.moves[self.pplist.index(0)])
         if self.dmax is True and self.use in self.maxmove:
             self.moves.remove(self.moves[self.pplist.index(0)])

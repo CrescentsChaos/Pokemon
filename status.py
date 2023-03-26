@@ -24,7 +24,7 @@ def poison(self,other,ch=100):
     if self.ability=="Serene Grace":
         miss/=2
     chance=random.randint(1,100)
-    if (chance>=miss and ("Steel" not in (other.type2,other.type1,other.teratype) and "Poison"  not in (other.type2,other.type1,other.teratype) or self.ability=="Corrosion") and other.ability not in ["Immunity","Magic Bounce","Leaf Guard","Comatose"] and other.status=="Alive" and self.ability!="Sheer Force") and other.hp>0:
+    if (chance>=miss and ("Steel" not in (other.type2,other.type1,other.teratype) and "Poison"  not in (other.type2,other.type1,other.teratype) or self.ability=="Corrosion") and other.ability not in ["Immunity","Magic Bounce","Leaf Guard","Comatose","Pastel Veil"] and other.status=="Alive" and self.ability!="Sheer Force") and other.hp>0:
         if other.item!="Covert Cloak" or other.ability not in ["Shield Dust"]:
             other.status="Badly Poisoned"
             print(f" ☠️ {other.name} was badly poisoned.")
@@ -60,7 +60,7 @@ def burn(self,other,ch=100):
     if self.ability=="Serene Grace":
         miss/=2
     chance=random.randint(1,100)
-    if chance>=miss and "Fire" not in (other.type2,other.type1,other.teratype) and other.ability not in ["Flash Fire","Magic Bounce","Leaf Guard","Comatose"] and other.status=="Alive" and self.ability!="Sheer Force" and other.hp>0:
+    if chance>=miss and "Fire" not in (other.type2,other.type1,other.teratype) and other.ability not in ["Flash Fire","Magic Bounce","Leaf Guard","Comatose","Thermal Exchange","Magma Armor"] and other.status=="Alive" and self.ability!="Sheer Force" and other.hp>0:
         if other.item!="Covert Cloak" or other.ability not in ["Shield Dust"]:
             other.status="Burned"
             print(f" 🔥 {other.name} was burned.")

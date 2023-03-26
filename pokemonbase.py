@@ -1,5 +1,16 @@
 from pokemonbase2 import *
-
+#Bombeedel
+class Bombeedel(Pokemon2):
+    def __init__(self,name="Bombeedel",type1="Bug",type2="None",nature="None",level=100,happiness=255,hp=70,atk=70,defense=30,spatk=130,spdef=70,speed=105,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move="None", ability="Aftermath",item="Leftovers"):
+        if move =="None":
+            avmoves=["Protect","Toxic","Fire Blast","Final Gambit","U-turn","Recover","Explosion","X-Scissor","Sludge Bomb"]
+            moves=moveset(type1,type2,avmoves,name=name)
+        else:
+            moves=move
+        if "Final Gambit" in moves:
+            hpev=252
+            atkev=0
+        super().__init__(name,type1,type2,nature,level,happiness,hp,atk,defense,spatk,spdef,speed,maxiv=maxiv,moves=moves,hpev=hpev,atkev=atkev,defev=defev,spatkev=spatkev,spdefev=spdefev,speedev=speedev, ability=ability,item=item)            
 #Oricorio
 class Plumageist(Pokemon2):
     def __init__(self,name="Plumageist",type1="Ghost",type2="Flying",nature="None",level=100,happiness=255,hp=75,atk=70,defense=75,spatk=110,spdef=85,speed=120,hpev=0,atkev=0,defev=0,spatkev=252,spdefev=0,speedev=252,maxiv="No",move="None", ability=random.choice(["Dance of the Specter"]),item=random.choice(["Focus Sash"])):

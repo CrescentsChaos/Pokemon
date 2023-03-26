@@ -1,4 +1,5 @@
 import random
+from pokemonbase2 import *
 def outro(tr,sr,mon,field):
     mons=[]
     mmons=[]
@@ -9,6 +10,14 @@ def outro(tr,sr,mon,field):
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
     print("===================================================================================")
+    if "Katy" in sr.name:
+        print(random.choice([f" {sr.name}: All of my sweet little Pokémon dropped like flies!\n",f" {sr.name}: Your strength rose during our battle like a nice bread in the oven.\n"]))
+    if "Kofu" in sr.name:
+        print(random.choice([f" {sr.name}: Vaultin’ Veluza! Yer a lively one, aren’t ya! A little TOO lively, if I do say so myself!\n",f" {sr.name}: Gahaha! A loss as refreshing as the air at the morning market!\n"]))
+    if "Brassius" in sr.name:
+        print(random.choice([f" {sr.name}: Oh! What artistic tactics you employ!\n",f" {sr.name}: Avant-garde!\n"]))
+    if "Iono" in sr.name:
+        print(random.choice([f" {sr.name}: Our challenger came out victorious! Well done, {trname}!\n",f" {sr.name}: I hate to say it, but I lost! Thanks for cheerin’ me on anywho, my loyal fans!\n"]))
     if "Tucker" in tr.name:
         print(random.choice([f" {tr.name}: Ahahaha! Aren't you embarrassed? Everyone's watching!\n",f" {tr.name}: My Dome Ace title isn't just for show!\n"]))
     if "Tucker" in sr.name:
@@ -97,6 +106,8 @@ def outro(tr,sr,mon,field):
         print(random.choice([f" {sr.name}: Humph!\n You have proven your worth!",f" {sr.name}: I subjected you to everything I could muster. But my efforts failed. I must hone my skills. Go on to the next room, and put your abilities to the test!\n"]))
     if "Karen" in sr.name:
         print(random.choice([f" {sr.name}: Well, aren't you good. I like that in a trainer.\n",f" {sr.name}: Strong Pokémon. Weak Pokémon. That is only the selfish perception of people. Truly skilled trainers should try to win with their favorites. I like your style. You understand what's important. Go on--the Champion is waiting.\n"]))
+    if "Cynthia" in tr.name:
+        print(random.choice([f" {tr.name}: What's necessary to become stronger? I think it's important to never lose your love of Pokémon.\n",f" {tr.name}: Even if you lose, never lose your love of Pokémon.\n"]))
     if "Falkner" in sr.name:
         print(random.choice([f" {sr.name}: Mmm... I have much to learn even before attaining the Mega Stones...\n"]))
     if "Cynthia" in sr.name:
@@ -156,19 +167,27 @@ def dedlist(tr,sr):
             y.append(i)
     tr.faintedmon=x        
     sr.faintedmon=y
-    tr.pokemons+=tr.faintedmon
-    sr.pokemons+=sr.faintedmon
+    for i in tr.faintedmon:
+        if i not in tr.pokemons:
+            tr.pokemons.append(i)
+            i.hp=i.maxhp
+            i.calcst()
+    for i in sr.faintedmon:
+        if i not in sr.pokemons:
+            sr.pokemons.append(i)         
+            i.hp=i.maxhp
+            i.calcst()   
 def statistics(tr,sr):
     trname=tr.name.split(" ")[-1]
     srname=sr.name.split(" ")[-1]
     trdmgdealt=0
     srdmgdealt=0
-    trcarry="None"
-    srcarry="None"
+    trcarry=Pikachu()
+    srcarry=Pikachu()
     trdmgrec=0
     srdmgrec=0
-    trtank="None"
-    srtank="None"
+    trtank=Pikachu()
+    srtank=Pikachu()
     for i in tr.pokemons:
          if trdmgdealt<i.dmgdealt:
              trdmgdealt=i.dmgdealt

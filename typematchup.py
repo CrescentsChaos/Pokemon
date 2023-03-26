@@ -20,10 +20,20 @@ def resetboost(mon,mon2):
     mon.atkb,mon.defb,mon.spatkb,mon.spdefb,mon.speedb=1,1,1,1,1
 def weakness(self,other,field):
     eff=1
+    ty=1
     stab=1     
+    if self.use in typemoves.contactmoves and self.ability=="Tough Claws":
+        print(f" {self.name}'s Tough Claws.")
+        eff*=1.33
+    if self.use in typemoves.soundmoves and self.ability=="Punk Rock":
+        print(f" {self.name}'s Punk Rock.")
+        eff*=1.3
+    if self.use in typemoves.soundmoves and other.ability=="Punk Rock":
+        print(f" {other.name}'s Punk Rock.")
+        eff*=0.5
     if other.use=="Glaive Rush":
         eff*=2
-    if self.use in typemoves.windmoves and other.ability=="Wind Rider" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"]:
+    if self.use in typemoves.windmoves and other.ability=="Wind Rider" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"]:
         eff*=0
         atkchange(other,self,0.5)
         print(f" 🍃 {other.name}'s {other.ability}!")
@@ -48,10 +58,10 @@ def weakness(self,other,field):
         self.type2="None"
         self.type1=other.atktype
         print(f" {self.name} changed it's type to {self.type1} using {self.ability}!")
-    #SHADOW SHIELD/MULTISCALE/BLUBBER DEFENSE        
-    if other.hp==other.maxhp and other.ability in ["Multiscale","Blubber Defense","Shadow Shield"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+    #SHADOW SHIELD/MULTISCALE/BLUBBER DEFENSE       
+    if (other.hp == other.maxhp and other.ability in ["Multiscale", "Blubber Defense", "Shadow Shield"] and self.ability not in ["Mold Breaker", "Teravolt", "Turboblaze", "Propeller Tail"] and self.use not in typemoves.abilityigmoves):
         print(f" 🔰 {other.name}'s {other.ability}.")
-        eff*=0.5
+        eff *= 0.5
     #SOLAR POWER
     if self.ability=="Solar Power" and field.weather in ["Sunny","Desolate Land"] and "Cloud Nine" not in (self.ability,other.ability):
         print(f" ☀️ {self.name}'s {self.ability}!")
@@ -70,79 +80,91 @@ def weakness(self,other,field):
     #CHANGING NORMAL TYPE MOVES
     if self.atktype=="Normal":
         if self.ability in ["Pixilate","Aerilate","Galvanize","Refrigerate","Liquid Voice"]:
-            eff*=1.33
-        if self.ability=="Pixilate":
-            self.atktype="Fairy"
-        if self.ability=="Aerilate":
-            self.atktype="Flying"
-        if self.ability=="Galvanize":
-            self.atktype="Electric"
-        if self.ability=="Refrigerate":
-            self.atktype="Ice"
-        if self.ability=="Liquid Voice":
-            self.atktype="Water"   
-            
+            ability_dict = {"Pixilate": "Fairy", "Aerilate": "Flying", "Galvanize": "Electric", "Refrigerate": "Ice", "Liquid Voice": "Water"}
+            self.atktype = ability_dict[self.ability]
+            eff *= 1.33          
+    
+    type_chart = {
+    'Bug': {'effective': ['Grass', 'Psychic', 'Dark'], 'weak': ['Fighting', 'Flying', 'Poison', 'Ghost', 'Steel', 'Fire', 'Fairy']},
+    'Water': {'effective': ['Ground', 'Rock', 'Fire'], 'weak': ['Water', 'Grass', 'Dragon']},
+    'Ghost': {'effective': ['Ghost', 'Psychic'], 'weak': ['Dark'], 'immune': ['Normal']},
+    'Electric': {'effective': ['Flying', 'Water'], 'immune': ['Ground'], 'weak': ['Grass', 'Electric', 'Dragon']},
+    'Psychic': {'effective': ['Fighting', 'Poison'], 'immune': ['Dark'], 'weak': ['Steel', 'Psychic']},
+    'Ice': {'effective': ['Flying', 'Ground', 'Grass', 'Dragon'], 'weak': ['Steel', 'Fire', 'Ice', 'Water']},
+    'Dragon': {'immune': ['Fairy'], 'effective': ['Dragon'], 'weak': ['Steel']},
+    'Fairy': {'effective': ['Fighting', 'Dragon', 'Dark'], 'weak': ['Poison', 'Steel', 'Fire']},
+    'Dark': {'effective': ['Ghost', 'Psychic'], 'weak': ['Fighting', 'Dark', 'Fairy']},
+    'Steel': {'effective': ['Rock', 'Ice', 'Fairy'], 'weak': ['Steel', 'Fire', 'Water', 'Electric']},
+    'Grass': {'effective': ['Ground', 'Rock', 'Water'], 'weak': ['Flying', 'Poison', 'Bug', 'Steel', 'Fire', 'Grass', 'Dragon']},
+    'Fire': {'effective': ['Bug', 'Steel', 'Grass', 'Ice'], 'weak': ['Rock', 'Fire', 'Water', 'Dragon']},
+    'Poison': {'effective': ['Grass', 'Fairy'], 'weak': ['Poison', 'Ground', 'Rock', 'Ghost'], 'immune': ['Steel']},
+    'Flying': {'effective': ['Fighting', 'Bug', 'Grass'], 'weak': ['Rock', 'Steel', 'Electric']},
+    'Rock': {'effective': ['Flying', 'Bug', 'Fire', 'Ice'], 'weak': ['Fighting', 'Ground', 'Steel']},
+    'Normal': {'weak': ['Rock', 'Steel'], 'immune': ['Ghost']},
+    'Fighting': {'effective': ['Normal', 'Rock', 'Steel', 'Ice', 'Dark'], 'weak': ['Flying', 'Poison', 'Psychic', 'Bug', 'Fairy'], 'immune': ['Ghost']},
+    'Ground': {'effective': ['Poison', 'Rock', 'Steel', 'Fire', 'Electric'], 'weak': ['Bug', 'Grass'], 'immune': ['Flying']}
+}
     #BUG
-    bugeff=['Grass', 'Psychic', 'Dark']
-    bugwk=['Fighting', 'Flying', 'Poison', 'Ghost', 'Steel', 'Fire', 'Fairy']
+    bugeff=type_chart["Bug"]["effective"]
+    bugwk=type_chart["Bug"]["weak"]
     #water
-    watereff=['Ground', 'Rock', 'Fire']
-    waterwk=['Water', 'Grass', 'Dragon']
+    watereff=type_chart["Water"]["effective"]
+    waterwk=type_chart["Water"]["weak"]
     #Ghost
-    ghosteff=['Ghost', 'Psychic']
-    ghostwk=["Dark"]
-    ghostimmune=["Normal"]
+    ghosteff=type_chart["Ghost"]["effective"]
+    ghostwk=type_chart["Ghost"]["weak"]
+    ghostimmune=type_chart["Ghost"]["immune"]
     #Electric
-    electriceff=['Flying', 'Water']
-    electricimmune=["Ground"]
-    electricwk=['Grass', 'Electric', 'Dragon']
+    electriceff=type_chart["Electric"]["effective"]
+    electricimmune=type_chart["Electric"]["immune"]
+    electricwk=type_chart["Electric"]["weak"]
     #Psychic
-    psychiceff=['Fighting', 'Poison']
+    psychiceff=type_chart["Psychic"]["effective"]
     psychicimmune=["Dark"]
-    psychicwk=['Steel', 'Psychic']
+    psychicwk=type_chart["Psychic"]["weak"]
     #Ice
-    iceeff=['Flying', 'Ground', 'Grass', 'Dragon']
-    icewk=['Steel', 'Fire', 'Ice',"Water"]
+    iceeff=type_chart["Ice"]["effective"]
+    icewk=type_chart["Ice"]["weak"]
     #Dragon
     dragonimmune=["Fairy"]
-    dragoneff=["Dragon"]
-    dragonwk=["Steel"]
+    dragoneff=type_chart["Dragon"]["effective"]
+    dragonwk=type_chart["Dragon"]["weak"]
     #Fairy
-    fairyeff=['Fighting', 'Dragon', 'Dark']
-    fairywk=['Poison', 'Steel', 'Fire']
+    fairyeff=type_chart["Fairy"]["effective"]
+    fairywk=type_chart["Fairy"]["weak"]
     #Dark
-    darkeff=['Ghost', 'Psychic']
-    darkwk=['Fighting', 'Dark', 'Fairy']
+    darkeff=type_chart["Dark"]["effective"]
+    darkwk=type_chart["Dark"]["weak"]
     #Steel
-    steeleff=['Rock', 'Ice', 'Fairy']
-    steelwk=['Steel', 'Fire', 'Water', 'Electric']
+    steeleff=type_chart["Steel"]["effective"]
+    steelwk=type_chart["Steel"]["weak"]
     #GRASS      
-    grasseff=["Ground", "Rock", "Water"]
-    grasswk=["Flying", "Poison", "Bug", "Steel", "Fire", "Grass", "Dragon"]
+    grasseff=type_chart["Grass"]["effective"]
+    grasswk=type_chart["Grass"]["weak"]
     #FIRE
-    fireeff=["Bug", "Steel", "Grass", "Ice"]
-    firewk=["Rock", "Fire", "Water", "Dragon"]
+    fireeff=type_chart["Fire"]["effective"]
+    firewk=type_chart["Fire"]["weak"]
     #POISON
-    poisoneff=["Grass", "Fairy"]
-    poisonwk=["Poison", "Ground", "Rock", "Ghost"]
+    poisoneff=type_chart["Poison"]["effective"]
+    poisonwk=type_chart["Poison"]["weak"]
     poisonimmune=["Steel"]
     #FLYING
-    flyingeff=["Fighting", "Bug", "Grass"]
-    flyingwk=['Rock', 'Steel', 'Electric']    
+    flyingeff=type_chart["Flying"]["effective"]
+    flyingwk=type_chart["Flying"]["weak"] 
     #Rock
-    rockeff=["Flying", "Bug", "Fire", "Ice"]
-    rockwk=['Fighting', 'Ground', 'Steel']
+    rockeff=type_chart["Rock"]["effective"]
+    rockwk=type_chart["Rock"]["weak"]
     #Normal
     normaleff=[]
-    normalwk=['Rock', 'Steel']
+    normalwk=type_chart["Normal"]["weak"]
     normalimmune=['Ghost']
     #fighting
-    fightingeff=['Normal', 'Rock', 'Steel', 'Ice', "Dark"]
-    fightingwk=["Flying", 'Poison', 'Psychic', 'Bug','Fairy']
+    fightingeff=type_chart["Fighting"]["effective"]
+    fightingwk=type_chart["Fighting"]["weak"]
     fightingimmune=["Ghost"]
     #ground
-    groundeff=['Poison', 'Rock', 'Steel', 'Fire', 'Electric']
-    groundwk=['Bug', 'Grass']
+    groundeff=type_chart["Ground"]["effective"]
+    groundwk=type_chart["Ground"]["weak"]
     groundimmune=["Flying"]
     #MATCHUP)
     #ghost
@@ -153,10 +175,10 @@ def weakness(self,other,field):
         if other.ability=="Rattled":
             speedchange(other,self,0.5)
         #PURIFYING SALT
-        if other.ability=="Purifying Salt" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Purifying Salt" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             eff*=0.5
-        if other.item=="Kasib Berry":
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+        if other.item=="Kasib Berry" and self.ability not in ["Unnerve","As One"]:
+            print(colored(f" 🍠 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","magenta"))
             other.item+="[Used]"
         if self.item == "Ghost Gem":
             eff*=1.5
@@ -165,19 +187,19 @@ def weakness(self,other,field):
         if self.item in ["Griseous Orb","Spooky Plate","Spell Tag"]:
             eff*=1.2
         if other.type1 in ghosteff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in ghosteff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.teratype in ghosteff:
-            eff*=2
+            ty*=2
         if other.type1 in ghostwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in ghostwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in ghostwk:
-            eff/=2
+            ty/=2
         if ((other.type1 in ghostimmune or other.type2 in ghostimmune) and other.teratype=="None") or (other.teratype in ghostimmune and other.item!="Ring Target"):
-            eff*=0            
+            ty*=0            
 #        else:
 #            eff*=1 
     #electric
@@ -185,12 +207,12 @@ def weakness(self,other,field):
         if self.atktime>0 and self.ability=="Electromorphosis" and self.speed<other.speed:
             print(f" 🐸 {self.name}'s {self.ability}!")
             eff*=1.34
-        if other.ability=="Motor Drive" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Motor Drive" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" ⚙️ {other.name}'s {other.ability}!")
             speedchange(other,self,0.5)
        
             eff*=0
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Transistor":
@@ -198,13 +220,13 @@ def weakness(self,other,field):
             eff*=1.5
         if self.item == "Magnet":
             eff*=1.2
-        if other.item=="Wacan Berry":
+        if other.item=="Wacan Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🌽 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","yellow"))
             other.item+="[Used]"
         if field.terrain=="Electric" and ((self.ability not in ["Levitate"] and self.ability!="Mold Breaker") and "Flying" not in (self.type1,self.type2,self.teratype) or self.grav is True):
             eff*=1.3
-        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2,other.teratype) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2,other.teratype) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             eff*=0.5
         if self.item in ["Zap Plate","Battery","Magnet"]:
             eff*=1.2
@@ -212,12 +234,12 @@ def weakness(self,other,field):
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
-        if other.ability=="Lightning Rod" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Lightning Rod" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" ⚡ {other.name}'s {other.ability}.")
             spatkchange(other,self,0.5)
  
             eff*=0
-        if other.ability=="Volt Absorb" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Volt Absorb" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" ⚡ {other.name}'s {other.ability}.")
             if other.hp<other.maxhp:
                 print(f" {other.name} gained some health.")
@@ -227,33 +249,33 @@ def weakness(self,other,field):
                 other.hp=other.maxhp
             eff*=0
         if other.type1 in electriceff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.teratype in electriceff:
-            eff*=2
+            ty*=2
         if other.type2 in electriceff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in electricwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in electricwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in electricwk:
-            eff/=2
+            ty/=2
         if (other.type1 in electricimmune or other.type2 in electricimmune and other.teratype=="None") or other.teratype in electricimmune and other.item!="Ring Target":
-            eff*=0
+            ty*=0
 #        else:
 #            eff*=1 
     
     #psychic
     if self.atktype=="Psychic":
-        if other.ability=="Dark Mind" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Dark Mind" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 😈 {other.name}'s {other.ability}!")
             eff*=0
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if other.item=="Payapa Berry":
+        if other.item=="Payapa Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍆  {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","magenta"))
             other.item+="[Used]"
         if field.terrain=="Psychic" and (self.ability not in ["Levitate"] and "Flying" not in (self.type1,self.type2,self.teratype) or self.grav is True):
             eff*=1.3
@@ -264,19 +286,19 @@ def weakness(self,other,field):
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in psychiceff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in psychiceff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in psychicwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in psychicwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in psychiceff:
-            eff*=2
+            ty*=2
         if other.teratype in psychicwk:
-            eff/=2
+            ty/=2
         if (other.type1 in psychicimmune or other.type2 in psychicimmune and other.teratype=="None") or other.teratype in psychicimmune and other.item!="Ring Target":
-            eff*=0
+            ty*=0
 #        else:
 #            eff*=1 
     #ice
@@ -285,72 +307,70 @@ def weakness(self,other,field):
             eff*=1.5
         if self.use=="Freeze-Dry" and "Water" in (other.type1,other.type2,other.teratype):
             eff*=4
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item in ["Never Melt Ice","Icicle Plate"]:
             eff*=1.2
-        if other.item=="Yache Berry":
+        if other.item=="Yache Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🫐 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","cyan"))
             other.item+="[Used]"
-        if other.ability=="Thick Fat" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Thick Fat" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🌡️ {other.name}'s {other.ability}!")
             eff*=0.5
-        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             eff*=0.5
         if self.item == "Ice Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in iceeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in iceeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in icewk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in icewk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in iceeff:
-            eff*=2
+            ty*=2
         if other.teratype in icewk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1 
     #fairy
     if self.atktype=="Fairy":
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item == "Pixie Plate":
             eff*=1.2
-        if other.item=="Roseli Berry":
+        if other.item=="Roseli Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍓 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","red"))
             other.item+="[Used]"
-        if self.ability=="Fairy Aura":
+        if "Fairy Aura" in (self.ability,other.ability):
             if other.ability!="Aura Break":
-                print(f" 🧚🏻‍♀️ {self.name}'s {self.ability}.")
                 eff*=1.33
             else:
-                print(f" {other.name}'s {other.ability}.")
                 eff*=0.67
         if self.item == "Fairy Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in fairyeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in fairyeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in fairywk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in fairywk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in fairyeff:
-            eff*=2
+            ty*=2
         if other.teratype in fairywk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1 
     #dark
@@ -361,52 +381,49 @@ def weakness(self,other,field):
             speedchange(other,self,0.5)
         if self.item in ["Black Glasses","Dread Plate"]:
             eff*=1.2
-        if other.item=="Colbur Berry":
+        if other.item=="Colbur Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍇 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","magenta"))
             other.item+="[Used]"
-        if self.ability=="Dark Aura":
+        if "Dark Aura" in (self.ability,other.ability):
             if other.ability!="Aura Break":
-                print(f" 🌑 {self.name}'s {self.ability}.")
                 eff*=1.33
             else:
-                print(f" {other.name}'s {other.ability}.")
                 eff*=0.67
         if self.item == "Dark Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
-        if other.ability=="Justified" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
-            atkchange(other,self,0.5)
-            
+        if other.ability=="Justified" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
+            atkchange(other,self,0.5)            
         if other.type1 in darkeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in darkeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in darkwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in darkwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in darkeff:
-            eff*=2
+            ty*=2
         if other.teratype in darkwk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1 
     #steel
     if self.atktype=="Steel":
         if self.ability in ["Steely Spirit","Iron Spikes"]:
             eff*=1.5
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
         if self.item in ["Metal Coat","Iron Plate"]:
             eff*=1.2
-        if other.item=="Babiri Berry":
+        if other.item=="Babiri Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🥒 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","green"))
             other.item+="[Used]"
         if self.ability=="Steelworker":
             print(f" 🔩 {self.name}'s {self.ability}.")
@@ -418,22 +435,22 @@ def weakness(self,other,field):
         if self.item in ["Adamant Orb"]:
             eff+=(eff*0.2)
         if other.type1 in steeleff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in steeleff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in steelwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in steelwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in steeleff:
-            eff*=2
+            ty*=2
         if other.teratype in steelwk:
-            eff/=2   
+            ty/=2   
 #        else:
 #            eff*=1 
     #dragon
     if self.atktype=="Dragon":
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Dragon's Maw":
@@ -441,9 +458,9 @@ def weakness(self,other,field):
             eff*=1.5
         if self.item in ["Dragon Fang","Draco Plate"]:
             eff*=1.2
-        if other.item=="Haban Berry":
+        if other.item=="Haban Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍎 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","red"))
             other.item+="[Used]"
         if field.terrain=="Misty" and (self.ability not in ["Levitate"] and "Flying" not in (self.type1,self.type2,self.teratype) or self.grav is True):
             eff*=0.5
@@ -454,54 +471,54 @@ def weakness(self,other,field):
         if self.item in ["Adamant Orb","Lustrous Orb","Griseous Orb","Soul Dew"]:
             eff*=1.2
         if other.type1 in dragoneff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in dragoneff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in dragonwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in dragonwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in dragoneff:
-            eff*=2
+            ty*=2
         if other.teratype in dragonwk:
-            eff/=2
+            ty/=2
         if (other.type1 in dragonimmune or other.type2 in dragonimmune and other.teratype=="None") or other.teratype in dragonimmune and other.item!="Ring Target":
-            eff*=0
+            ty*=0
 #        else:
 #            eff*=1 
     #bug
     if self.atktype=="Bug":
         if other.ability=="Rattled":
             speedchange(other,self,0.5)
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item in ["Silver Powder","Insect Plate"]:
             eff*=1.2
-        if other.item=="Tanga Berry":
+        if other.item=="Tanga Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍈 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","green"))
             other.item+="[Used]"
         if self.item == "Bug Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
-        if self.ability=="Swarm" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if self.ability=="Swarm" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             if self.hp<=(self.maxhp/3):
                 print(f" 🪲 {self.name}'s {self.ability}!")
                 eff*=2.25
         if other.type1 in bugeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in bugeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in bugwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in bugwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in bugeff:
-            eff*=2
+            ty*=2
         if other.teratype in bugwk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1 
     #Water
@@ -522,26 +539,26 @@ def weakness(self,other,field):
             print(f" Absorb Bulb absorbed {self.name}'s Water-type moves energy and raised {other.name}'s Special Attack!")
             other.item+="[Used]"
         
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if other.ability=="Steam Engine" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Steam Engine" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🚂 {other.name}'s {other.ability}!")
-            speedchange(other,self,0.5)
+            speedchange(other,self,1.5)
             
         if self.item in  ["Mystic Water","Splash Plate","Lustrous Orb","Wave Incense","Sea Incense"]:
             eff*=1.2
-        if other.item=="Passho Berry":
+        if other.item=="Passho Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🫐 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","blue"))
             other.item+="[Used]"
-        if field.weather=="Desolate Land" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves  and "Cloud Nine" not in (self.ability,other.ability):
+        if field.weather=="Desolate Land" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves  and "Cloud Nine" not in (self.ability,other.ability):
             eff*=0
         if self.item == "Water Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
-        if other.ability in ["Storm Drain","Water Absorb","Dry Skin","Water Compaction"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability in ["Storm Drain","Water Absorb","Dry Skin","Water Compaction"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             if other.ability=="Water Compaction":
                 print(f" 🚱 {other.name}'s {other.ability}.")
                 defchange(other,self,1)
@@ -568,27 +585,27 @@ def weakness(self,other,field):
                 if other.hp>other.maxhp-(other.maxhp/4):
                     other.hp=other.maxhp            
             
-        if self.ability=="Torrent" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if self.ability=="Torrent" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             if self.hp<=(self.maxhp/3):
                 print(f" 🌊 {self.name}'s {self.ability}!")
                 eff*=2.25
         if other.type1 in watereff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in watereff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in waterwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in waterwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in watereff:
-            eff*=2
+            ty*=2
         if other.teratype in waterwk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1 
     #Ground
     if self.atktype=="Ground":
-        if other.ability=="Earth Eater" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Earth Eater" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🌍 {other.name}'s {other.ability}.")
             print(f" {other.name} gained some health.")
             if other.hp<=other.maxhp-(other.maxhp/4):
@@ -597,7 +614,7 @@ def weakness(self,other,field):
                 other.hp=other.maxhp
             
             eff*=0
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if other.item=="Air Balloon":
@@ -606,44 +623,44 @@ def weakness(self,other,field):
             eff*=1.3
         if self.item in ["Soft Sand","Earth Plate"]:
             eff*=1.2
-        if other.item=="Shuca Berry":
+        if other.item=="Shuca Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🥭 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","yellow"))
             other.item+="[Used]"
         if self.item == "Ground Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
-        if (other.ability=="Levitate" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves and self.grav is not True):
+        if (other.ability=="Levitate" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves and self.grav is not True):
             print(f" 🛸 {other.name}'s {other.ability}.")
             eff*=0
         if other.type1 in groundeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in groundeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in groundwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in groundwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in groundeff:
-            eff*=2
+            ty*=2
         if other.teratype in groundwk:
-            eff/=2
+            ty/=2
         if (other.type1 in groundimmune or other.type2 in groundimmune and other.teratype=="None") or other.teratype in groundimmune and other.item!="Ring Target" and self.grav==False:
             if other.item!="Iron Ball":
-                eff*=0
+                ty*=0
 #        else:
 #            eff*=1 
     #GRASS
     if self.atktype=="Grass":
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item in ["Miracle Seed","Meadow Plate","Rose Incense"]:
             eff*=1.2
-        if other.item=="Rindo Berry":
+        if other.item=="Rindo Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🥦 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","green"))
             other.item+="[Used]"
         if field.terrain=="Grassy" and (self.ability not in ["Levitate"] and "Flying" not in (self.type1,self.type2,self.teratype) or self.grav is True):
             eff*=1.3
@@ -654,54 +671,57 @@ def weakness(self,other,field):
         if other.ability=="Sap Sipper":
             print(f" {other.name}'s {other.ability}.")
             eff*=0
-            atkchange(other,self,0.5)
-            
+            atkchange(other,self,0.5)            
         if self.ability=="Overgrow":
             if self.hp<=(self.maxhp/3):
                 print(f" 🌿 {self.name}'s {self.ability}.")
                 eff*=2.25
         if other.type1 in grasseff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in grasseff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in grasswk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in grasswk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in grasseff:
-            eff*=2
+            ty*=2
         if other.teratype in grasswk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1
     #FLYING            
     if self.atktype=="Flying":
         if self.item in ["Sharp Beak","Sky Plate"]:
             eff*=1.2
-        if other.item=="Koba Berry":
+        if other.item=="Coba Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🫐 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","cyan"))
             other.item+="[Used]"
         if self.item == "Flying Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in flyingeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in flyingeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in flyingwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in flyingwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in flyingeff:
-            eff*=2
+            ty*=2
         if other.teratype in flyingwk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1            
     #FIRE            
     if self.atktype=="Fire":
+        if other.ability=="Well-Baked Body":
+            print(f" 🥯 {other.name}'s {other.ability}!")
+            defchange(other,self,1)
+            eff*=0
         if self.ability=="Radiant Blaze" or self.flashfire==True:
             eff*=1.5
         if other.ability=="Volcanic Body":
@@ -714,96 +734,96 @@ def weakness(self,other,field):
             eff*=0
         if other.tarshot is True:
             eff*=2
-        if other.ability=="Fluffy" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Fluffy" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             eff*=2
-        if other.ability=="Steam Engine" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Steam Engine" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🚂 {other.name}'s {other.ability}!")
-            speedchange(other,self,0.5)
+            speedchange(other,self,1.5)
          
         if self.item in ["Charcoal","Flame Plate"]:
             eff*=1.2
         if other.ability=="Water Bubble":
             eff*=0.5
-        if other.item=="Occa Berry":
+        if other.item=="Occa Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🌶️ {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","red"))
             other.item+="[Used]"
         if other.ability=="Dry Skin" and "Cloud Nine" not in (self.ability,other.ability):
             print(f" {other.name}'s {other.ability}!")
             eff*=1.25
-        if other.ability in ["Thick Fat","Heatproof"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability in ["Thick Fat","Heatproof"] and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🌡️ {other.name}'s {other.ability}!")
             eff*=0.5
-        if field.weather=="Primordial Sea" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves and "Cloud Nine" not in (self.ability,other.ability):
+        if field.weather=="Primordial Sea" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves and "Cloud Nine" not in (self.ability,other.ability):
             eff*=0
         if self.item == "Fire Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
-        if self.ability=="Blaze" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if self.ability=="Blaze" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             if self.hp<=(self.maxhp/3):
                 print(f" 🔥 {self.name}'s {self.ability}!")
                 eff*=2.25
-        if other.ability=="Thermal Exchange" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Thermal Exchange" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🌡️ {other.name}'s {other.ability}.")
             atkchange(other,self,0.5)
-        if other.ability=="Flash Fire" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Flash Fire" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🔥 {other.name}'s {other.ability}.")
             other.flashfire=True
             eff*=0
         if other.type1 in fireeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in fireeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in firewk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in firewk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in fireeff:
-            eff*=2
+            ty*=2
         if other.teratype in firewk:
-            eff/=2
+            ty/=2
 #        else:
 #            eff*=1        
     #Poison            
     if self.atktype=="Poison":
         if self.ability in ["Venomous Aura"]:
             eff*=1.5
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item in ["Poison Barb","Toxic Plate"]:
             eff*=1.2
-        if other.item=="Kebia Berry":
+        if other.item=="Kebia Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍐 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","green"))
             other.item+="[Used]"
         if self.item == "Poison Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in poisoneff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in poisoneff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in poisonwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in poisonwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in poisoneff:
-            eff*=2
+            ty*=2
         if other.teratype in poisonwk:
-            eff/=2
+            ty/=2
         if (other.type1 in poisonimmune or other.type2 in poisonimmune and other.teratype=="None") or other.teratype in poisonimmune and other.item!="Ring Target":
             if self.ability!="Corrosion":
-                eff*=0
+                ty*=0
             else:
                 print(f" ☠️ {self.name}'s {self.ability}.")
 #        else:
 #            eff*=1   
     #Rock
     if self.atktype=="Rock":
-        if other.ability=="Lithogen" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Lithogen" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🪨 {other.name}'s {other.ability}.")
             print(f" {other.name} gained some health.")
             if other.hp<=other.maxhp-(other.maxhp/4):
@@ -812,113 +832,113 @@ def weakness(self,other,field):
                 other.hp=other.maxhp
             
             eff*=0
-        if other.ability=="Mountaineer" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Mountaineer" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🧗🏻‍♂️{other.name}'s {other.ability}!")
             eff*=0
         if self.ability=="Sand Force" and field.weather=="Sandstorm":
             eff*=1.3
         if self.item in ["Hard Stone","Stone Plate","Rock Incense"]:
             eff*=1.2
-        if other.item=="Charti Berry":
+        if other.item=="Charti Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍌 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","yellow"))
             other.item+="[Used]"
-        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Delta Stream" and "Flying" in (other.type1,other.type2) and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             eff*=0.5
         if self.item == "Rock Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in rockeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in rockeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in rockwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in rockwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in rockeff:
-            eff*=2
+            ty*=2
         if other.teratype in rockwk:
-            eff/=2
-#        else:
-#            eff*=1                          
+            ty/=2
+          
     #Normal
     if self.atktype=="Normal":
         if self.ability=="Talon Sweep":
             eff*=1.5
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
-        if self.item in ["Silk Scarf","Blank Plate","Legend Plate"]:
+        if self.item in ["Silk Scarf","Blank Plate","Legend Plate","Pink Bow","Polkadot Bow"]:
             eff*=1.2
-        if other.item=="Chilan Berry":
+        if other.item=="Chilan Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" 🫐 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍍 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","yellow"))
             other.item+="[Used]"
         if self.item == "Normal Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in normaleff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in normaleff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in normalwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in normalwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in normaleff:
-            eff*=2
+            ty*=2
         if other.teratype in normalwk:
-            eff/=2
+            ty/=2
         if ((other.type1 in normalimmune or other.type2 in normalimmune) and other.teratype=="None") or (other.teratype in normalimmune and other.item!="Ring Target"):
             if self.ability!="Scrappy":
-                eff*=0
+                ty*=0
             else:
                 print(f" {self.name}'s {self.ability}.")
 #        else:
 #            eff*=1       
     #Fighting
     if self.atktype=="Fighting":
-        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self.use not in typemoves.abilityigmoves:
+        if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
         if self.item in["Black Belt","Fist Plate"]:
             eff*=1.2
-        if other.item=="Chople Berry":
+        if other.item=="Chople Berry" and self.ability not in ["Unnerve","As One"]:
             eff*=0.5
-            print(f" {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!")
+            print(colored(f" 🍑 {other.name}'s {other.item} weakened the damage of {self.atktype}-type move!!","red"))
             other.item+="[Used]"
         if self.item == "Fighting Gem":
             eff*=1.5
             print(f" 💎 {self.item} boosted {self.name}'s damage!")
             self.item+="[Used]"
         if other.type1 in fightingeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type2 in fightingeff and other.teratype=="None":
-            eff*=2
+            ty*=2
         if other.type1 in fightingwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.type2 in fightingwk and other.teratype=="None":
-            eff/=2
+            ty/=2
         if other.teratype in fightingeff:
-            eff*=2
+            ty*=2
         if other.teratype in fightingwk:
-            eff/=2
+            ty/=2
         if (other.type1 in fightingimmune or other.type2 in fightingimmune and other.teratype=="None") or other.teratype in fightingimmune and other.item!="Ring Target":
-            eff*=0     
+            ty*=0     
 #        else:
 #            eff*=1 
-    if eff>=2:
+    if ty>=2 and eff!=0:
         print(" 🟢 It's super effective!") 
         if self.ability=="Primal Armor":
             eff*=0.5
         if self.ability=="Fatal Precision":
             eff*=1.2
-        if other.item=="Enigma Berry":
+        if other.item=="Enigma Berry" and self.ability not in ["Unnerve","As One"]:
             other.hp+=round(other.maxhp/4)
-            "None"
+            print(f" {other.name} ate its Enigma Berry!")
+            other.item+="[Used]"
         if other.item=="Weakness Policy":
             print(f" 📄 {other.name}'s {other.item}.")
             other.item+="[Used]"
@@ -931,15 +951,15 @@ def weakness(self,other,field):
             print(f" {other.name}'s {other.ability}.")
             eff*=0.75
                 
-    elif eff==1:
-        pass
-    elif eff<1 and eff!=0:
+#    elif ty==1 and eff!=0:
+#        pass
+    elif 0<ty<1 and eff!=0:
         print(" 🟡 It's not very effective...")
         if self.ability=="Tinted Lens":
             print(f" {self.name}'s {self.ability}.")
             print(" Tinted Lens strengthen the power of not very effective move.")
             eff*=2
-    elif eff==0:
+    elif ty==0 or eff==0:
         if "Legendary" in self.name:
             eff=0.5
         else:
@@ -954,11 +974,14 @@ def weakness(self,other,field):
             stab=2
         if self.teratype=="None":
             stab=1.5
+#    print(f" Effectiveness: {ty}")  
+#    print(f" Multiplier: {eff}")  
+    eff*=ty
 #    print(stab)            
     return [eff,stab]
     
 #CRITICAL    
-def critch(self,other,num="None"):
+def isCrit(self,other,num="None"):
     if num =="None":
         num=1
     if "Sirfetch" in self.name and self.item=="Leek":
@@ -977,6 +1000,7 @@ def critch(self,other,num="None"):
     if self.ability=="Merciless" and other.status in ["Badly Poisoned","Poisoned"]:
         crit=1
     if crit==1 and other.ability not in ["Shell Armor","Battle Armor"]:
+        print(colored(" It's a critical hit.","red",attrs=["bold"]))
         if self.owner.lightscreen is True:
             self.spdef/=2
         if self.owner.reflect is True:
@@ -995,11 +1019,9 @@ def critch(self,other,num="None"):
             print(f" {other.name}'s {other.ability}.")
             atkchange(other,self,4)
         if self.ability=="Sniper":
-            print(colored(" It's a critical hit.","red"))
-            return 2.25
+            return 3
         else:
-            print(colored(" It's a critical hit.","red"))
-            return 1.5
+            return 2
     if other.ability in ["Shell Armor","Battle Armor"] and crit==1:
         return 1
     else:
@@ -1030,11 +1052,30 @@ def prebuff(self,other,tr1,turn,field):
     spatkbuff=1
     spdefbuff=1
     speedbuff=1   
-    typemoves.hpselect(self)
-    typemoves.teraselect(self)
-    typemoves.weatherselect(self,field)
+#    typemoves.hpselect(self)
+#    typemoves.teraselect(self)
+#    typemoves.weatherselect(self,field)
     if self.maxiv!="No":
         self.geniv()
+    #Legendary Aura    
+    if "Wild" in self.name:
+        self.pplist=[100,100,100,100]
+        self.status="Alive"
+        atkbuff*=1.3
+        spatkbuff*=1.3
+        defbuff*=1.5
+        spdefbuff*=1.5
+        speedbuff*=1.3
+        if self.atkb<1:
+            self.atkb=1
+        if self.defb<1:
+            self.defb=1
+        if self.spatkb<1:
+            self.spatkb=1
+        if self.spdefb<1:
+            self.spdefb=1
+        if self.speedb<1:
+            self.speedb=1
     if self.ability=="Schooling" and "School" not in self.name and self.hp>(self.maxhp*0.25):
         print(f" 🐋 {self.name}'s {self.ability}!")
         print(" Wishiwashi formed a school!")
@@ -1061,7 +1102,7 @@ def prebuff(self,other,tr1,turn,field):
         if turn==tr1.avendturn:
             tr1.auroraveil=False
             print(" ⚠️The Aurora Veil wore off!")  
-        else:
+        elif other.ability!="Infiltrator":
             defbuff*=2
             spdefbuff*=2        
     if tr1.tailwind is True:        
@@ -1074,13 +1115,13 @@ def prebuff(self,other,tr1,turn,field):
         if turn==tr1.rfendturn:
             tr1.reflect=False
             print(" ⚠️The Reflect wore off!")
-        else:
+        elif other.ability!="Infiltrator":
             defbuff*=2
     if tr1.lightscreen is True:
         if turn==tr1.screenend:
             tr1.lightscreen=False
             print(" ⚠️The Light Screen wore off!") 
-        else:
+        elif other.ability!="Infiltrator":
             spdefbuff*=2                
     if self.item=="Float Stone":
         defbuff*=0.5
@@ -1266,11 +1307,11 @@ def prebuff(self,other,tr1,turn,field):
         spatkbuff*=2
     if field.terrain=="Electric" and self.ability=="Surge Surfer":
         speedbuff*=2
-    if self.status=="Paralyzed" and self.ability!="Quick Feet":
+    if self.status=="Paralyzed" and self.ability!="Quick Feet" and "Wild" not in self.owner.name:
         speedbuff*=0.5
-    if self.status=="Frostbite":
+    if self.status=="Frostbite" and "Wild" not in self.owner.name:
         spatkbuff*=0.5
-    if self.status=="Burned" and self.ability!="Guts":
+    if self.status=="Burned" and self.ability!="Guts" and "Wild" not in self.owner.name:
         atkbuff*=0.5
     if ("Pikachu" or "Sparky") in self.name and (self.item=="Light Ball" or "Ash" in self.owner.name):
         atkbuff*=2
@@ -1329,7 +1370,7 @@ def prebuff(self,other,tr1,turn,field):
 
 
 def atkchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self!=other:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1474,7 +1515,7 @@ def atkchange(self,other,amount):
 
 
 def defchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self!=other:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1619,7 +1660,7 @@ def defchange(self,other,amount):
     if self.defb>4:
         self.defb=4
 def spatkchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self!=other:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1654,7 +1695,7 @@ def spatkchange(self,other,amount):
             self.spatkb==0.4
         elif self.spatkb==0.4:
             self.spatkb==0.5
-        elif self.spatkb==0.5:
+        elif 0.41<self.spatkb<=0.5:
             self.spatkb==0.667
         elif self.spatkb==0.667:
             self.spatkb==1
@@ -1762,7 +1803,7 @@ def spatkchange(self,other,amount):
     if self.spatkb>4:
         self.spatkb=4
 def spdefchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self!=other:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1905,7 +1946,7 @@ def spdefchange(self,other,amount):
     if self.spdefb>4:
         self.spdefb=4
 def speedchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail"] and self!=other:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":

@@ -20,6 +20,16 @@ def intro (tr,sr,field):
     for i in tr.pokemons:
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
+    if "Geeta" in tr.name:
+        print(f" {tr.name}: Welcome, {srname}.\n It gives me great joy that you’ve managed to make it all the way to the pinnacle of the Pokémon League.\n The final test is a battle against me, the Top Champion.\n")
+    if "Katy" in tr.name:
+        print(f" {tr.name}: Forgive me. Ahem. My name is Katy, and I am the Gym Leader here in Cortondo.\n")
+    if "Kofu" in tr.name:
+        print(f" {tr.name}: I am Kofu the Torrent! Ever changin'—just like water! Now come see what I'm made of!\n")
+    if "Brassius" in tr.name:
+        print(f" {tr.name}: I am Brassius—an artist specializing in Grass-type Pokémon. I am also the Gym Leader here at the Artazon Gym.\n")
+    if "Iono" in tr.name:
+        print(f" {tr.name}: Ladies and gentlemens! Are you readyyyyyy?!\n Your eyeballs are MINE—caught in my Electroweb! Whosawhatsit?\n Iono! ’Ello, ’ello, hola! Ciao and bonjour!\n It’s time for the Iono Zone, everybody!\n Today’s challenger is flyin’ high like a Wattrel! Iiit’s {srname}!\n Yayyy...How’re ya feelin’ about this battle, {srname}?\n")
     if "Tucker" in tr.name:
         print(f" {tr.name}: Ahahah! Do you hear it? This crowd! They're all itching to see our match! Ahahah! I bet you're twitching all over from the tension of getting to battle me! But don't worry about a thing! I'm the no. 1 star of the Battle Dome! I, Tucker the Dome Ace, will bathe you in a brilliant glow! Your strategy! Let's see it! The final match! {srname} versus the Dome Ace, Tucker! Let the battle begin!\n")
     if "Spenser" in tr.name:

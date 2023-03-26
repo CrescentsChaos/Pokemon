@@ -1,4 +1,5 @@
 import random
+from quotes import *
 from AItest import *
 from typematchup import *
 from hiddenpower import *
@@ -55,10 +56,15 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         print(f" 👺 {self.name} gained strength from the fallen!")
         print("===================================================================================")
     #Frisk
+    if other.ability=="Frisk":
+        print("===================================================================================")
+        print(f" 🔎 {other.name}'s {other.ability}!")
+        print(f" ✅ {other.name} frisked and found {self.name}'s {self.item}!")
+        print("===================================================================================")
     if self.ability=="Frisk":
         print("===================================================================================")
         print(f" 🔎 {self.name}'s {self.ability}!")
-        print(f" ✅ {other.name} is holding {other.item}!")
+        print(f" ✅ {self.name} frisked and found {other.name}'s {other.item}!")
         print("===================================================================================")
     #Air Lock/Cloud Nine
     if self.ability in ["Air Lock","Cloud Nine"] and field.weather!="Clear":
@@ -116,9 +122,9 @@ def entryeff(self,other,trainer,trainer2,field,turn):
             self.ability=other.ability
             print("===================================================================================")
     #Legendary Aura    
-    if "Legendary" in self.name and self.item in ["Silver Feather","Crimson Orb","Navy Orb","Jade Orb","Rainbow Feather","Team Rocket Armor"]:
+    if "Wild" in self.name:
         print("===================================================================================")
-        print(f" 🔱 {self.item} shrouded {self.name} with mystical energy!")
+        print(f" ⚜️ {self.name} was shrouded with mystical energy!")
         self.hp*=6/len(trainer.pokemons)
         self.maxhp*=6/len(trainer.pokemons)
         print("===================================================================================")
@@ -256,7 +262,7 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         field.psyend(self,other)      
         print("===================================================================================")
     #Spikes
-    if "Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots":
+    if "Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item not in ["Heavy-Duty Boots","Air Balloon"]:
         print("===================================================================================")
         print(f" ✴️ {self.name} was hurt by the Spikes!")
         print("===================================================================================")
@@ -267,7 +273,7 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         if trainer.hazard.count("Spikes")==1:
             self.hp-=(self.maxhp/8)
    #Toxic Spikes
-    if "Toxic Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots" and "Steel" not in (self.type1,self.type2,self.teratype) and self.status=="Alive":
+    if "Toxic Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item not in ["Heavy-Duty Boots","Air Balloon"] and "Steel" not in (self.type1,self.type2,self.teratype) and self.status=="Alive":
         if "Poison" in (self.type1,self.type2,self.teratype):
             trainer.hazard.remove("Toxic Spikes")
             print("===================================================================================")
@@ -285,13 +291,13 @@ def entryeff(self,other,trainer,trainer2,field,turn):
                 print("===================================================================================")
                 self.status="Badly Poisoned"
     #Sticky Web
-    if "Sticky Web" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots":    
+    if "Sticky Web" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item not in ["Heavy-Duty Boots","Air Balloon"]:    
         print("===================================================================================")
         print(f" 🕸️ {self.name} fell into the sticky web!")   
         speedchange(self,other,-0.5)
         print("===================================================================================")
    #Stealth Rock
-    if "Stealth Rock" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust","Mountaineer"] and self.item!="Heavy-Duty Boots":
+    if "Stealth Rock" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust","Mountaineer"] and self.item not in ["Heavy-Duty Boots","Air Balloon"]:
         buff=2
         #print(self.type1,self.type2)
         if self.type1 in ["Flying", "Bug", "Fire", "Ice"] and self.teratype=="None":
@@ -312,7 +318,7 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         print(f" 🪨 Pointed stones dug into {self.name}!")
         print("===================================================================================")
     #Steel Spikes
-    if "Steel Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item!="Heavy-Duty Boots":
+    if "Steel Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item not in ["Heavy-Duty Boots","Air Balloon"]:
         buff=2
         #print(self.type1,self.type2)
         if self.type1 in ['Rock', 'Ice', 'Fairy'] and self.teratype=="None":
@@ -447,15 +453,14 @@ def mxmove(self,typem=typemoves):
 def rename(self):
     if self.dmax is True and ("Mega " not in self.name or "Z-Crystal" not in self.name):
         if self.name in ["Charizard","Blastoise","Venusaur","Pikachu","Butterfree","Snorlax","Machamp","Gengar","Kingler","Lapras","Garbodor","Melmetal","Rillaboom","Cinderace","Inteleon","Corviknight","Orbeetle","Drednaw","Coalossal","Copperajah","Flapple","Appletun","Sandaconda","Grimmsnarl","Hatterene","Toxtricity","Centiskorch","Alcremie","Duraludon","Single Strike Urshifu","Rapid Strike Urshifu","Centiskorch","Meowth"]:
-            self.name="Gigantamax "+self.name
+            self.name=f"Gigantamax {self.name}"
         if "Toxtricity" in self.name:
             self.name="Gigantamax Toxtricity"
         if "Gigantamax " not in self.name:
-            self.name="Dynamax "+self.name
+            self.name=f"Dynamax {self.name}"
 def pokeintro(self,other,trainer,trainer2,field,turn):
     trname=trainer.name.split(" ")[-1]
-    if self.ability=="Intimidate" and other.ability not in ["Inner Focus","Oblivious","Clear Body","Good as Gold"] and self.item not in ["Clear Amulet"] and self.abilityused==False:
-        self.abilityused=True
+    if self.ability=="Intimidate" and other.ability not in ["Inner Focus","Oblivious","Clear Body","Good as Gold"] and self.item not in ["Clear Amulet"]:
         if other.ability!="Guard Dog":         
             print(f" 👹 {self.name}'s {self.ability}!")
             atkchange(other,self,-0.5)
@@ -530,7 +535,7 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         self.speed=120
         self.calcst()
         self.hp=self.maxhp*per
-    if self.megaintro is False and self.item=="Blue Orb":
+    if self.megaintro is False and self.item in ["Blue Orb","Navy Orb"]:
         prevname=self.name.split(" ")[-1]
         print(f" ⛎ {prevname}'s Primal Reversion! It reverted to its primal form!")
         self.name="Primal Kyogre"
@@ -551,7 +556,7 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
     if self.ability=="Dauntless Shield":
         print(f" 🛡️ {self.name}'s {self.ability}!")
         defchange(self,other,0.5)
-    if self.megaintro is False and self.item=="Red Orb":
+    if self.megaintro is False and self.item in ["Red Orb","Crimson Orb"]:
         prevname=self.name.split(" ")[-1]
         print(f" ♉ {prevname}'s Primal Reversion! It reverted to its primal form!")
         self.name="Primal Groudon"
@@ -577,9 +582,8 @@ def statchange(self,other,tr1,turn):
     
 def transformation(self,other,turn):
     print("===================================================================================")
-    self.abilityused=False
     trname=self.owner.name.split(" ")[-1]
-    if "💎" in self.name:
+    if "💎" in self.name and self.owner.cantera is True:
         if self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
             self.teratype=self.tera
         typ="None"
@@ -623,6 +627,7 @@ def transformation(self,other,turn):
             typ="🕯️"
         name=self.name.split("💎")[0]
         self.name=self.name[:-1]+"-"+self.teratype
+        teratalk(self.owner,self)
         print(f" {typ} {name} has Terastallized into the {self.teratype}-type❗")
         self.owner.cantera=False
     if self.dmax==True:
@@ -681,6 +686,7 @@ def transformation(self,other,turn):
             print(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {self.name}!")
         if self.item=="Gyaradosite":
             self.type2="Dark"
+            self.abilityused=self.ability
             self.ability="Mold Breaker"
             per=self.hp/self.maxhp
             self.hp=95
@@ -693,6 +699,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Venusaurite":
+            self.abilityused=self.ability
             self.ability="Thick Fat"
             per=self.hp/self.maxhp
             self.hp=80
@@ -705,6 +712,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Charizardite X":
+            self.abilityused=self.ability
             self.ability="Tough Claws"
             self.type2="Dragon"
             per=self.hp/self.maxhp
@@ -718,6 +726,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Charizardite Y":
+            self.abilityused=self.ability
             self.ability="Drought"
             per=self.hp/self.maxhp
             self.hp=78
@@ -730,6 +739,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Blastoisinite":
+            self.abilityused=self.ability
             self.ability="Mega Launcher"
             per=self.hp/self.maxhp
             self.hp=79
@@ -742,6 +752,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False    
         if self.item=="Beedrillite":
+            self.abilityused=self.ability
             self.ability="Adaptability"
             per=self.hp/self.maxhp
             self.hp=65
@@ -754,6 +765,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False      
         if self.item=="Pidgeotite":
+            self.abilityused=self.ability
             self.ability="No Guard"
             per=self.hp/self.maxhp
             self.hp=83
@@ -766,6 +778,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False     
         if self.item=="Alakazite":
+            self.abilityused=self.ability
             self.ability="Trace"
             per=self.hp/self.maxhp
             self.hp=55
@@ -778,6 +791,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False  
         if self.item=="Slowbronite":
+            self.abilityused=self.ability
             self.ability="Regenerator"
             per=self.hp/self.maxhp
             self.hp=95
@@ -790,6 +804,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False 
         if self.item=="Gengarite":
+            self.abilityused=self.ability
             self.ability="Shadow Tag"
             per=self.hp/self.maxhp
             self.hp=60
@@ -802,6 +817,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False       
         if self.item=="Kangaskhanite":
+            self.abilityused=self.ability
             self.ability="Parental Bond"
             per=self.hp/self.maxhp
             self.hp=105
@@ -814,6 +830,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False       
         if self.item=="Pinsirite":
+            self.abilityused=self.ability
             self.ability="Aerilate"
             self.type2="Flying"
             per=self.hp/self.maxhp
@@ -827,6 +844,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False         
         if self.item=="Aerodactylite":
+            self.abilityused=self.ability
             self.ability="Tough Claws"
             per=self.hp/self.maxhp
             self.hp=80
@@ -839,6 +857,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Mewtwonite X":
+            self.abilityused=self.ability
             self.ability="Steadfast"
             self.type2="Fighting"
             per=self.hp/self.maxhp
@@ -852,6 +871,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False    
         if self.item=="Mewtwonite Y":
+            self.abilityused=self.ability
             self.ability="Insomnia"
             per=self.hp/self.maxhp
             self.hp=106
@@ -864,6 +884,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False     
         if self.item=="Ampharosite":
+            self.abilityused=self.ability
             self.ability=random.choice(["Thick Fat","Mold Breaker"])
             self.type2="Dragon"
             per=self.hp/self.maxhp
@@ -877,6 +898,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Steelixite":
+            self.abilityused=self.ability
             self.ability="Heatproof"
             per=self.hp/self.maxhp
             self.hp=75
@@ -889,6 +911,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False   
         if self.item=="Scizorite":
+            self.abilityused=self.ability
             self.ability="Technician"
             per=self.hp/self.maxhp
             self.hp=70
@@ -901,6 +924,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False  
         if self.item=="Heracronite":
+            self.abilityused=self.ability
             self.ability="Skill Link"
             per=self.hp/self.maxhp
             self.hp=80
@@ -913,6 +937,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Houndoominite":
+            self.abilityused=self.ability
             self.ability=random.choice(["Solar Power","Dark Aura"])
             per=self.hp/self.maxhp
             self.hp=75
@@ -925,6 +950,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Tyranitarite":
+            self.abilityused=self.ability
             self.ability="Sand Stream"
             per=self.hp/self.maxhp
             self.hp=100
@@ -937,6 +963,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False    
         if self.item=="Sceptilite":
+            self.abilityused=self.ability
             self.ability="Technician"
             self.type2="Dragon"
             per=self.hp/self.maxhp
@@ -950,6 +977,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Blazikenite":
+            self.abilityused=self.ability
             self.ability="Speed Boost"
             per=self.hp/self.maxhp
             self.hp=80
@@ -962,6 +990,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Swampertite":
+            self.abilityused=self.ability
             self.ability="Swift Swim"
             per=self.hp/self.maxhp
             self.hp=100
@@ -974,6 +1003,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Gardevoirite":
+            self.abilityused=self.ability
             self.ability="Pixilate"
             per=self.hp/self.maxhp
             self.hp=68
@@ -986,6 +1016,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Sablenite":
+            self.abilityused=self.ability
             self.ability="Magic Bounce"
             per=self.hp/self.maxhp
             self.hp=50
@@ -998,6 +1029,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Mawilite":
+            self.abilityused=self.ability
             self.ability="Huge Power"
             per=self.hp/self.maxhp
             self.hp=50
@@ -1010,6 +1042,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Aggronite":
+            self.abilityused=self.ability
             self.ability="Filter"
             self.type2="None"
             per=self.hp/self.maxhp
@@ -1023,6 +1056,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False    
         if self.item=="Medichamite":
+            self.abilityused=self.ability
             self.ability="Pure Power"
             per=self.hp/self.maxhp
             self.hp=60
@@ -1035,6 +1069,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Manectite":
+            self.abilityused=self.ability
             self.ability="Intimidate"
             per=self.hp/self.maxhp
             self.hp=70
@@ -1047,6 +1082,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Sharpedonite":
+            self.abilityused=self.ability
             self.ability="Strong Jaw"
             per=self.hp/self.maxhp
             self.hp=70
@@ -1059,6 +1095,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Camerupite":
+            self.abilityused=self.ability
             self.ability="Sheer Force"
             per=self.hp/self.maxhp
             self.hp=90
@@ -1071,6 +1108,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Altarianite":
+            self.abilityused=self.ability
             self.ability="Pixilate"
             self.type2="Fairy"
             per=self.hp/self.maxhp
@@ -1084,6 +1122,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Banettite":
+            self.abilityused=self.ability
             self.ability="Prankster"
             self.type2="Normal"
             per=self.hp/self.maxhp
@@ -1097,6 +1136,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Absolite":
+            self.abilityused=self.ability
             self.ability=random.choice(["Magic Bounce","Sharpness"])
             self.type2="Fairy"
             per=self.hp/self.maxhp
@@ -1110,6 +1150,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Glalitite":
+            self.abilityused=self.ability
             self.ability="Refrigerate"
             per=self.hp/self.maxhp
             self.hp=80
@@ -1122,6 +1163,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Salamencite":
+            self.abilityused=self.ability
             self.ability="Aerilate"
             per=self.hp/self.maxhp
             self.hp=95
@@ -1134,6 +1176,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Metagrossite":
+            self.abilityused=self.ability
             self.ability="Tough Claws"
             per=self.hp/self.maxhp
             self.hp=80
@@ -1146,6 +1189,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Latiasite":
+            self.abilityused=self.ability
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=100
@@ -1157,6 +1201,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Latiosite":
+            self.abilityused=self.ability
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=139
@@ -1168,6 +1213,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if "Dragon Ascent" in self.moves:
+            self.abilityused=self.ability
             self.ability="Delta Stream"
             per=self.hp/self.maxhp
             self.hp=105
@@ -1180,6 +1226,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Lopunnite":
+            self.abilityused=self.ability
             self.ability="Scrappy"
             per=self.hp/self.maxhp
             self.hp=65
@@ -1192,6 +1239,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Garchompite":
+            self.abilityused=self.ability
             self.ability="Sand Force"
             per=self.hp/self.maxhp
             self.hp=108
@@ -1204,6 +1252,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Lucarionite":
+            self.abilityused=self.ability
             self.ability="Adaptability"
             per=self.hp/self.maxhp
             self.hp=70
@@ -1216,6 +1265,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Abomasite":
+            self.abilityused=self.ability
             self.ability="Slush Rush"
             per=self.hp/self.maxhp
             self.hp=90
@@ -1228,6 +1278,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Lopunnite":
+            self.abilityused=self.ability
             self.ability="Scrappy"
             per=self.hp/self.maxhp
             self.hp=80
@@ -1240,6 +1291,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Galladite":
+            self.abilityused=self.ability
             self.ability="Sharpness"
             per=self.hp/self.maxhp
             self.hp=68
@@ -1252,6 +1304,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Audinite":
+            self.abilityused=self.ability
             self.ability="Regenerator"
             self.type2="Fairy"
             per=self.hp/self.maxhp
@@ -1265,6 +1318,7 @@ def transformation(self,other,turn):
             self.hp=self.maxhp*per
             self.owner.canmega=False
         if self.item=="Diancite":
+            self.abilityused=self.ability
             self.ability="Magic Bounce"
             per=self.hp/self.maxhp
             self.hp=50
@@ -1276,6 +1330,592 @@ def transformation(self,other,turn):
             self.calcst()
             self.hp=self.maxhp*per
             self.owner.canmega=False
-        entryeff(self,other,self.owner,other.owner,field,turn)
+        entryeff(self,other,self.owner,other.owner,field,turn)        
+    elif "Mega" in self.name:
+        self.name=self.name.split("Mega ")[-1]
+        if "Mewtwo" in self.name:
+            self.name="Mewtwo"
+        if "Charizard" in self.name:
+            self.name="Charizard"
+        if self.item=="Gyaradosite":
+            self.type2="Flying"
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=95
+            self.atk=125
+            self.defense=79
+            self.spatk=60
+            self.spdef=100
+            self.speed=81
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Venusaurite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=72
+            self.defense=93
+            self.spatk=110
+            self.spdef=100
+            self.speed=80
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item in ["Charizardite X","Charizardite Y"]:
+            self.ability=self.abilityused
+            self.type2="Flying"
+            per=self.hp/self.maxhp
+            self.hp=78
+            self.atk=84
+            self.defense=78
+            self.spatk=110
+            self.spdef=85
+            self.speed=100
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Blastoisinite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=84
+            self.atk=73
+            self.defense=100
+            self.spatk=95
+            self.spdef=105
+            self.speed=78
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Beedrillite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=65
+            self.atk=115
+            self.defense=40
+            self.spatk=40
+            self.spdef=80
+            self.speed=115
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Pidgeotite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=83
+            self.atk=60
+            self.defense=75
+            self.spatk=115
+            self.spdef=70
+            self.speed=101
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Alakazite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=55
+            self.atk=50
+            self.defense=45
+            self.spatk=135
+            self.spdef=95
+            self.speed=120
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Slowbronite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=95
+            self.atk=75
+            self.defense=110
+            self.spatk=100
+            self.spdef=80
+            self.speed=30
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Gengarite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=60
+            self.atk=65
+            self.defense=60
+            self.spatk=130
+            self.spdef=75
+            self.speed=110
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Kangaskhanite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=105
+            self.atk=95
+            self.defense=80
+            self.spatk=40
+            self.spdef=80
+            self.speed=90
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Pinsirite":
+            self.ability=self.abilityused
+            self.type2="None"
+            per=self.hp/self.maxhp
+            self.hp=65
+            self.atk=125
+            self.defense=100
+            self.spatk=55
+            self.spdef=70
+            self.speed=85
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True    
+        if self.item=="Aerodactylite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=105
+            self.defense=65
+            self.spatk=60
+            self.spdef=75
+            self.speed=130
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item in ["Mewtwonite X","Mewtwonite Y"]:
+            self.ability=self.abilityused
+            self.type2="None"
+            per=self.hp/self.maxhp
+            self.hp=106
+            self.atk=110
+            self.defense=90
+            self.spatk=154
+            self.spdef=90
+            self.speed=130
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Ampharosite":
+            self.ability=self.abilityused
+            self.type2="None"
+            per=self.hp/self.maxhp
+            self.hp=90
+            self.atk=75
+            self.defense=85
+            self.spatk=115
+            self.spdef=90
+            self.speed=55
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Steelixite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=75
+            self.atk=85
+            self.defense=200
+            self.spatk=55
+            self.spdef=65
+            self.speed=30
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True   
+        if self.item=="Scizorite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=70
+            self.atk=130
+            self.defense=100
+            self.spatk=65
+            self.spdef=80
+            self.speed=65
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True 
+        if self.item=="Heracronite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=125
+            self.defense=75
+            self.spatk=40
+            self.spdef=95
+            self.speed=85
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Houndoominite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=75
+            self.atk=110
+            self.defense=90
+            self.spatk=140
+            self.spdef=90
+            self.speed=115
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Tyranitarite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=100
+            self.atk=164
+            self.defense=150
+            self.spatk=95
+            self.spdef=120
+            self.speed=71
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True  
+        if self.item=="Sceptilite":
+            self.ability=self.abilityused
+            self.type2="Dragon"
+            per=self.hp/self.maxhp
+            self.hp=70
+            self.atk=135
+            self.defense=75
+            self.spatk=110
+            self.spdef=85
+            self.speed=145
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Blazikenite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=160
+            self.defense=80
+            self.spatk=130
+            self.spdef=80
+            self.speed=100
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Swampertite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=100
+            self.atk=150
+            self.defense=110
+            self.spatk=95
+            self.spdef=110
+            self.speed=70
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Gardevoirite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=68
+            self.atk=85
+            self.defense=65
+            self.spatk=165
+            self.spdef=135
+            self.speed=100
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Sablenite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=50
+            self.atk=85
+            self.defense=125
+            self.spatk=85
+            self.spdef=115
+            self.speed=20
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Mawilite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=50
+            self.atk=105
+            self.defense=125
+            self.spatk=55
+            self.spdef=95
+            self.speed=50
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Aggronite":
+            self.ability=self.abilityused
+            self.type2="Rock"
+            per=self.hp/self.maxhp
+            self.hp=70
+            self.atk=140
+            self.defense=230
+            self.spatk=60
+            self.spdef=80
+            self.speed=50
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Medichamite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=60
+            self.atk=100
+            self.defense=85
+            self.spatk=80
+            self.spdef=85
+            self.speed=100
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Manectite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=70
+            self.atk=75
+            self.defense=80
+            self.spatk=135
+            self.spdef=80
+            self.speed=135
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Sharpedonite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=70
+            self.atk=140
+            self.defense=70
+            self.spatk=110
+            self.spdef=65
+            self.speed=105
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Camerupite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=90
+            self.atk=100
+            self.defense=110
+            self.spatk=145
+            self.spdef=115
+            self.speed=20
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Altarianite":
+            self.ability=self.abilityused
+            self.type2="Flying"
+            per=self.hp/self.maxhp
+            self.hp=85
+            self.atk=110
+            self.defense=110
+            self.spatk=110
+            self.spdef=105
+            self.speed=80
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Banettite":
+            self.ability=self.abilityused
+            self.type2="Dark"
+            per=self.hp/self.maxhp
+            self.hp=64
+            self.atk=165
+            self.defense=75
+            self.spatk=93
+            self.spdef=83
+            self.speed=75
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Absolite":
+            self.ability=self.abilityused
+            self.type2="None"
+            per=self.hp/self.maxhp
+            self.hp=65
+            self.atk=150
+            self.defense=60
+            self.spatk=115
+            self.spdef=60
+            self.speed=115
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Glalitite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=135
+            self.defense=80
+            self.spatk=105
+            self.spdef=80
+            self.speed=100
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Salamencite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=95
+            self.atk=145
+            self.defense=130
+            self.spatk=120
+            self.spdef=90
+            self.speed=120
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Metagrossite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=145
+            self.defense=150
+            self.spatk=105
+            self.spdef=110
+            self.speed=110
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Latiasite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=100
+            self.defense=120
+            self.spatk=140
+            self.spdef=150
+            self.speed=110
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Latiosite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=139
+            self.defense=100
+            self.spatk=160
+            self.spdef=120
+            self.speed=110
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if "Dragon Ascent" in self.moves:
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=105
+            self.atk=180
+            self.defense=100
+            self.spatk=180
+            self.spdef=100
+            self.speed=115
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Lopunnite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=65
+            self.atk=136
+            self.defense=94
+            self.spatk=54
+            self.spdef=96
+            self.speed=135
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Garchompite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=108
+            self.atk=170
+            self.defense=105
+            self.spatk=120
+            self.spdef=95
+            self.speed=102
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Lucarionite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=70
+            self.atk=145
+            self.defense=88
+            self.spatk=140
+            self.spdef=70
+            self.speed=112
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Abomasite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=90
+            self.atk=132
+            self.defense=105
+            self.spatk=132
+            self.spdef=105
+            self.speed=60
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Lopunnite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=80
+            self.atk=139
+            self.defense=100
+            self.spatk=160
+            self.spdef=120
+            self.speed=110
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Galladite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=68
+            self.atk=165
+            self.defense=95
+            self.spatk=65
+            self.spdef=115
+            self.speed=110
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Audinite":
+            self.ability=self.abilityused
+            self.type2="None"
+            per=self.hp/self.maxhp
+            self.hp=103
+            self.atk=60
+            self.defense=126
+            self.spatk=80
+            self.spdef=126
+            self.speed=50
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        if self.item=="Diancite":
+            self.ability=self.abilityused
+            per=self.hp/self.maxhp
+            self.hp=50
+            self.atk=160
+            self.defense=110
+            self.spatk=160
+            self.spdef=110
+            self.speed=110
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.owner.canmega=True
+        self.atk=self.maxatk*self.atkb 
+        self.spatk=self.maxspatk*self.spatkb 
+        self.defense=self.maxdef*self.defb 
+        self.spdef=self.maxspdef*self.spdefb 
+        self.speed=self.maxspeed*self.speedb    
     print("===================================================================================")        
     #prebuff(self,other,self.owner,turn,field)

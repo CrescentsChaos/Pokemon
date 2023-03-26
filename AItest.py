@@ -557,7 +557,7 @@ def decision (self,other,tr1,tr2,field):
             action=2
         if self.ability=="Zero to Hero" and "Hero" not in self.name and ("Flip Turn" not in self.moves or other.ability in ["Water Absorb","Storm Drain","Water Compaction","Desolate Land","Dry Skin"]):
             action=2      
-        if self.owner.cantera is True and (self==self.owner.pokemons[-1] or self.atk>250 or self.spatk>250 or "Tera Blast" in self.moves or self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]):
+        if self.owner.cantera is True and (self==self.owner.pokemons[-1] or self.atk>350 or self.spatk>350 or "Tera Blast" in self.moves or self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]):
             action=random.choices([1,7], weights=[2,5],k=1)[0]
         if self.owner.canmax is True and ((self.item!="None" and self.item not in megastones and (self.spatk>350 or self.atk>350)) or self.maxiv=="max"):
             action=8
@@ -575,7 +575,7 @@ def decision (self,other,tr1,tr2,field):
             action=1        
         if other.ability=="Magnet Pull" and "Steel" in (self.type1,self.type2,self.teratype):
             action=1                   
-        if other.ability=="Shadow Tag" and "Ghost" not in (self.type1,self.type2,self.teratype):
+        if (other.ability=="Shadow Tag" or self.trap==other or self.trap==True) and "Ghost" not in (self.type1,self.type2,self.teratype):
             action=1    
         if self.precharge is True:
             action=1
