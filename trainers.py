@@ -11,7 +11,7 @@
 #pylint:disable=W0102
 from typematchup import *
 class Trainer:
-	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[],tailwind=False,wishhp=False,vcdmg=False,vcturn=False,vcendturn=False,canmega=True,canmax=True,cantera=True,mon="None",future=0,ftmul=0,sub="None",winner=False,doom=0):
+	def __init__(self,name="Billy",pokemons=[],region="Kanto",hazard=None,ai=True,lightscreen=False,reflect=False,auroraveil=False,faintedmon=[],tailwind=False,wishhp=False,vcdmg=False,vcturn=False,vcendturn=False,canmega=True,canmax=True,cantera=True,mon="None",future=0,ftmul=0,sub="None",winner=False,doom=0,item=[]):
 		self.name=name
 		self.ai=ai
 		self.winner=winner
@@ -42,6 +42,9 @@ class Trainer:
 		self.twendturn=self.tailturn+4
 		self.rfendturn=self.reflecturn+6
 		self.avendturn=self.auroraturn+6
+		self.item=item
+		if self.item==[]:
+		    self.item=["Full Restore","Full Restore","Full Restore"]
 		if hazard is None:
 		    self.hazard=[]
 		else:

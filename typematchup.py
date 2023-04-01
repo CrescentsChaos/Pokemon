@@ -306,7 +306,7 @@ def weakness(self,other,field):
         if self.ability=="Icy Aura":
             eff*=1.5
         if self.use=="Freeze-Dry" and "Water" in (other.type1,other.type2,other.teratype):
-            eff*=4
+            ty*=4
         if other.ability=="Wonder Guard" and self.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self.use not in typemoves.abilityigmoves:
             print(f" 🛡️ {other.name}'s {other.ability}!")
             eff*=0
@@ -1370,7 +1370,7 @@ def prebuff(self,other,tr1,turn,field):
 
 
 def atkchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
+    if self.ability in ["Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1385,7 +1385,11 @@ def atkchange(self,other,amount):
             spatkchange(self,other,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount<4:
+    if self.atkb<=.249 and amount<0:
+        print(f" ❌ {self.name}'s attack won't go any lower!")
+    if self.atkb>=4 and amount>0:
+        print(f" ❌ {self.name}'s attack won't go any higher!")
+    if (amount>0 and self.atkb<4) or (amount<0 and self.atkb>0.249):
         if amount>=1.5:
             print(f" ⏫ {self.name}'s attack drastically rose!")
         if amount==1:
@@ -1515,7 +1519,7 @@ def atkchange(self,other,amount):
 
 
 def defchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
+    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1532,7 +1536,11 @@ def defchange(self,other,amount):
             spatkchange(self,other,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount<4:
+    if self.defb<=.249 and amount<0:
+        print(f" ❌ {self.name}'s defense won't go any lower!")
+    if self.defb>=4 and amount>0:
+        print(f" ❌ {self.name}'s defense won't go any higher!")
+    if (amount>0 and self.defb<4) or (amount<0 and self.defb>0.249):
         if amount>=1.5:
             print(f" ⏫ {self.name}'s defense drastically rose!")
         if amount==1:
@@ -1660,7 +1668,7 @@ def defchange(self,other,amount):
     if self.defb>4:
         self.defb=4
 def spatkchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
+    if self.ability in ["Clear Body","Flower Veil","Full Metal Body","White Smoke","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1675,7 +1683,11 @@ def spatkchange(self,other,amount):
             spatkchange(self,other,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount<4:
+    if self.spatkb<=.249 and amount<0:
+        print(f" ❌ {self.name}'s special attack won't go any lower!")
+    if self.spatkb>=4 and amount>0:
+        print(f" ❌ {self.name}'s special attack won't go any higher!")
+    if (amount>0 and self.spatkb<4) or (amount<0 and self.spatkb>0.249):
         if amount>=1.5:
             print(f" ⏫ {self.name}'s special attack drastically rose!")
         if amount==1:
@@ -1803,7 +1815,7 @@ def spatkchange(self,other,amount):
     if self.spatkb>4:
         self.spatkb=4
 def spdefchange(self,other,amount):
-    if self.ability in ["Big Pecks","Clear Body","Flower Veil","Full Metal Body","White Smoke","Hyper Cutter","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
+    if self.ability in ["Clear Body","Flower Veil","Full Metal Body","White Smoke","Keen Eye"] and amount<0 and other.ability not in ["Mold Breaker","Teravolt","Turboblaze","Propeller Tail","Stalwart"] and self!=other:
         print(f" {self.name}'s {self.ability}!")
         amount=0
     if self.ability=="Simple":
@@ -1818,7 +1830,11 @@ def spdefchange(self,other,amount):
             spatkchange(self,other,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount<4:
+    if self.spdefb<=.249 and amount<0:
+        print(f" ❌ {self.name}'s special defense won't go any lower!")
+    if self.spdefb>=4 and amount>0:
+        print(f" ❌ {self.name}'s special defense won't go any higher!")
+    if (amount>0 and self.spdefb<4) or (amount<0 and self.spdefb>0.249):
         if amount>=1.5:
             print(f" ⏫ {self.name}'s special defense drastically rose!")
         if amount==1:
@@ -1961,7 +1977,11 @@ def speedchange(self,other,amount):
             spatkchange(self,other,1)
     if self.ability=="Contrary":
         amount=-amount
-    if amount<4:
+    if self.speedb<=.249 and amount<0:
+        print(f" ❌ {self.name}'s speed won't go any lower!")
+    if self.speedb>=4 and amount>0:
+        print(f" ❌ {self.name}'s speed won't go any higher!")
+    if (amount>0 and self.speedb<4) or (amount<0 and self.speedb>0.249):
         if amount>=1.5:
             print(f" ⏫ {self.name}'s speed drastically rose!")
         if amount==1:

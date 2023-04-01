@@ -7,7 +7,7 @@
 #pylint:disable=C0304
 from pokemonbase import *
 firemon=[Charizard,Arcanine, HArcanine, Rapidash,AMarowak,Flareon, Typhlosion,Moltres,HTyphlosion, Magcargo,Entei,Hooh,Blaziken,Camerupt, Infernape, Magmortar,Heatran,Emboar,Simisear, Darmanitan,Heatmor,Delphox,Talonflame,Pyroar,Volcanion, Incineroar, Turtonator, Cinderace, Blacephalon, Centiskorch, Skeledirge,Ironmoth, Armarouge, Ceruledge]
-watermon=[Alomomola,Blastoise,Golduck, Poliwrath,Tentacruel,Slowbro,Dewgong, Cloyster,Kingler,Kingdra,Seaking,Starmie,Gyarados,Lapras, Vaporeon, Feraligatr, Lanturn, Azumarill,Politoed, Quagsire, Slowking,Corsola,Octillery, Mantine,Suicune, Swampert,Ludicolo,Pelipper,Sharpedo,Wailord,Whiscash, Crawdaunt, Milotic,Huntail,Gorebyss,Relicanth,Kyogre,Empoleon,Floatzel, EGastrodon, WGastrodon, Lumineon,Palkia,Phione, Samurott,HSamurott,Simipour, Seismitoad, Basculegion,Carracosta,Swanna, Jellicent,Keldeo, Greninja, Clawitzer,Primarina,SWishiwashi, Araquanid,Tapufini,Inteleon,Drednaw,Barraskewda,Dracovish, Quaquaval,Wugtrio, Dondozo,Veluza,Palafin, Walkingwake,Terapagos, Pyukumuku,Luvdisc,Bruxish]
+watermon=[Alomomola,Blastoise,Golduck, Poliwrath,Tentacruel,Slowbro,Dewgong, Cloyster,Kingler,Kingdra,Seaking,Starmie,Gyarados,Lapras, Vaporeon, Feraligatr, Lanturn, Azumarill,Politoed, Quagsire, Slowking,Corsola,Octillery, Mantine,Suicune, Swampert,Ludicolo,Pelipper,Sharpedo,Wailord,Whiscash, Crawdaunt, Milotic,Huntail,Gorebyss,Relicanth,Kyogre,Empoleon,Floatzel, Gastrodon,  Lumineon,Palkia,Phione, Samurott,HSamurott,Simipour, Seismitoad, Basculegion,Carracosta,Swanna, Jellicent,Keldeo, Greninja, Clawitzer,Primarina,SWishiwashi, Araquanid,Tapufini,Inteleon,Drednaw,Barraskewda,Dracovish, Quaquaval,Wugtrio, Dondozo,Veluza,Palafin, Walkingwake,Terapagos, Pyukumuku,Luvdisc,Bruxish]
 fairymon=[Clefable,Granbull,Togekiss,Florges,EFloette,Slurpuff,Sylveon,Xerneas, Alcremie,Dachsbun, Enamorus, Zacian, Screamtail, Ironvaliant, Tinkaton,Comfey]
 darkmon=[APersian,GMoltres,Umbreon, Weavile, Honchkrow, Houndoom,Mightyena, Obstagoon, Sableye, Absol,Darkrai,Liepard,Scrafty,Zoroark, Bisharp, Kingambit, Mandibuzz, Hydreigon,Malamar,Yveltal,Guzzlord, Grimmsnarl,Zarude, Overqwil, Mabosstiff, Ironjugulis,Tinglu, Chienpao,Wochien,Chiyu]
 dragonmon=[Dragonite, Altaria, Salamence, Latios,Latias, Rayquaza, Garchomp, Haxorus, Druddigon,Reshiram,Zekrom,Kyurem,BKyurem,WKyurem,Goodra,HGoodra, CZygarde,Kommo,Dragapult,Regidrago, Baxcalibur, Tatsugiri,Cyclizar, Roaringmoon]
@@ -143,3 +143,5 @@ def smogonexport(line):
     print(name)
     print(item)
     print(ability)
+    
+

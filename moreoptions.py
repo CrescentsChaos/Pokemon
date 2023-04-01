@@ -11,7 +11,6 @@ from database import *
 battle="1"#input(" 🆚 Choose your battle format: ")
 if battle not in ["1","2"]:
     battle="1"
-print(f" 🌁 {field.location}")
 p1="None"
 p2="None"
 #SKIP
@@ -125,7 +124,7 @@ def characters(text,location,nm=2):
             else:
                 chosen=random.choices([genplayer2(field),genTrainer(trclass="Pokémon Trainer")],weights=[1,10],k=1)[0]
         if nm==2:
-            chosen=random.choices([genplayer2(field),genTrainer(trclass="Pokémon Trainer")],weights=[25,5],k=1)[0]
+            chosen=random.choices([genplayer2(field),genTrainer(trclass="Pokémon Trainer")],weights=[25,3],k=1)[0]
             #random.choice(gymlist), random.choice(e4list),random.choice(fronlist),random.choice(evilist),random.choice(talentlist)
     else:
         ch=input(" Enter who you wanna play with: ")
@@ -136,9 +135,9 @@ def characters(text,location,nm=2):
             chosen=team[ch-1]
     print(f" ✅ You have chosen {chosen.name}!\n")
     return chosen
-def players():
+def players(n):
     x=input(" Choose a catagory(e4,ev,ch,gm,fr,tl,hc): ")
-    tr=characters(x,field.location,1)
+    tr=characters(x,field.location,n)
     return tr
 #p1=players()
 #p2=players()

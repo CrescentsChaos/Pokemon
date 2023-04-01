@@ -129,14 +129,14 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         self.maxhp*=6/len(trainer.pokemons)
         print("===================================================================================")
     #Quark Drive
-    if "Quark Drive" in self.ability and (field.terrain=="Electric" or self.item=="Booster Energy"):
+    if "Quark Drive" in self.ability and field.terrain=="Electric" and ("Booster" not in self.item or "Used" in self.item):
         print("===================================================================================")
-        print(f" ⚡ {self.name}'s {self.ability}!")
+        print(f" ⚡ Electric Terrain activated {self.name}'s {self.ability}!")
         print("===================================================================================")
     #Protosynthesis
-    if "Protosynthesis" in self.ability and (field.weather in ["Sunny","Desolate Land"] or self.item=="Booster Energy"):
+    if "Protosynthesis" in self.ability and field.weather in ["Sunny","Desolate Land"] and ("Booster" not in self.item or "Used" in self.item):
         print("===================================================================================")
-        print(f" ☀️ {self.name}'s {self.ability}!")
+        print(f" ☀️ Harsh sunlight activated {self.name}'s {self.ability}!")
         print("===================================================================================")
     #Costar
     if self.ability=="Costar":     
@@ -199,33 +199,33 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         field.weather="Desolate Land"
     #Drought/ Orichalcum Pulse
     if (self.ability in  ["Drought","Orichalcum Pulse"] or (self.ability=="Forecast" and self.item=="Heat Rock")) and field.weather not in ["Sunny","Primordial Sea","Desolate Land"]:
-        print("===================================================================================")
+        print(colored("===================================================================================","yellow"))
         print(f" ☀️{self.name}'s {self.ability} intensified the sun's rays!")
         if self.ability=="Orichalcum Pulse":
             print(f" ♊ {self.name} turned the sunlight harsh, sending its ancient pulse into a frenzy!")
         field.weather="Sunny"
         field.sunturn=turn
         field.sunend(self,other)
-        print("===================================================================================")
+        print(colored("===================================================================================","yellow"))
     #Drizzle
     if (self.ability == "Drizzle" or (self.ability=="Forecast" and self.item=="Damp Rock")) and field.weather not in ["Rainy","Primordial Sea","Desolate Land"]:
-        print("===================================================================================")
+        print(colored("===================================================================================","blue"))
         print(f" 🌧️{self.name}'s {self.ability} made it rain!")
         field.weather="Rainy"
         field.rainturn=turn
         field.rainend(self,other)
-        print("===================================================================================")
+        print(colored("===================================================================================","blue"))
     #Snow Warning
     if (self.ability == "Snow Warning" or (self.ability=="Forecast" and self.item=="Icy Rock")) and field.weather not in ["Primordial Sea","Desolate Land","Snowstorm"]:
-        print("===================================================================================")
+        print(colored("===================================================================================","cyan"))
         print(f" 🌨️{self.name}'s {self.ability} whipped up a snowstorm!")
         field.weather="Snowstorm"      
         field.snowstormturn=turn
         field.snowstormend(self,other)     
-        print("===================================================================================")   
+        print(colored("===================================================================================","cyan"))
     #Electric Surge/Hadron Engine
     if self.ability in ["Electric Surge","Hadron Engine"]:
-        print("===================================================================================")
+        print(colored("===================================================================================","yellow"))
         print(f" {self.name}'s {self.ability}!")
         print(" ⚡ An electric self ran across the battlefield!")
         if self.ability=="Hadron Engine":
@@ -233,34 +233,34 @@ def entryeff(self,other,trainer,trainer2,field,turn):
         field.terrain="Electric"
         field.eleturn=turn
         field.eleend(self,other)
-        print("===================================================================================")
+        print(colored("===================================================================================","yellow"))
    #Misty Surge
     if self.ability=="Misty Surge":
-        print("===================================================================================")
+        print(colored("===================================================================================","magenta"))
         print(f" {self.name}'s {self.ability}!")
         print(" 🌸 Mist swirled around the battlefield!")
         field.terrain="Misty"
         field.misturn=turn
         field.misend(self,other)
-        print("===================================================================================")
+        print(colored("===================================================================================","magenta"))
     #Grassy Surge
     if self.ability in ["Grassy Surge","Dance of the Specter"]:
-        print("===================================================================================")
+        print(colored("===================================================================================","green"))
         print(f" {self.name}'s {self.ability}!")
         print(" 🌿 Grass grew to cover the battlefield!")
         field.terrain="Grassy"
         field.grassturn=turn
         field.grassend(self,other)
-        print("===================================================================================")
+        print(colored("===================================================================================","green"))
     #Psychic Surge
     if self.ability=="Psychic Surge":
-        print("===================================================================================")
+        print(colored("===================================================================================","magenta"))
         print(f" {self.name}'s {self.ability}!")
         print(" 👁️ The battlefield got weird!")
         field.terrain="Psychic"        
         field.psyturn=turn
         field.psyend(self,other)      
-        print("===================================================================================")
+        print(colored("===================================================================================","magenta"))
     #Spikes
     if "Spikes" in trainer.hazard and self.ability not in ["Magic Guard","Levitate","Shield Dust"] and self.item not in ["Heavy-Duty Boots","Air Balloon"]:
         print("===================================================================================")
@@ -472,37 +472,62 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
             print(f" {other.name}'s speed was raised by the Adrenaline Orb.")
             speedchange(other,self,0.5)
     if self.ability=="Vessel of Ruin":
+        print(colored("===================================================================================","red"))
         print(f" ♉ {self.name}'s {self.ability} weakened the Sp.Atk of all surrounding Pokémon!")
+        print(colored("===================================================================================","red"))
     if self.ability=="Tablets of Ruin":
+        print(colored("===================================================================================","green"))
         print(f" ♈ {self.name}'s {self.ability} weakened the Atk of all surrounding Pokémon!")
+        print(colored("===================================================================================","green"))
     if self.ability=="Sword of Ruin":
+        print(colored("===================================================================================","cyan"))
         print(f" ♐ {self.name}'s {self.ability} weakened the Defense of all surrounding Pokémon!")
+        print(colored("===================================================================================","cyan"))
     if self.ability=="Beads of Ruin":
+        print(colored("===================================================================================","red"))
         print(f" ♋ {self.name}'s {self.ability} weakened the Sp.Def of all surrounding Pokémon!")
+        print(colored("===================================================================================","red"))
     if self.item!="None" and "Quick Claw" in self.item:
         print(f" ✴️ {self.name} flashed its Quick Claw!")
     if self.item!="None" and "Air Balloon" in self.item:
         print(f" 🎈 {self.name} floats in the air with its Air Balloon!")
     if self.ability=="Turboblaze":
+        print(colored("===================================================================================","red"))
         print(f" 🔥 {self.name} is radiating a blazing aura!")  
+        print(colored("===================================================================================","red"))
     if self.ability=="Teravolt":
+        print(colored("===================================================================================","yellow"))
         print(f" ⚡ {self.name} is radiating a bursting aura!")  
+        print(colored("===================================================================================","yellow"))
     if self.ability=="Fairy Aura":
+        print(colored("===================================================================================","magenta"))
         print(f" 🧚‍♀️ {self.name} is radiating a fairy aura!")  
+        print(colored("===================================================================================","magenta"))
     if self.ability=="Dark Aura":
+        print(colored("===================================================================================","red"))
         print(f" 🌑 {self.name} is radiating a dark aura!")  
+        print(colored("===================================================================================","red"))
     if self.ability=="Aura Break":
+        print(colored("===================================================================================","green"))
         print(f" 🧬 {self.name} reversed all the other pokemons aura!")  
+        print(colored("===================================================================================","green"))
     if self.ability=="Mold Breaker":
-        print(f" {self.name} breaks the mold!")        
+        print(colored("===================================================================================","red"))
+        print(f" {self.name} breaks the mold!")    
+        print(colored("===================================================================================","red"))    
     if "Alpha " in self.name:
         prevname=self.name.split("Alpha ")[-1]
+        print(colored("===================================================================================","red"))
         print(f" 👹 {prevname}'s alpha aura spreading in the air!")
+        print(colored("===================================================================================","red"))
     if self.item=="Griseous Core" and "Origin" not in self.name:
+        print(colored("===================================================================================","red"))
         print(f" ♑ {self.name}'s Origin Reversion! It reverted to its origin form!")
+        print(colored("===================================================================================","red"))
         self.name="Origin Giratina"
         per=self.hp/self.maxhp
         self.ability="Levitate"
+        self.weight=1433
         self.hp=150
         self.atk=120
         self.defense=100
@@ -512,9 +537,12 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         self.calcst()
         self.hp=self.maxhp*per
     if self.item=="Adamant Crystal" and "Origin" not in self.name:
+        print(colored("===================================================================================","blue"))
         print(f" ♐ {self.name}'s Origin Reversion! It reverted to its origin form!")
+        print(colored("===================================================================================","blue"))
         self.name="Origin Dialga"
         per=self.hp/self.maxhp
+        self.weight=1873.9
         self.hp=100
         self.atk=100
         self.defense=120
@@ -524,9 +552,12 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         self.calcst()
         self.hp=self.maxhp*per
     if self.item=="Lustrous Globe" and "Origin" not in self.name:
+        print(colored("===================================================================================","magenta"))
         print(f" ♓ {self.name}'s Origin Reversion! It reverted to its origin form!")
+        print(colored("===================================================================================","magenta"))
         self.name="Origin Palkia"
         per=self.hp/self.maxhp
+        self.weight=1455.1
         self.hp=90
         self.atk=100
         self.defense=100
@@ -537,10 +568,13 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         self.hp=self.maxhp*per
     if self.megaintro is False and self.item in ["Blue Orb","Navy Orb"]:
         prevname=self.name.split(" ")[-1]
+        print(colored("===================================================================================","blue"))
         print(f" ⛎ {prevname}'s Primal Reversion! It reverted to its primal form!")
+        print(colored("===================================================================================","blue"))
         self.name="Primal Kyogre"
         per=self.hp/self.maxhp
         self.ability="Primordial Sea"
+        self.weight=947.99
         self.hp=100
         self.atk=150
         self.defense=90
@@ -551,18 +585,25 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         self.hp=self.maxhp*per
         self.megaintro=True
     if self.ability=="Intrepid Sword":
+        print(colored("===================================================================================","cyan"))
         print(f" 🗡️ {self.name}'s {self.ability}!")
         atkchange(self,other,0.5)      
+        print(colored("===================================================================================","cyan"))
     if self.ability=="Dauntless Shield":
+        print(colored("===================================================================================","magenta"))
         print(f" 🛡️ {self.name}'s {self.ability}!")
         defchange(self,other,0.5)
+        print(colored("===================================================================================","magenta"))
     if self.megaintro is False and self.item in ["Red Orb","Crimson Orb"]:
         prevname=self.name.split(" ")[-1]
+        print(colored("===================================================================================","red"))
         print(f" ♉ {prevname}'s Primal Reversion! It reverted to its primal form!")
+        print(colored("===================================================================================","red"))
         self.name="Primal Groudon"
         per=self.hp/self.maxhp
         self.ability="Desolate Land"
         self.type2="Fire"
+        self.weight=2203.96
         self.hp=100
         self.atk=180
         self.defense=160
@@ -584,51 +625,68 @@ def transformation(self,other,turn):
     print("===================================================================================")
     trname=self.owner.name.split(" ")[-1]
     if "💎" in self.name and self.owner.cantera is True:
+        clr="white"
         if self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
             self.teratype=self.tera
         typ="None"
         if self.teratype =="None" and self.maxiv not in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]:
             self.teratype=self.tera
         if self.teratype=="Dragon":
+            clr="red"
             typ="🐲"
         if self.teratype=="Psychic":
+            clr="magenta"
             typ="👁️"
         if self.teratype=="Ghost":
+            clr="magenta"
             typ="👻"
         if self.teratype=="Normal":
             typ="💎"
         if self.teratype=="Bug":
+            clr="green"
             typ="🪲"
         if self.teratype=="Steel":
             typ="🪓"
         if self.teratype=="Ice":
+            clr="cyan"
             typ="❄️"
         if self.teratype=="Fighting":
+            clr="red"
             typ="🥊"
         if self.teratype=="Dark":
+            clr="red"
             typ="👿"
         if self.teratype=="Fairy":
+            clr="magenta"
             typ="❤️"
         if self.teratype=="Flying":
+            clr="cyan"
             typ="🎈"
         if self.teratype=="Poison":
+            clr="magenta"
             typ="☠️"
         if self.teratype=="Ground":
+            clr="yellow"
             typ="🌍"
         if self.teratype=="Rock":
+            clr="yellow"
             typ="🏛️"
         if self.teratype=="Grass":
+            clr="green"
             typ="🌻"
         if self.teratype=="Electric":
+            clr="yellow"
             typ="💡"
         if self.teratype=="Water":
+            clr="blue"
             typ="⛲"
         if self.teratype=="Fire":
+            clr="red"
             typ="🕯️"
         name=self.name.split("💎")[0]
         self.name=self.name[:-1]+"-"+self.teratype
         teratalk(self.owner,self)
-        print(f" {typ} {name} has Terastallized into the {self.teratype}-type❗")
+        print(colored(f" {typ} {name} has Terastallized into the {self.teratype}-type!!",clr,attrs=["bold"]))
         self.owner.cantera=False
     if self.dmax==True:
         self.maxend=turn+2
@@ -647,19 +705,21 @@ def transformation(self,other,turn):
         if nn==True:
             prevname=self.name[8:]
         if "Dynamax" in self.name:
-            print(f" ⭕ {prevname} returned and synced with {trname}'s Dynamax Band!")
-            print(f" 🔺{self.owner.name} dynamaxed {prevname}!")
+            print(colored(f" ⭕ {prevname} returned and synced with {trname}'s Dynamax Band!!","red",attrs=["bold"]))
+            print(colored(f" 🔺{self.owner.name} dynamaxed {prevname}!!","red",attrs=["bold"]))
             self.megaintro=True
         if "Gigantamax" in self.name:
-            print(f" ⭕ {prevname} returned and synced with {trname}'s Dynamax Band!")
-            print(f" 🔺{self.owner.name} gigantamaxed {prevname}!")
-    if self.item!="None" and "Ultra" not in self.name and "Ultranecrozium Z" in self.item:
+            print(colored(f" ⭕ {prevname} returned and synced with {trname}'s Dynamax Band!!","red",attrs=["bold"]))
+            print(colored(f" 🔺{self.owner.name} gigantamaxed {prevname}!!","red",attrs=["bold"]))
+    if "Ultra" not in self.name and "Ultranecrozium-Z" in self.item:
         prevname=self.name.split("(")[0]
         self.name="Ultra Necrozma"
-        print(f" ✴️{prevname} regained its true power through Ultra Burst!")
+        print(colored(f" ✴️ Light is bursting out of {prevname}!!","yellow",attrs=["bold"]))
+        print(colored(f" 🔆 {prevname} regained its true power through Ultra Burst!!","yellow",attrs=["bold"]))
         per=self.hp/self.maxhp
         self.ability="Neuroforce"
         self.type2="Dragon"
+        self.weight=507.06
         self.hp=97
         self.atk=167
         self.defense=97
@@ -681,14 +741,16 @@ def transformation(self,other,turn):
                 self.name="Mega Mewtwo X"
             if self.item=="Mewtwonite Y":
                 self.name="Mega Mewtwo Y"
-            print(f" 🧬 {prevname}'s {self.item} is reacting to {trname}'s Keystone!\n {prevname} has Mega Evolved into {self.name}!")
+            print(colored(f" 🧬 {prevname}'s {self.item} is reacting to {trname}'s Keystone!\n {prevname} has Mega Evolved into {self.name}!!","green",attrs=["bold"]))
         if "Rayquaza" in self.name:
-            print(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {self.name}!")
+            print(colored(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {self.name}!!","green",attrs=["bold"]))
         if self.item=="Gyaradosite":
             self.type2="Dark"
             self.abilityused=self.ability
             self.ability="Mold Breaker"
+            self.color="blue"
             per=self.hp/self.maxhp
+            self.weight=672.41
             self.hp=95
             self.atk=155
             self.defense=109
@@ -701,6 +763,7 @@ def transformation(self,other,turn):
         if self.item=="Venusaurite":
             self.abilityused=self.ability
             self.ability="Thick Fat"
+            self.weight=342.82
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=100
@@ -715,6 +778,8 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Tough Claws"
             self.type2="Dragon"
+            self.color="blue"
+            self.weight=243.61
             per=self.hp/self.maxhp
             self.hp=78
             self.atk=130
@@ -728,6 +793,7 @@ def transformation(self,other,turn):
         if self.item=="Charizardite Y":
             self.abilityused=self.ability
             self.ability="Drought"
+            self.weight=221.56
             per=self.hp/self.maxhp
             self.hp=78
             self.atk=104
@@ -741,6 +807,7 @@ def transformation(self,other,turn):
         if self.item=="Blastoisinite":
             self.abilityused=self.ability
             self.ability="Mega Launcher"
+            self.weight=222.89
             per=self.hp/self.maxhp
             self.hp=79
             self.atk=103
@@ -754,6 +821,7 @@ def transformation(self,other,turn):
         if self.item=="Beedrillite":
             self.abilityused=self.ability
             self.ability="Adaptability"
+            self.weight=89.29
             per=self.hp/self.maxhp
             self.hp=65
             self.atk=150
@@ -767,6 +835,7 @@ def transformation(self,other,turn):
         if self.item=="Pidgeotite":
             self.abilityused=self.ability
             self.ability="No Guard"
+            self.weight=111.33
             per=self.hp/self.maxhp
             self.hp=83
             self.atk=80
@@ -780,6 +849,7 @@ def transformation(self,other,turn):
         if self.item=="Alakazite":
             self.abilityused=self.ability
             self.ability="Trace"
+            self.weight=105.82
             per=self.hp/self.maxhp
             self.hp=55
             self.atk=50
@@ -793,6 +863,7 @@ def transformation(self,other,turn):
         if self.item=="Slowbronite":
             self.abilityused=self.ability
             self.ability="Regenerator"
+            self.weight=264.55
             per=self.hp/self.maxhp
             self.hp=95
             self.atk=75
@@ -806,6 +877,7 @@ def transformation(self,other,turn):
         if self.item=="Gengarite":
             self.abilityused=self.ability
             self.ability="Shadow Tag"
+            self.weight=89.29
             per=self.hp/self.maxhp
             self.hp=60
             self.atk=65
@@ -819,6 +891,7 @@ def transformation(self,other,turn):
         if self.item=="Kangaskhanite":
             self.abilityused=self.ability
             self.ability="Parental Bond"
+            self.weight=220.46
             per=self.hp/self.maxhp
             self.hp=105
             self.atk=125
@@ -833,6 +906,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Aerilate"
             self.type2="Flying"
+            self.weight=130.07
             per=self.hp/self.maxhp
             self.hp=65
             self.atk=155
@@ -846,6 +920,7 @@ def transformation(self,other,turn):
         if self.item=="Aerodactylite":
             self.abilityused=self.ability
             self.ability="Tough Claws"
+            self.weight=174.17
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=135
@@ -860,6 +935,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Steadfast"
             self.type2="Fighting"
+            self.weight=279.99
             per=self.hp/self.maxhp
             self.hp=106
             self.atk=190
@@ -873,6 +949,7 @@ def transformation(self,other,turn):
         if self.item=="Mewtwonite Y":
             self.abilityused=self.ability
             self.ability="Insomnia"
+            self.weight=72.75
             per=self.hp/self.maxhp
             self.hp=106
             self.atk=150
@@ -887,6 +964,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability=random.choice(["Thick Fat","Mold Breaker"])
             self.type2="Dragon"
+            self.weight=135.58
             per=self.hp/self.maxhp
             self.hp=90
             self.atk=95
@@ -900,6 +978,7 @@ def transformation(self,other,turn):
         if self.item=="Steelixite":
             self.abilityused=self.ability
             self.ability="Heatproof"
+            self.weight=1631.42
             per=self.hp/self.maxhp
             self.hp=75
             self.atk=125
@@ -913,6 +992,7 @@ def transformation(self,other,turn):
         if self.item=="Scizorite":
             self.abilityused=self.ability
             self.ability="Technician"
+            self.weight=275.58
             per=self.hp/self.maxhp
             self.hp=70
             self.atk=150
@@ -926,6 +1006,7 @@ def transformation(self,other,turn):
         if self.item=="Heracronite":
             self.abilityused=self.ability
             self.ability="Skill Link"
+            self.weight=137.79
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=185
@@ -939,6 +1020,7 @@ def transformation(self,other,turn):
         if self.item=="Houndoominite":
             self.abilityused=self.ability
             self.ability=random.choice(["Solar Power","Dark Aura"])
+            self.weight=109.13
             per=self.hp/self.maxhp
             self.hp=75
             self.atk=110
@@ -952,6 +1034,7 @@ def transformation(self,other,turn):
         if self.item=="Tyranitarite":
             self.abilityused=self.ability
             self.ability="Sand Stream"
+            self.weight=562.18
             per=self.hp/self.maxhp
             self.hp=100
             self.atk=164
@@ -966,6 +1049,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Technician"
             self.type2="Dragon"
+            self.weight=121.7
             per=self.hp/self.maxhp
             self.hp=70
             self.atk=135
@@ -979,6 +1063,7 @@ def transformation(self,other,turn):
         if self.item=="Blazikenite":
             self.abilityused=self.ability
             self.ability="Speed Boost"
+            self.weight=114.64
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=160
@@ -992,6 +1077,7 @@ def transformation(self,other,turn):
         if self.item=="Swampertite":
             self.abilityused=self.ability
             self.ability="Swift Swim"
+            self.weight=224.87
             per=self.hp/self.maxhp
             self.hp=100
             self.atk=150
@@ -1005,6 +1091,7 @@ def transformation(self,other,turn):
         if self.item=="Gardevoirite":
             self.abilityused=self.ability
             self.ability="Pixilate"
+            self.weight=106.7
             per=self.hp/self.maxhp
             self.hp=68
             self.atk=85
@@ -1018,6 +1105,7 @@ def transformation(self,other,turn):
         if self.item=="Sablenite":
             self.abilityused=self.ability
             self.ability="Magic Bounce"
+            self.weight=354.94
             per=self.hp/self.maxhp
             self.hp=50
             self.atk=85
@@ -1031,6 +1119,7 @@ def transformation(self,other,turn):
         if self.item=="Mawilite":
             self.abilityused=self.ability
             self.ability="Huge Power"
+            self.weight=51.81
             per=self.hp/self.maxhp
             self.hp=50
             self.atk=105
@@ -1045,6 +1134,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Filter"
             self.type2="None"
+            self.weight=870.83
             per=self.hp/self.maxhp
             self.hp=70
             self.atk=140
@@ -1058,6 +1148,7 @@ def transformation(self,other,turn):
         if self.item=="Medichamite":
             self.abilityused=self.ability
             self.ability="Pure Power"
+            self.weight=69.45
             per=self.hp/self.maxhp
             self.hp=60
             self.atk=100
@@ -1071,6 +1162,7 @@ def transformation(self,other,turn):
         if self.item=="Manectite":
             self.abilityused=self.ability
             self.ability="Intimidate"
+            self.weight=97
             per=self.hp/self.maxhp
             self.hp=70
             self.atk=75
@@ -1084,6 +1176,7 @@ def transformation(self,other,turn):
         if self.item=="Sharpedonite":
             self.abilityused=self.ability
             self.ability="Strong Jaw"
+            self.weight=287.26
             per=self.hp/self.maxhp
             self.hp=70
             self.atk=140
@@ -1097,6 +1190,7 @@ def transformation(self,other,turn):
         if self.item=="Camerupite":
             self.abilityused=self.ability
             self.ability="Sheer Force"
+            self.weight=706.58
             per=self.hp/self.maxhp
             self.hp=90
             self.atk=100
@@ -1111,6 +1205,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Pixilate"
             self.type2="Fairy"
+            self.weight=45.42
             per=self.hp/self.maxhp
             self.hp=85
             self.atk=110
@@ -1125,6 +1220,8 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Prankster"
             self.type2="Normal"
+            self.color="magenta"
+            self.weight=28.66
             per=self.hp/self.maxhp
             self.hp=64
             self.atk=165
@@ -1139,6 +1236,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability=random.choice(["Magic Bounce","Sharpness"])
             self.type2="Fairy"
+            self.weight=108.03
             per=self.hp/self.maxhp
             self.hp=65
             self.atk=150
@@ -1152,6 +1250,7 @@ def transformation(self,other,turn):
         if self.item=="Glalitite":
             self.abilityused=self.ability
             self.ability="Refrigerate"
+            self.weight=772.06
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=135
@@ -1165,6 +1264,8 @@ def transformation(self,other,turn):
         if self.item=="Salamencite":
             self.abilityused=self.ability
             self.ability="Aerilate"
+            self.color="red"
+            self.weight=248.24
             per=self.hp/self.maxhp
             self.hp=95
             self.atk=145
@@ -1178,6 +1279,7 @@ def transformation(self,other,turn):
         if self.item=="Metagrossite":
             self.abilityused=self.ability
             self.ability="Tough Claws"
+            self.weight=2078.74
             per=self.hp/self.maxhp
             self.hp=80
             self.atk=145
@@ -1191,6 +1293,8 @@ def transformation(self,other,turn):
         if self.item=="Latiasite":
             self.abilityused=self.ability
             per=self.hp/self.maxhp
+            self.weight=114.64
+            self.color="blue"
             self.hp=80
             self.atk=100
             self.defense=120
@@ -1203,6 +1307,8 @@ def transformation(self,other,turn):
         if self.item=="Latiosite":
             self.abilityused=self.ability
             per=self.hp/self.maxhp
+            self.weight=154.32
+            self.color="blue"
             self.hp=80
             self.atk=139
             self.defense=100
@@ -1216,6 +1322,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Delta Stream"
             per=self.hp/self.maxhp
+            self.weight=864.21
             self.hp=105
             self.atk=180
             self.defense=100
@@ -1228,6 +1335,7 @@ def transformation(self,other,turn):
         if self.item=="Lopunnite":
             self.abilityused=self.ability
             self.ability="Scrappy"
+            self.weight=62.39
             per=self.hp/self.maxhp
             self.hp=65
             self.atk=136
@@ -1241,6 +1349,7 @@ def transformation(self,other,turn):
         if self.item=="Garchompite":
             self.abilityused=self.ability
             self.ability="Sand Force"
+            self.weight=209.44
             per=self.hp/self.maxhp
             self.hp=108
             self.atk=170
@@ -1254,6 +1363,7 @@ def transformation(self,other,turn):
         if self.item=="Lucarionite":
             self.abilityused=self.ability
             self.ability="Adaptability"
+            self.weight=126.77
             per=self.hp/self.maxhp
             self.hp=70
             self.atk=145
@@ -1267,6 +1377,7 @@ def transformation(self,other,turn):
         if self.item=="Abomasite":
             self.abilityused=self.ability
             self.ability="Slush Rush"
+            self.weight=407.86
             per=self.hp/self.maxhp
             self.hp=90
             self.atk=132
@@ -1293,6 +1404,7 @@ def transformation(self,other,turn):
         if self.item=="Galladite":
             self.abilityused=self.ability
             self.ability="Sharpness"
+            self.weight=124.34
             per=self.hp/self.maxhp
             self.hp=68
             self.atk=165
@@ -1307,6 +1419,8 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Regenerator"
             self.type2="Fairy"
+            color="yellow"
+            self.weight=70.55
             per=self.hp/self.maxhp
             self.hp=103
             self.atk=60
@@ -1320,6 +1434,7 @@ def transformation(self,other,turn):
         if self.item=="Diancite":
             self.abilityused=self.ability
             self.ability="Magic Bounce"
+            self.weight=61.29
             per=self.hp/self.maxhp
             self.hp=50
             self.atk=160

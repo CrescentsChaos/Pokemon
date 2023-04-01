@@ -13,7 +13,7 @@ def moveAI(self,other,mtr,otr,field):
         mymove+=other.moves
     if self.dmax is True:
         mymove+=self.maxmove
-    if self.dmax is False and "Ditto" not in self.name:
+    if self.dmax is False:
         mymove+=self.moves
     types=[other.type1,other.type2,other.teratype]
     mytypes=[self.type1,self.type2,self.teratype]
@@ -408,14 +408,22 @@ def moveAI(self,other,mtr,otr,field):
         use="Sleep Talk"
     if len(self.moves)==5 and (other.maxdef<250 or other.maxspdef<250):
         use=self.moves[4]
+    if self.fmove==True:
+        use=list(set(self.moves).intersection(["Outrage","Thrash","Petal Dance","Raging Fury"]))[0]
+    if self.speed>other.speed and ((other.hp<other.maxhp*0.35) or other.defense<200 or other.spdef<200):
+        if len(emove)>0:
+            use=random.choice(emove)
+        elif len(emove)>0:
+            use=random.choice(resmove)
+        elif len(mymove)!=0:
+            use=random.choice(mymove)        
     if self.choiced is True and self.dmax is False:
         if self.choicedmove in self.moves:
             use=self.choicedmove 
 #        else:
-#            use="Struggle" 
-    if self.fmove==True:
-        use=list(set(self.moves).intersection(["Outrage","Thrash","Petal Dance","Raging Fury"]))[0]
-    if use =="None" or use==[]:
+#            use="Struggle"         
+    
+    elif use =="None" or use==[]:
         if len(mymove)==0:
             if len(resmove)==0:
                 use=random.choice(self.moves)
@@ -571,6 +579,8 @@ def decision (self,other,tr1,tr2,field):
             action=1
         if self.precharge==True:
             action=1
+        if self.firespin!=0 or self.whirlpool!=0 or self.infestation!=0:
+            action=1      
         if other.ability=="Arena Trap" and "Flying" in (self.type1,self.type2,self.teratype):
             action=1        
         if other.ability=="Magnet Pull" and "Steel" in (self.type1,self.type2,self.teratype):
@@ -582,5 +592,8 @@ def decision (self,other,tr1,tr2,field):
         if self.olock is True:
             action=1
         if self.dmax is True:
-            action=1            
+            action=1    
+        if len(self.owner.item)!=0:
+            if self.hp<=self.maxhp*.2 and "Full Restore" in self.owner.item:
+                action=6
     return action              

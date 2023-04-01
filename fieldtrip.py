@@ -69,16 +69,16 @@ def genplayer2(f):
         pl=random.choices([random.choice([lorelei,bruno,agatha, lance,brock,misty,surge,erika,sabrina,janine,blaine,ash,gary,red,giovanni,jessiejames]),genTrainer(trclass=random.choice(["Kanto Trainer"])),genTrainer(trclass=random.choice(allclass))],weights=[1,7,4],k=1)[0]
         
     if "Hoenn" in f.location:
-        pl=random.choices([random.choice([noland,lucy,tucker,greta,anabel,brandon,spenser,brendan,may,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,steven,wallace,sidney,phoebe,drake,glacia,zinnia,archie,maxie,tabitha,matt,shelly,courtney,jessie,james,jessiejames]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Hoenn Trainer")],weights=[1,7,4],k=1)[0]
+        pl=random.choices([random.choice([wild(Latios),wild(Latias),noland,lucy,tucker,greta,anabel,brandon,spenser,brendan,may,roxanne,brawly,wattson,flannery,norman,winona,tate,liza,juan,steven,wallace,sidney,phoebe,drake,glacia,zinnia,archie,maxie,tabitha,matt,shelly,courtney,jessie,james,jessiejames]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Hoenn Trainer")],weights=[1,7,4],k=1)[0]
         
     if "Paldea" in f.location:
         pl=random.choices([random.choice([tyme,salvatore,miriam,dendra,raifort,jacq,saguaro,tulip,grusha,ryme,kofu,Iono,brassius,katy,penny,eri,ortega,atticus,mela,giacomo,hassel,larry,poppy,rika,geeta,clavell,arven]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Paldea Trainer")],weights=[1,7,4],k=1)[0]
         
     if "Johto" in f.location:
-        pl=random.choices([random.choice([ethan,silver,falkner,bugsy,whitney,chuck,pryce,jasmine,clair,will,bruno,karen,lance, koga]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Johto Trainer")],weights=[1,7,4],k=1)[0]
+        pl=random.choices([random.choice([wild(Raikou),wild(Suicune),wild(Entei),ethan,silver,falkner,bugsy,whitney,chuck,pryce,jasmine,clair,will,bruno,karen,lance, koga]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Johto Trainer")],weights=[1,7,4],k=1)[0]
         
     if "Sinnoh" in f.location:
-        pl=random.choices([random.choice([dawn,kenny,ursula,trip,drew,riley,cheryl,marley,mira,nando,conway,zoey,cynthia,aaron,lucian,bertha,flint,roark,gardenia,fantina,byron,maylene,wake,candice,volkner,cyrus,mars,jupiter,saturn,palmer,darach,dahlia,argenta,Thorton]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Sinnoh Trainer")],weights=[1,7,4],k=1)[0]
+        pl=random.choices([random.choice([dawn,kenny,ursula,trip,drew,riley,cheryl,marley,mira,nando,conway,zoey,cynthia,aaron,lucian,bertha,flint,roark,gardenia,fantina,byron,maylene,wake,candice,volkner,cyrus,mars,jupiter,saturn,wild(Mesprit),wild(Cresselia),palmer,darach,dahlia,argenta,Thorton]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Sinnoh Trainer")],weights=[1,7,4],k=1)[0]
         
     if "Kalos" in f.location:
         pl=random.choices([random.choice([wulfric,olympia,valerie,clemont,ramos,korrina,viola,grant,diantha,alain,sawyer,tierno, shauna,trevor,calem]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Kalos Trainer")],weights=[1,7,4],k=1)[0]
@@ -87,25 +87,46 @@ def genplayer2(f):
         pl=random.choice([Lillie,mallow,lana,kiawe,Ilima, lusamine,kahili,acerola,olivia,molayne,hala,kukui,gladion,hau,genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Alola Trainer")])
         
     if " Galar" in f.location:
-        pl=random.choices([random.choice([raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,leon,hop,rose,mustard]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Galar Trainer")],weights=[1,7,4],k=1)[0]
+        pl=random.choices([random.choice([raihan,marnie,piers,melony,gordie,bede,opal,allister,bea,kabu,nessa,milo,leon,hop,rose,mustard,wild(GZapdos)]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Galar Trainer")],weights=[1,7,4],k=1)[0]
         
+    if "Relic Castle" in f.location:
+        pl=random.choice([wild(Volcarona)])        
     if "Unova" in f.location:
-        pl=random.choices([random.choice([alder,iris,ash,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Unova Trainer")],weights=[1,10,4],k=1)[0]
+        pl=random.choices([random.choice([wild(Thundurus),wild(Tornadus),alder,iris,ash,lenora,burgh,elesa,clay,skyla,brycen,drayden,cheren,roxie,marlon]),genTrainer(trclass=random.choice(allclass)),genTrainer(trclass="Unova Trainer")],weights=[1,10,4],k=1)[0]
         
     if "Team Flare" in f.location:
-        pl=random.choice([malva,xerosic,aliana,celosia,bryony,mable,lysandre])
+        pl=random.choice([malva,xerosic,aliana,celosia,bryony,mable,lysandre,wild(Xerneas),wild(Yveltal)])
         if "Malva" in pl.name:
             pl.name=colored("Team Flare Malva","red")
-            
+    if "Pokémon Village" in f.location:
+        pl=random.choice([wild(Mewtwo)])      
+    if "Southern Island" in f.location:
+        pl=random.choice([wild(Latios),wild(Latias)])      
+        
     if "Trackless" in f.location:
         pl=random.choice([wild(Raikou),wild(Entei),wild(Suicune),anabel,genTrainer(trclass=random.choice(["Hiker"]))])
         
+    if "Reversal Mountain" in f.location:
+        pl=random.choice([wild(Heatran)])      
+          
     if "Twist Mountain" in f.location:
-        pl=random.choice([cheren,genTrainer(trclass=random.choice(["Ace Trainer","Hiker","Battle Girl","Worker","Doctor","Black Belt","Veteran","Nurse"]))])
+        pl=random.choice([cheren,wild(Regigigas),genTrainer(trclass=random.choice(["Ace Trainer","Hiker","Battle Girl","Worker","Doctor","Black Belt","Veteran","Nurse"]))])
         
+    if "Celestial Tower" in f.location:
+        pl=random.choice([wild(Mesprit)])
+        
+    if "Marvelous Bridge" in f.location:
+        pl=random.choice([wild(Cresselia)])    
+            
     if "Scorched Slab" in f.location:
         pl=random.choice([wild(Heatran),buck,genTrainer(trclass=random.choice(["Volcano Explorer","Hiker"]))])
-    
+        
+    if "Terminus Cave" in f.location:
+        pl=random.choice([wild(Zygarde)])    
+        
+    if "Soaring in the Sky" in f.location:
+        pl=random.choice([wild(random.choice([Palkia,Dialga,Tornadus, Giratina,Landorus, Thundurus]))])        
+        
     if "Power Plant" in f.location:
         field.weather="Electric Terrain"
         pl=random.choice([wild(Zapdos),surge,genTrainer(trclass=random.choice(["Rocket Grunt","Electrician","Scientist","Coach Trainer"]))])
@@ -140,14 +161,37 @@ def genplayer2(f):
     if "Spear Pillar" in f.location:
         pl=random.choice([wild(Dialga),wild(Palkia),wild(Giratina),cyrus,cynthia,mars,jupiter,saturn,lucas,dawn,barry])
         
-    if "Mountain Stark" in f.location:
+    if "Stark Mountain" in f.location:
         pl=random.choice([wild(Heatran),buck,saturn,candice,byron,mira,palmer,tobias,genTrainer(trclass=random.choice(["Sinnoh Trainer","Fire Breather","Kindler","Paleontologist","Hiker"]))])
+        
+    if "Turnback Cave" in f.location:
+        pl=random.choice([wild(Giratina)])        
         
     if "League, Sinnoh" in f.location:
         pl=random.choice([aaron,bertha,flint,lucian,cynthia,tobias,barry])
         if "Tobias" in pl.name:
             pl.name=colored("SCL Champion Tobias","red")
-            
+    if "Master Dojo" in f.location:
+        pl=random.choice([wild(DUrshifu),wild(WUrshifu), mustard])
+        
+    if "Energy Plant" in f.location:
+        pl=random.choice([wild(EEternatus),wild(Zacian),wild(Zamazenta),wild(Eternatus)])
+
+    if "Crown Shrine" in f.location:
+        pl=random.choice([wild(Glastrier),wild(Spectrier),wild(ICalyrex),wild(SCalyrex)])
+                        
+    if "Max Lair" in f.location:
+        pl=random.choice([wild(Naganadel)])  
+         
+    if "Lakeside Cave" in f.location:
+        pl=random.choice([wild(Terrakion)])
+        
+    if "Frigid Sea" in f.location:
+        pl=random.choice([wild(Cobalion)])      
+          
+    if "Birth Island" in f.location:
+        pl=random.choice([wild(Deoxys)])      
+              
     if "Evergrande" in f.location:
         pl=random.choice([sidney,phoebe,glacia,drake,steven,wallace])
         
@@ -163,9 +207,179 @@ def genplayer2(f):
     if "Lavaridge Town" in f.location:
         pl=random.choice([flannery,may,brendan,genTrainer(trclass=random.choice(["Hoenn Trainer","Kindler","Fire Breather"]))])
         
+    if "Striaton City" in f.location:
+        pl=random.choice([cilan,cress,chili])    
+            
     if "Mauville City" in f.location:
         pl=random.choice([wattson,wally,may,genTrainer(trclass=random.choice(["Hoenn Trainer","Rocker","Guitarist"]))])
-        
+    if "HamilauCity" in f.location:
+        pl=random.choice([marlon]) 
+    if "Virbak City" in f.location:
+        pl=random.choice([roxie]) 
+    if "Opelucid City" in f.location:
+        pl=random.choice([iris,drayden]) 
+        if "Iris" in pl.name:
+            pl.name="Gym Leader Iris"
+    if "Pinwheel Forest" in f.location:
+        pl=random.choice([wild(Virizion)])   
+    if "Desert Resort" in f.location:
+        pl=random.choice([wild(Darmanitan)])
+    if "Trial Chamber" in f.location:
+        pl=random.choice([wild(Terrakion)])
+    if "Mistralon Cave" in f.location:
+        pl=random.choice([wild(Cobalion)])   
+    if "Dreamyard" in f.location:
+        pl=random.choice([wild(Musharna)]) 
+    if "Dragonspiral Tower" in f.location:
+        pl=random.choice([wild(random.choice([Zekrom, Reshiram]))])
+    if "Underground Ruins" in f.location:
+        pl=random.choice([wild(random.choice([Regirock,Registeel,Regice]))])
+    if "N's Castle" in f.location:
+        pl=random.choice([wild(random.choice([Reshiram,Zekrom]))])     
+    if "Lostlorn Forest" in f.location:
+        pl=random.choice([wild(Zoroark)])
+    if "Giant Chasm" in f.location:
+        pl=random.choice([wild(Kyurem)])
+    if "Turffield" in f.location:
+        pl=random.choice([milo])
+    if "Hulbury" in f.location:
+        pl=random.choice([nessa])
+    if "Motostoke" in f.location:
+        pl=random.choice([kabu])
+    if "Cortondo" in f.location:
+        pl=random.choice([katy])
+    if "Artazon" in f.location:
+        pl=random.choice([brassius])
+    if "Glimwood" in f.location:
+        pl=random.choice([opal])
+    if "Spikemuth" in f.location:
+        pl=random.choice([piers])
+    if "Levincia" in f.location:
+        pl=random.choice([iono])
+    if "Hammerlocke" in f.location:
+        pl=random.choice([raihan])
+    if "Cascarrafa" in f.location:
+        pl=random.choice([kofu])
+    if "Medali" in f.location:
+        pl=random.choice([larry])
+    if "Glaseado" in f.location:
+        pl=random.choice([grusha])
+    if "Montenevera" in f.location:
+        pl=random.choice([ryme])
+    if "Alfornada" in f.location:
+        pl=random.choice([tulip])
+    if "Circhester" in f.location:
+        pl=random.choice([gordie,melony])
+    if "Moone" in f.location:
+        pl=random.choice([wild(Lunala)])
+    if "Ruins of Hope" in f.location:
+        pl=random.choice([wild(Tapufini)])
+    if "Ruins of Life" in f.location:
+        pl=random.choice([wild(Tapulele)])
+    if "Ruins of Conflict" in f.location:
+        pl=random.choice([wild(Tapukoko)])
+    if "Ruins of Abundance" in f.location:
+        pl=random.choice([wild(Tapubulu)]) 
+    if "Ten Carat" in f.location:
+        pl=random.choice([wild(Necrozma)])
+    if "Wela Volcano" in f.location:
+        pl=random.choice([kiawe,wild(Nihilego)])
+    if "Verdant Cavern" in f.location:
+        pl=random.choice([wild(Pheromosa)]) 
+    if "Sunne" in f.location:
+        pl=random.choice([wild(Solgaleo)])             
+    if "Aspertia City" in f.location:
+        pl=random.choice([cheren])  
+    if "Memorial Hill" in f.location:
+        pl=random.choice([wild(Xurkitree)]) 
+    if "Resolution Cave" in f.location:
+        pl=random.choice([wild(Guzzlord)])   
+    if "Melemele Meadow" in f.location:
+        pl=random.choice([wild(Buzzwole)])   
+    if "Malie Garden" in f.location:
+        pl=random.choice([wild(random.choice([Celesteela,Kartana]))])    
+    if "Haina Desert" in f.location:
+        pl=random.choice([wild(Celesteela)])
+    if "Ultra Crater" in f.location:
+        pl=random.choice([wild(Celesteela)])
+    if "Ultra Desert" in f.location:
+        pl=random.choice([wild(Pheromosa)])
+    if "Ultra Forrest" in f.location:
+        pl=random.choice([wild(Kartana)])
+    if "Poco Path" in f.location:
+        pl=random.choice([wild(random.choice([Koraidon,Miraidon]))])
+    if "Flower Paradise" in f.location:
+        pl=random.choice([wild(random.choice([Shaymin, SShaymin]))])
+    if "Lake Acuity" in f.location:
+        pl=random.choice([cyrus,mars,saturn, jupiter,wild(Uxie)])
+    if "Newmoon Island" in f.location:
+        pl=random.choice([wild(Darkrai)])
+    if "Ramanas" in f.location:
+        pl=random.choice([wild(random.choice([Entei,Raikou,Suicune,Hooh, Regirock, Regice, Registeel,Latios,Latias,Kyogre,Groudon, Rayquaza,Mewtwo, Articuno,Zapdos,Moltres,Lugia]))])
+    if "Lake Valor" in f.location:
+        pl=random.choice([cyrus,mars,jupiter,wild(Azelf)])
+    if "Lake Verity" in f.location:
+        pl=random.choice([cyrus,mars,jupiter,wild(Mesprit)])
+    if "Ultra Deep Sea" in f.location:
+        pl=random.choice([wild(Nihilego)])
+    if "Ultra Megalopolis" in f.location:
+        pl=random.choice([wild(Naganadel)])
+    if "Ultra Jungle" in f.location:
+        pl=random.choice([wild(Buzzwole)])
+    if "Ultra Ruin" in f.location:
+        pl=random.choice([wild(Guzzlord)])
+    if "Ultra Plant" in f.location:
+        pl=random.choice([wild(Xurkitree)])
+    if "Diglett Tunnel" in f.location:
+        pl=random.choice([wild(Nihilego)])
+    if "North Province" in f.location:
+        pl=random.choice([wild(Chiyu)])
+    if "West Province" in f.location:
+        pl=random.choice([wild(random.choice([Wochien,Chienpao]))])
+    if "Socarrat" in f.location:
+        pl=random.choice([wild(Tinglu)])
+    if "Aether Paradise" in f.location:
+        pl=random.choice([lusamine,faba,gladion,wild(Silvally)])
+    if "Ultra Space Cave" in f.location:
+        pl=random.choice([wild(random.choice([Groudon,Heatran, Regirock, Registeel,Regice, Giratina,Palkia, Regigigas]))])
+    if "Ultra Space Cliff" in f.location:
+        pl=random.choice([wild(random.choice([Hooh, Tornadus,Moltres,Zapdos, Articuno, Rayquaza, Cresselia, Landorus, Thundurus, Yveltal]))])
+    if "Ultra Space Crag" in f.location:
+        pl=random.choice([wild(random.choice([Raikou,Entei,Dialga, Reshiram,Xerneas,Mewtwo, Cobalion, Terrakion, Virizion,Zekrom]))])
+    if "Ultra Space Waterfall" in f.location:
+        pl=random.choice([wild(random.choice([Latios,Suicune,Uxie,Azelf,Mesprit,Latias,Kyurem,Lugia,Kyogre]))])
+    if "Hau'oli City" in f.location:
+        pl=random.choice([wild(Magearna)])
+    if "Lush Jungle" in f.location:
+        pl=random.choice([wild(Xurkitree)])
+    if "Icirrus City" in f.location:
+        pl=random.choice([brycen]) 
+    if "Mistralon City" in f.location:
+        pl=random.choice([skyla])         
+    if "Nacrene City" in f.location:
+        pl=random.choice([lenora])         
+    if "Castelia City" in f.location:
+        pl=random.choice([burgh])      
+    if "Snowbelle City" in f.location:
+        pl=random.choice([wulfric])          
+    if "Nimbasa City" in f.location:
+        pl=random.choice([elesa])    
+    if "Lumiose City" in f.location:
+        pl=random.choice([clemont])      
+    if "Laverre City" in f.location:
+        pl=random.choice([valerie])       
+    if "Anistar City" in f.location:
+        pl=random.choice([olympia])                 
+    if "Driftveil City" in f.location:
+        pl=random.choice([clay])     
+    if "Coumarine City" in f.location:
+        pl=random.choice([ramos])         
+    if "Shalour City" in f.location:
+        pl=random.choice([korrina])         
+    if "Cyllage City" in f.location:
+        pl=random.choice([grant])          
+    if "Santalune City" in f.location:
+        pl=random.choice([viola])                
     if "Dewford Town" in f.location:
         pl=random.choice([brawly,steven,genTrainer(trclass=random.choice(["Hoenn Trainer","Black Belt","Dojo Master","Crush Girl"]))])
         
@@ -253,6 +467,8 @@ def genplayer2(f):
         pl=random.choice([wild(Regice)])
     if "Rock Peak Ruins" in f.location:        
         pl=random.choice([wild(Regirock)])
+    if "Silph Co." in f.location:        
+        pl=random.choice([blue,giovanni])
     if "Pokémon Mansion" in f.location:        
         pl=random.choice([wild(Mewtwo),blaine,giovanni])
     if "Faraway Island" in f.location:        
@@ -263,10 +479,12 @@ def genplayer2(f):
         pl=random.choice([wild(Zapdos),wild(Moltres),wild(Articuno)])
     if "Violet City" in f.location:
         pl=falkner
+    if "Crown Tundra" in f.location:
+        pl=random.choice([wild(GArticuno)])
+    if "Isle of Armor" in f.location:
+        pl=random.choice([wild(GMoltres)])
     if "Cave of Origin" in f.location:        
         pl=random.choice([wallace,steven,wild(Kyogre),wild(Groudon)])
-    if "Underground Ruins" in f.location:        
-        pl=random.choice([wild(Regigigas)])
     if "Olivine City" in f.location:
         pl=jasmine 
     if "Indigo Plateau" in f.location:
@@ -289,10 +507,27 @@ def genplayer2(f):
 
     if "Cinnabar Island" in f.location:
         pl=random.choice([blaine,genTrainer(random.choice(["Kindler","Juggler","Lass","Fire Breather","Ace Trainer"]))])
-
-    if "Sky Pillar" in f.location:
-        pl=random.choice([wild(Rayquaza),zinnia,steven,wallace,brendan,may])
         
+    if "Sea Mauvile" in f.location:
+        pl=random.choice([wild(Lugia)])
+
+    if "Pathless" in f.location:
+        pl=random.choice([wild(random.choice([Terrakion, Cobalion, Virizion]))])                
+    if "Sky Pillar" in f.location:
+        pl=random.choice([wild(Rayquaza),zinnia,steven,wallace,brendan,may,wild(Deoxys)])
+        
+    if "Nameless Cavern" in f.location:
+        pl=random.choice([wild(random.choice([Azelf, Mesprit,Uxie]))])      
+              
+    if "Gnarled Den" in f.location:
+        pl=random.choice([wild(Kyurem)])     
+        
+    if "Fabled Cave" in f.location:
+        pl=random.choice([wild(random.choice([Zekrom, Reshiram]))])
+                
+    if "Crescent Isle" in f.location:
+        pl=random.choice([wild(Cresselia)])
+                
     if "Fuchsia City" in f.location:    
         pl=random.choice([koga,janine,genTrainer(random.choice(["Psychic","Juggler","Lass","Black Belt","Ace Trainer"]))])
         koga.name="Gym Leader Koga"
