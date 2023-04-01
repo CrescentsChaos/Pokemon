@@ -24,4 +24,5 @@ Pokémon Crescent</bold></h1>
 19.✅ Battle Frontiers (10+)<br>
 20.🆕 Champions (15+)<br>
 21.🆕 Evil Teams (45+) <br>
-22.🆕 Smogonify and Smogon.py can import/export teams from Pokémon Crescent to Pokémon Showdown and vice versa<br>
+22.🆕 New Base Stats 
+23.🆕 Smogonify and Smogon.py can import/export teams from Pokémon Crescent to Pokémon Showdown and vice versa<br>
