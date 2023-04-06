@@ -26,3 +26,4 @@ Pokémon Crescent</bold></h1>
 21.🆕 Evil Teams (45+) <br>
 22.🆕 New Base Stats <br>
 23.🆕 Smogonify and Smogon.py can import/export teams from Pokémon Crescent to Pokémon Showdown and vice versa<br>
+24.🆕 Added sprites for 500+ Pokémons [Quality is pretty Bad tho] <br>
