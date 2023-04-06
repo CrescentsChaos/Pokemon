@@ -3,7 +3,7 @@ from quotes import *
 from AItest import *
 from typematchup import *
 from hiddenpower import *
-megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Amoharosite","Audinite","Banettite","Beedrillite","Blastoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
+megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Ampharosite","Audinite","Banettite","Beedrillite","Blastoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
 #ENTRY EFFECTS            
 def entryeff(self,other,trainer,trainer2,field,turn):
     pokeintro(self,other,trainer,trainer2,field,turn)
@@ -528,6 +528,7 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         per=self.hp/self.maxhp
         self.ability="Levitate"
         self.weight=1433
+        self.sprite="sprites/Origin Giratina.png"
         self.hp=150
         self.atk=120
         self.defense=100
@@ -542,6 +543,7 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         print(colored("===================================================================================","blue"))
         self.name="Origin Dialga"
         per=self.hp/self.maxhp
+        self.sprite="sprites/Origin Dialga.png"
         self.weight=1873.9
         self.hp=100
         self.atk=100
@@ -558,6 +560,7 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         self.name="Origin Palkia"
         per=self.hp/self.maxhp
         self.weight=1455.1
+        self.sprite="sprites/Origin Palkia.png"
         self.hp=90
         self.atk=100
         self.defense=100
@@ -570,6 +573,9 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         prevname=self.name.split(" ")[-1]
         print(colored("===================================================================================","blue"))
         print(f" ⛎ {prevname}'s Primal Reversion! It reverted to its primal form!")
+        self.sprite="sprites/Primal Kyogre.png"
+        print(climage.convert("Misc/Blue Orb.png",is_unicode=True,width=30))
+        print(climage.convert(self.sprite,is_unicode=True,width=50))
         print(colored("===================================================================================","blue"))
         self.name="Primal Kyogre"
         per=self.hp/self.maxhp
@@ -598,6 +604,9 @@ def pokeintro(self,other,trainer,trainer2,field,turn):
         prevname=self.name.split(" ")[-1]
         print(colored("===================================================================================","red"))
         print(f" ♉ {prevname}'s Primal Reversion! It reverted to its primal form!")
+        self.sprite="sprites/Primal Groudon.png"
+        print(climage.convert("Misc/Red Orb.png",is_unicode=True,width=30))
+        print(climage.convert(self.sprite,is_unicode=True,width=50))
         print(colored("===================================================================================","red"))
         self.name="Primal Groudon"
         per=self.hp/self.maxhp
@@ -683,6 +692,24 @@ def transformation(self,other,turn):
         if self.teratype=="Fire":
             clr="red"
             typ="🕯️"
+        if "Terapagos" in self.name:
+            print(f" 💎 {self.name} unleashed it's true power and transformed while Terastallizing!")
+            self.name="Terapagos Unleashed"
+            per=self.hp/self.maxhp
+            self.weight=507.06
+            self.hp=215
+            self.atk=45
+            self.defense=80
+            self.spatk=160
+            self.spdef=90
+            self.speed=20
+            self.calcst()
+            self.hp=self.maxhp*per
+            self.atk=self.maxatk*self.atkb 
+            self.spatk=self.maxspatk*self.spatkb 
+            self.defense=self.maxdef*self.defb 
+            self.spdef=self.maxspdef*self.spdefb 
+            self.speed=self.maxspeed*self.speedb 
         name=self.name.split("💎")[0]
         self.name=self.name[:-1]+"-"+self.teratype
         teratalk(self.owner,self)
@@ -707,10 +734,16 @@ def transformation(self,other,turn):
         if "Dynamax" in self.name:
             print(colored(f" ⭕ {prevname} returned and synced with {trname}'s Dynamax Band!!","red",attrs=["bold"]))
             print(colored(f" 🔺{self.owner.name} dynamaxed {prevname}!!","red",attrs=["bold"]))
+            print(climage.convert("Misc/Dynamax.png",width=50,is_unicode=True))
+            if "unknown" not in self.sprite:    
+                print(climage.convert(self.sprite,width=83,is_unicode=True)) 
             self.megaintro=True
         if "Gigantamax" in self.name:
             print(colored(f" ⭕ {prevname} returned and synced with {trname}'s Dynamax Band!!","red",attrs=["bold"]))
             print(colored(f" 🔺{self.owner.name} gigantamaxed {prevname}!!","red",attrs=["bold"]))
+            print(climage.convert("Misc/Dynamax.png",width=50,is_unicode=True)) 
+            if "unknown" not in self.gsprite:    
+                print(climage.convert(self.gsprite,width=83,is_unicode=True)) 
     if "Ultra" not in self.name and "Ultranecrozium-Z" in self.item:
         prevname=self.name.split("(")[0]
         self.name="Ultra Necrozma"
@@ -719,6 +752,7 @@ def transformation(self,other,turn):
         per=self.hp/self.maxhp
         self.ability="Neuroforce"
         self.type2="Dragon"
+        self.sprite="sprites/Ultra.png"
         self.weight=507.06
         self.hp=97
         self.atk=167
@@ -728,6 +762,11 @@ def transformation(self,other,turn):
         self.speed=129
         self.calcst()
         self.hp=self.maxhp*per
+        self.atk=self.maxatk*self.atkb 
+        self.spatk=self.maxspatk*self.spatkb 
+        self.defense=self.maxdef*self.defb 
+        self.spdef=self.maxspdef*self.spdefb 
+        self.speed=self.maxspeed*self.speedb   
     if (("Mega" not in self.name) and (self.item in megastones or "Dragon Ascent" in self.moves) and self.owner.canmega==True) and self.dmax==False:
         prevname=self.name.split(" ")[-1]
         trname=self.owner.name.split(" ")[-1]
@@ -744,11 +783,15 @@ def transformation(self,other,turn):
             print(colored(f" 🧬 {prevname}'s {self.item} is reacting to {trname}'s Keystone!\n {prevname} has Mega Evolved into {self.name}!!","green",attrs=["bold"]))
         if "Rayquaza" in self.name:
             print(colored(f" 🧬 {trname}'s fervent wish has reached {prevname}!\n {prevname} Mega evolved into {self.name}!!","green",attrs=["bold"]))
+        print(climage.convert("Misc/Mega.png",width=30,is_unicode=True)) 
         if self.item=="Gyaradosite":
             self.type2="Dark"
             self.abilityused=self.ability
             self.ability="Mold Breaker"
-            self.color="blue"
+            self.color=17
+            self.sprite="sprites/Mega Gyarados.png"
+            if "✨" in self.name:
+                self.sprite="sprites/SMega Gyarados.png"
             per=self.hp/self.maxhp
             self.weight=672.41
             self.hp=95
@@ -763,6 +806,7 @@ def transformation(self,other,turn):
         if self.item=="Venusaurite":
             self.abilityused=self.ability
             self.ability="Thick Fat"
+            self.sprite="sprites/Mega Venusaur.png"
             self.weight=342.82
             per=self.hp/self.maxhp
             self.hp=80
@@ -778,7 +822,8 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Tough Claws"
             self.type2="Dragon"
-            self.color="blue"
+            self.color=236
+            self.sprite="sprites/Mega Charizard X.png"
             self.weight=243.61
             per=self.hp/self.maxhp
             self.hp=78
@@ -793,6 +838,7 @@ def transformation(self,other,turn):
         if self.item=="Charizardite Y":
             self.abilityused=self.ability
             self.ability="Drought"
+            self.sprite="sprites/Mega Charizard Y.png"
             self.weight=221.56
             per=self.hp/self.maxhp
             self.hp=78
@@ -807,6 +853,7 @@ def transformation(self,other,turn):
         if self.item=="Blastoisinite":
             self.abilityused=self.ability
             self.ability="Mega Launcher"
+            self.sprite="sprites/Mega Blastoise.png"
             self.weight=222.89
             per=self.hp/self.maxhp
             self.hp=79
@@ -821,6 +868,7 @@ def transformation(self,other,turn):
         if self.item=="Beedrillite":
             self.abilityused=self.ability
             self.ability="Adaptability"
+            self.sprite="sprites/Mega Beedrill.png"
             self.weight=89.29
             per=self.hp/self.maxhp
             self.hp=65
@@ -835,6 +883,7 @@ def transformation(self,other,turn):
         if self.item=="Pidgeotite":
             self.abilityused=self.ability
             self.ability="No Guard"
+            self.sprite="sprites/Mega Pidgeot.png"
             self.weight=111.33
             per=self.hp/self.maxhp
             self.hp=83
@@ -849,6 +898,7 @@ def transformation(self,other,turn):
         if self.item=="Alakazite":
             self.abilityused=self.ability
             self.ability="Trace"
+            self.sprite="sprites/Mega Alakazam.png"
             self.weight=105.82
             per=self.hp/self.maxhp
             self.hp=55
@@ -863,6 +913,7 @@ def transformation(self,other,turn):
         if self.item=="Slowbronite":
             self.abilityused=self.ability
             self.ability="Regenerator"
+            self.sprite="sprites/Mega Slowbro.png"
             self.weight=264.55
             per=self.hp/self.maxhp
             self.hp=95
@@ -878,6 +929,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Shadow Tag"
             self.weight=89.29
+            self.sprite="sprites/Mega Gengar.png"
             per=self.hp/self.maxhp
             self.hp=60
             self.atk=65
@@ -891,6 +943,7 @@ def transformation(self,other,turn):
         if self.item=="Kangaskhanite":
             self.abilityused=self.ability
             self.ability="Parental Bond"
+            self.sprite="sprites/Mega Kangaskhan.png"
             self.weight=220.46
             per=self.hp/self.maxhp
             self.hp=105
@@ -906,6 +959,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Aerilate"
             self.type2="Flying"
+            self.sprite="sprites/Mega Pinsir.png"
             self.weight=130.07
             per=self.hp/self.maxhp
             self.hp=65
@@ -920,6 +974,7 @@ def transformation(self,other,turn):
         if self.item=="Aerodactylite":
             self.abilityused=self.ability
             self.ability="Tough Claws"
+            self.sprite="sprites/Mega Aerodactyl.png"
             self.weight=174.17
             per=self.hp/self.maxhp
             self.hp=80
@@ -935,6 +990,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Steadfast"
             self.type2="Fighting"
+            self.sprite="sprites/Mega Mewtwo X.png"
             self.weight=279.99
             per=self.hp/self.maxhp
             self.hp=106
@@ -949,6 +1005,7 @@ def transformation(self,other,turn):
         if self.item=="Mewtwonite Y":
             self.abilityused=self.ability
             self.ability="Insomnia"
+            self.sprite="sprites/Mega Mewtwo Y.png"
             self.weight=72.75
             per=self.hp/self.maxhp
             self.hp=106
@@ -964,6 +1021,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability=random.choice(["Thick Fat","Mold Breaker"])
             self.type2="Dragon"
+            self.sprite="sprites/Mega Ampharos.png"
             self.weight=135.58
             per=self.hp/self.maxhp
             self.hp=90
@@ -979,6 +1037,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Heatproof"
             self.weight=1631.42
+            self.sprite="sprites/Mega Steelix.png"
             per=self.hp/self.maxhp
             self.hp=75
             self.atk=125
@@ -992,6 +1051,7 @@ def transformation(self,other,turn):
         if self.item=="Scizorite":
             self.abilityused=self.ability
             self.ability="Technician"
+            self.sprite="sprites/Mega Scizor.png"
             self.weight=275.58
             per=self.hp/self.maxhp
             self.hp=70
@@ -1006,6 +1066,7 @@ def transformation(self,other,turn):
         if self.item=="Heracronite":
             self.abilityused=self.ability
             self.ability="Skill Link"
+            self.sprite="sprites/Mega Heracross.png"
             self.weight=137.79
             per=self.hp/self.maxhp
             self.hp=80
@@ -1020,6 +1081,7 @@ def transformation(self,other,turn):
         if self.item=="Houndoominite":
             self.abilityused=self.ability
             self.ability=random.choice(["Solar Power","Dark Aura"])
+            self.sprite="sprites/Mega Houndoom.png"
             self.weight=109.13
             per=self.hp/self.maxhp
             self.hp=75
@@ -1034,6 +1096,7 @@ def transformation(self,other,turn):
         if self.item=="Tyranitarite":
             self.abilityused=self.ability
             self.ability="Sand Stream"
+            self.sprite="sprites/Mega Tyranitar.png"
             self.weight=562.18
             per=self.hp/self.maxhp
             self.hp=100
@@ -1049,6 +1112,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Technician"
             self.type2="Dragon"
+            self.sprite="sprites/Mega Sceptile.png"
             self.weight=121.7
             per=self.hp/self.maxhp
             self.hp=70
@@ -1063,6 +1127,7 @@ def transformation(self,other,turn):
         if self.item=="Blazikenite":
             self.abilityused=self.ability
             self.ability="Speed Boost"
+            self.sprite="sprites/Mega Blaziken.png"
             self.weight=114.64
             per=self.hp/self.maxhp
             self.hp=80
@@ -1077,6 +1142,7 @@ def transformation(self,other,turn):
         if self.item=="Swampertite":
             self.abilityused=self.ability
             self.ability="Swift Swim"
+            self.sprite="sprites/Mega Swampert.png"
             self.weight=224.87
             per=self.hp/self.maxhp
             self.hp=100
@@ -1091,6 +1157,7 @@ def transformation(self,other,turn):
         if self.item=="Gardevoirite":
             self.abilityused=self.ability
             self.ability="Pixilate"
+            self.sprite="sprites/Mega Gardevoir.png"
             self.weight=106.7
             per=self.hp/self.maxhp
             self.hp=68
@@ -1105,6 +1172,7 @@ def transformation(self,other,turn):
         if self.item=="Sablenite":
             self.abilityused=self.ability
             self.ability="Magic Bounce"
+            self.sprite="sprites/Mega Sableye.png"
             self.weight=354.94
             per=self.hp/self.maxhp
             self.hp=50
@@ -1119,6 +1187,7 @@ def transformation(self,other,turn):
         if self.item=="Mawilite":
             self.abilityused=self.ability
             self.ability="Huge Power"
+            self.sprite="sprites/Mega Mawile.png"
             self.weight=51.81
             per=self.hp/self.maxhp
             self.hp=50
@@ -1134,6 +1203,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Filter"
             self.type2="None"
+            self.sprite="sprites/Mega Aggron.png"
             self.weight=870.83
             per=self.hp/self.maxhp
             self.hp=70
@@ -1148,6 +1218,7 @@ def transformation(self,other,turn):
         if self.item=="Medichamite":
             self.abilityused=self.ability
             self.ability="Pure Power"
+            self.sprite="sprites/Mega Medicham.png"
             self.weight=69.45
             per=self.hp/self.maxhp
             self.hp=60
@@ -1162,6 +1233,7 @@ def transformation(self,other,turn):
         if self.item=="Manectite":
             self.abilityused=self.ability
             self.ability="Intimidate"
+            self.sprite="sprites/Mega Manectric.png"
             self.weight=97
             per=self.hp/self.maxhp
             self.hp=70
@@ -1176,6 +1248,7 @@ def transformation(self,other,turn):
         if self.item=="Sharpedonite":
             self.abilityused=self.ability
             self.ability="Strong Jaw"
+            self.sprite="sprites/Mega Sharpedo.png"
             self.weight=287.26
             per=self.hp/self.maxhp
             self.hp=70
@@ -1190,6 +1263,7 @@ def transformation(self,other,turn):
         if self.item=="Camerupite":
             self.abilityused=self.ability
             self.ability="Sheer Force"
+            self.sprite="sprites/Mega Camerupt.png"
             self.weight=706.58
             per=self.hp/self.maxhp
             self.hp=90
@@ -1205,6 +1279,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Pixilate"
             self.type2="Fairy"
+            self.sprite="sprites/Mega Altaria.png"
             self.weight=45.42
             per=self.hp/self.maxhp
             self.hp=85
@@ -1221,6 +1296,7 @@ def transformation(self,other,turn):
             self.ability="Prankster"
             self.type2="Normal"
             self.color="magenta"
+            self.sprite="sprites/Mega Banette.png"
             self.weight=28.66
             per=self.hp/self.maxhp
             self.hp=64
@@ -1236,6 +1312,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability=random.choice(["Magic Bounce","Sharpness"])
             self.type2="Fairy"
+            self.sprite="sprites/Mega Absol.png"
             self.weight=108.03
             per=self.hp/self.maxhp
             self.hp=65
@@ -1250,6 +1327,7 @@ def transformation(self,other,turn):
         if self.item=="Glalitite":
             self.abilityused=self.ability
             self.ability="Refrigerate"
+            self.sprite="sprites/Mega Glalie.png"
             self.weight=772.06
             per=self.hp/self.maxhp
             self.hp=80
@@ -1265,6 +1343,7 @@ def transformation(self,other,turn):
             self.abilityused=self.ability
             self.ability="Aerilate"
             self.color="red"
+            self.sprite="sprites/Mega Salamence.png"
             self.weight=248.24
             per=self.hp/self.maxhp
             self.hp=95
@@ -1279,6 +1358,9 @@ def transformation(self,other,turn):
         if self.item=="Metagrossite":
             self.abilityused=self.ability
             self.ability="Tough Claws"
+            self.sprite="sprites/Mega Metagross.png"
+            if "✨" in self.name:
+                self.sprite="sprites/SMega Metagross.png"
             self.weight=2078.74
             per=self.hp/self.maxhp
             self.hp=80
@@ -1295,6 +1377,7 @@ def transformation(self,other,turn):
             per=self.hp/self.maxhp
             self.weight=114.64
             self.color="blue"
+            self.sprite="sprites/Mega Latias.png"
             self.hp=80
             self.atk=100
             self.defense=120
@@ -1309,6 +1392,7 @@ def transformation(self,other,turn):
             per=self.hp/self.maxhp
             self.weight=154.32
             self.color="blue"
+            self.sprite="sprites/Mega Latios.png"
             self.hp=80
             self.atk=139
             self.defense=100
@@ -1321,6 +1405,9 @@ def transformation(self,other,turn):
         if "Dragon Ascent" in self.moves:
             self.abilityused=self.ability
             self.ability="Delta Stream"
+            self.sprite="sprites/Mega Rayquaza.png"
+            if "✨" in self.name:
+                self.sprite="sprites/SMega Rayquaza.png"
             per=self.hp/self.maxhp
             self.weight=864.21
             self.hp=105
@@ -1332,23 +1419,10 @@ def transformation(self,other,turn):
             self.calcst()
             self.hp=self.maxhp*per
             self.owner.canmega=False
-        if self.item=="Lopunnite":
-            self.abilityused=self.ability
-            self.ability="Scrappy"
-            self.weight=62.39
-            per=self.hp/self.maxhp
-            self.hp=65
-            self.atk=136
-            self.defense=94
-            self.spatk=54
-            self.spdef=96
-            self.speed=135
-            self.calcst()
-            self.hp=self.maxhp*per
-            self.owner.canmega=False
         if self.item=="Garchompite":
             self.abilityused=self.ability
             self.ability="Sand Force"
+            self.sprite="sprites/Mega Garchomp.png"
             self.weight=209.44
             per=self.hp/self.maxhp
             self.hp=108
@@ -1363,6 +1437,7 @@ def transformation(self,other,turn):
         if self.item=="Lucarionite":
             self.abilityused=self.ability
             self.ability="Adaptability"
+            self.sprite="sprites/Mega Lucario.png"
             self.weight=126.77
             per=self.hp/self.maxhp
             self.hp=70
@@ -1377,6 +1452,7 @@ def transformation(self,other,turn):
         if self.item=="Abomasite":
             self.abilityused=self.ability
             self.ability="Slush Rush"
+            self.sprite="sprites/Mega Abomasnow.png"
             self.weight=407.86
             per=self.hp/self.maxhp
             self.hp=90
@@ -1391,7 +1467,9 @@ def transformation(self,other,turn):
         if self.item=="Lopunnite":
             self.abilityused=self.ability
             self.ability="Scrappy"
+            self.sprite="sprites/Mega Lopunny.png"
             per=self.hp/self.maxhp
+            self.weight=62.9
             self.hp=80
             self.atk=139
             self.defense=100
@@ -1404,6 +1482,7 @@ def transformation(self,other,turn):
         if self.item=="Galladite":
             self.abilityused=self.ability
             self.ability="Sharpness"
+            self.sprite="sprites/Mega Gallade.png"
             self.weight=124.34
             per=self.hp/self.maxhp
             self.hp=68
@@ -1420,6 +1499,7 @@ def transformation(self,other,turn):
             self.ability="Regenerator"
             self.type2="Fairy"
             color="yellow"
+            self.sprite="sprites/Mega Audino.png"
             self.weight=70.55
             per=self.hp/self.maxhp
             self.hp=103
@@ -1434,6 +1514,7 @@ def transformation(self,other,turn):
         if self.item=="Diancite":
             self.abilityused=self.ability
             self.ability="Magic Bounce"
+            self.sprite="sprites/Mega Diancie.png"
             self.weight=61.29
             per=self.hp/self.maxhp
             self.hp=50
@@ -1445,7 +1526,9 @@ def transformation(self,other,turn):
             self.calcst()
             self.hp=self.maxhp*per
             self.owner.canmega=False
-        entryeff(self,other,self.owner,other.owner,field,turn)        
+        entryeff(self,other,self.owner,other.owner,field,turn)    
+        if "unknown" not in self.sprite:    
+            print(climage.convert(self.sprite,width=83,is_unicode=True))    
     elif "Mega" in self.name:
         self.name=self.name.split("Mega ")[-1]
         if "Mewtwo" in self.name:
@@ -1676,6 +1759,7 @@ def transformation(self,other,turn):
         if self.item=="Tyranitarite":
             self.ability=self.abilityused
             per=self.hp/self.maxhp
+            self.sprite="sprites/Tyranitar.png"
             self.hp=100
             self.atk=164
             self.defense=150
@@ -1873,6 +1957,7 @@ def transformation(self,other,turn):
         if self.item=="Salamencite":
             self.ability=self.abilityused
             per=self.hp/self.maxhp
+            self.sprite="sprites/Salamence.png"
             self.hp=95
             self.atk=145
             self.defense=130

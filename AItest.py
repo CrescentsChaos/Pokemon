@@ -516,7 +516,7 @@ def switchAI(self,other,tr,tr2, field):
     
 def decision (self,other,tr1,tr2,field):
     action=1      
-    megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Amoharosite","Audinite","Banettite","Beedrillite","Blasnoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
+    megastones=["Gyaradosite","Venusaurite","Charizardite X","Charizardite Y","Abomasite","Absolite","Aerodactylite","Aggronite","Alakazite","Altarianite","Ampharosite","Audinite","Banettite","Beedrillite","Blasnoisinite","Blazikenite","Camerupite","Diancite","Galladite","Garchompite","Gardevoirite","Gengarite","Glalitite","Heracronite","Houndoominite","Kangaskhanite","Latiasite","Latiosite","Lopunnite","Lucarionite","Manectite","Mawilite","Medichamite","Metagrossite","Mewtwonite X","Mewtwonite Y","Pidgeotite","Pinsirite","Sablenite","Salamencite","Sceptilite","Scizorite","Sharpedonite","Slowbronite","Steelixite","Seampertite","Tyranitarite"]
     mons=switchAI(self,other,tr1,tr2,field)[1]
     movech=moveAI(self,other,tr1,tr2,field)
     #movech2=moveAI(other,self,tr2,tr1,field)
@@ -567,9 +567,9 @@ def decision (self,other,tr1,tr2,field):
             action=2      
         if self.owner.cantera is True and (self==self.owner.pokemons[-1] or self.atk>350 or self.spatk>350 or "Tera Blast" in self.moves or self.maxiv in ["Rock","Fire","Water","Grass","Electric","Ground","Flying","Fighting","Fairy","Dragon","Steel","Poison","Dark","Ghost","Normal","Bug","Ice"]):
             action=random.choices([1,7], weights=[2,5],k=1)[0]
-        if self.owner.canmax is True and ((self.item!="None" and self.item not in megastones and (self.spatk>350 or self.atk>350)) or self.maxiv=="max"):
+        if self.owner.canmax is True and (self.maxiv=="gmax" or self.item not in megastones or "m-Z" not in self.item):
             action=8
-        if self.item in megastones and "Mega" not in self.name and tr1.canmega==True:
+        if (self.item in megastones or "Dragon Ascent" in self.moves) and "Mega" not in self.name and tr1.canmega==True:
             action=random.choices([1,9], weights=[2,8],k=1)[0]
         if self.yawn is True and self.status=="Alive":
             action=2

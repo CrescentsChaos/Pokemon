@@ -1,7 +1,12 @@
 import random
 from colorama import init
 from termcolor import colored    
+import climage
 def attackquote(self,tr,used):
+    if "Blue" in tr.name and "Blastoise" in self.name and used=="Hydro Pump":
+        print(random.choice([f" {tr.name}: Blastoise, now use Hydro Pump!"]))
+    if "Lance" in tr.name and "Dragonite" in self.name:
+        print(random.choice([f" {tr.name}: Dragonite, do your worst!",f" {tr.name}: Dragonite, attack!"]))
     if "Geeta" in tr.name and used=="Tera Blast":
         print(random.choice([f" {tr.name}: Being strong is a given for a Champion. You must also learn to give the audience a show!",f" {tr.name}: This is how you're supposed to unleash a move. This is what it takes to be at the top."]))
     if "Ryme" in tr.name and used=="Hex":
@@ -63,6 +68,8 @@ def spquote(tr,self):
         print(f" {prevname} , we won't let this end yet! I can't remember the last time I was put in a corner like this!")
     elif "Geeta" in tr.name and len(tr.pokemons)==1:
         print(f" {prevname} goo, Heh! Hahahahahaha!\n Don't think you've won just yet!")
+    elif "Blue" in tr.name and ("Blastoise" in self.name or "Venusaur" in self.name or "Charizard" in self.name):
+        print(f" {prevname}, Go! This one is really strong. Don't get scared.")        
     elif "Ash" in tr.name:
         print(f" {prevname}, I choose you!")
     elif "Paul" in tr.name:
@@ -73,4 +80,6 @@ def spquote(tr,self):
         print(f" ‼️ wild {self.name} appeared!")
     else:
         print(f" Go {prevname}! "+phase2)
+    if "unknown" not in self.sprite:    
+        print(climage.convert(self.sprite,width=50,is_unicode=True))        
     print("➡️"*40)        

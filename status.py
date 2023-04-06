@@ -1,5 +1,6 @@
 import random
 from movelist import *
+from typematchup import *
 #CONFUSE
 def confuse(self,other,turn,ch=100):
     miss=100-ch

@@ -10,6 +10,54 @@ def outro(tr,sr,mon,field):
         mons.append(i.name)
     srname=sr.name.split(" ")[-1]
     print("===================================================================================")
+    if "Beauty" in tr.name:
+        print(random.choice([f" {tr.name}: There!\n Done!\n"]))
+    if "Juggler" in sr.name:
+        print(random.choice([f" {sr.name}: Oh, so you're not a fan...\n"]))
+    if "Rich Girl" in sr.name:
+        print(random.choice([f" {sr.name}: Hmm.. So, you're good. Hmm...\n"]))
+    if "Painter" in sr.name:
+        print(random.choice([f" {sr.name}: What a beautiful display! I would love to paint your Pokémon!\n"]))
+    if "Black Belt" in tr.name:
+        print(random.choice([f" {tr.name}: Never let down your guard!\n"]))
+    if "Waiter" in tr.name:
+        print(random.choice([f" {tr.name}: Ah, a fine choice.\n A loss served fresh.\n"]))
+    if "Waiter" in sr.name:
+        print(random.choice([f" {sr.name}: Ah, an excellent choice.\n A win served fresh.\n"]))
+    if "Sailor" in sr.name:
+        print(random.choice([f" {sr.name}: I want to become a big man.\n Big like the sea big.\n"]))
+    if "Scientist" in sr.name:
+        print(random.choice([f" {sr.name}: What kind of experiment?\n That's classified.\n"]))
+    if "Waitress" in tr.name:
+        print(random.choice([f" {tr.name}: I don't mind this job now, mind you.\n"]))
+    if "Dragon Tamer" in sr.name:
+        print(random.choice([f" {sr.name}: The title of the ultimate probably! I confer it to you.\n"]))
+    if "Dragon Tamer" in tr.name:
+        print(random.choice([f" {tr.name}: There is no defeat for me, the ultimate...\n Probably!\n"]))
+    if "Black Belt" in sr.name:
+        print(random.choice([f" {sr.name}: I seem to have let my mind wander...\n",f" {sr.name}: I've fallen in defeat?\n Gw-gwaaah!\n"]))
+    if "Rancher" in sr.name:
+        print(random.choice([f" {sr.name}: This smell I have is the sweet scent of hay that Pokémon surely\n love.\n"]))
+    if "Picnicker" in tr.name:
+        print(random.choice([f" {tr.name}: Battling me was fun , wasn't it?\n"]))
+    if "Expert" in sr.name:
+        print(random.choice([f" {sr.name}: I thought you were a child.\n Hee hee... You are tough...\n"]))
+    if "Tuber" in sr.name:
+        print(random.choice([f" {sr.name}: I don't like the sea because the salty water burns my eyes!\n",f" {sr.name}: I.... I'm not lying!\n"]))
+    if "Fisherman" in sr.name:
+        print(random.choice([f" {sr.name}: How I handle my fishing rod has nothing to do with battling...\n",f" {sr.name}: Were my travels in vain?\n"]))
+    if "Ranger" in sr.name:
+        print(random.choice([f" {sr.name}: Oh, but... I really needed to sleep tonight...\n"]))
+    if "Burglar" in sr.name:
+        print(random.choice([f" {sr.name}: I surrender!\n"]))
+    if "Ruin Maniac" in sr.name:
+        print(random.choice([f" {sr.name}: You sure seem to be hectic.\n"]))
+    if "Ruin Maniac" in tr.name:
+        print(random.choice([f" {tr.name}: The rest of the time, I fish and tend to crops every single day.\n"]))
+    if "Jogger" in sr.name:
+        print(random.choice([f" {sr.name}: So I lost! I can still run great marathons!\n",f" {sr.name}: Gasp! My ankle!\n I rolled my ankle!\n"]))
+    if "Burglar" in tr.name:
+        print(random.choice([f" {tr.name}: We burglars know there's more than one way to skin a streak!\n"]))
     if "Katy" in sr.name:
         print(random.choice([f" {sr.name}: All of my sweet little Pokémon dropped like flies!\n",f" {sr.name}: Your strength rose during our battle like a nice bread in the oven.\n"]))
     if "Kofu" in sr.name:
@@ -89,9 +137,9 @@ def outro(tr,sr,mon,field):
     if "Brendan" in sr.name:
         print(random.choice([f" {sr.name}: Drat, wasted yet again...\n",f" {sr.name}: Oof, I'm missing something...\n",f" {sr.name}: Not sure what I was expecting...\n",f" {sr.name}: Heh... not bad...\n"]))
     if "Lorelei" in sr.name:
-        print(random.choice([f" {sr.name}: ... Things shouldn't be this way!\n",f" {sr.name}: You're better than I thought! Go on ahead! You only got a taste of Pokémon League power!\n",f" {sr.name}: I may have lost to you, but I'll never give up on my Ice-type Pokémon! You should aim to win using Pokémon you like best, too!\n"]))
+        print(random.choice([f" {sr.name}: ... Things shouldn't be this way!\n",f" {sr.name}: You're better than I thought! Go on ahead! You only got a taste of Pokémon League power!\n",f" {sr.name}: I may have lost to you, but I'll never give up on my Ice-type Pokémon! You should aim to win using Pokémon you like best, too!\n",f" {sr.name}: Fine then. I'll let you go on ahead.\n You won't be so lucky next time.\n"]))
     if "Bruno" in sr.name:
-        print(random.choice([f" {sr.name}: Why? How could I lose?\n",f" {sr.name}: My job is done! Go face your next challenge!\n",f" {sr.name}: Having lost, I have no right to say anything… Go face your next challenge!\n",f" {sr.name}: If you have defeated me, then my job is done. Ugh! I may not like it, but...go! Go face your next challenge!\n", f" {sr.name}: Ugh! No! So my training is still lacking, is that it? ...Go. Do not trouble yourself on my behalf. Continue to move forward!\n",f" {sr.name}: I have regrets!\n"]))
+        print(random.choice([f" {sr.name}: Why? How could I lose?\n",f" {sr.name}: My job is done! Go face your next challenge!\n",f" {sr.name}: Having lost, I have no right to say anything… Go face your next challenge!\n",f" {sr.name}: If you have defeated me, then my job is done. Ugh! I may not like it, but...go! Go face your next challenge!\n", f" {sr.name}: Ugh! No! So my training is still lacking, is that it? ...Go. Do not trouble yourself on my behalf. Continue to move forward!\n",f" {sr.name}: I have regrets!\n",f" {sr.name}: How could I've been defeated!\n"]))
     if "Agatha" in sr.name:
         print(random.choice([f" {sr.name}: Oh, my!\n You are something special, child!\n",f" {sr.name}: You win! I see what the old duff sees in you now. I've nothing else to say. Run along now, child!\n",f" {sr.name}: Not bad!\n",f" {sr.name}: Small wonder that old-timer's taken such an interest in you. Oak and I used to be good rivals, too, you know. Just like you and Gary. Well, what are you waiting for? Head on to the next room!\n"]))
     if "Lance" in sr.name:
@@ -126,6 +174,8 @@ def outro(tr,sr,mon,field):
         print(random.choice([f" {sr.name}: Heh... I'm actually impressed.\n"]))
     if "Giovanni" in tr.name:
         print(random.choice([f" {tr.name}: Ha! That was a truly intense fight!\n",f" {tr.name}: I hope we meet again...\n"]))
+    if "Blue" in tr.name:
+        print(random.choice([f" {tr.name}: That's all you've got?\n",f" {tr.name}: See that? I happened to be the incredible genius!\n",f" {tr.name}: It's just exactly what I planned!\n"]))
     if "Blue" in sr.name:
         print(random.choice([f" {sr.name}: Hey! Take it easy!\n",f" {sr.name}: Aww!\n You just lucked out!\n",f" {sr.name}: No! That can't be!\n",f" {sr.name}: What!?\n"]))
     if "Morty" in sr.name:

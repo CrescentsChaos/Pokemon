@@ -31,7 +31,7 @@ def createtable(trainer):
     n=0
     while True:
         if trainer.pokemons[n].name not in items:
-            print(f" Adding {trainer.name}'s {trainer.pokemons[n].name}..")
+            #print(f" Adding {trainer.name}'s {trainer.pokemons[n].name}..")
             c.execute(f" SELECT * FROM [{trainer.name}] WHERE Name='{trainer.pokemons[n].name}'")
             check=c.fetchone()
             if check==None:

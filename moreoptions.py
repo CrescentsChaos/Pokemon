@@ -7,6 +7,8 @@
 #pylint:disable=C0304
 from fieldtrip import *
 from database import *
+import climage
+print(climage.convert("Misc/Logo.png",is_unicode=True,width=60))
 #print(" 💥 Battle Formats:\n 1. Single Battle\n 2. Double Battle [Unavailable]")
 battle="1"#input(" 🆚 Choose your battle format: ")
 if battle not in ["1","2"]:
@@ -14,6 +16,7 @@ if battle not in ["1","2"]:
 p1="None"
 p2="None"
 #SKIP
+    
 def skip(x,y,tr1,tr2,field):
     skip=False
     while skip!=True:
@@ -56,9 +59,15 @@ def skip(x,y,tr1,tr2,field):
             movelist(x,y,field)
             skip=False
         if kk=="":
-            print(f" ✅ Turn skipped successfully!")
+            print(f" ✅ Turn skipped successfully!\n")
             skip=True
 def characters(text,location,nm=2):
+    allclasstrainer=[]
+    if text=="class":
+        print(" It may take a while...")
+        allclass.sort()
+        for i in allclass:
+            allclasstrainer.append(genTrainer(trclass=i))
     team="None"
     num=0
     chosen="None"
@@ -83,36 +92,10 @@ def characters(text,location,nm=2):
     "ts": test,
     "": "None",
     "None": "None",
-    "rn": "None"
+    "rn": "None",
+    "class": allclasstrainer
 }
     team = team_mapping.get(text, "None")
-
-    #if text in ["comp"]:
-#        team=[genTrainer(trclass="Competitive Player")]
-#    elif text in ["fs"]:
-#        team=[genTrainer(trclass="Fusion Trainer")]
-#    elif text in ["dv"]:
-#        team=[tonoy]
-#    elif text in ["e4","elite four"]:
-#        team=e4list
-#    elif text in ["rd"]:
-#        team=raids
-#    elif text in ["hc"]:
-#        team=hardlist
-#    elif text in ["evil","villain","ev"]:
-#        team=evilist
-#    elif text in ["champ","champion","ch"]:
-#        team=champlist
-#    elif text in ["gm"]:
-#        team=gymlist
-#    elif text in ["fr"]:
-#        team=fronlist
-#    elif text in ["tl"]:
-#        team=talentlist
-#    elif text in ["ts"]:
-#        team=test
-#    elif text in ["","None","rn"]:
-#        team="None"
     if text!="" and team !="None":
         for i in team:
             num+=1

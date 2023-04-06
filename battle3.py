@@ -19,12 +19,16 @@ def winner(tr,optr):
     print(colored("===================================================================================",cl))
     if "Wild" not in tr.name:
         print(f" 🏆 {tr.name} won the match.")
+        if "unknown" not in tr.sprite:    
+            print(climage.convert(tr.sprite,width=75,is_unicode=True))
     if "Wild" in tr.name:
         print(colored(f" {tr.pokemons[0].name} returned to {field.location.split(',')[0]}.","red"))
+        if "unknown" not in tr.pokemons[0].sprite:
+            print(climage.convert(tr.pokemons[0].sprite,width=75,is_unicode=True))
     print(colored("===================================================================================",cl))
     
 def  score(x,y,tr1,tr2,turn,bg):
-    print("")
+    #print("")
     xitem="None"
     yitem="None"
     if "Used" not in y.item:
@@ -148,7 +152,7 @@ def  score(x,y,tr1,tr2,turn,bg):
         print(f" ⬜ Aurora Veil({tr1.avendturn-turn} turns left)")
     if tr1.lightscreen==True:              
         print(f" 🟪 Light Screen({tr1.screenend-turn} turns left)")        
-    print(colored(f" {x.name}",x.color,attrs=["bold"])+colored(f" Lv.{x.level}","white"),f"[{xs}]")
+    print(fg(x.color)+f" {x.name}"+fg.rs+colored(f" Lv.{x.level}","white"),f"[{xs}]")
     print(colored(f" HP: ","green")+colored(f"{round(x.hp)}/{x.maxhp}({round((x.hp/x.maxhp)*100,3)}%)","white"))
     if x.status in ["Sleep","Drowsy"]:
         print(" "+"⬜"*int((x.hp/x.maxhp)*25))
@@ -173,7 +177,7 @@ def  score(x,y,tr1,tr2,turn,bg):
     if tr1.sub!="None":
         print(colored(" || Substitute || ","green"),end="")                
     if x.perishturn!=0:
-        print(colored(" || Perishes in {x.perishturn-turn} turns || ","white"),end="")
+        print(colored(f" || Perishes in {x.perishturn-turn} turns || ","white"),end="")
     if x.encore==True:
         print(colored(" || Encore || ","white"),end="")
     if x.confused==True:
@@ -201,6 +205,10 @@ def  score(x,y,tr1,tr2,turn,bg):
     if x.ability=="Supreme Overlord":
         print(colored(f" || Fallen: {6-len(tr1.pokemons)} || ","red"),end="")
     print(end="\n")
+    if "unknown" not in x.sprite and "Gigantamax" not in x.name:    
+        print(climage.convert(x.sprite,width=50,is_unicode=True))
+    if "unknown" not in x.gsprite and "Gigantamax" in x.name:
+        print(climage.convert(x.gsprite,width=50,is_unicode=True))
     #print("")
     if x.teratype !="None" and x.type2 =="None" and tr2.ai is True:
         print(colored(f" Type:{x.teratype} Ability: {x.ability} Item: {xitem} Nature: {x.nature}","white"))
@@ -235,7 +243,7 @@ def  score(x,y,tr1,tr2,turn,bg):
         print(f" ⬜ Aurora Veil({tr2.avendturn-turn} turns left)")
     if tr2.lightscreen==True:        
         print(f" 🟪 Light Screen({tr2.screenend-turn} turns left)")               
-    print(colored(f" {y.name}",y.color,attrs=["bold"])+colored(f" Lv.{y.level}","white"),f"[{ys}]")
+    print(fg(y.color)+f" {y.name}"+fg.rs+colored(f" Lv.{y.level}","white"),f"[{ys}]")
     print(colored(f" HP: ","green")+colored(f"{round(y.hp)}/{y.maxhp}({round((y.hp/y.maxhp)*100,3)}%)","white"))
     if y.status in ["Sleep","Drowsy"]:
         print(" "+"⬜"*int((y.hp/y.maxhp)*25))
@@ -262,7 +270,7 @@ def  score(x,y,tr1,tr2,turn,bg):
     if y.encore==True:
         print(colored(" || Encore || ","white"),end="")
     if y.perishturn!=0:
-        print(colored(" || Perishes in {y.perishturn-turn} turns || ","white"),end="")
+        print(colored(f" || Perishes in {y.perishturn-turn} turns || ","white"),end="")
     if y.confused==True:
         print(colored(" || Confused || ","white"),end="")
     if y.taunted==True:
@@ -287,7 +295,11 @@ def  score(x,y,tr1,tr2,turn,bg):
         print(colored(" || Curse || ","magenta"),end="")
     if y.ability=="Supreme Overlord":
         print(colored(f" || Fallen: {6-len(tr2.pokemons)} || ","red"),end="")
-    print(end="\n")                
+    print(end="\n")              
+    if "unknown" not in y.sprite and "Gigantamax" not in y.name:    
+        print(climage.convert(y.sprite,width=50,is_unicode=True))
+    if "unknown" not in y.gsprite and "Gigantamax" in y.name:
+        print(climage.convert(y.gsprite,width=50,is_unicode=True))  
     if y.teratype !="None" and y.type2 =="None" and tr1.ai is True:
         print(colored(f" Type:{y.teratype} Ability: {y.ability} Item: {yitem} Nature: {y.nature}","white"))
     if y.teratype !="None" and y.type2 !="None" and tr1.ai is True:
@@ -431,7 +443,6 @@ def action(tr,self,other):
 
 #BATTLE
 def singlebattle(btype):
-    print(f" Please wait for a while...\n")
     print(colored(f" Location: {field.location}","white"))
     tr1=players(1)
     tr2=players(2)
@@ -461,13 +472,25 @@ def singlebattle(btype):
     if tr1.ai is False or (tr1.ai,tr2.ai)==(True,True):
         showteam(tr1)
         print("\n")
-    if tr2.ai is False or (tr1.ai,tr2.ai)==(True,True):    
+    if tr2.ai is False or (tr1.ai,tr2.ai)==(True,True):
         showteam(tr2)
         print("\n")
     turn=0
     print("===================================================================================")
     #field.weather,field.terrain=randomweather(turn,x,y,field)
+    if "Magma" in (tr1.name or tr2.name):
+        print(climage.convert("Misc/Magma Logo.png",is_unicode=True))
+    if "Aqua" in (tr1.name or tr2.name):
+        print(climage.convert("Misc/Aqua Logo.png",is_unicode=True))
+    if "Plasma" in (tr1.name or tr2.name):
+        print(climage.convert("Misc/Plasma Logo.png",is_unicode=True))
+    if "Galactic" in (tr1.name or tr2.name):
+        print(climage.convert("Misc/Galactic Logo.png",is_unicode=True))
+    if "unknown" not in tr1.sprite:    
+            print(climage.convert(tr1.sprite,width=75,is_unicode=True))        
     intro(tr1,tr2,field)
+    if "unknown" not in tr2.sprite:    
+            print(climage.convert(tr2.sprite,width=75,is_unicode=True))
     intro(tr2,tr1,field)
     if "Wild" not in (tr1.name,tr2.name):
         print(f" {tr2.name} was challenged by {tr1.name}!")
@@ -481,10 +504,10 @@ def singlebattle(btype):
         print(colored(f" {tr2.pokemons[0].name}: Grawwwrr...","white"))
         print(colored(f" A {tr2.pokemons[0].name} appeared!","white"))
     print("===================================================================================")
+    skip(x,y,tr1,tr2,field)  
     if x.speed>=y.speed:
         entryeff(x,y,tr1,tr2,field,turn)
-        entryeff(y,x,tr2,tr1,field,turn)
-        
+        entryeff(y,x,tr2,tr1,field,turn)        
     if y.speed>x.speed:
         entryeff(y,x,tr2,tr1,field,turn)
         entryeff(x,y,tr1,tr2,field,turn)
@@ -524,7 +547,7 @@ def singlebattle(btype):
             bg="yellow"
         if field.terrain=="Grassy":
             bg="green"
-        
+             
         print(colored("===================================================================================",bg,attrs=["bold"]))
         print(colored(f" TURN: {turn}","white"))
         if x.protect==True:
@@ -573,8 +596,8 @@ def singlebattle(btype):
             print(colored(f" Terrain: 🌿 {field.terrain} ({field.grassendturn-turn+1} turns left))","green"))
         if field.trickroom is True:
             print(f" Dimension: 🌀 Trick Room ({field.troomendturn-turn+1} turns left)")           
-        print(f" \n ⏩⏩ {tr1.name} ({len(tr1.pokemons)}) 🆚 ({len(tr2.pokemons)}) {tr2.name} ⏪⏪\n")
-        print(f" \n ⏩⏩ Lv.{x.level} {x.name} 🆚 {y.name} Lv.{y.level} ⏪⏪\n")
+        print(f"\n ⏩⏩ {tr1.name} ({len(tr1.pokemons)}) 🆚 ({len(tr2.pokemons)}) {tr2.name} ⏪⏪")
+        print(f" ⏩⏩ Lv.{x.level} {fg(x.color)+x.name+fg.rs} 🆚  {fg(y.color)+y.name+fg.rs} Lv.{y.level} ⏪⏪")
         prebuff(x,y,tr1,turn,field)
         prebuff(y,x,tr2,turn,field)
         switchAI(x,y,tr1,tr2, field)
@@ -592,10 +615,10 @@ def singlebattle(btype):
         if tr2.ai is True:
             action2=decision(y,x,tr2,tr1,field)
         #print(action1,action2)
-        if action2==6 and (len(tr2.item)==0 or tr2.ai==False):
+        if action2==6 and (len(tr2.item)==0 or tr2.ai==False or btype=="Competitive"):
             print(f" 🎒 Your Bag is empty or it's locked!")
             action2=1
-        if action1==6 and (len(tr1.item)==0 or tr1.ai==False):
+        if action1==6 and (len(tr1.item)==0 or tr1.ai==False or btype=="Competitive"):
             print(f" 🎒 Your Bag is empty or It's locked!")
             action1=1
         if  action1==3 and action2!=3:
@@ -612,7 +635,7 @@ def singlebattle(btype):
             if action1==7 and x.dmax==False and (x.item=="None" or x.item not in megastones) and "m-Z" not in x.item and tr1.cantera==True:
                 x.name+="💎"
                 transformation(x,y,turn)
-            if action1==8 and "m-Z" not in x.item and x.teratype=="None" and tr1.canmax==True and ("Zacian" not in x.name and "Zamazenta" not in x.name and "Eternatus" not in x.name and "Rayquaza" not in x.name and "Primal" not in x.name and "Mega" not in x.name) and x.teratype=="None":
+            if action1==8 and "m-Z" not in x.item and x.teratype=="None" and tr1.canmax==True and ("Zacian" not in x.name and "Zamazenta" not in x.name and "Eternatus" not in x.name and "Rayquaza" not in x.name and "Primal" not in x.name and "Mega" not in x.name) and x.teratype=="None" and btype!="Casual":
                 x.dmax=True
                 tr1.canmax=False
                 transformation(x,y,turn)
@@ -625,7 +648,7 @@ def singlebattle(btype):
             if action2==7 and y.dmax==False and (y.item=="None" or y.item not in megastones) and "m-Z" not in y.item and tr2.cantera==True:
                 y.name+="💎"
                 transformation(y,x,turn)
-            if action2==8 and "m-Z" not in y.item and y.teratype=="None" and tr2.canmax==True  and ("Zacian" not in y.name and "Zamazenta" not in y.name and "Eternatus" not in y.name and "Rayquaza" not in y.name and "Primal" not in y.name and "Mega" not in y.name) and y.teratype=="None":
+            if action2==8 and "m-Z" not in y.item and y.teratype=="None" and tr2.canmax==True  and ("Zacian" not in y.name and "Zamazenta" not in y.name and "Eternatus" not in y.name and "Rayquaza" not in y.name and "Primal" not in y.name and "Mega" not in y.name) and y.teratype=="None" and btype!="Casual":
                 y.dmax=True
                 tr2.canmax=False
                 transformation(y,x,turn)
