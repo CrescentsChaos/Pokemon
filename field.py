@@ -20,7 +20,7 @@ paldea=["Caseeroya Lake","Area Zero","Cabo Poco","Los Platos","Mesagoza","Corton
 special=["Pokémon World Tournament,Unova","Battle Frontier, Hoenn","Battle Frontier, Sinnoh"]
 place=kanto+johto+hoenn+unova+sinnoh+kalos+alola+galar+paldea
 class Field:
-    def __init__(self,name="Stadium",weather="None",trickroom=False, terrain="None", gravity=False,magicroom=False,mudsport=False,watersport=False,wonderroom=False,rainturn=0,rainendturn=200,sunturn=0,sunendturn=200,sandturn=0, sandendturn=200,hailturn=0,hailendturn=200,grassturn=0,grassendturn=200,eleturn=0,eleendturn=200,troomturn=0,troomendturn=200,psyturn=0,psyendturn=200,misturn=0,misendturn=200,location="None",snowstormturn=0,snowstormendturn=200):
+    def __init__(self,name="Stadium",weather="Clear",trickroom=False, terrain="Normal", gravity=False,magicroom=False,mudsport=False,watersport=False,wonderroom=False,rainturn=0,rainendturn=200,sunturn=0,sunendturn=200,sandturn=0, sandendturn=200,hailturn=0,hailendturn=200,grassturn=0,grassendturn=200,eleturn=0,eleendturn=200,troomturn=0,troomendturn=200,psyturn=0,psyendturn=200,misturn=0,misendturn=200,location="None",snowturn=0,snowendturn=200):
         self.name=name
         self.weather=weather
         self.trickroom=trickroom
@@ -47,8 +47,8 @@ class Field:
         self.troomturn=troomturn
         self.troomendturn=troomendturn
         self.misturn=misturn
-        self.snowstormturn=snowstormturn
-        self.snowstormendturn=snowstormendturn
+        self.snowturn=snowturn
+        self.snowendturn=snowendturn
         self.location=location
         if self.location =="None":
             self.location=random.choices([random.choice(place),random.choice(special)],weights=[10,1],k=1)[0]
@@ -72,62 +72,32 @@ class Field:
                 self.location+=", Sinnoh"
         self.misendturn=misendturn
     def troomend(self,mon,mon2):
-	       if mon.item!="None" and "Room Service" not in (mon.item,mon2.item):
-	           self.troomendturn=self.troomturn+5
-	       if mon.item!="None" and "Room Service" in (mon.item,mon2.item):
-	           self.troomendturn=self.troomturn+8
-	       return self.troomendturn
+           if mon.item!="Room Service":
+               self.troomendturn=self.troomturn+5
+           elif mon.item=="Room Service":
+               self.troomendturn=self.troomturn+8
+           return self.troomendturn
     def psyend(self,mon,mon2):
-	       if mon.item!="None" and "Terrain Extender" not in (mon.item,mon2.item):
-	           self.psyendturn=self.psyturn+5
-	       if mon.item!="None" and "Terrain Extender" in (mon.item,mon2.item):
-	           self.psyendturn=self.psyturn+8
-	       return self.psyendturn	       
+           if mon.item!="Terrain Extender":
+               self.psyendturn=self.psyturn+5
+           elif mon.item=="Terrain Extender":
+               self.psyendturn=self.psyturn+8
+           return self.psyendturn           
     def eleend(self,mon,mon2):
-	       if mon.item!="None" and "Terrain Extender" not in (mon.item,mon2.item):
-	           self.eleendturn=self.eleturn+5
-	       if mon.item!="None" and "Terrain Extender" in (mon.item,mon2.item):
-	           self.eleendturn=self.eleturn+8
-	       return self.eleendturn
-    def hailend(self,mon,mon2):
-	       if mon.item!="None" and "Icy Rock" not in (mon.item,mon2.item):
-	           self.hailendturn=self.hailturn+5
-	       if mon.item!="None" and "Icy Rock" in (mon.item,mon2.item):
-	           self.hailendturn=self.hailturn+8
-	       return self.hailendturn
-    def rainend(self,mon,mon2):
-	       if mon.item!="None" and "Damp Rock" not in (mon.item,mon2.item):
-	           self.rainendturn=self.rainturn+5
-	       if mon.item!="None" and "Damp Rock" in (mon.item,mon2.item):
-	           self.rainendturn=self.rainturn+8
-	       return self.rainendturn
-    def snowstormend(self,mon,mon2):
-	       if mon.item!="None" and "Icy Rock" not in (mon.item,mon2.item):
-	           self.snowstormendturn=self.snowstormturn+5
-	       if mon.item!="None" and "Icy Rock" in (mon.item,mon2.item):
-	           self.snowstormendturn=self.snowstormturn+8	       
-	       return self.snowstormendturn
-    def sunend(self,mon,mon2):
-	       if mon.item!="None" and "Heat Rock" not in (mon.item,mon2.item):
-	           self.sunendturn=self.sunturn+5
-	       if mon.item!="None" and "Heat Rock" in (mon.item,mon2.item):
-	           self.sunendturn=self.sunturn+8
-	       return self.sunendturn	     
-    def sandend(self,mon,mon2):
-	       if mon.item!="None" and "Smooth Rock" not in (mon.item,mon2.item):
-	           self.sandendturn=self.sandturn+5
-	       if mon.item!="None" and "Smooth Rock" in (mon.item,mon2.item):
-	           self.sandendturn=self.sandturn+8
-	       return self.sandendturn	 
+           if mon.item!="Terrain Extender":
+               self.eleendturn=self.eleturn+5
+           elif mon.item=="Terrain Extender":
+               self.eleendturn=self.eleturn+8
+           return self.eleendturn
     def grassend(self,mon,mon2):
-	       if mon.item!="None" and "Terrain Extender" not in (mon.item,mon2.item):
-	           self.grassendturn=self.grassturn+5
-	       if mon.item!="None" and "Terrain Extender" in (mon.item,mon2.item):
-	           self.grassendturn=self.grassturn+8
-	       return self.grassendturn	               
+           if mon.item!="Terrain Extender":
+               self.grassendturn=self.grassturn+5
+           elif mon.item== "Terrain Extender":
+               self.grassendturn=self.grassturn+8
+           return self.grassendturn                   
     def misend(self,mon,mon2):
-	       if mon.item!="None" and "Terrain Extender" not in (mon.item,mon2.item):
-	           self.misendturn=self.misturn+5
-	       if mon.item!="None" and "Terrain Extender" in (mon.item,mon2.item):
-	           self.misendturn=self.misturn+8
-	       return self.misendturn
+           if mon.item!="Terrain Extender":
+               self.misendturn=self.misturn+5
+           elif mon.item=="Terrain Extender":
+               self.misendturn=self.misturn+8
+           return self.misendturn

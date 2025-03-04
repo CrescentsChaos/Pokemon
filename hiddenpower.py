@@ -8,7 +8,7 @@ f=30
 damage=0
 type=""
 
-def hidp(a,b,c,d,e,f):
+async def hidp(a,b,c,d,e,f):
     adbit=0
     bdbit=0
     cdbit=0
