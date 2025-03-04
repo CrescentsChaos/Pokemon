@@ -18,4 +18,4 @@ from attack import *
 from typematchup import *
 from movelist import *
 from hiddenpower import *
-token="MTA4NDUwODI4MTA0NjgyNzEwOQ.GzkzvF.HWUsJfK4XppqQi2EqeVBK6_ZMGiFDGCrTX7JYM"
+token="MTA4NDUwODI4MTA0NjgyNzEwOQ.GymTlm.HJ5GR7qC9FwaZv5k64BwhA_FGzaPy_M7RTedJU"
